@@ -1,12 +1,14 @@
 package org.openmarkov.inference.ceanalysis;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import org.openmarkov.core.exception.IncompatibleEvidenceException;
 import org.openmarkov.core.exception.NodeNotFoundException;
 import org.openmarkov.core.exception.NotEvaluableNetworkException;
 import org.openmarkov.core.exception.UnexpectedInferenceException;
+import org.openmarkov.core.test.TestSpeed;
 import org.openmarkov.inference.heuristics.Tools;
 import org.openmarkov.core.inference.tasks.CEAnalysis;
 import org.openmarkov.core.model.network.CEP;
@@ -55,18 +57,21 @@ public abstract class DANCEATest {
 		testCEADANEvaluation("only-zero-utility-ce", 1);
 	}
 	
+	@Tag(TestSpeed.MEDIUM)
 	@Test
 	public void testDANOneDecisionCE() throws IncompatibleEvidenceException, UnexpectedInferenceException,
 			NodeNotFoundException, NotEvaluableNetworkException {
 		testCEADANEvaluation("one-decision-CE", 2, 1.333333333);
 	}
-
+	
+	@Tag(TestSpeed.SLOW)
 	@Test
 	public void testDANOneChanceCE() throws IncompatibleEvidenceException, UnexpectedInferenceException,
 			NodeNotFoundException, NotEvaluableNetworkException {
 		testCEADANEvaluation("one-chance-ce", 1);
 	}
-
+	
+	@Tag(TestSpeed.SLOW)
 	@Test
 	public void testDANDecideTest() throws IncompatibleEvidenceException, UnexpectedInferenceException,
 			NodeNotFoundException, NotEvaluableNetworkException {

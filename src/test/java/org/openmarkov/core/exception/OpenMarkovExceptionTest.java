@@ -1,15 +1,18 @@
 package org.openmarkov.core.exception;
 
 
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import org.openmarkov.core.test.TestSpeed;
 import org.openmarkov.gui.localize.LocalizedException;
 
 
 public class OpenMarkovExceptionTest {
-
+    
+    @Tag(TestSpeed.MEDIUM)
     @Test
     public void testMessages() {
         OpenMarkovException openMarkovException = new OpenMarkovException("ConfigurationException", "Test");

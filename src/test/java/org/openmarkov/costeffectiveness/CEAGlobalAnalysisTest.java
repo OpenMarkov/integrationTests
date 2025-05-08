@@ -21,6 +21,7 @@ import org.openmarkov.core.model.network.NodeType;
 import org.openmarkov.core.model.network.ProbNet;
 import org.openmarkov.core.model.network.Variable;
 import org.openmarkov.core.model.network.potential.GTablePotential;
+import org.openmarkov.core.test.TestSpeed;
 import org.openmarkov.inference.algorithm.variableElimination.tasks.VECEAnalysis;
 import org.openmarkov.inference.algorithm.variableElimination.tasks.VECEPSA;
 import org.openmarkov.inference.algorithm.variableElimination.tasks.VEEvaluation;
@@ -210,7 +211,8 @@ public class CEAGlobalAnalysisTest {
 
 		Assertions.assertArrayEquals(expectedResults, result.values, 0.001);
 	}
-
+	
+	@Tag(TestSpeed.SLOW)
 	@Test public void testDMHEE35() throws Exception {
 		// Constants
 		String modelFilePath = "networks" + File.separator + "mid" + File.separator + "MID-dmhee-3.5.pgmx";

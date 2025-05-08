@@ -26,6 +26,7 @@ import org.openmarkov.core.model.network.potential.GTablePotential;
 import org.openmarkov.core.model.network.potential.StrategyTree;
 import org.openmarkov.core.model.network.potential.TablePotential;
 import org.openmarkov.core.model.network.potential.treeadd.TreeADDBranch;
+import org.openmarkov.core.test.TestSpeed;
 import org.openmarkov.inference.algorithm.temporalevaluation.tasks.TemporalEvaluation;
 import org.openmarkov.inference.algorithm.variableElimination.tasks.VECEAnalysis;
 import org.openmarkov.inference.algorithm.variableElimination.tasks.VEEvaluation;
@@ -286,7 +287,8 @@ public class midChancellorTests {
 			e.printStackTrace();
 		}
 	}
-
+	
+	@Tag(TestSpeed.MEDIUM)
 	@Test public void costAZTVETemporalEvolutionTests() {
 		Variable stateVariable = null;
 		try {
@@ -349,7 +351,8 @@ public class midChancellorTests {
 			e.printStackTrace();
 		}
 	}
-
+	
+	@Tag(TestSpeed.MEDIUM)
 	@Test public void directMedicalCostVETemporalEvolutionTests() {
 		Variable stateVariable = null;
 		try {

@@ -17,6 +17,7 @@ import org.openmarkov.core.model.network.ProbNet;
 import org.openmarkov.core.model.network.Variable;
 import org.openmarkov.core.model.network.potential.ExactDistrPotential;
 import org.openmarkov.core.model.network.potential.TablePotential;
+import org.openmarkov.core.test.TestSpeed;
 import org.openmarkov.inference.algorithm.decompositionIntoSymmetricDANs.core.DANOperations;
 import org.openmarkov.io.probmodel.reader.PGMXReader_0_2;
 
@@ -83,7 +84,8 @@ public class DANOperationsTest {
 			e.printStackTrace();
 		}
 	}
-
+	
+	@Tag(TestSpeed.MEDIUM)
 	@Test public void instantiateTest() {
 
 		try {
@@ -159,7 +161,8 @@ public class DANOperationsTest {
 		//            e.printStackTrace();
 		//        }
 	}
-
+	
+	@Tag(TestSpeed.MEDIUM)
 	@Test public void prioritizeTest() {
 		try {
 			Variable urineTestVariable = danDiabetes.getVariable("Dec: Urine test");
@@ -189,7 +192,8 @@ public class DANOperationsTest {
 			e.printStackTrace();
 		}
 	}
-
+	
+	@Tag(TestSpeed.MEDIUM)
 	@Test public void getNextDecisionsTest() {
 		List<Node> nextDecisions = DANOperations.getNextDecisions(danDecideTest2TherapiesNoCost);
 		Assertions.assertEquals(nextDecisions.size(), 1);
@@ -200,7 +204,8 @@ public class DANOperationsTest {
 		nextDecisions = DANOperations.getNextDecisions(danDiabetes);
 		Assertions.assertEquals(nextDecisions.size(), 2);
 	}
-
+	
+	@Tag(TestSpeed.MEDIUM)
 	@Test public void isSymmetricTest() {
 		Assertions.assertTrue(DANOperations.isSymmetric(danTest2Therapies, null));
 		Assertions.assertFalse(DANOperations.isSymmetric(danDecideTest2TherapiesNoCost, null));
@@ -208,7 +213,8 @@ public class DANOperationsTest {
 
 		//Assertions.assertTrue(DANOperations.isSymmetric(danDecideTest2TherapiesNoCostSymmetrized));
 	}
-
+	
+	@Tag(TestSpeed.MEDIUM)
 	@Test public void ceaIDAD1D2() {
 
 	}

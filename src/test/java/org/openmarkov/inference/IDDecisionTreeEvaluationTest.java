@@ -1,11 +1,13 @@
 package org.openmarkov.inference;
 
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import org.openmarkov.core.exception.IncompatibleEvidenceException;
 import org.openmarkov.core.exception.NodeNotFoundException;
 import org.openmarkov.core.exception.NotEvaluableNetworkException;
 import org.openmarkov.core.exception.UnexpectedInferenceException;
+import org.openmarkov.core.test.TestSpeed;
 import org.openmarkov.inference.heuristics.Tools;
 import org.openmarkov.core.model.network.EvidenceCase;
 import org.openmarkov.core.model.network.ProbNet;
@@ -31,31 +33,36 @@ public class IDDecisionTreeEvaluationTest extends NetworkEvaluationInferenceTest
 			NodeNotFoundException, NotEvaluableNetworkException {
 		testNetworkEvaluation("only-utility", 10.0);
 	}
-
+	
+	@Tag(TestSpeed.MEDIUM)
 	@Test
 	public void testIDOneChance() throws IncompatibleEvidenceException, UnexpectedInferenceException,
 			NodeNotFoundException, NotEvaluableNetworkException {
 		testNetworkEvaluation("one-chance", 83.7);
 	}
-
+	
+	@Tag(TestSpeed.MEDIUM)
 	@Test
 	public void testIDOneDecision() throws IncompatibleEvidenceException, UnexpectedInferenceException,
 			NodeNotFoundException, NotEvaluableNetworkException {
 		testNetworkEvaluation("one-decision", 87.4, "D");
 	}
-
+	
+	@Tag(TestSpeed.MEDIUM)
 	@Test
 	public void testIDNoKnowledge() throws IncompatibleEvidenceException, UnexpectedInferenceException,
 			NodeNotFoundException, NotEvaluableNetworkException {
 		testNetworkEvaluation("no-knowledge", 9.16, "D");
 	}
 	
+	@Tag(TestSpeed.MEDIUM)
 	@Test
 	public void testIDPerfectKnowledge() throws IncompatibleEvidenceException, UnexpectedInferenceException,
 			NodeNotFoundException, NotEvaluableNetworkException {
 		testNetworkEvaluation("perfect-knowledge", 9.72, "D","A");
 	}
-
+	
+	@Tag(TestSpeed.MEDIUM)
 	@Test
 	public void testIDTest2Therapies() throws IncompatibleEvidenceException, UnexpectedInferenceException,
 			NodeNotFoundException, NotEvaluableNetworkException {

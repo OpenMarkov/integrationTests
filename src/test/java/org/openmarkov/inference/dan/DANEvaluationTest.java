@@ -14,6 +14,7 @@ import org.openmarkov.core.exception.IncompatibleEvidenceException;
 import org.openmarkov.core.exception.NodeNotFoundException;
 import org.openmarkov.core.exception.NotEvaluableNetworkException;
 import org.openmarkov.core.exception.UnexpectedInferenceException;
+import org.openmarkov.core.test.TestSpeed;
 import org.openmarkov.inference.heuristics.Tools;
 import org.openmarkov.core.model.network.ProbNet;
 import org.openmarkov.inference.NetworkEvaluationInferenceTest;
@@ -62,52 +63,60 @@ public abstract class DANEvaluationTest extends NetworkEvaluationInferenceTest {
 			NotEvaluableNetworkException {
 		testNetworkEvaluation("one-decision", 87.4, "D");
 	}
-
+	
+	@Tag(TestSpeed.MEDIUM)
 	@Test public void testDANNoKnowledge()
 			throws IncompatibleEvidenceException, UnexpectedInferenceException, NodeNotFoundException,
 			NotEvaluableNetworkException {
 		testNetworkEvaluation("no-knowledge", 9.16, "D");
 	}
-
+	
+	@Tag(TestSpeed.MEDIUM)
 	@Test public void testDANPerfectKnowledge()
 			throws IncompatibleEvidenceException, UnexpectedInferenceException, NodeNotFoundException,
 			NotEvaluableNetworkException {
 		testNetworkEvaluation("perfect-knowledge", 9.72, "A", "D");
 	}
-
+	
+	@Tag(TestSpeed.MEDIUM)
 	@Test public void testDANTest2Therapies()
 			throws IncompatibleEvidenceException, UnexpectedInferenceException, NodeNotFoundException,
 			NotEvaluableNetworkException {
 		testNetworkEvaluation("test-2therapies", 9.39366, "Test", "Therapy");
 	}
-
+	
+	@Tag(TestSpeed.SLOW)
 	@Test public void testDANTest2TherapiesNoCostSymmetrizedOrderForced()
 			throws IncompatibleEvidenceException, UnexpectedInferenceException, NodeNotFoundException,
 			NotEvaluableNetworkException {
 		testNetworkEvaluation("decide-test-2therapies-no-cost-symmetrized-order-forced", 9.39366, "Do test?",
 				"Result of test", "Therapy");
 	}
-
+	
+	@Tag(TestSpeed.MEDIUM)
 	@Test public void testDANTest2TherapiesNoCostOrderForced()
 			throws IncompatibleEvidenceException, UnexpectedInferenceException, NodeNotFoundException,
 			NotEvaluableNetworkException {
 		testNetworkEvaluation("decide-test-2therapies-no-cost-order-forced", 9.39366, "Do test?", "Result of test",
 				"Therapy");
 	}
-
+	
+	@Tag(TestSpeed.MEDIUM)
 	@Test public void testDANTest2TherapiesNoCost()
 			throws IncompatibleEvidenceException, UnexpectedInferenceException, NodeNotFoundException,
 			NotEvaluableNetworkException {
 		testNetworkEvaluation("decide-test-2therapies-no-cost", 9.39366, "Do test?", "Result of test", "Therapy");
 	}
-
+	
+	@Tag(TestSpeed.SLOW)
 	@Test public void testDANUIDsPaper()
 			throws IncompatibleEvidenceException, UnexpectedInferenceException, NodeNotFoundException,
 			NotEvaluableNetworkException {
 		testNetworkEvaluation("UID-luque2016-OM-0-2-0", 10, "OD", "D", "X", "E");
 
 	}
-
+	
+	@Tag(TestSpeed.SLOW)
 	@Test public void testDANDiabetes()
 			throws IncompatibleEvidenceException, UnexpectedInferenceException, NodeNotFoundException,
 			NotEvaluableNetworkException {
@@ -115,14 +124,16 @@ public abstract class DANEvaluationTest extends NetworkEvaluationInferenceTest {
 				"Blood test result", "Urine test result", "Therapy");
 
 	}
-
+	
+	@Tag(TestSpeed.SLOW)
 	@Test public void testDANSimplifiedUsedCarBuyer()
 			throws IncompatibleEvidenceException, UnexpectedInferenceException, NodeNotFoundException,
 			NotEvaluableNetworkException {
 		testNetworkEvaluation("simplified-used-car-buyer", 32.96, "Dec: First Test", "First Result", "Dec: Purchase");
 
 	}
-
+	
+	@Tag(TestSpeed.SLOW)
 	@Test public void testDANUsedCarBuyer()
 			throws IncompatibleEvidenceException, UnexpectedInferenceException, NodeNotFoundException,
 			NotEvaluableNetworkException {
@@ -130,7 +141,8 @@ public abstract class DANEvaluationTest extends NetworkEvaluationInferenceTest {
 		testNetworkEvaluation("used-car-buyer", 32.96);
 
 	}
-
+	
+	@Tag(TestSpeed.SLOW)
 	@Test public void testDANReactor()
 			throws IncompatibleEvidenceException, UnexpectedInferenceException, NodeNotFoundException,
 			NotEvaluableNetworkException {
@@ -169,31 +181,36 @@ public abstract class DANEvaluationTest extends NetworkEvaluationInferenceTest {
 	/**
 	 * This network is as "simplified-two-tasks-king-noble-descent-yes", but removing zero utility potentials.
 	 */
+	@Tag(TestSpeed.SLOW)
 	@Test public void testDANSimplifiedOneTaskKingNobleDescentYes()
 			throws IncompatibleEvidenceException, UnexpectedInferenceException, NodeNotFoundException,
 			NotEvaluableNetworkException {
 		testNetworkEvaluation("simplified-one-task-king-noble-descent-yes", 9.28);
 	}
-
+	
+	@Tag(TestSpeed.MEDIUM)
 	@Test public void testDANKingNobleDescentNo()
 			throws IncompatibleEvidenceException, UnexpectedInferenceException, NodeNotFoundException,
 			NotEvaluableNetworkException {
 		testNetworkEvaluation("king-noble-descent-no", 6.43);
 
 	}
-
+	
+	@Tag(TestSpeed.MEDIUM)
 	@Test public void testDANKingNobleDescentYes()
 			throws IncompatibleEvidenceException, UnexpectedInferenceException, NodeNotFoundException,
 			NotEvaluableNetworkException {
 		testNetworkEvaluation("king-noble-descent-yes", 9.03);
 	}
-
+	
+	@Tag(TestSpeed.MEDIUM)
 	@Test public void testDANKing()
 			throws IncompatibleEvidenceException, UnexpectedInferenceException, NodeNotFoundException,
 			NotEvaluableNetworkException {
 		testNetworkEvaluation("king", 7.73);
 	}
-
+	
+	@Tag(TestSpeed.SLOW)
 	@Test public void testDAN3Tests()
 			throws IncompatibleEvidenceException, UnexpectedInferenceException, NodeNotFoundException,
 			NotEvaluableNetworkException {
@@ -216,7 +233,8 @@ public abstract class DANEvaluationTest extends NetworkEvaluationInferenceTest {
 			testNetworkEvaluation("dating-ask-no", 8.1632);
 
 		}
-	 
+	
+	@Tag(TestSpeed.MEDIUM)
 	 @Test public void testDANDatingAskNoNClubNo()
 				throws IncompatibleEvidenceException, UnexpectedInferenceException, NodeNotFoundException,
 				NotEvaluableNetworkException {
@@ -263,6 +281,7 @@ public abstract class DANEvaluationTest extends NetworkEvaluationInferenceTest {
 		testNetworkEvaluation("nested-sum-sv", 14);
 	}
 	
+	@Tag(TestSpeed.SLOW)
 	@Test
 	public void testDANNestedProductSV() throws IncompatibleEvidenceException, UnexpectedInferenceException,
 			NodeNotFoundException, NotEvaluableNetworkException {

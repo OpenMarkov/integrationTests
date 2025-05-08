@@ -19,6 +19,7 @@ import org.openmarkov.core.model.network.Finding;
 import org.openmarkov.core.model.network.ProbNet;
 import org.openmarkov.core.model.network.Variable;
 import org.openmarkov.core.model.network.potential.TablePotential;
+import org.openmarkov.core.test.TestSpeed;
 import org.openmarkov.inference.algorithm.variableElimination.tasks.VEPropagation;
 import org.openmarkov.io.probmodel.reader.PGMXReader_0_2;
 
@@ -57,7 +58,8 @@ public class bnCatarnetTests {
 			this.preResolutionEvidence = probNetInfo.getEvidence().get(0);
 		}
 	}
-
+	
+	@Tag(TestSpeed.MEDIUM)
 	@Test public void vePropagationWithoutEvidence() {
 		VEPropagation vePropagation;
 		EvidenceCase postResolutionEvidence = new EvidenceCase();
@@ -96,7 +98,8 @@ public class bnCatarnetTests {
 			e.printStackTrace();
 		}
 	}
-
+	
+	@Tag(TestSpeed.MEDIUM)
 	@Test public void vePropagationWithPostResolutionEvidence2() {
 		VEPropagation vePropagation;
 		EvidenceCase postResolutionEvidence = new EvidenceCase();

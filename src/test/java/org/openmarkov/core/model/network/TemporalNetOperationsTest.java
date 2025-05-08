@@ -11,6 +11,7 @@ import org.junit.jupiter.api.*;
 import org.openmarkov.core.exception.ParserException;
 import org.openmarkov.core.model.network.CycleLength.Unit;
 import org.openmarkov.core.model.network.potential.ExactDistrPotential;
+import org.openmarkov.core.test.TestSpeed;
 import org.openmarkov.io.probmodel.reader.PGMXReader_0_2;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -43,7 +44,8 @@ public class TemporalNetOperationsTest {
 			e.printStackTrace();
 		}
 	}
-
+	
+	@Tag(TestSpeed.MEDIUM)
 	@Test public void applyDiscountToUtilityNodesTest1() {
 		// Set discount to the node
 		for (Node utilityNode : probNet.getNodes(NodeType.UTILITY)) {
