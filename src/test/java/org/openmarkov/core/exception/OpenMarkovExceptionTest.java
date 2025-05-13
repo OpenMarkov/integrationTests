@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.openmarkov.core.test.TestSpeed;
-import org.openmarkov.gui.localize.LocalizedException;
+import org.openmarkov.core.localize.LocalizedException;
 
 
 public class OpenMarkovExceptionTest {
