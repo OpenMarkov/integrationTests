@@ -34,15 +34,69 @@ public class PCAlgorithmTest {
 
 	private IndependenceTester independenceTester;
 	private double significanceLevel = 0.05;
+	private String path = "networks/learning/";
 
-	private String learnTestDatabaseFilename = "/learnTestDataBase.dbc";
-	private String asiaDatabaseFilename = "/asia10K.csv";
-	private String alarmDatabaseFilename = "/alarm500.csv";
-	private String alarm10kDatabaseFilename = "/alarm10k.csv";
+	private String learnTestDatabaseFilename = "/networks/learning/learnTestDataBase.dbc";
+	private String asiaDatabaseFilename = "/networks/learning/asia10K.csv";
+	private String alarmDatabaseFilename = "/networks/learning/alarm500.csv";
+	private String alarm10kDatabaseFilename = "/networks/learning/alarm10k.csv";
+	private String bnABCEFilename = "/networks/learning/BN-A-B-C-E.csv";
 
 	@BeforeEach
 	public void setUp() throws Exception {
 		independenceTester = new CrossEntropyIndependenceTester();
+	}
+
+	@Tag(TestSpeed.FAST)
+	@Test public void testABCE() throws Exception {
+		System.out.println(getClass().getResource(bnABCEFilename));
+		CSVDataBaseIO csvReader = new CSVDataBaseIO();
+		CaseDatabase ABCEDatabase = csvReader.load(getClass().getResource(bnABCEFilename).getFile());
+		ProbNet learnedNet = new ProbNet();
+		for (Variable variable : ABCEDatabase.getVariables()) {
+			learnedNet.addNode(variable, NodeType.CHANCE);
+		}
+		
+		LearningAlgorithm learningAlgorithm = new PCAlgorithm(learnedNet, ABCEDatabase, alpha, independenceTester,
+				significanceLevel);
+		
+		learningAlgorithm.run(new ModelNetUse());
+		Node nodeA = learnedNet.getNode("A");
+		Node nodeB = learnedNet.getNode("B");
+		Node nodeC = learnedNet.getNode("C");
+		Node nodeE = learnedNet.getNode("E");
+		
+		Assertions.assertNotNull(nodeA);
+		Assertions.assertNotNull(nodeB);
+		Assertions.assertNotNull(nodeC);
+		Assertions.assertNotNull(nodeE);
+		// check the structure of the learned net
+		// present links
+		Assertions.assertTrue(nodeA.isParent(nodeE));
+		Assertions.assertTrue(nodeB.isParent(nodeE));
+		Assertions.assertTrue(nodeC.isParent(nodeE));
+		
+		// check the CPTs
+		double maxError = 1E-2;
+		// A
+		double[] probabilities = ((TablePotential) nodeA.getPotentials().get(0)).getValues();
+		Assertions.assertEquals(0.5, probabilities[0], maxError);
+		// B
+		probabilities = ((TablePotential) nodeB.getPotentials().get(0)).getValues();
+		Assertions.assertEquals(0.8, probabilities[0], maxError);
+		// C
+		probabilities = ((TablePotential) nodeC.getPotentials().get(0)).getValues();
+		Assertions.assertEquals(0.7, probabilities[0], maxError);
+		// E | A, B, C
+		TablePotential eGivenABC = (TablePotential) nodeE.getPotentials().get(0);
+		List<Variable> eGivenABCVars = Arrays.asList(nodeE.getVariable(), nodeA.getVariable(), nodeB.getVariable(),
+				nodeC.getVariable());
+		eGivenABC = (TablePotential) eGivenABC.reorder(eGivenABCVars);
+		probabilities = eGivenABC.getValues();
+		double[] expectedProbabilities = { 0.8, 0.2, 0.4, 0.6, 0.6, 0.4, 0.2, 0.8 };
+		for (int i = 0; i < expectedProbabilities.length; i++) {
+			Assertions.assertEquals(expectedProbabilities[i], probabilities[i], maxError);
+		}
 	}
 
 	//@Test
@@ -145,7 +199,7 @@ public class PCAlgorithmTest {
 		Assertions.assertEquals(0.8585657, probabilities[6], maxError);
 		Assertions.assertEquals(0.1414342, probabilities[7], maxError);
 	}
-	
+
 	@Tag(TestSpeed.MEDIUM)
 	@Test public void testAsia10k() throws Exception {
 		CSVDataBaseIO csvReader = new CSVDataBaseIO();
