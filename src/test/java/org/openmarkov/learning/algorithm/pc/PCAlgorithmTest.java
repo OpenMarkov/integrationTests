@@ -34,7 +34,7 @@ public class PCAlgorithmTest {
 
 	private IndependenceTester independenceTester;
 	private double significanceLevel = 0.05;
-	private String path = "networks/learning/";
+	private String path = "/networks/learning/";
 
 	private String learnTestDatabaseFilename = "/networks/learning/learnTestDataBase.dbc";
 	private String asiaDatabaseFilename = "/networks/learning/asia10K.csv";
@@ -98,8 +98,9 @@ public class PCAlgorithmTest {
 			Assertions.assertEquals(expectedProbabilities[i], probabilities[i], maxError);
 		}
 	}
-
-	//@Test
+	
+	@Disabled("Making CaseDatabase = null until fixing Elvira database parser with antlr4")
+	@Test
 	public void testLearnTestDataBase() throws Exception {
 		//TODO Commented and making CaseDatabase = null until fixing Elvira database parser with antlr4
 		//ElviraDataBaseIO databaseIO = new ElviraDataBaseIO();
@@ -109,10 +110,10 @@ public class PCAlgorithmTest {
 		for (Variable variable : learnTestDatabase.getVariables()) {
 			learnedNet.addNode(variable, NodeType.CHANCE);
 		}
-
+		
 		LearningAlgorithm learningAlgorithm = new PCAlgorithm(learnedNet, learnTestDatabase, alpha, independenceTester,
-				significanceLevel);
-
+															  significanceLevel);
+		
 		double[] probabilities;
 		learningAlgorithm.run(new ModelNetUse());
 		Node nodeA = learnedNet.getNode("A");
@@ -126,7 +127,7 @@ public class PCAlgorithmTest {
 		Variable variableC = nodeC.getVariable();
 		Variable variableD = nodeD.getVariable();
 		//Variable variableE = nodeE.getVariable();
-
+		
 		// check the structure of the learned net
 		// present links
 		Assertions.assertTrue(nodeC.isParent(nodeA));
@@ -174,7 +175,7 @@ public class PCAlgorithmTest {
 		List<Variable> cGivenBAVariables = Arrays.asList(variableC, variableB, variableA);
 		cGivenBAPotential = (TablePotential) cGivenBAPotential.reorder(cGivenBAVariables);
 		probabilities = cGivenBAPotential.getValues();
-
+		
 		Assertions.assertEquals(0.286111, probabilities[0], maxError);
 		Assertions.assertEquals(0.713888, probabilities[1], maxError);
 		Assertions.assertEquals(0.5, probabilities[2], maxError);
@@ -183,13 +184,13 @@ public class PCAlgorithmTest {
 		Assertions.assertEquals(0.208235, probabilities[5], maxError);
 		Assertions.assertEquals(0.402573, probabilities[6], maxError);
 		Assertions.assertEquals(0.597426, probabilities[7], maxError);
-
+		
 		//D | C, A
 		TablePotential dGivenCAPotential = (TablePotential) nodeD.getPotentials().get(0);
 		List<Variable> dGivenCAVariables = Arrays.asList(variableD, variableC, variableA);
 		dGivenCAPotential = (TablePotential) dGivenCAPotential.reorder(dGivenCAVariables);
 		probabilities = dGivenCAPotential.getValues();
-
+		
 		Assertions.assertEquals(0.491304, probabilities[0], maxError);
 		Assertions.assertEquals(0.5086956, probabilities[1], maxError);
 		Assertions.assertEquals(0.1536458, probabilities[2], maxError);
@@ -324,7 +325,7 @@ public class PCAlgorithmTest {
 
 		Assertions.assertEquals(34, learnedNet.getLinks().size());
 		PGMXReader_0_2 reader = new PGMXReader_0_2();
-		ProbNet readNet = reader.loadProbNet(getClass().getResource("/BN-alarm.pgmx").getFile());
+		ProbNet readNet = reader.loadProbNet(getClass().getResource(this.path+"/BN-alarm.pgmx").getFile());
 		printDifferences(readNet, learnedNet);
 	}
 
