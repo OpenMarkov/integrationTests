@@ -132,7 +132,8 @@ public class CEAGlobalAnalysisTest {
 		double[] expectedResults = new double[] { 50585.917, 9.412, 44662.217, 8.471 };
 		Assertions.assertArrayEquals(expectedResults, result.values, 0.001);
 	}
-
+	
+	@Tag(TestSpeed.MEDIUM)
 	@Test public void testChancellorUnicriterion() throws Exception {
 		// Constants
 		String modelFilePath = "networks" + File.separator + "mid" + File.separator

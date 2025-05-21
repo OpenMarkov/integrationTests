@@ -48,11 +48,7 @@ public class bnCatarnetTests {
 		// Load the network: ID-decide-test
 		PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
 		ProbNetInfo probNetInfo = null;
-		try {
 			probNetInfo = pgmxReader.loadProbNetInfo(absolutePath);
-		} catch (ParserException e) {
-			e.printStackTrace();
-		}
 		this.probNet = probNetInfo.getProbNet();
 		if (probNetInfo.getEvidence().size() != 0) {
 			this.preResolutionEvidence = probNetInfo.getEvidence().get(0);
@@ -60,19 +56,13 @@ public class bnCatarnetTests {
 	}
 	
 	@Tag(TestSpeed.MEDIUM)
-	@Test public void vePropagationWithoutEvidence() {
+	@Test public void vePropagationWithoutEvidence() throws NotEvaluableNetworkException, IncompatibleEvidenceException, NodeNotFoundException {
 		VEPropagation vePropagation;
 		EvidenceCase postResolutionEvidence = new EvidenceCase();
 		List<Variable> variablesOfInterest = new ArrayList<>();
-		try {
 			variablesOfInterest.add(probNet.getVariable("ganancia_av"));
 			variablesOfInterest.add(probNet.getVariable("deslu_global_post"));
 			variablesOfInterest.add(probNet.getVariable("deslu_pre_no_catar"));
-		} catch (NodeNotFoundException e) {
-			e.printStackTrace();
-		}
-
-		try {
 			vePropagation = new VEPropagation(probNet);
 			vePropagation.setVariablesOfInterest(variablesOfInterest);
 			vePropagation.setPreResolutionEvidence(preResolutionEvidence);
@@ -94,24 +84,17 @@ public class bnCatarnetTests {
 				}
 				Assertions.assertArrayEquals(posteriorVales.get(variable).values, expectedValues, deltaEquals);
 			}
-		} catch (NotEvaluableNetworkException | IncompatibleEvidenceException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	@Tag(TestSpeed.MEDIUM)
-	@Test public void vePropagationWithPostResolutionEvidence2() {
+	@Test public void vePropagationWithPostResolutionEvidence2() throws NotEvaluableNetworkException, IncompatibleEvidenceException, NodeNotFoundException, InvalidStateException {
 		VEPropagation vePropagation;
 		EvidenceCase postResolutionEvidence = new EvidenceCase();
 		List<Variable> variablesOfInterest = new ArrayList<>();
-		try {
 			variablesOfInterest.add(probNet.getVariable("ganancia_deslu"));
 			variablesOfInterest.add(probNet.getVariable("deslu_global_post"));
 			variablesOfInterest.add(probNet.getVariable("ruptura_caps_post"));
-		} catch (NodeNotFoundException e) {
-			e.printStackTrace();
-		}
-		try {
+
 			// New Finding: ganancia_av = g3
 			Finding finding1 = new Finding(probNet.getVariable("ganancia_av"), 6);
 			postResolutionEvidence.addFinding(finding1);
@@ -119,12 +102,6 @@ public class bnCatarnetTests {
 			// New Finding: deslu_global_pre = ojo contral
 			Finding finding2 = new Finding(probNet.getVariable("deslu_global_pre"), 3);
 			postResolutionEvidence.addFinding(finding2);
-
-		} catch (NodeNotFoundException | IncompatibleEvidenceException | InvalidStateException e) {
-			e.printStackTrace();
-		}
-
-		try {
 			vePropagation = new VEPropagation(probNet);
 			vePropagation.setVariablesOfInterest(variablesOfInterest);
 			vePropagation.setPreResolutionEvidence(preResolutionEvidence);
@@ -146,17 +123,12 @@ public class bnCatarnetTests {
 				}
 				Assertions.assertArrayEquals(posteriorVales.get(variable).values, expectedValues, deltaEquals);
 			}
-		} catch (NotEvaluableNetworkException | IncompatibleEvidenceException e) {
-			e.printStackTrace();
-		}
 	}
 	@Disabled
-	@Test public void vePropagationIncompatibleEvidence() {
+	@Test public void vePropagationIncompatibleEvidence() throws NotEvaluableNetworkException, IncompatibleEvidenceException, NodeNotFoundException, InvalidStateException {
 		VEPropagation vePropagation;
 		EvidenceCase postResolutionEvidence = new EvidenceCase();
 		List<Variable> variablesOfInterest = probNet.getVariables();
-
-		try {
 			// New Finding: ganancia_av = g3
 			Finding finding1 = new Finding(probNet.getVariable("ganancia_av"), 6);
 			postResolutionEvidence.addFinding(finding1);
@@ -168,24 +140,13 @@ public class bnCatarnetTests {
 			// New Finding: av_pre = (0.7, 1] --> Incompatible evidence!
 			Finding finding3 = new Finding(probNet.getVariable("av_pre"), 3);
 			postResolutionEvidence.addFinding(finding3);
-		} catch (NodeNotFoundException | IncompatibleEvidenceException | InvalidStateException e) {
-			e.printStackTrace();
-		}
 
 		boolean incompatibleEvidenceExceptionOcurred = false;
-		try {
 			vePropagation = new VEPropagation(probNet);
 			vePropagation.setVariablesOfInterest(variablesOfInterest);
 			vePropagation.setPreResolutionEvidence(preResolutionEvidence);
 			vePropagation.setPostResolutionEvidence(postResolutionEvidence);
 			vePropagation.getPosteriorValues();
-		} catch (NotEvaluableNetworkException e) {
-			e.printStackTrace();
-		} catch (IncompatibleEvidenceException e) {
-			incompatibleEvidenceExceptionOcurred = true;
-		}
-
-		Assertions.assertTrue(incompatibleEvidenceExceptionOcurred);
 	}
 
 }

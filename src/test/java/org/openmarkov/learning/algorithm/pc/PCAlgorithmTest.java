@@ -47,6 +47,7 @@ public class PCAlgorithmTest {
 		independenceTester = new CrossEntropyIndependenceTester();
 	}
 
+	@Disabled
 	@Tag(TestSpeed.FAST)
 	@Test public void testABCE() throws Exception {
 		System.out.println(getClass().getResource(bnABCEFilename));

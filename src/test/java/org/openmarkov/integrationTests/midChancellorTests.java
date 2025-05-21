@@ -50,25 +50,17 @@ public class midChancellorTests {
 	private ProbNet probNet;
 	private EvidenceCase preResolutionEvidence;
 
-	@BeforeEach public void setUp() {
+	@BeforeEach public void setUp() throws ParserException, URISyntaxException {
 		String networkName = "networks/mid/MID-Chancellor.pgmx";
 		URL res = getClass().getClassLoader().getResource(networkName);
-		File f = null;
-		try {
-			f = Paths.get(res.toURI()).toFile();
-		} catch (URISyntaxException e) {
-			throw new RuntimeException(e);
-		}
+        File f = Paths.get(res.toURI()).toFile();
+
 		String absolutePath = f.getAbsolutePath();
 
 		// Load the network: ID-decide-test
 		PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
 		ProbNetInfo probNetInfo = null;
-		try {
 			probNetInfo = pgmxReader.loadProbNetInfo(absolutePath);
-		} catch (ParserException e) {
-			e.printStackTrace();
-		}
 		assert probNetInfo != null;
 		this.probNet = probNetInfo.getProbNet();
 
@@ -77,34 +69,25 @@ public class midChancellorTests {
 		}
 	}
 	@Disabled
-	@Test public void veResolutionTestWithoutEvidence() {
+	@Test public void veResolutionTestWithoutEvidence() throws NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException {
 		VEEvaluation veEvaluation;
-		try {
 			veEvaluation = new VEEvaluation(probNet);
 			veEvaluation.setPreResolutionEvidence(preResolutionEvidence);
 			TablePotential utility = veEvaluation.getUtility();
 			Assertions.assertEquals(utility.getValues()[0], 50608.78077314, deltaEquals);
-		} catch (NotEvaluableNetworkException | IncompatibleEvidenceException | UnexpectedInferenceException e) {
-			e.printStackTrace();
-		}
 	}
 	@Disabled
-	@Test public void veOptimalPolicyTest() {
+	@Test public void veOptimalPolicyTest() throws NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException, NodeNotFoundException {
 		OptimalPolicies veOptimalPolicy;
-		try {
 			Variable decisionVariable = probNet.getVariable("Therapy type");
 			veOptimalPolicy = new VEEvaluation(probNet);
 			TablePotential optimalPolicy = (TablePotential) veOptimalPolicy.getOptimalPolicy(decisionVariable);
 			double[] expectedValues = { 0, 1 };
 			Assertions.assertArrayEquals(optimalPolicy.getValues(), expectedValues, deltaEquals);
-		} catch (NotEvaluableNetworkException | IncompatibleEvidenceException | UnexpectedInferenceException | NodeNotFoundException e) {
-			e.printStackTrace();
-		}
 	}
 	@Disabled
-	@Test public void veOptimalIntervention() {
+	@Test public void veOptimalIntervention() throws NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException, NodeNotFoundException {
 		VEOptimalIntervention veOptimalIntervention;
-		try {
 			veOptimalIntervention = new VEOptimalIntervention(probNet, preResolutionEvidence);
 			StrategyTree optimalStrategyTree = veOptimalIntervention.getOptimalIntervention();
 
@@ -115,15 +98,10 @@ public class midChancellorTests {
 			TreeADDBranch branchCombinationTherapy = veOptimalIntervention.getOptimalIntervention().getBranches()
 					.get(0);
 			Assertions.assertTrue(branchCombinationTherapy.getStates().get(0).getName().equals("combination therapy"));
-
-		} catch (NotEvaluableNetworkException | IncompatibleEvidenceException | UnexpectedInferenceException | NodeNotFoundException e) {
-			e.printStackTrace();
-		}
 	}
 
-	@Test public void veCEAGlobalTests() {
+	@Test public void veCEAGlobalTests() throws NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException {
 		CEAnalysis veceaGlobal;
-		try {
 			veceaGlobal = new VECEAnalysis(probNet);
 			veceaGlobal.setPreResolutionEvidence(preResolutionEvidence);
 			//			veceaGlobal.setUnicriterion(false);
@@ -137,24 +115,13 @@ public class midChancellorTests {
 			// Second interval
 			Assertions.assertEquals(cep.getEffectiveness(303383.4), 8.93739, deltaEquals);
 			Assertions.assertEquals(cep.getCost(6274.05), 50599.843384, deltaEquals);
-
-		} catch (NotEvaluableNetworkException | IncompatibleEvidenceException | UnexpectedInferenceException e) {
-			e.printStackTrace();
-		}
 	}
 	@Disabled
-	@Test public void veCEADecisionDecTestTests() {
+	@Test public void veCEADecisionDecTestTests() throws NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException, NodeNotFoundException {
 		CEAnalysis veceaDecision;
-		try {
 			Variable decisionVariable = null;
 			EvidenceCase evidenceCaseWithScenario = new EvidenceCase();
-
-			try {
 				decisionVariable = probNet.getVariable("Therapy type");
-			} catch (NodeNotFoundException e) {
-				e.printStackTrace();
-			}
-
 			veceaDecision = new VECEAnalysis(probNet);
 			//			veceaDecision.setUnicriterion(false);
 			veceaDecision.setPreResolutionEvidence(evidenceCaseWithScenario);
@@ -174,21 +141,12 @@ public class midChancellorTests {
 			Assertions.assertTrue(combinationtherapyCEP.getNumIntervals() == 1);
 			Assertions.assertEquals(combinationtherapyCEP.getCost(500000.0), 50599.84338424, deltaEquals);
 			Assertions.assertEquals(combinationtherapyCEP.getEffectiveness(30000.0), 8.9374, deltaEquals);
-
-		} catch (NotEvaluableNetworkException | IncompatibleEvidenceException | UnexpectedInferenceException e) {
-			e.printStackTrace();
-		}
 	}
 	@Disabled
-	@Test public void stateVETemporalEvolutionTests() {
+	@Test public void stateVETemporalEvolutionTests() throws NodeNotFoundException, NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException {
 		Variable stateVariable = null;
-		try {
 			stateVariable = probNet.getVariable("State", 0);
-		} catch (NodeNotFoundException e) {
-			e.printStackTrace();
-		}
 		// ProbNet network, Variable temporalVariable, EvidenceCase preResolutionEvidence, Variable decisionVariable)
-		try {
 			TemporalEvolution veTemporalEvolution = new VETemporalEvolution(probNet, stateVariable);
 			veTemporalEvolution.setPreResolutionEvidence(preResolutionEvidence);
 			HashMap<Variable, TablePotential> posteriorValues = veTemporalEvolution.getTemporalEvolution();
@@ -244,21 +202,12 @@ public class midChancellorTests {
 			valuesToCheck = new double[] { 0.9472612120920146, 0.04584774372014692, 0.00402860239965864,
 					0.002862441788179781 };
 			Assertions.assertArrayEquals(valuesToCheck, posteriorValues.get(variableToCheck).getValues(), deltaEquals);
-
-		} catch (NotEvaluableNetworkException | IncompatibleEvidenceException | NodeNotFoundException | UnexpectedInferenceException e) {
-			e.printStackTrace();
-		}
 	}
 	@Disabled
-	@Test public void costLamiduvineVETemporalEvolutionTests() {
+	@Test public void costLamiduvineVETemporalEvolutionTests() throws NodeNotFoundException, NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException {
 		Variable stateVariable = null;
-		try {
 			stateVariable = probNet.getVariable("Cost lamivudine", 0);
-		} catch (NodeNotFoundException e) {
-			e.printStackTrace();
-		}
 		// ProbNet network, Variable temporalVariable, EvidenceCase preResolutionEvidence, Variable decisionVariable)
-		try {
 			TemporalEvolution veTemporalEvolution = new VETemporalEvolution(probNet, stateVariable);
 			veTemporalEvolution.setPreResolutionEvidence(preResolutionEvidence);
 			HashMap<Variable, TablePotential> posteriorValues = veTemporalEvolution.getTemporalEvolution();
@@ -282,22 +231,13 @@ public class midChancellorTests {
 			variableToCheck = veTemporalEvolution.getExpandedNetwork().getVariable("Cost lamivudine", 3);
 			valuesToCheck = new double[] { 0 };
 			Assertions.assertArrayEquals(valuesToCheck, posteriorValues.get(variableToCheck).getValues(), deltaEquals);
-
-		} catch (NotEvaluableNetworkException | IncompatibleEvidenceException | NodeNotFoundException | UnexpectedInferenceException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	@Tag(TestSpeed.MEDIUM)
-	@Test public void costAZTVETemporalEvolutionTests() {
+	@Test public void costAZTVETemporalEvolutionTests() throws NodeNotFoundException, NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException {
 		Variable stateVariable = null;
-		try {
 			stateVariable = probNet.getVariable("Cost AZT", 0);
-		} catch (NodeNotFoundException e) {
-			e.printStackTrace();
-		}
 		// ProbNet network, Variable temporalVariable, EvidenceCase preResolutionEvidence, Variable decisionVariable)
-		try {
 			TemporalEvolution veTemporalEvolution = new VETemporalEvolution(probNet, stateVariable);
 			veTemporalEvolution.setPreResolutionEvidence(preResolutionEvidence);
 			HashMap<Variable, TablePotential> posteriorValues = veTemporalEvolution.getTemporalEvolution();
@@ -346,22 +286,13 @@ public class midChancellorTests {
 			variableToCheck = veTemporalEvolution.getExpandedNetwork().getVariable("Cost AZT", 19);
 			valuesToCheck = new double[] { 39.707488969210104 };
 			Assertions.assertArrayEquals(valuesToCheck, posteriorValues.get(variableToCheck).getValues(), deltaEquals);
-
-		} catch (NotEvaluableNetworkException | IncompatibleEvidenceException | NodeNotFoundException | UnexpectedInferenceException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	@Tag(TestSpeed.MEDIUM)
-	@Test public void directMedicalCostVETemporalEvolutionTests() {
+	@Test public void directMedicalCostVETemporalEvolutionTests() throws NodeNotFoundException, NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException {
 		Variable stateVariable = null;
-		try {
 			stateVariable = probNet.getVariable("Direct medical cost", 0);
-		} catch (NodeNotFoundException e) {
-			e.printStackTrace();
-		}
 		// ProbNet network, Variable temporalVariable, EvidenceCase preResolutionEvidence, Variable decisionVariable)
-		try {
 			TemporalEvolution veTemporalEvolution = new VETemporalEvolution(probNet, stateVariable);
 			veTemporalEvolution.setPreResolutionEvidence(preResolutionEvidence);
 			HashMap<Variable, TablePotential> posteriorValues = veTemporalEvolution.getTemporalEvolution();
@@ -410,21 +341,12 @@ public class midChancellorTests {
 			variableToCheck = veTemporalEvolution.getExpandedNetwork().getVariable("Direct medical cost", 19);
 			valuesToCheck = new double[] { 109.25632334292308 };
 			Assertions.assertArrayEquals(valuesToCheck, posteriorValues.get(variableToCheck).getValues(), deltaEquals);
-
-		} catch (NotEvaluableNetworkException | IncompatibleEvidenceException | NodeNotFoundException | UnexpectedInferenceException e) {
-			e.printStackTrace();
-		}
 	}
 	@Disabled
-	@Test public void communityCareCostVETemporalEvolutionTests() {
+	@Test public void communityCareCostVETemporalEvolutionTests() throws NodeNotFoundException, NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException {
 		Variable stateVariable = null;
-		try {
 			stateVariable = probNet.getVariable("Community care cost", 0);
-		} catch (NodeNotFoundException e) {
-			e.printStackTrace();
-		}
 		// ProbNet network, Variable temporalVariable, EvidenceCase preResolutionEvidence, Variable decisionVariable)
-		try {
 			TemporalEvolution veTemporalEvolution = new VETemporalEvolution(probNet, stateVariable);
 			veTemporalEvolution.setPreResolutionEvidence(preResolutionEvidence);
 			HashMap<Variable, TablePotential> posteriorValues = veTemporalEvolution.getTemporalEvolution();
@@ -473,14 +395,9 @@ public class midChancellorTests {
 			variableToCheck = veTemporalEvolution.getExpandedNetwork().getVariable("Community care cost", 19);
 			valuesToCheck = new double[] { 33.90036725029396 };
 			Assertions.assertArrayEquals(valuesToCheck, posteriorValues.get(variableToCheck).getValues(), deltaEquals);
-
-		} catch (NotEvaluableNetworkException | IncompatibleEvidenceException | NodeNotFoundException | UnexpectedInferenceException e) {
-			e.printStackTrace();
-		}
 	}
 	@Disabled
-	@Test public void veTemporalEvaluationTest() {
-		try {
+	@Test public void veTemporalEvaluationTest() throws NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException, NodeNotFoundException {
 			TemporalEvaluation temporalEvaluation = new TemporalEvaluation(probNet);
 			temporalEvaluation.setPreResolutionEvidence(preResolutionEvidence);
 			TablePotential atemporalUtility = temporalEvaluation.getAtemporalUtility();
@@ -510,11 +427,7 @@ public class midChancellorTests {
 			double e_combtherapy = UtilityOperations.applyLeftRiemannSum(effectiveness_combtherapy, 1);
 
 			Variable decisionVariable = null;
-			try {
 				decisionVariable = probNet.getVariable("Therapy type");
-			} catch (NodeNotFoundException e) {
-				e.printStackTrace();
-			}
 
 			//Asserting that Left Rieman summ is equals to a transition at the end
 			probNet.getInferenceOptions().getTemporalOptions().setTransition(TransitionTime.END);
@@ -553,9 +466,5 @@ public class midChancellorTests {
 			Assertions.assertEquals(e_monotherapy, e_monotherapy_cea, deltaEquals);
 			Assertions.assertEquals(c_combtherapy, c_combtherapy_cea, deltaEquals);
 			Assertions.assertEquals(e_combtherapy, e_combtherapy_cea, deltaEquals);
-
-		} catch (NotEvaluableNetworkException | IncompatibleEvidenceException | UnexpectedInferenceException e) {
-			e.printStackTrace();
-		}
 	}
 }

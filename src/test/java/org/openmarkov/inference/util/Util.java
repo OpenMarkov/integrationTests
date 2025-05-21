@@ -28,7 +28,7 @@ public class Util {
 	 * @param networkType <code>NetworkType</code>
 	 * @return <code>List</code> of <code>ProbNet</code>s
 	 */
-	public static List<ProbNet> readProbNetsDB(NetworkType networkType) {
+	public static List<ProbNet> readProbNetsDB(NetworkType networkType) throws IOException {
 
 		NetsRepository netsRepository = new NetsRepository();
 		List<URL> bayesianNetworksURLList = netsRepository.getNetworks(networkType);

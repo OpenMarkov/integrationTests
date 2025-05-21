@@ -1,6 +1,9 @@
 package org.openmarkov.inference.ceanalysis;
 
+import org.openmarkov.core.exception.IncompatibleEvidenceException;
 import org.openmarkov.core.exception.NotEvaluableNetworkException;
+import org.openmarkov.core.exception.ParserException;
+import org.openmarkov.core.exception.UnexpectedInferenceException;
 import org.openmarkov.core.inference.MulticriteriaOptions;
 import org.openmarkov.core.inference.MulticriteriaOptions.Type;
 import org.openmarkov.inference.heuristics.Tools;
@@ -8,6 +11,8 @@ import org.openmarkov.core.inference.tasks.CEAnalysis;
 import org.openmarkov.core.model.network.ProbNet;
 import org.openmarkov.inference.algorithm.decompositionIntoSymmetricDANs.DecisionTreeComputation;
 import org.openmarkov.inference.algorithm.decompositionIntoSymmetricDANs.ceanalysis.DANDecisionTreeCEA;
+
+import java.net.URISyntaxException;
 
 public class DANDecisionTreeCEATest extends DANCEATest {
 
@@ -24,7 +29,7 @@ public class DANDecisionTreeCEATest extends DANCEATest {
 	}
 
 	@Override
-	public void testCEADANEvaluation(String danName, int globalNumberOfCEPIntervals, double... expectedThreshods) throws NotEvaluableNetworkException {
+	public void testCEADANEvaluation(String danName, int globalNumberOfCEPIntervals, double... expectedThreshods) throws NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException, ParserException, URISyntaxException {
 		Tools t = new Tools();
 		ProbNet network = t.loadDAN(danName);
 		MulticriteriaOptions options = new MulticriteriaOptions();

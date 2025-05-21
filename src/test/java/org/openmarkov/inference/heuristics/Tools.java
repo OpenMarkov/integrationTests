@@ -29,32 +29,23 @@ import org.junit.jupiter.api.Assertions;
 
 public class Tools {
 	
-	public ProbNet loadNetwork(String networkNameSuffix,String networkNamePrefix,String subfolderName) {
+	public ProbNet loadNetwork(String networkNameSuffix,String networkNamePrefix,String subfolderName) throws URISyntaxException, ParserException {
 		String networkName = "networks/"+subfolderName+"/"+networkNamePrefix+"-" + networkNameSuffix + ".pgmx";
 		PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
 		ProbNetInfo probNetInfo = null;
-		try {
 			URL res = getClass().getClassLoader().getResource(networkName);
 			File f = Paths.get(res.toURI()).toFile();
 			String absolutePath = f.getAbsolutePath();
-
 			probNetInfo = pgmxReader.loadProbNetInfo(absolutePath);
-		} catch (ParserException e) {
-			e.printStackTrace();
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
-		} catch (NullPointerException e){
-			e.printStackTrace();
-		}
 		return probNetInfo.getProbNet();
 	}
 
 	
-	public ProbNet loadDAN(String nameSuffix) {
+	public ProbNet loadDAN(String nameSuffix) throws ParserException, URISyntaxException {
 		return loadNetwork(nameSuffix,"DAN","dan");
 	}
 	
-	public ProbNet loadID(String nameSuffix) {
+	public ProbNet loadID(String nameSuffix) throws ParserException, URISyntaxException {
 		return loadNetwork(nameSuffix,"ID","id");
 	}
 
@@ -208,24 +199,17 @@ public class Tools {
 	}
 
 
-	protected static void testDecisionTreeAfterLevelsExpansion(ProbNet network, boolean exploreZeroProbabilityBranches) {
+	protected static void testDecisionTreeAfterLevelsExpansion(ProbNet network, boolean exploreZeroProbabilityBranches) throws NotEvaluableNetworkException {
 		int maxNumberLevelsToExpandMore = 3;
-		DecisionTreePanel dtPanel;
-		
-		try {
-			dtPanel = new DecisionTreePanel(network);
+        DecisionTreePanel dtPanel = new DecisionTreePanel(network);
 			for (int i = 0; i < maxNumberLevelsToExpandMore; i++) {
 				dtPanel.inferenceExpandNextLevel();				
 				Tools.testDecisionTreeNode(dtPanel.getDecisionTreeNode(), exploreZeroProbabilityBranches);
 			}
-		} catch (NotEvaluableNetworkException e) {
-			e.printStackTrace();
-			Assertions.fail();
-		}
 	}
 
 
-	public static void testDecisionTree(ProbNet network, boolean computeDT, DecisionTreeComputation eval) {
+	public static void testDecisionTree(ProbNet network, boolean computeDT, DecisionTreeComputation eval) throws NotEvaluableNetworkException {
 		DecisionTreeNode dt = eval.getDecisionTree();
 		if (computeDT) {
 			Assertions.assertNotNull(dt);

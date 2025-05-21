@@ -54,30 +54,23 @@ public class idCEATest2therapiesTests {
 		// Load the network: ID-decide-test
 		PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
 		ProbNetInfo probNetInfo = null;
-		try {
 			probNetInfo = pgmxReader.loadProbNetInfo(absolutePath);
-		} catch (ParserException e) {
-			e.printStackTrace();
-		}
 		this.probNet = probNetInfo.getProbNet();
 		if (probNetInfo.getEvidence().size() != 0) {
 			this.preResolutionEvidence = probNetInfo.getEvidence().get(0);
 		}
 	}
 	@Disabled
-	@Test public void veResolutionTestWithoutEvidence() {
+	@Test public void veResolutionTestWithoutEvidence() throws NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException {
 		VEEvaluation veEvaluation;
-		try {
 			veEvaluation = new VEEvaluation(probNet);
 			veEvaluation.setPreResolutionEvidence(preResolutionEvidence);
 			TablePotential utility = veEvaluation.getUtility();
 			Assertions.assertEquals(utility.getValues()[0], 269569.4, deltaEquals);
-		} catch (NotEvaluableNetworkException | IncompatibleEvidenceException | UnexpectedInferenceException e) {
-			e.printStackTrace();
-		}
+
 	}
 
-	@Test public void veResolutionTestWithEvidences() {
+	@Test public void veResolutionTestWithEvidences() throws NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException, NodeNotFoundException, InvalidStateException {
 		EvidenceCase evidenceCase = new EvidenceCase();
 		Variable disease = null;
 		Variable doTest = null;
@@ -86,7 +79,6 @@ public class idCEATest2therapiesTests {
 		Finding secondFinding;
 
 		// First evidence - Finding -> Disease = absent
-		try {
 			disease = probNet.getVariable("Disease");
 			finding = new Finding(disease, 0);
 			evidenceCase.addFinding(finding);
@@ -95,12 +87,7 @@ public class idCEATest2therapiesTests {
 			TablePotential utility = veEvaluation.getUtility();
 			Assertions.assertEquals(utility.getValues()[0], 10 * 30000, deltaEquals);
 
-		} catch (NotEvaluableNetworkException | IncompatibleEvidenceException | UnexpectedInferenceException | NodeNotFoundException | InvalidStateException e) {
-			e.printStackTrace();
-		}
-
 		// Second evidence - Finding -> Disease = present
-		try {
 			evidenceCase = new EvidenceCase();
 			disease = probNet.getVariable("Disease");
 			// Set disease as present
@@ -108,15 +95,10 @@ public class idCEATest2therapiesTests {
 			evidenceCase.addFinding(finding);
 			veEvaluation = new VEEvaluation(probNet);
 			veEvaluation.setPreResolutionEvidence(evidenceCase);
-			TablePotential utility = veEvaluation.getUtility();
+			utility = veEvaluation.getUtility();
 			Assertions.assertEquals(utility.getValues()[0], 125000, deltaEquals);
 
-		} catch (NotEvaluableNetworkException | IncompatibleEvidenceException | UnexpectedInferenceException | NodeNotFoundException | InvalidStateException e) {
-			e.printStackTrace();
-		}
-
 		// Third evidence - Multiple findings -> Disease = present; Do test? = yes
-		try {
 			evidenceCase = new EvidenceCase();
 			disease = probNet.getVariable("Disease");
 			doTest = probNet.getVariable("Dec:Test");
@@ -131,31 +113,22 @@ public class idCEATest2therapiesTests {
 
 			veEvaluation = new VEEvaluation(probNet);
 			veEvaluation.setPreResolutionEvidence(evidenceCase);
-			TablePotential utility = veEvaluation.getUtility();
+			utility = veEvaluation.getUtility();
 			Assertions.assertEquals(utility.getValues()[0], 124850, deltaEquals);
-
-		} catch (NotEvaluableNetworkException | IncompatibleEvidenceException | UnexpectedInferenceException | NodeNotFoundException | InvalidStateException e) {
-			e.printStackTrace();
-		}
 	}
 
 	@Disabled
-	@Test public void veOptimalPolicyTest() {
+	@Test public void veOptimalPolicyTest() throws NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException, NodeNotFoundException {
 		OptimalPolicies veOptimalPolicy;
-		try {
 			Variable decisionVariable = probNet.getVariable("Therapy");
 			veOptimalPolicy = new VEEvaluation(probNet);
 			TablePotential optimalPolicy = (TablePotential) veOptimalPolicy.getOptimalPolicy(decisionVariable);
 			double[] expectedValues = { 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0 };
 			Assertions.assertArrayEquals(optimalPolicy.getValues(), expectedValues, deltaEquals);
-		} catch (NotEvaluableNetworkException | IncompatibleEvidenceException | UnexpectedInferenceException | NodeNotFoundException e) {
-			e.printStackTrace();
-		}
 	}
 
-	@Test public void veOptimalIntervention() {
+	@Test public void veOptimalIntervention() throws NodeNotFoundException, NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException {
 		VEOptimalIntervention veOptimalIntervention;
-		try {
 			veOptimalIntervention = new VEOptimalIntervention(probNet, preResolutionEvidence);
 			StrategyTree optimalStrategyTree = veOptimalIntervention.getOptimalIntervention();
 
@@ -180,17 +153,10 @@ public class idCEATest2therapiesTests {
 			StrategyTree potBranch1 = (StrategyTree) subStrategyTree.getBranches().get(1).getPotential();
 			Assertions.assertTrue(potBranch1.getRootVariable().getName().equals("Therapy"));
 			Assertions.assertTrue(potBranch1.getBranches().get(0).getStates().get(0).getName().equals("therapy 1"));
-
-		} catch (NotEvaluableNetworkException | IncompatibleEvidenceException | UnexpectedInferenceException e) {
-			e.printStackTrace();
-		} catch (NodeNotFoundException e) {
-			e.printStackTrace();
-		}
 	}
 
-	@Test public void veCEAGlobalTests() {
+	@Test public void veCEAGlobalTests() throws NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException {
 		CEAnalysis veceaGlobal;
-		try {
 			probNet.getInferenceOptions().getMultiCriteriaOptions()
 					.setMulticriteriaType(MulticriteriaOptions.Type.COST_EFFECTIVENESS);
 			veceaGlobal = new VECEAnalysis(probNet);
@@ -210,21 +176,14 @@ public class idCEATest2therapiesTests {
 			// Third interval
 			Assertions.assertEquals(cep.getCost(500000.0), 13184, deltaEquals);
 			Assertions.assertEquals(cep.getEffectiveness(33383.6), 9.39366, deltaEquals);
-
-		} catch (NotEvaluableNetworkException | IncompatibleEvidenceException | UnexpectedInferenceException e) {
-			e.printStackTrace();
-		}
 	}
 
-	@Test public void veCEADecisionDecTestTests() {
+	@Test public void veCEADecisionDecTestTests() throws NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException, NodeNotFoundException, InvalidStateException {
 		CEAnalysis veceaDecision;
 		probNet.getInferenceOptions().getMultiCriteriaOptions()
 				.setMulticriteriaType(MulticriteriaOptions.Type.COST_EFFECTIVENESS);
-		try {
 			Variable decisionVariable = null;
 			EvidenceCase evidenceCaseWithScenario = new EvidenceCase();
-
-			try {
 				decisionVariable = probNet.getVariable("Therapy");
 
 				// Scenario
@@ -235,11 +194,6 @@ public class idCEATest2therapiesTests {
 				Variable testVariable = probNet.getVariable("Test");
 				Finding testNegative = new Finding(testVariable, 1);
 				evidenceCaseWithScenario.addFinding(testNegative);
-			} catch (NodeNotFoundException e) {
-				e.printStackTrace();
-			} catch (InvalidStateException e) {
-				e.printStackTrace();
-			}
 
 			veceaDecision = new VECEAnalysis(probNet);
 			veceaDecision.setPreResolutionEvidence(evidenceCaseWithScenario);
@@ -265,10 +219,6 @@ public class idCEATest2therapiesTests {
 			Assertions.assertTrue(therapyTwoCEP.getNumIntervals() == 1);
 			Assertions.assertEquals(therapyTwoCEP.getCost(10.0), 70150, deltaEquals);
 			Assertions.assertEquals(therapyTwoCEP.getEffectiveness(5.0), 9.2518, deltaEquals);
-
-		} catch (NotEvaluableNetworkException | IncompatibleEvidenceException | UnexpectedInferenceException e) {
-			e.printStackTrace();
-		}
 	}
 
 }

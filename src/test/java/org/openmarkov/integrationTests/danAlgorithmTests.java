@@ -27,183 +27,117 @@ import java.nio.file.Paths;
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 public class danAlgorithmTests {
-
-	private final double deltaEquals = Math.pow(10, -4);
-
-	@BeforeEach	public void setUp(){
-
-
-	}
-
-	@Test
-	public void testOneDecision(){
-		String networkName = "DAN-one-decision-CE.pgmx";
-		String path = "networks/dan/";
-		double lambda = 30000;
-		String absolutePath = null;
-		try {
-			URL res = getClass().getClassLoader().getResource(path + networkName);
-			File f = f = Paths.get(res.toURI()).toFile();
-
-			absolutePath = f.getAbsolutePath();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
-		ProbNetInfo probNetInfo = null;
-		try {
-			probNetInfo = pgmxReader.loadProbNetInfo(absolutePath);
-			ProbNet probNet = probNetInfo.getProbNet();
-
-			CEP resultCEA = new DANDecompositionIntoSymmetricDANsCEA(probNet).getCEP();
-			TablePotential resultUNI = new DANDecompositionIntoSymmetricDANsEvaluation(probNet).getUtility();
-
-			Assertions.assertEquals(resultUNI.values[0], resultCEA.getEffectiveness(lambda) * lambda - resultCEA.getCost(lambda), deltaEquals);
-		} catch (ParserException e) {
-			e.printStackTrace();
-		} catch (UnexpectedInferenceException e) {
-			e.printStackTrace();
-		} catch (NotEvaluableNetworkException e) {
-			e.printStackTrace();
-		} catch (IncompatibleEvidenceException e) {
-			e.printStackTrace();
-		}
-	}
-
-	@Test
-	public void testDAN2tests(){
-		String networkName = "DAN-2tests.pgmx";
-		String path = "networks/IDCEAnTherapies/";
-		double lambda = 30000;
-		PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
-		ProbNetInfo probNetInfo = null;
-		try {
-			URL res = getClass().getClassLoader().getResource(path+networkName);
-			File f = Paths.get(res.toURI()).toFile();
-			String absolutePath = f.getAbsolutePath();
-
-			probNetInfo = pgmxReader.loadProbNetInfo(absolutePath);
-			ProbNet probNet = probNetInfo.getProbNet();
-
-			CEP resultCEA = new DANDecompositionIntoSymmetricDANsCEA(probNet).getCEP();
-			TablePotential resultUNI = new DANDecompositionIntoSymmetricDANsEvaluation(probNet).getUtility();
-
-			Assertions.assertEquals(resultUNI.values[0], resultCEA.getEffectiveness(lambda) * lambda - resultCEA.getCost(lambda), deltaEquals);
-		} catch (ParserException e) {
-			e.printStackTrace();
-		} catch (UnexpectedInferenceException e) {
-			e.printStackTrace();
-		} catch (NotEvaluableNetworkException e) {
-			e.printStackTrace();
-		} catch (IncompatibleEvidenceException e) {
-			e.printStackTrace();
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
-		} catch (NullPointerException e){
-			e.printStackTrace();
-		}
-	}
-
-	@Test
-	public void testDAN3tests(){
-		String networkName = "DAN-3tests.pgmx";
-		String path = "networks/IDCEAnTherapies/";
-		double lambda = 30000;
-		PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
-		ProbNetInfo probNetInfo = null;
-		try {
-			URL res = getClass().getClassLoader().getResource(path+networkName);
-			File f = Paths.get(res.toURI()).toFile();
-			String absolutePath = f.getAbsolutePath();
-
-			probNetInfo = pgmxReader.loadProbNetInfo(absolutePath);
-			ProbNet probNet = probNetInfo.getProbNet();
-
-			CEP resultCEA = new DANDecompositionIntoSymmetricDANsCEA(probNet).getCEP();
-			TablePotential resultUNI = new DANDecompositionIntoSymmetricDANsEvaluation(probNet).getUtility();
-
-			Assertions.assertEquals(resultUNI.values[0], resultCEA.getEffectiveness(lambda) * lambda - resultCEA.getCost(lambda), deltaEquals);
-		} catch (ParserException e) {
-			e.printStackTrace();
-		} catch (UnexpectedInferenceException e) {
-			e.printStackTrace();
-		} catch (NotEvaluableNetworkException e) {
-			e.printStackTrace();
-		} catch (IncompatibleEvidenceException e) {
-			e.printStackTrace();
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
-		}catch (NullPointerException e){
-			e.printStackTrace();
-		}
-	}
-
-	@Test
-	public void testDAN4tests(){
-		String networkName = "DAN-4tests.pgmx";
-		String path = "networks/IDCEAnTherapies/";
-		double lambda = 30000;
-		PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
-		ProbNetInfo probNetInfo = null;
-		try {
-			URL res = getClass().getClassLoader().getResource(path + networkName);
-			File f = f = Paths.get(res.toURI()).toFile();
-			String absolutePath = f.getAbsolutePath();
-
-			probNetInfo = pgmxReader.loadProbNetInfo(absolutePath);
-			ProbNet probNet = probNetInfo.getProbNet();
-
-			CEP resultCEA = new DANDecompositionIntoSymmetricDANsCEA(probNet).getCEP();
-			TablePotential resultUNI = new DANDecompositionIntoSymmetricDANsEvaluation(probNet).getUtility();
-
-			Assertions.assertEquals(resultUNI.values[0], resultCEA.getEffectiveness(lambda) * lambda - resultCEA.getCost(lambda), deltaEquals);
-		} catch (ParserException e) {
-			e.printStackTrace();
-		} catch (UnexpectedInferenceException e) {
-			e.printStackTrace();
-		} catch (NotEvaluableNetworkException e) {
-			e.printStackTrace();
-		} catch (IncompatibleEvidenceException e) {
-			e.printStackTrace();
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
-		} catch (NullPointerException e){
-			e.printStackTrace();
-		}
-	}
-
-
-	@Test public void oneChanceCETest() {
-		String networkName = "DAN-one-chance-ce.pgmx";
-		String path = "networks/dan/";
-		double lambda = 30000;
-		URL res = getClass().getClassLoader().getResource(path + networkName);
-		File f = null;
-		try {
-			f = Paths.get(res.toURI()).toFile();
-		} catch (URISyntaxException e) {
-			throw new RuntimeException(e);
-		}
-		String absolutePath = f.getAbsolutePath();
-
-		PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
-		ProbNetInfo probNetInfo = null;
-		try {
-			probNetInfo = pgmxReader.loadProbNetInfo(absolutePath);
-			ProbNet probNet = probNetInfo.getProbNet();
-
-			CEP resultCEA = new DANDecompositionIntoSymmetricDANsCEA(probNet).getCEP();
-			TablePotential resultUNI = new DANDecompositionIntoSymmetricDANsEvaluation(probNet).getUtility();
-
-			Assertions.assertEquals(resultUNI.values[0], resultCEA.getEffectiveness(lambda) * lambda - resultCEA.getCost(lambda), deltaEquals);
-		} catch (ParserException e) {
-			e.printStackTrace();
-		} catch (UnexpectedInferenceException e) {
-			e.printStackTrace();
-		} catch (NotEvaluableNetworkException e) {
-			e.printStackTrace();
-		} catch (IncompatibleEvidenceException e) {
-			e.printStackTrace();
-		}
-	}
+    
+    private final double deltaEquals = Math.pow(10, -4);
+    
+    @BeforeEach public void setUp() {
+    
+    
+    }
+    
+    @Test
+    public void testOneDecision() throws NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException, ParserException, URISyntaxException {
+        String networkName = "DAN-one-decision-CE.pgmx";
+        String path = "networks/dan/";
+        double lambda = 30000;
+        URL res = getClass().getClassLoader().getResource(path + networkName);
+        File f = Paths.get(res.toURI()).toFile();
+        
+        String absolutePath = f.getAbsolutePath();
+        
+        PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
+        ProbNetInfo probNetInfo = pgmxReader.loadProbNetInfo(absolutePath);
+        ProbNet probNet = probNetInfo.getProbNet();
+        
+        CEP resultCEA = new DANDecompositionIntoSymmetricDANsCEA(probNet).getCEP();
+        TablePotential resultUNI = new DANDecompositionIntoSymmetricDANsEvaluation(probNet).getUtility();
+        
+        Assertions.assertEquals(resultUNI.values[0], resultCEA.getEffectiveness(lambda) * lambda - resultCEA.getCost(lambda), deltaEquals);
+        
+    }
+    
+    @Disabled("Missing test net DAN-2tests.pgmx")
+    @Test
+    public void testDAN2tests() throws NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException, ParserException, URISyntaxException {
+        String networkName = "DAN-2tests.pgmx";
+        String path = "networks/IDCEAnTherapies/";
+        double lambda = 30000;
+        PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
+        URL res = getClass().getClassLoader().getResource(path + networkName);
+        File f = Paths.get(res.toURI()).toFile();
+        String absolutePath = f.getAbsolutePath();
+        
+        ProbNetInfo probNetInfo = pgmxReader.loadProbNetInfo(absolutePath);
+        ProbNet probNet = probNetInfo.getProbNet();
+        
+        CEP resultCEA = new DANDecompositionIntoSymmetricDANsCEA(probNet).getCEP();
+        TablePotential resultUNI = new DANDecompositionIntoSymmetricDANsEvaluation(probNet).getUtility();
+        
+        Assertions.assertEquals(resultUNI.values[0], resultCEA.getEffectiveness(lambda) * lambda - resultCEA.getCost(lambda), deltaEquals);
+        
+    }
+    
+    @Disabled("Missing test net DAN-3tests.pgmx")
+    @Test
+    public void testDAN3tests() throws NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException, ParserException, URISyntaxException {
+        String networkName = "DAN-3tests.pgmx";
+        String path = "networks/IDCEAnTherapies/";
+        double lambda = 30000;
+        PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
+        URL res = getClass().getClassLoader().getResource(path + networkName);
+        File f = Paths.get(res.toURI()).toFile();
+        String absolutePath = f.getAbsolutePath();
+        
+        ProbNetInfo probNetInfo = pgmxReader.loadProbNetInfo(absolutePath);
+        ProbNet probNet = probNetInfo.getProbNet();
+        
+        CEP resultCEA = new DANDecompositionIntoSymmetricDANsCEA(probNet).getCEP();
+        TablePotential resultUNI = new DANDecompositionIntoSymmetricDANsEvaluation(probNet).getUtility();
+        
+        Assertions.assertEquals(resultUNI.values[0], resultCEA.getEffectiveness(lambda) * lambda - resultCEA.getCost(lambda), deltaEquals);
+        
+    }
+    
+    @Disabled("Missing test net DAN-4tests.pgmx")
+    @Test
+    public void testDAN4tests() throws NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException, ParserException, URISyntaxException {
+        String networkName = "DAN-4tests.pgmx";
+        String path = "networks/IDCEAnTherapies/";
+        double lambda = 30000;
+        PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
+        URL res = getClass().getClassLoader().getResource(path + networkName);
+        File f = Paths.get(res.toURI()).toFile();
+        String absolutePath = f.getAbsolutePath();
+        
+        ProbNetInfo probNetInfo = pgmxReader.loadProbNetInfo(absolutePath);
+        ProbNet probNet = probNetInfo.getProbNet();
+        
+        CEP resultCEA = new DANDecompositionIntoSymmetricDANsCEA(probNet).getCEP();
+        TablePotential resultUNI = new DANDecompositionIntoSymmetricDANsEvaluation(probNet).getUtility();
+        
+        Assertions.assertEquals(resultUNI.values[0], resultCEA.getEffectiveness(lambda) * lambda - resultCEA.getCost(lambda), deltaEquals);
+        
+    }
+    
+    
+    @Test
+    public void oneChanceCETest() throws NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException, ParserException, URISyntaxException {
+        String networkName = "DAN-one-chance-ce.pgmx";
+        String path = "networks/dan/";
+        double lambda = 30000;
+        URL res = getClass().getClassLoader().getResource(path + networkName);
+        File f = Paths.get(res.toURI()).toFile();
+        
+        String absolutePath = f.getAbsolutePath();
+        
+        PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
+        ProbNetInfo probNetInfo = pgmxReader.loadProbNetInfo(absolutePath);
+        ProbNet probNet = probNetInfo.getProbNet();
+        
+        CEP resultCEA = new DANDecompositionIntoSymmetricDANsCEA(probNet).getCEP();
+        TablePotential resultUNI = new DANDecompositionIntoSymmetricDANsEvaluation(probNet).getUtility();
+        
+        Assertions.assertEquals(resultUNI.values[0], resultCEA.getEffectiveness(lambda) * lambda - resultCEA.getCost(lambda), deltaEquals);
+        
+    }
 }

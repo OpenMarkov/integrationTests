@@ -7,8 +7,13 @@
 
 package org.openmarkov.inference.heuristics;
 
+import org.openmarkov.core.exception.DoEditException;
+import org.openmarkov.core.exception.NonProjectablePotentialException;
+import org.openmarkov.core.exception.WrongCriterionException;
 import org.openmarkov.core.exception.WrongGraphStructureException;
 import org.openmarkov.core.model.network.ProbNet;
+
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * Interface to calculate the quality of an
@@ -25,6 +30,6 @@ public interface EliminationHeuristicScore {
 	 * @throws WrongGraphStructureException
 	 */
 	@SuppressWarnings("rawtypes") double[] getScores(ProbNet probNet, Class[] heuristicsClasses)
-			throws WrongGraphStructureException;
+            throws WrongGraphStructureException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, DoEditException, NonProjectablePotentialException, WrongCriterionException;
 
 }

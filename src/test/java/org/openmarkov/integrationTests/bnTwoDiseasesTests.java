@@ -47,22 +47,17 @@ public class bnTwoDiseasesTests {
 		// Load the network: ID-decide-test
 		PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
 		ProbNetInfo probNetInfo = null;
-		try {
 			probNetInfo = pgmxReader.loadProbNetInfo(absolutePath);
-		} catch (ParserException e) {
-			e.printStackTrace();
-		}
 		this.probNet = probNetInfo.getProbNet();
 		if (probNetInfo.getEvidence().size() != 0) {
 			this.preResolutionEvidence = probNetInfo.getEvidence().get(0);
 		}
 	}
 
-	@Test public void vePropagationWithoutEvidence() {
+	@Test public void vePropagationWithoutEvidence() throws NotEvaluableNetworkException, IncompatibleEvidenceException {
 		VEPropagation vePropagation;
 		EvidenceCase postResolutionEvidence = new EvidenceCase();
 		List<Variable> variablesOfInterest = probNet.getVariables();
-		try {
 			vePropagation = new VEPropagation(probNet);
 			vePropagation.setVariablesOfInterest(variablesOfInterest);
 			vePropagation.setPreResolutionEvidence(preResolutionEvidence);
@@ -107,26 +102,16 @@ public class bnTwoDiseasesTests {
 				}
 				Assertions.assertArrayEquals(posteriorVales.get(variable).values, expectedValues, deltaEquals);
 			}
-		} catch (NotEvaluableNetworkException | IncompatibleEvidenceException e) {
-			e.printStackTrace();
-		}
 	}
 
 	@Disabled
-	@Test public void vePropagationWithPostResolutionEvidence1() {
+	@Test public void vePropagationWithPostResolutionEvidence1() throws NotEvaluableNetworkException, IncompatibleEvidenceException, NodeNotFoundException, InvalidStateException {
 		VEPropagation vePropagation;
 		EvidenceCase postResolutionEvidence = new EvidenceCase();
 		List<Variable> variablesOfInterest = probNet.getVariables();
-
 		// New Finding: Disease 1 = present
-		try {
 			Finding finding = new Finding(probNet.getVariable("Disease 1"), 1);
 			postResolutionEvidence.addFinding(finding);
-		} catch (NodeNotFoundException | IncompatibleEvidenceException | InvalidStateException e) {
-			e.printStackTrace();
-		}
-
-		try {
 			vePropagation = new VEPropagation(probNet);
 			vePropagation.setVariablesOfInterest(variablesOfInterest);
 			vePropagation.setPreResolutionEvidence(preResolutionEvidence);
@@ -170,18 +155,13 @@ public class bnTwoDiseasesTests {
 				}
 				Assertions.assertArrayEquals(posteriorVales.get(variable).values, expectedValues, deltaEquals);
 			}
-		} catch (NotEvaluableNetworkException | IncompatibleEvidenceException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	@Tag(TestSpeed.SLOW)
-	@Test public void vePropagationWithPostResolutionEvidence2() {
+	@Test public void vePropagationWithPostResolutionEvidence2() throws NotEvaluableNetworkException, IncompatibleEvidenceException, NodeNotFoundException, InvalidStateException {
 		VEPropagation vePropagation;
 		EvidenceCase postResolutionEvidence = new EvidenceCase();
 		List<Variable> variablesOfInterest = probNet.getVariables();
-
-		try {
 			// New Finding: Disease 1 = present
 			Finding finding1 = new Finding(probNet.getVariable("Disease 1"), 1);
 			postResolutionEvidence.addFinding(finding1);
@@ -193,17 +173,11 @@ public class bnTwoDiseasesTests {
 			// New Finding: X-ray = negative
 			Finding finding3 = new Finding(probNet.getVariable("X-ray"), 0);
 			postResolutionEvidence.addFinding(finding3);
-		} catch (NodeNotFoundException | IncompatibleEvidenceException | InvalidStateException e) {
-			e.printStackTrace();
-		}
-
-		try {
 			vePropagation = new VEPropagation(probNet);
 			vePropagation.setVariablesOfInterest(variablesOfInterest);
 			vePropagation.setPreResolutionEvidence(preResolutionEvidence);
 			vePropagation.setPostResolutionEvidence(postResolutionEvidence);
 			HashMap<Variable, TablePotential> posteriorVales = vePropagation.getPosteriorValues();
-
 			for (Variable variable : variablesOfInterest) {
 				double[] expectedValues = new double[0];
 				switch (variable.getName()) {
@@ -241,9 +215,7 @@ public class bnTwoDiseasesTests {
 				}
 				Assertions.assertArrayEquals(posteriorVales.get(variable).values, expectedValues, deltaEquals);
 			}
-		} catch (NotEvaluableNetworkException | IncompatibleEvidenceException e) {
-			e.printStackTrace();
-		}
+
 	}
 
 }

@@ -73,41 +73,40 @@ public class PGMXCompound {
         return errorWriting;
     }
 
-    public ProbNetInfo getProbNetInfo() {
+    public ProbNetInfo getProbNetInfo() throws ParserException, IOException {
         if (probNetInfo == null) {
             readProbNetInfoIfNecessary();
         }
         return probNetInfo;
     }
 
-    public ProbNet getProbNet() {
+    public ProbNet getProbNet() throws ParserException, IOException {
         if (probNet == null) {
             readProbNetInfoIfNecessary();
         }
         return probNet;
     }
 
-    public List<EvidenceCase> getEvidence() {
+    public List<EvidenceCase> getEvidence() throws ParserException, IOException {
         if (evidenceCases == null) {
             readProbNetInfoIfNecessary();
         }
         return evidenceCases;
     }
 
-    public String getVersion() {
+    public String getVersion() throws ParserException, IOException {
         if (version == null) {
             readProbNetInfoIfNecessary();
         }
         return version;
     }
 
-    private void readProbNetInfoIfNecessary() {
+    private void readProbNetInfoIfNecessary() throws IOException, ParserException {
         if (!triedToRead) {
             triedToRead = true;
             errorReading = false;
             PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
             String absolutePath = file.getAbsolutePath();
-            try {
                 if (fileOrigin) {
                     this.probNetInfo = pgmxReader.loadProbNetInfo(absolutePath, new FileInputStream(absolutePath));
                     this.version = pgmxReader.getVersion(absolutePath, new FileInputStream(absolutePath));
@@ -119,16 +118,7 @@ public class PGMXCompound {
                 }
                 this.probNet = probNetInfo.getProbNet();
                 this.evidenceCases = probNetInfo.getEvidence();
-            } catch (FileNotFoundException e) {
-                System.out.println("File " + absolutePath + " does not exists.");
-                errorReading = true;
-            } catch (ParserException e) {
-                System.out.println("Parser exception reading file " + absolutePath);
-                errorReading = true;
-            } catch (IOException e) {
-                System.out.println("Parser exception reading file " + absolutePath);
-                errorReading = true;
-            }
+
         }
     }
 

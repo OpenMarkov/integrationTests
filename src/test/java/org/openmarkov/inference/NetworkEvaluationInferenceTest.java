@@ -3,16 +3,19 @@ package org.openmarkov.inference;
 import org.junit.jupiter.api.Assertions;
 
 import org.openmarkov.core.exception.NotEvaluableNetworkException;
+import org.openmarkov.core.exception.ParserException;
 import org.openmarkov.inference.heuristics.Tools;
 import org.openmarkov.core.model.network.ProbNet;
 import org.openmarkov.core.model.network.potential.TablePotential;
 import org.openmarkov.inference.algorithm.decompositionIntoSymmetricDANs.DecisionTreeComputation;
 import org.openmarkov.inference.algorithm.decompositionIntoSymmetricDANs.evaluation.DANEvaluation;
 
+import java.net.URISyntaxException;
+
 
 public abstract class NetworkEvaluationInferenceTest {
 
-	public void testNetworkEvaluation(String networkName, double expectedEU, String... namesVariablesIntervention) throws NotEvaluableNetworkException {
+	public void testNetworkEvaluation(String networkName, double expectedEU, String... namesVariablesIntervention) throws NotEvaluableNetworkException, ParserException, URISyntaxException {
 		ProbNet network = loadNetwork(networkName);
 		System.out.println("*** Evaluating network " + networkName + " ***");
 		System.out.println();
@@ -31,7 +34,7 @@ public abstract class NetworkEvaluationInferenceTest {
 		Tools.testEvaluationResults(network, expectedEU, globalUtility, namesVariablesIntervention);
 	}
 
-	protected abstract ProbNet loadNetwork(String networkName);
+	protected abstract ProbNet loadNetwork(String networkName) throws ParserException, URISyntaxException;
 	
 	protected abstract DANEvaluation buildNetworkEvaluation(ProbNet network) throws NotEvaluableNetworkException;
 
@@ -39,18 +42,12 @@ public abstract class NetworkEvaluationInferenceTest {
 
 	protected abstract DANEvaluation buildNetworkEvaluation(ProbNet network, boolean computeDecisionTreeForGUI) throws NotEvaluableNetworkException;
 	
-	public void testNetworkEvaluationAndDecisionTree(ProbNet network, double expectedEU, String... namesVariablesIntervention) {
+	public void testNetworkEvaluationAndDecisionTree(ProbNet network, double expectedEU, String... namesVariablesIntervention) throws NotEvaluableNetworkException {
 		System.out.println();
 		
 		boolean computeDTValues []= {true, false};
-		for (boolean computeDT: computeDTValues) {			
-			DANEvaluation eval = null;
-			try {
-				eval = buildNetworkEvaluation(network, computeDT);
-			} catch (NotEvaluableNetworkException e1) {
-				e1.printStackTrace();
-				Assertions.fail();
-			}
+		for (boolean computeDT: computeDTValues) {
+            DANEvaluation eval = buildNetworkEvaluation(network, computeDT);
 			testDANEvaluation(eval, network, expectedEU, namesVariablesIntervention);
 			Tools.testDecisionTree(network, computeDT, (DecisionTreeComputation) eval);
 		}

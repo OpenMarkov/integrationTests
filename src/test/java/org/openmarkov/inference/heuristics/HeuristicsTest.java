@@ -9,7 +9,11 @@ package org.openmarkov.inference.heuristics;
 
 import org.junit.jupiter.api.*;
 
+import org.openmarkov.core.exception.DoEditException;
+import org.openmarkov.core.exception.NonProjectablePotentialException;
+import org.openmarkov.core.exception.WrongCriterionException;
 import org.openmarkov.core.exception.WrongGraphStructureException;
+import org.openmarkov.core.test.TestSpeed;
 import org.openmarkov.inference.util.Util;
 import org.openmarkov.core.model.network.ProbNet;
 import org.openmarkov.core.model.network.type.BayesianNetworkType;
@@ -18,6 +22,8 @@ import org.openmarkov.inference.heuristic.hybridElimination.HybridElimination;
 import org.openmarkov.inference.heuristic.minimalFillIn.MinimalFillIn;
 import org.openmarkov.inference.heuristic.simpleElimination.SimpleElimination;
 
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.List;
 
@@ -41,11 +47,12 @@ public class HeuristicsTest {
 	@BeforeEach public void setUp() throws Exception {
 	}
 	
-	@Disabled("This performance test is so heavy, that it can throw a java.lang.OutOfMemoryError after a few minutes of execution")
+	@Tag(TestSpeed.SLOW)
 	@Test
 	/** This is a performance test. It checks that some heuristics are better than others.
 	 * We assume that CanoAndMoral must be better than all the others "most" of the times, 
-	 * the same with MinimalFillin and SimpleElimination */ public void test3() throws WrongGraphStructureException {
+	 * the same with MinimalFillin and SimpleElimination */
+	public void test3() throws IOException, DoEditException, NonProjectablePotentialException, InvocationTargetException, WrongCriterionException, NoSuchMethodException, InstantiationException, IllegalAccessException {
 		List<ProbNet> probNetsDB = Util.readProbNetsDB(BayesianNetworkType.getUniqueInstance());
 		probNetsDB = Util.filterNonPureTablePotentialProbNets(probNetsDB);
 		@SuppressWarnings("rawtypes") Class[] heuristicsClasses = new Class[] { CanoMoralElimination.class,
@@ -119,7 +126,7 @@ public class HeuristicsTest {
 	}
 
 	@SuppressWarnings("rawtypes") private double[][] getAllScores(Collection<ProbNet> probNetsDB,
-			Class[] heuristicsClasses) throws WrongGraphStructureException {
+			Class[] heuristicsClasses) throws DoEditException, NonProjectablePotentialException, InvocationTargetException, WrongCriterionException, NoSuchMethodException, InstantiationException, IllegalAccessException {
 		double[][] networkScores = new double[probNetsDB.size()][];
 		int i = 0;
 		for (ProbNet bayesianNetwork : probNetsDB) {

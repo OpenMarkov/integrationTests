@@ -19,17 +19,9 @@ import org.openmarkov.inference.algorithm.decompositionIntoSymmetricDANs.evaluat
 //@Ignore
 public class DANDecisionTreeEvaluationTest extends DANEvaluationTest {
 	
-
-	
-	
-	@Override public void testNetworkEvaluation(ProbNet network, double expectedEU, String... namesVariablesIntervention) {
+	@Override public void testNetworkEvaluation(ProbNet network, double expectedEU, String... namesVariablesIntervention) throws NotEvaluableNetworkException {
 		testNetworkEvaluationAndDecisionTree(network,expectedEU,namesVariablesIntervention);
 	}
-
-
-	
-	
-	
 
 	protected DANEvaluation buildNetworkEvaluation(ProbNet network, boolean computeDecisionTreeForGUI) throws NotEvaluableNetworkException {
 		DANEvaluation eval = null;
@@ -38,35 +30,25 @@ public class DANDecisionTreeEvaluationTest extends DANEvaluationTest {
 	}
 
 	//Next tests are commented because running them very often takes too much time
-	@Disabled("Old DAN evaluation") @Test public void testDANKingNobleDescentYesFirstTask1()
-			throws IncompatibleEvidenceException, UnexpectedInferenceException, NodeNotFoundException,
-			NotEvaluableNetworkException {
+	@Disabled("Old DAN evaluation") @Test public void testDANKingNobleDescentYesFirstTask1() {
 		//testDANEvaluation("king-noble-descent-yes-first-task-1",9.03);
 
 	}
 
-	@Disabled("Old DAN evaluation") @Test public void testDANKingNobleDescentYesFirstTask1SecondTask2()
-			throws IncompatibleEvidenceException, UnexpectedInferenceException, NodeNotFoundException,
-			NotEvaluableNetworkException {
+	@Disabled("Old DAN evaluation") @Test public void testDANKingNobleDescentYesFirstTask1SecondTask2() {
 		//testDANEvaluation("king-noble-descent-yes-first-task-1-second-task-2",9.03);
 	}
 
-	@Disabled("Old DAN evaluation") @Test public void testDANKingNobleDescentNo()
-			throws IncompatibleEvidenceException, UnexpectedInferenceException, NodeNotFoundException,
-			NotEvaluableNetworkException {
+	@Disabled("Old DAN evaluation") @Test public void testDANKingNobleDescentNo() {
 		//testDANEvaluation("king-noble-descent-no",6.43);
 
 	}
 
-	@Disabled("Old DAN evaluation") @Test public void testDANKingNobleDescentYes()
-			throws IncompatibleEvidenceException, UnexpectedInferenceException, NodeNotFoundException,
-			NotEvaluableNetworkException {
+	@Disabled("Old DAN evaluation") @Test public void testDANKingNobleDescentYes() {
 		//testDANEvaluation("king-noble-descent-yes",9.03);
 	}
 
-	@Disabled("Old DAN evaluation") @Test public void testDANKing()
-			throws IncompatibleEvidenceException, UnexpectedInferenceException, NodeNotFoundException,
-			NotEvaluableNetworkException {
+	@Disabled("Old DAN evaluation") @Test public void testDANKing() {
 		//testDANEvaluation("king",7.73);
 	}
 

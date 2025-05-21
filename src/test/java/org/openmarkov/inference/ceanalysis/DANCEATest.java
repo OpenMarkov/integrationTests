@@ -4,20 +4,19 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-import org.openmarkov.core.exception.IncompatibleEvidenceException;
-import org.openmarkov.core.exception.NodeNotFoundException;
-import org.openmarkov.core.exception.NotEvaluableNetworkException;
-import org.openmarkov.core.exception.UnexpectedInferenceException;
+import org.openmarkov.core.exception.*;
 import org.openmarkov.core.test.TestSpeed;
 import org.openmarkov.inference.heuristics.Tools;
 import org.openmarkov.core.inference.tasks.CEAnalysis;
 import org.openmarkov.core.model.network.CEP;
 import org.openmarkov.core.model.network.ProbNet;
 
+import java.net.URISyntaxException;
+
 
 public abstract class DANCEATest {
 
-	public void testCEADANEvaluation(String danName, int globalNumberOfCEPIntervals, double... expectedThreshods) throws NotEvaluableNetworkException {
+	public void testCEADANEvaluation(String danName, int globalNumberOfCEPIntervals, double... expectedThreshods) throws NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException, ParserException, URISyntaxException {
 		Tools t = new Tools();
 		ProbNet network = t.loadDAN(danName);
 		System.out.println("*** CEA with DAN " + danName + " ***");
@@ -26,13 +25,8 @@ public abstract class DANCEATest {
 		testCEADANEvaluation(globalNumberOfCEPIntervals, eval, expectedThreshods);
 	}
 
-	protected void testCEADANEvaluation(int globalNumberOfCEPIntervals, CEAnalysis eval, double... expectedThreshods) {
-		CEP cep = null;
-		try {
-			cep = eval.getCEP();
-		} catch (NotEvaluableNetworkException | IncompatibleEvidenceException | UnexpectedInferenceException e) {
-			e.printStackTrace();
-		}
+	protected void testCEADANEvaluation(int globalNumberOfCEPIntervals, CEAnalysis eval, double... expectedThreshods) throws NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException {
+        CEP cep = eval.getCEP();
 		Assertions.assertNotNull(cep);
 		Assertions.assertEquals(globalNumberOfCEPIntervals, cep.getNumIntervals());
 		int numThresholds = globalNumberOfCEPIntervals - 1;
@@ -46,35 +40,35 @@ public abstract class DANCEATest {
 	protected abstract CEAnalysis buildCEAnalysis(ProbNet network) throws NotEvaluableNetworkException;
 	
 	@Test
-	public void testDANOnlyNonZeroUtility() throws IncompatibleEvidenceException, UnexpectedInferenceException,
-			NodeNotFoundException, NotEvaluableNetworkException {
+	public void testDANOnlyNonZeroUtility() throws
+            NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException, ParserException, URISyntaxException {
 		testCEADANEvaluation("only-non-zero-utility-ce", 1);
 	}
 	
 	@Test
-	public void testDANOnlyZeroyUtility() throws IncompatibleEvidenceException, UnexpectedInferenceException,
-			NodeNotFoundException, NotEvaluableNetworkException {
+	public void testDANOnlyZeroyUtility() throws
+            NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException, ParserException, URISyntaxException {
 		testCEADANEvaluation("only-zero-utility-ce", 1);
 	}
 	
 	@Tag(TestSpeed.MEDIUM)
 	@Test
-	public void testDANOneDecisionCE() throws IncompatibleEvidenceException, UnexpectedInferenceException,
-			NodeNotFoundException, NotEvaluableNetworkException {
+	public void testDANOneDecisionCE() throws
+            NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException, ParserException, URISyntaxException {
 		testCEADANEvaluation("one-decision-CE", 2, 1.333333333);
 	}
 	
 	@Tag(TestSpeed.SLOW)
 	@Test
-	public void testDANOneChanceCE() throws IncompatibleEvidenceException, UnexpectedInferenceException,
-			NodeNotFoundException, NotEvaluableNetworkException {
+	public void testDANOneChanceCE() throws
+            NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException, ParserException, URISyntaxException {
 		testCEADANEvaluation("one-chance-ce", 1);
 	}
 	
 	@Tag(TestSpeed.SLOW)
 	@Test
-	public void testDANDecideTest() throws IncompatibleEvidenceException, UnexpectedInferenceException,
-			NodeNotFoundException, NotEvaluableNetworkException {
+	public void testDANDecideTest() throws
+            NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException, ParserException, URISyntaxException {
 		testCEADANEvaluation("decide-test-ce", 3, 11171.347828594418, 33383.5);
 	}
 		

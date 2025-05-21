@@ -78,7 +78,7 @@ public class NetsRepository {
 	 *
 	 * @return URL of the networks
 	 */
-	public List<URL> getNetworks() {
+	public List<URL> getNetworks() throws IOException {
 		return getNetworks("");
 	}
 
@@ -88,7 +88,7 @@ public class NetsRepository {
 	 * @param networkType NetWorkType of the net
 	 * @return List of filtered url networks
 	 */
-	public List<URL> getNetworks(NetworkType networkType) {
+	public List<URL> getNetworks(NetworkType networkType) throws IOException {
 		if (networkType.equals(BayesianNetworkType.getUniqueInstance())) {
 			return getNetworks(NETWORK_BN);
 		} else if (networkType.equals(DecisionAnalysisNetworkType.getUniqueInstance())) {
@@ -111,16 +111,13 @@ public class NetsRepository {
 	 * @param networkFilterType constant to define the filter. Use the static constants defined in this class
 	 * @return List of filtered url networks
 	 */
-	private List<URL> getNetworks(String networkFilterType) {
+	private List<URL> getNetworks(String networkFilterType) throws IOException {
 		List<URL> networksURL = new ArrayList<URL>();
 		JSONObject bitbucketDirectoryJSON = null;
 
 		// Read the JSON object given by the API of bitbucket
-		try {
 			bitbucketDirectoryJSON = readJsonFromUrl(bitbucketNetworksURL);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
+
 
 		// Get the array of files in the directory
 		JSONArray networksList = bitbucketDirectoryJSON.getJSONArray("values");
@@ -136,12 +133,10 @@ public class NetsRepository {
 								|| (networkFilterType.isEmpty())
 				)) {
 					// We get the url from that file and add it to the list
-					try {
+
 						URL url = new URL(rootNetworksDirectory + lastURLString);
 						networksURL.add(url);
-					} catch (MalformedURLException e) {
-						e.printStackTrace();
-					}
+
 				}
 			}
 		}

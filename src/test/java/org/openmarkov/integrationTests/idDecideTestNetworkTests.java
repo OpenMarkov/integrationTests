@@ -29,19 +29,15 @@ public abstract class idDecideTestNetworkTests extends IDNetworkTests {
 
 
 	@Disabled
-	@Test public void veResolutionTestWithoutEvidence() {
+	@Test public void veResolutionTestWithoutEvidence() throws NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException {
 		VEEvaluation veEvaluation;
-		try {
 			veEvaluation = new VEEvaluation(probNet);
 			veEvaluation.setPreResolutionEvidence(preResolutionEvidence);
 			TablePotential utility = veEvaluation.getUtility();
 			Assertions.assertEquals(utility.getValues()[0], 9.3289, deltaEquals);
-		} catch (NotEvaluableNetworkException | IncompatibleEvidenceException | UnexpectedInferenceException e) {
-			e.printStackTrace();
-		}
 	}
 
-	@Test public void veResolutionTestWithEvidences() {
+	@Test public void veResolutionTestWithEvidences() throws NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException, NodeNotFoundException, InvalidStateException {
 		EvidenceCase evidenceCase = new EvidenceCase();
 		Variable disease = null;
 		Variable doTest = null;
@@ -50,7 +46,6 @@ public abstract class idDecideTestNetworkTests extends IDNetworkTests {
 		Finding secondFinding;
 
 		// First evidence - Finding -> Disease = absent
-		try {
 			disease = probNet.getVariable("Disease");
 			finding = new Finding(disease, 0);
 			evidenceCase.addFinding(finding);
@@ -58,13 +53,8 @@ public abstract class idDecideTestNetworkTests extends IDNetworkTests {
 			veEvaluation.setPreResolutionEvidence(evidenceCase);
 			TablePotential utility = veEvaluation.getUtility();
 			Assertions.assertEquals(utility.getValues()[0], 10, deltaEquals);
-
-		} catch (NotEvaluableNetworkException | IncompatibleEvidenceException | UnexpectedInferenceException | NodeNotFoundException | InvalidStateException e) {
-			e.printStackTrace();
-		}
-
+			
 		// Second evidence - Finding -> Disease = present
-		try {
 			evidenceCase = new EvidenceCase();
 			disease = probNet.getVariable("Disease");
 			// Set disease as present
@@ -72,15 +62,10 @@ public abstract class idDecideTestNetworkTests extends IDNetworkTests {
 			evidenceCase.addFinding(finding);
 			veEvaluation = new VEEvaluation(probNet);
 			veEvaluation.setPreResolutionEvidence(evidenceCase);
-			TablePotential utility = veEvaluation.getUtility();
+			utility = veEvaluation.getUtility();
 			Assertions.assertEquals(utility.getValues()[0], 7.25, deltaEquals);
 
-		} catch (NotEvaluableNetworkException | IncompatibleEvidenceException | UnexpectedInferenceException | NodeNotFoundException | InvalidStateException e) {
-			e.printStackTrace();
-		}
-
 		// Third evidence - Multiple findings -> Disease = present; Do test? = yes
-		try {
 			evidenceCase = new EvidenceCase();
 			disease = probNet.getVariable("Disease");
 			doTest = probNet.getVariable("Do test?");
@@ -95,45 +80,32 @@ public abstract class idDecideTestNetworkTests extends IDNetworkTests {
 
 			veEvaluation = new VEEvaluation(probNet);
 			veEvaluation.setPreResolutionEvidence(evidenceCase);
-			TablePotential utility = veEvaluation.getUtility();
+			utility = veEvaluation.getUtility();
 			Assertions.assertEquals(utility.getValues()[0], 7.05, deltaEquals);
-
-		} catch (NotEvaluableNetworkException | IncompatibleEvidenceException | UnexpectedInferenceException | NodeNotFoundException | InvalidStateException e) {
-			e.printStackTrace();
-		}
 	}
 
-	@Test public void veOptimalPolicyTest() {
+	@Test public void veOptimalPolicyTest() throws NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException, NodeNotFoundException {
 		OptimalPolicies veOptimalPolicy;
-		try {
 			Variable decisionVariable = probNet.getVariable("Therapy");
 			veOptimalPolicy = new VEEvaluation(probNet);
 			TablePotential optimalPolicy = (TablePotential) veOptimalPolicy.getOptimalPolicy(decisionVariable);
 			double[] expectedValues = { 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1 };
 			Assertions.assertArrayEquals(optimalPolicy.getValues(), expectedValues, deltaEquals);
-		} catch (NotEvaluableNetworkException | IncompatibleEvidenceException | UnexpectedInferenceException | NodeNotFoundException e) {
-			e.printStackTrace();
-		}
 	}
 
-	@Test public void veExpectedUtilityTest() {
+	@Test public void veExpectedUtilityTest() throws NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException, NodeNotFoundException {
 		VEExpectedUtilityDecision veExpectedUtilityDecision;
-		try {
 			Variable decisionVariable = probNet.getVariable("Therapy");
 			veExpectedUtilityDecision = new VEExpectedUtilityDecision(probNet, decisionVariable);
 			TablePotential expectedUtility = veExpectedUtilityDecision.getExpectedUtility();
 			double[] expectedValues = { 9.16, 8.11, -0.2, -0.95, 0.0, -0.75, 9.7107227, 8.03512, 0.0, -0.75, 4.810443,
 					7.2184073 };
 			Assertions.assertArrayEquals(expectedUtility.getValues(), expectedValues, deltaEquals);
-		} catch (NotEvaluableNetworkException | IncompatibleEvidenceException | UnexpectedInferenceException | NodeNotFoundException e) {
-			e.printStackTrace();
-		}
 	}
 
 	@Disabled
-	@Test public void veOptimalIntervention() {
+	@Test public void veOptimalIntervention() throws NodeNotFoundException, NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException {
 		VEOptimalIntervention veOptimalIntervention;
-		try {
 			veOptimalIntervention = new VEOptimalIntervention(probNet, preResolutionEvidence);
 			StrategyTree optimalStrategyTree = veOptimalIntervention.getOptimalIntervention();
 
@@ -158,12 +130,6 @@ public abstract class idDecideTestNetworkTests extends IDNetworkTests {
 			StrategyTree potBranch1 = (StrategyTree) subStrategyTree.getBranches().get(1).getPotential();
 			Assertions.assertTrue(potBranch1.getRootVariable().getName().equals("Therapy"));
 			Assertions.assertTrue(potBranch1.getBranches().get(0).getStates().get(0).getName().equals("yes"));
-
-		} catch (NotEvaluableNetworkException | IncompatibleEvidenceException | UnexpectedInferenceException e) {
-			e.printStackTrace();
-		} catch (NodeNotFoundException e) {
-			e.printStackTrace();
-		}
 	}
 
 	
