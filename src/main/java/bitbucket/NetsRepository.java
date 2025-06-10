@@ -184,7 +184,7 @@ public class NetsRepository {
 	/** 
 	 * Utility method to read specific networks in tests from the classpath by name located in the application's resources.<p>
 	 * 
-	 * @param networkName the name or relative path of the network file in the classpath
+	 * @param relativePath the name or relative path of the network file in the classpath
 	 * @return an {@code Optional} containing the loaded {@code ProbNetInfo} if found and successfully parsed,
 	 *         or {@code Optional.empty()} if the resource is missing or cannot be loaded
 	 */

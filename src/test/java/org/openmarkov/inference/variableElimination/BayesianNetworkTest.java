@@ -8,7 +8,6 @@
 package org.openmarkov.inference.variableElimination;
 
 
-import bitbucket.NetsRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openmarkov.core.model.network.ProbNet;
