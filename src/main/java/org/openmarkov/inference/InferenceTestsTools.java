@@ -1,8 +1,5 @@
 package org.openmarkov.inference;
 
-
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 import java.util.HashMap;
 import java.util.List;
 
@@ -21,6 +18,7 @@ import org.openmarkov.core.model.network.ProbNetOperations;
 import org.openmarkov.core.model.network.Variable;
 import org.openmarkov.core.model.network.VariableType;
 import org.openmarkov.core.model.network.constraint.OnlyAtemporalVariables;
+import org.openmarkov.core.model.network.potential.StrategyTree;
 import org.openmarkov.core.model.network.potential.TablePotential;
 import org.openmarkov.core.model.network.type.BayesianNetworkType;
 import org.openmarkov.core.model.network.type.InfluenceDiagramType;
@@ -57,6 +55,12 @@ public class InferenceTestsTools {
 		}
 
 		System.out.println("VEResolution successful");
+	}
+	
+	private static void assertNotNull(Object obj) {
+		if (obj==null){
+			throw new NullPointerException("Object is null");
+		}
 	}
 	
 	public static void testPropagateNetwork(ProbNet probNet, List<Variable> variables, EvidenceCase evidenceCase)
