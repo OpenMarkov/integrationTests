@@ -5,7 +5,7 @@
  * WITHOUT WARRANTIES OF ANY KIND.
  */
 
-package org.openmarkov.integrationTests.localization;
+package org.openmarkov.integrationTests.integrationTests.localization;
 
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -14,6 +14,7 @@ import org.jdom2.input.SAXBuilder;
 import org.jdom2.located.LocatedJDOMFactory;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -35,6 +36,7 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+@Disabled("Localization is no longer applied to multiple languages, just English")
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 public class LocalizeXMLCompare {
     
@@ -105,7 +107,7 @@ public class LocalizeXMLCompare {
     private static @NotNull Set<String> getKeysForLanguage(String bundleName, Language language) {
         StringDatabase.getUniqueInstance().setLanguage(language.languageCode);
         var fileBundle = StringDatabase.getUniqueInstance().getAllBundles().get(bundleName);
-        assertNotNull(fileBundle, "Could not find " + language.description.toLowerCase() + " bundle for " + fileBundle);
+        assertNotNull(fileBundle, "Could not find " + language.description.toLowerCase() + " stringBundle for " + fileBundle);
         return new HashSet<>(fileBundle.getKeys());
     }
     
