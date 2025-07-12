@@ -139,7 +139,7 @@ public class InferenceTestsTools {
 	}
 	
 	private static void testTemporalEvolutionNetwork(ProbNet probNet, EvidenceCase evidenceCase)
-			throws NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException {
+			throws NotEvaluableNetworkException, IncompatibleEvidenceException {
 		HashMap<String, Variable> filteredTemporalVariables = new HashMap<>();
 		for (Variable variable : probNet.getVariables()) {
 			if (variable.isTemporal()) {
@@ -204,11 +204,7 @@ public class InferenceTestsTools {
 			for (Variable informationalPredecesor : informationalPredecesors) {
 				// Set the first state as an evidence
 				Finding finding = new Finding(informationalPredecesor, informationalPredecesor.getStates()[0]);
-				try {
-					evidenceCase.addFinding(finding);
-				} catch (InvalidStateException e) {
-					e.printStackTrace();
-				}
+				evidenceCase.addFinding(finding);
 			}
 			CEAnalysis veceaDecision = new VECEAnalysis(probNet);
 			veceaDecision.setPreResolutionEvidence(evidenceCase);
@@ -260,7 +256,7 @@ public class InferenceTestsTools {
 				Finding finding = new Finding(informationalPredecesor, informationalPredecesor.getStates()[0]);
 				try {
 					evidenceCase.addFinding(finding);
-				} catch (InvalidStateException | IncompatibleEvidenceException e) {
+				} catch (IncompatibleEvidenceException e) {
 					e.printStackTrace();
 				}
 			}
