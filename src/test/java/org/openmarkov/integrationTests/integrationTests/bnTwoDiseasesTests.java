@@ -8,8 +8,6 @@ package org.openmarkov.integrationTests.integrationTests;
 
 import org.junit.jupiter.api.*;
 import org.openmarkov.core.exception.IncompatibleEvidenceException;
-import org.openmarkov.core.exception.InvalidStateException;
-import org.openmarkov.core.exception.NodeNotFoundException;
 import org.openmarkov.core.exception.NotEvaluableNetworkException;
 import org.openmarkov.core.io.ProbNetInfo;
 import org.openmarkov.core.model.network.EvidenceCase;
@@ -104,7 +102,7 @@ public class bnTwoDiseasesTests {
 	}
 
 	@Disabled
-	@Test public void vePropagationWithPostResolutionEvidence1() throws NotEvaluableNetworkException, IncompatibleEvidenceException, NodeNotFoundException, InvalidStateException {
+	@Test public void vePropagationWithPostResolutionEvidence1() throws NotEvaluableNetworkException, IncompatibleEvidenceException {
 		VEPropagation vePropagation;
 		EvidenceCase postResolutionEvidence = new EvidenceCase();
 		List<Variable> variablesOfInterest = probNet.getVariables();
@@ -157,7 +155,7 @@ public class bnTwoDiseasesTests {
 	}
 	
 	@Tag(TestSpeed.SLOW)
-	@Test public void vePropagationWithPostResolutionEvidence2() throws NotEvaluableNetworkException, IncompatibleEvidenceException, NodeNotFoundException, InvalidStateException {
+	@Test public void vePropagationWithPostResolutionEvidence2() throws NotEvaluableNetworkException, IncompatibleEvidenceException {
 		VEPropagation vePropagation;
 		EvidenceCase postResolutionEvidence = new EvidenceCase();
 		List<Variable> variablesOfInterest = probNet.getVariables();

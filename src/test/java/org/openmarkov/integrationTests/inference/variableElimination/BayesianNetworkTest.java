@@ -15,7 +15,7 @@ import org.junit.jupiter.api.BeforeEach;
  */
 public class BayesianNetworkTest {
     
-    @BeforeEach public void setUp() throws Exception {
+    @BeforeEach public void setUp() {
     }
     
     //TODO: Most code here cannot compile due to changes in the structure

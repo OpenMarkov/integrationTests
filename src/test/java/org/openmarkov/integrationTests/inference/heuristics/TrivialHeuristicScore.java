@@ -8,8 +8,6 @@
 package org.openmarkov.integrationTests.inference.heuristics;
 
 import org.openmarkov.core.exception.DoEditException;
-import org.openmarkov.core.exception.NonProjectablePotentialException;
-import org.openmarkov.core.exception.WrongCriterionException;
 import org.openmarkov.core.inference.heuristic.EliminationHeuristic;
 import org.openmarkov.core.model.network.ProbNet;
 import org.openmarkov.core.model.network.Variable;
@@ -62,7 +60,7 @@ public class TrivialHeuristicScore extends Thread implements EliminationHeuristi
      * @param probNet    <code>ProbNet</code>
      * @param heuristic  <code>EliminationHeuristic</code>
      */
-    private TrivialHeuristicScore(double[] scores, int scoreIndex, ProbNet probNet, EliminationHeuristic heuristic) throws DoEditException, NonProjectablePotentialException, WrongCriterionException {
+    private TrivialHeuristicScore(double[] scores, int scoreIndex, ProbNet probNet, EliminationHeuristic heuristic) throws DoEditException {
         this.scores = scores;
         this.scoreIndex = scoreIndex;
         this.probNet = probNet;
@@ -76,7 +74,7 @@ public class TrivialHeuristicScore extends Thread implements EliminationHeuristi
      * Builds a HuginForest
      *
      */
-    private void createHuginForest() throws DoEditException, NonProjectablePotentialException, WrongCriterionException {
+    private void createHuginForest() throws DoEditException {
         forest = new HuginForest(probNet, heuristic);
         int accumulatedSize = getSumClustersSize(forest);
         scores[scoreIndex] = 1 / (1 + (double) accumulatedSize);
@@ -93,7 +91,7 @@ public class TrivialHeuristicScore extends Thread implements EliminationHeuristi
      * @see EliminationHeuristicScore#getScores(org.openmarkov.core.model.network.ProbNet, java.lang.Class[])
      */
     @SuppressWarnings({"rawtypes", "unchecked"}) @Override public double[] getScores(ProbNet probNet,
-                                                                                     Class[] heuristicsClasses) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, DoEditException, NonProjectablePotentialException, WrongCriterionException {
+                                                                                     Class[] heuristicsClasses) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, DoEditException {
         
         int numHeuristics = heuristicsClasses.length;
         double[] scores = new double[numHeuristics];

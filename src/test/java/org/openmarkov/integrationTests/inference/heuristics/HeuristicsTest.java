@@ -10,8 +10,6 @@ package org.openmarkov.integrationTests.inference.heuristics;
 import org.junit.jupiter.api.*;
 
 import org.openmarkov.core.exception.DoEditException;
-import org.openmarkov.core.exception.NonProjectablePotentialException;
-import org.openmarkov.core.exception.WrongCriterionException;
 import org.openmarkov.core.test.TestSpeed;
 import org.openmarkov.integrationTests.inference.util.Util;
 import org.openmarkov.core.model.network.ProbNet;
@@ -43,7 +41,7 @@ public class HeuristicsTest {
 	@SuppressWarnings("rawtypes") private Class[] heuristicsClasses = new Class[] { CanoMoralElimination.class,
 			MinimalFillIn.class, HybridElimination.class, SimpleElimination.class };
 
-	@BeforeEach public void setUp() throws Exception {
+	@BeforeEach public void setUp() {
 	}
 	
 	@Tag(TestSpeed.SLOW)
@@ -51,7 +49,7 @@ public class HeuristicsTest {
 	/** This is a performance test. It checks that some heuristics are better than others.
 	 * We assume that CanoAndMoral must be better than all the others "most" of the times, 
 	 * the same with MinimalFillin and SimpleElimination */
-	public void test3() throws IOException, DoEditException, NonProjectablePotentialException, InvocationTargetException, WrongCriterionException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+	public void test3() throws IOException, DoEditException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
 		List<ProbNet> probNetsDB = Util.readProbNetsDB(BayesianNetworkType.getUniqueInstance());
 		probNetsDB = Util.filterNonPureTablePotentialProbNets(probNetsDB);
 		@SuppressWarnings("rawtypes") Class[] heuristicsClasses = new Class[] { CanoMoralElimination.class,
@@ -125,7 +123,7 @@ public class HeuristicsTest {
 	}
 
 	@SuppressWarnings("rawtypes") private double[][] getAllScores(Collection<ProbNet> probNetsDB,
-			Class[] heuristicsClasses) throws DoEditException, NonProjectablePotentialException, InvocationTargetException, WrongCriterionException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+			Class[] heuristicsClasses) throws DoEditException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
 		double[][] networkScores = new double[probNetsDB.size()][];
 		int i = 0;
 		for (ProbNet bayesianNetwork : probNetsDB) {

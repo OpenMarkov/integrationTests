@@ -8,8 +8,6 @@ package org.openmarkov.integrationTests.integrationTests;
 
 import org.junit.jupiter.api.*;
 import org.openmarkov.core.exception.IncompatibleEvidenceException;
-import org.openmarkov.core.exception.InvalidStateException;
-import org.openmarkov.core.exception.NodeNotFoundException;
 import org.openmarkov.core.exception.NotEvaluableNetworkException;
 import org.openmarkov.core.exception.UnexpectedInferenceException;
 import org.openmarkov.core.inference.MulticriteriaOptions;
@@ -69,7 +67,7 @@ public class idCEATest2therapiesTests {
 
 	}
 
-	@Test public void veResolutionTestWithEvidences() throws NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException, NodeNotFoundException, InvalidStateException {
+	@Test public void veResolutionTestWithEvidences() throws NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException {
 		EvidenceCase evidenceCase = new EvidenceCase();
 		Variable disease = null;
 		Variable doTest = null;
@@ -117,7 +115,7 @@ public class idCEATest2therapiesTests {
 	}
 
 	@Disabled
-	@Test public void veOptimalPolicyTest() throws NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException, NodeNotFoundException {
+	@Test public void veOptimalPolicyTest() throws NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException {
 		OptimalPolicies veOptimalPolicy;
 			Variable decisionVariable = probNet.getVariable("Therapy");
 			veOptimalPolicy = new VEEvaluation(probNet);
@@ -126,7 +124,7 @@ public class idCEATest2therapiesTests {
 			Assertions.assertArrayEquals(optimalPolicy.getValues(), expectedValues, deltaEquals);
 	}
 
-	@Test public void veOptimalIntervention() throws NodeNotFoundException, NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException {
+	@Test public void veOptimalIntervention() throws NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException {
 		VEOptimalIntervention veOptimalIntervention;
 			veOptimalIntervention = new VEOptimalIntervention(probNet, preResolutionEvidence);
 			StrategyTree optimalStrategyTree = veOptimalIntervention.getOptimalIntervention();
@@ -177,7 +175,7 @@ public class idCEATest2therapiesTests {
 			Assertions.assertEquals(cep.getEffectiveness(33383.6), 9.39366, deltaEquals);
 	}
 
-	@Test public void veCEADecisionDecTestTests() throws NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException, NodeNotFoundException, InvalidStateException {
+	@Test public void veCEADecisionDecTestTests() throws NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException {
 		CEAnalysis veceaDecision;
 		probNet.getInferenceOptions().getMultiCriteriaOptions()
 				.setMulticriteriaType(MulticriteriaOptions.Type.COST_EFFECTIVENESS);

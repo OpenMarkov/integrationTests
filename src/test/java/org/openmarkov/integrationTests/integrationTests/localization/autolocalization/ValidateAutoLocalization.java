@@ -7,8 +7,7 @@ import org.openmarkov.core.localize.StringBundle;
 import org.openmarkov.core.localize.StringDatabase;
 import org.openmarkov.core.localize.spi.LocalizeResourcesProvider;
 import org.openmarkov.core.stringformat.StringFormat;
-import org.openmarkov.plugin.Filter;
-import org.openmarkov.plugin.PluginLoader;
+import org.openmarkov.plugin.PluginSearch;
 
 import java.lang.reflect.Modifier;
 import java.util.*;
@@ -40,10 +39,9 @@ public class ValidateAutoLocalization {
     /**
      * Map where every module has a list of {@link AutoLocalizable}s that are defined in said module.
      */
-    private static final Map<Module, List<Class<AutoLocalizable>>> MODULES_AND_AUTOLOCALIZABLES = new PluginLoader()
-            .loadAllPlugins(Filter.filter().toImplement(AutoLocalizable.class))
+    private static final Map<Module, List<Class<AutoLocalizable>>> MODULES_AND_AUTOLOCALIZABLES = PluginSearch.init()
+            .childrenOf(AutoLocalizable.class)
             .stream()
-            .map(localizableClass -> (Class<AutoLocalizable>) localizableClass)
             .filter(localizableClass -> !localizableClass.isInterface() && !Modifier.isAbstract(localizableClass.getModifiers()))
             .collect(Collectors.groupingBy(Class::getModule));
     /**

@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.openmarkov.core.exception.IncompatibleEvidenceException;
-import org.openmarkov.core.exception.InvalidStateException;
-import org.openmarkov.core.exception.NodeNotFoundException;
 import org.openmarkov.core.exception.NotEvaluableNetworkException;
 import org.openmarkov.core.exception.UnexpectedInferenceException;
 import org.openmarkov.core.inference.tasks.CEAnalysis;
@@ -18,7 +16,6 @@ import org.openmarkov.core.model.network.ProbNetOperations;
 import org.openmarkov.core.model.network.Variable;
 import org.openmarkov.core.model.network.VariableType;
 import org.openmarkov.core.model.network.constraint.OnlyAtemporalVariables;
-import org.openmarkov.core.model.network.potential.StrategyTree;
 import org.openmarkov.core.model.network.potential.TablePotential;
 import org.openmarkov.core.model.network.type.BayesianNetworkType;
 import org.openmarkov.core.model.network.type.InfluenceDiagramType;
@@ -177,14 +174,10 @@ public class InferenceTestsTools {
 			assertNotNull(veTemporalEvolution.getTemporalEvolution());
 			for (int i = variable.getTimeSlice();
                  i < expandedNetwork.getInferenceOptions().getTemporalOptions().getHorizon(); i++) {
-				try {
-					Variable variableInSlicei = expandedNetwork.getVariable(variable.getBaseName(), i);
-					assertNotNull(veTemporalEvolution.getTemporalEvolution().get(variableInSlicei));
-				} catch (NodeNotFoundException e) {
-					e.printStackTrace();
-				}
-
-			}
+                Variable variableInSlicei = expandedNetwork.getVariable(variable.getBaseName(), i);
+                assertNotNull(veTemporalEvolution.getTemporalEvolution().get(variableInSlicei));
+                
+            }
 
 		}
 

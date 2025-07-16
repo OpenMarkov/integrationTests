@@ -6,8 +6,7 @@ import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.openmarkov.core.localize.Localizable;
-import org.openmarkov.plugin.Filter;
-import org.openmarkov.plugin.PluginLoader;
+import org.openmarkov.plugin.PluginSearch;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,8 +16,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-import static org.testng.AssertJUnit.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * See the method {@link CheckToStringOverridden#addToStringOnMissingClasses()}, which is the purpose of this test
@@ -107,7 +107,6 @@ public class CheckToStringOverridden {
     private static @NotNull List<Class<Localizable>> getSuperLocalizablesClasses() {
         return CheckToStringOverridden
                 .getAllLocalizablesClasses()
-                .stream()
                 .filter(localizableClass ->
                                 CheckToStringOverridden.getSuperClasses(localizableClass)
                                                        .stream()
@@ -142,13 +141,10 @@ public class CheckToStringOverridden {
      *
      * @return all classes implementing {@link Localizable}.
      */
-    private static @NotNull List<Class<Localizable>> getAllLocalizablesClasses() {
-        return new PluginLoader()
-                .loadAllPlugins(Filter.filter().toImplement(Localizable.class))
+    private static @NotNull Stream<Class<Localizable>> getAllLocalizablesClasses() {
+        return PluginSearch.init().childrenOf(Localizable.class)
                 .stream()
-                .map(localizableClass -> (Class<Localizable>) localizableClass)
-                .filter(localizableClass -> !localizableClass.isInterface())
-                .toList();
+                .filter(localizableClass -> !localizableClass.isInterface());
     }
     
     /**

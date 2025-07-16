@@ -38,7 +38,7 @@ public class CEAGlobalAnalysisTest {
 
 	private boolean useMultithreading = true;
 
-	@BeforeEach public void setUp() throws Exception {
+	@BeforeEach public void setUp() {
 
 	}
 

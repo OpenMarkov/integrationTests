@@ -4,10 +4,8 @@ import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.located.LocatedJDOMFactory;
-import org.openmarkov.core.exception.NodeNotFoundException;
 import org.openmarkov.core.exception.NonProjectablePotentialException;
 import org.openmarkov.core.exception.ParserException;
-import org.openmarkov.core.exception.WrongCriterionException;
 import org.openmarkov.core.inference.InferenceOptions;
 import org.openmarkov.core.inference.MulticriteriaOptions;
 import org.openmarkov.core.inference.TemporalOptions;
@@ -80,7 +78,7 @@ public class Classificator extends PGMXReader_0_2 {
         networksWithAdvancedFeatures = getNetworksWithAdvancedFeatures(pathToNewFiles);
     }
     
-    public static void main(String args[]) throws IOException, ParserException, NodeNotFoundException, NonProjectablePotentialException, WrongCriterionException {
+    public static void main(String[] args) throws IOException, ParserException, NonProjectablePotentialException {
         Classificator classificator = new Classificator(PGMXOrigin.File, args);
         classificator.testConversionBetweenVersions();
         classificator.performTests();
@@ -115,7 +113,7 @@ public class Classificator extends PGMXReader_0_2 {
     }
     
     // Methods
-    private void performTests() throws IOException, ParserException, NodeNotFoundException, NonProjectablePotentialException, WrongCriterionException {
+    private void performTests() throws IOException, ParserException, NonProjectablePotentialException {
         int differentNetworks = 0;
         int differentNetworks0_2 = 0;
         int differentNetworks0_7 = 0;
@@ -365,7 +363,7 @@ public class Classificator extends PGMXReader_0_2 {
      * @param probNetInfo2
      * @return
      */
-    private boolean sameInfoProbNetsInfo(ProbNetInfo probNetInfo1, ProbNetInfo probNetInfo2) throws NodeNotFoundException, NonProjectablePotentialException, WrongCriterionException {
+    private boolean sameInfoProbNetsInfo(ProbNetInfo probNetInfo1, ProbNetInfo probNetInfo2) throws NonProjectablePotentialException {
         boolean bothNotNull = probNetInfo1 != null && probNetInfo2 != null;
         boolean bothNull = probNetInfo1 == null && probNetInfo2 == null;
         return bothNull ||
@@ -381,7 +379,7 @@ public class Classificator extends PGMXReader_0_2 {
      * @param probNet2
      * @return True if networks are equal
      */
-    private boolean sameInfoProbNets(ProbNet probNet1, ProbNet probNet2) throws NodeNotFoundException, NonProjectablePotentialException, WrongCriterionException {
+    private boolean sameInfoProbNets(ProbNet probNet1, ProbNet probNet2) throws NonProjectablePotentialException {
         boolean bothNotNull = probNet1 != null && probNet2 != null;
         boolean bothNull = probNet1 == null && probNet2 == null;
         return bothNull ||
@@ -619,7 +617,7 @@ public class Classificator extends PGMXReader_0_2 {
      * @param probNet2
      * @return
      */
-    private boolean sameInfoListOfLinks(ProbNet probNet1, ProbNet probNet2) throws NodeNotFoundException {
+    private boolean sameInfoListOfLinks(ProbNet probNet1, ProbNet probNet2) {
         List<Link<Node>> links1 = probNet1.getLinks();
         List<Link<Node>> links2 = probNet2.getLinks();
         int size = links1.size();
@@ -697,7 +695,7 @@ public class Classificator extends PGMXReader_0_2 {
         return same;
     }
     
-    private boolean sameInfoListOfPotentials(ProbNet probNet1, ProbNet probNet2) throws NonProjectablePotentialException, WrongCriterionException {
+    private boolean sameInfoListOfPotentials(ProbNet probNet1, ProbNet probNet2) throws NonProjectablePotentialException {
         int numPotentials = probNet1.getNumPotentials();
         boolean same = numPotentials == probNet2.getNumPotentials();
         if (same && numPotentials > 0) {
@@ -718,7 +716,7 @@ public class Classificator extends PGMXReader_0_2 {
         return same;
     }
     
-    private boolean sameInfoPotentials(Potential potential1, Potential potential2) throws NonProjectablePotentialException, WrongCriterionException {
+    private boolean sameInfoPotentials(Potential potential1, Potential potential2) throws NonProjectablePotentialException {
         Class potentialClass = potential1.getClass();
         boolean same = potentialClass == potential2.getClass();
         if (same) {
@@ -812,7 +810,7 @@ public class Classificator extends PGMXReader_0_2 {
                 sameInfoTablePotentials(potential1.getTablePotential(), potential2.getTablePotential());
     }
     
-    private boolean sameInfoDiscretizedCauchyPotentials(DiscretizedCauchyPotential potential1, DiscretizedCauchyPotential potential2) throws NonProjectablePotentialException, WrongCriterionException {
+    private boolean sameInfoDiscretizedCauchyPotentials(DiscretizedCauchyPotential potential1, DiscretizedCauchyPotential potential2) throws NonProjectablePotentialException {
         return sameInfoCommonPartPotentials(potential1, potential2) &&
                 sameInfoPotentials(potential1.getMedian(), potential2.getMedian()) &&
                 sameInfoPotentials(potential1.getScale(), potential2.getScale());
@@ -845,14 +843,14 @@ public class Classificator extends PGMXReader_0_2 {
                 potential1.getDiscreteValue() == potential2.getDiscreteValue();
     }
     
-    private boolean sameInfoTreeADDPotentials(TreeADDPotential potential1, TreeADDPotential potential2) throws NonProjectablePotentialException, WrongCriterionException {
+    private boolean sameInfoTreeADDPotentials(TreeADDPotential potential1, TreeADDPotential potential2) throws NonProjectablePotentialException {
         boolean same = sameInfoCommonPartPotentials(potential1, potential2) &&
                 sameInfoVariables(potential1.getRootVariable(), potential2.getRootVariable());
         same &= sameInfoListOfBranches(potential1.getBranches(), potential2.getBranches());
         return same;
     }
     
-    private boolean sameInfoListOfBranches(List<TreeADDBranch> branches1, List<TreeADDBranch> branches2) throws NonProjectablePotentialException, WrongCriterionException {
+    private boolean sameInfoListOfBranches(List<TreeADDBranch> branches1, List<TreeADDBranch> branches2) throws NonProjectablePotentialException {
         boolean bothNull = branches1 == null && branches2 == null;
         boolean bothNotNull = branches1 != null && branches2 != null;
         int size = bothNotNull ? branches1.size() : 0;
@@ -866,7 +864,7 @@ public class Classificator extends PGMXReader_0_2 {
         return same;
     }
     
-    private boolean sameInfoBranches(TreeADDBranch treeADDBranch1, TreeADDBranch treeADDBranch2) throws NonProjectablePotentialException, WrongCriterionException {
+    private boolean sameInfoBranches(TreeADDBranch treeADDBranch1, TreeADDBranch treeADDBranch2) throws NonProjectablePotentialException {
         return sameListOfVariablesNames(treeADDBranch1.getAddableVariables(), treeADDBranch2.getAddableVariables()) &&
                 sameInfoStrings(treeADDBranch1.getLabel(), treeADDBranch2.getLabel()) &&
                 sameThresholds(treeADDBranch1.getLowerBound(), treeADDBranch2.getLowerBound()) &&
@@ -890,7 +888,7 @@ public class Classificator extends PGMXReader_0_2 {
      * @param potential2
      * @return
      */
-    private boolean sameInfoICIPotentials(ICIPotential potential1, ICIPotential potential2) throws NonProjectablePotentialException, WrongCriterionException {
+    private boolean sameInfoICIPotentials(ICIPotential potential1, ICIPotential potential2) throws NonProjectablePotentialException {
         boolean same = sameInfoCommonPartPotentials(potential1, potential2) &&
                 potential1.getModelType() == potential2.getModelType() &&
                 potential1.getFamily() == potential2.getFamily() &&

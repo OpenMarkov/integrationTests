@@ -25,7 +25,7 @@ public abstract class DANCEATest {
 		testCEADANEvaluation(globalNumberOfCEPIntervals, eval, expectedThreshods);
 	}
 
-	protected void testCEADANEvaluation(int globalNumberOfCEPIntervals, CEAnalysis eval, double... expectedThreshods) throws NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException {
+	protected void testCEADANEvaluation(int globalNumberOfCEPIntervals, CEAnalysis eval, double... expectedThreshods) throws IncompatibleEvidenceException, UnexpectedInferenceException {
         CEP cep = eval.getCEP();
 		Assertions.assertNotNull(cep);
 		Assertions.assertEquals(globalNumberOfCEPIntervals, cep.getNumIntervals());

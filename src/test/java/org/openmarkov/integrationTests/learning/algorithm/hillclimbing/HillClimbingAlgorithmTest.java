@@ -35,7 +35,7 @@ public class HillClimbingAlgorithmTest {
 	private Metric metric;
 
     @Disabled
-	@BeforeEach public void setUp() throws Exception {
+	@BeforeEach public void setUp() {
 
 		//TODO Commented and making CaseDatabase = null until fixing Elvira database parser with antlr4
 		//ElviraDataBaseIO databaseIO = new ElviraDataBaseIO();

@@ -7,6 +7,7 @@
 
 package org.openmarkov.integrationTests.integrationTests.localization;
 
+import org.apache.commons.lang3.tuple.Pair;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -20,9 +21,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.openmarkov.core.localize.StringDatabase;
 import org.openmarkov.core.localize.spi.LocalizeResourcesProvider;
-import org.openmarkov.plugin.Filter;
-import org.openmarkov.plugin.PluginLoader;
-import org.testng.internal.collections.Pair;
+import org.openmarkov.plugin.PluginSearch;
 
 import java.io.File;
 import java.io.IOException;
@@ -51,18 +50,17 @@ public class LocalizeXMLCompare {
     }
     
     private static Stream<LocalizeResourcesProvider> getLocalizationProviders() {
-        return new PluginLoader()
-                .loadAllPlugins(Filter.filter().toImplement(LocalizeResourcesProvider.class))
-                .stream().map(localizeClass -> (Class<LocalizeResourcesProvider>) localizeClass)
-                .filter(localizeClass -> !localizeClass.isInterface())
-                .map(localizeClass -> {
-                    try {
-                        return localizeClass.getDeclaredConstructor().newInstance();
-                    } catch (InstantiationException | NoSuchMethodException | IllegalAccessException |
-                             InvocationTargetException e) {
-                        throw new RuntimeException(e);
-                    }
-                });
+        return PluginSearch.init()
+                           .childrenOf(LocalizeResourcesProvider.class)
+                           .stream()
+                           .map(localizeClass -> {
+                               try {
+                                   return localizeClass.getDeclaredConstructor().newInstance();
+                               } catch (InstantiationException | NoSuchMethodException | IllegalAccessException |
+                                        InvocationTargetException e) {
+                                   throw new RuntimeException(e);
+                               }
+                           });
     }
     
     private static Stream<LocalizeResourceAndFiles> getLocalizationProvidersAndFiles() {
@@ -96,7 +94,7 @@ public class LocalizeXMLCompare {
         }
         return getLocalizationFilesAndProviders().flatMap(fileAndLocalizeResource ->
                                                                   languages.stream()
-                                                                           .map(language -> new Pair<>(fileAndLocalizeResource, language)));
+                                                                           .map(language -> Pair.of(fileAndLocalizeResource, language)));
     }
     
     private static @Nullable InputStream fileToInputStream(LocalizeResourcesProvider resourceBundleProvider, String localizationFile) {
@@ -130,17 +128,17 @@ public class LocalizeXMLCompare {
     @ParameterizedTest
     @MethodSource("getLocalizationFilesAndProvidersWithLanguages")
     public void checkSameStructure(Pair<FileAndLocalizeResource, Language> fileAndLanguage) throws Exception {
-        var provider = fileAndLanguage.first().localizeResourcesProvider;
-        var file = fileAndLanguage.first().file;
-        var language = fileAndLanguage.second();
+        var provider = fileAndLanguage.getLeft().localizeResourcesProvider;
+        var file = fileAndLanguage.getLeft().file;
+        var language = fileAndLanguage.getRight();
         checkStructure(provider, file + LocalizeXMLCompare.LANGUAGE_ENGLISH.suffix, file + language.suffix);
     }
     
     @ParameterizedTest
     @MethodSource("getLocalizationFilesAndProvidersWithLanguages")
     public void checkSameValues(Pair<FileAndLocalizeResource, Language> fileAndLanguage) throws Exception {
-        var file = fileAndLanguage.first().file;
-        var language = fileAndLanguage.second();
+        var file = fileAndLanguage.getLeft().file;
+        var language = fileAndLanguage.getRight();
         
         var englishKeys = getKeysForLanguage(file, LANGUAGE_ENGLISH);
         var localLanguageKeys = getKeysForLanguage(file, language);

@@ -10,8 +10,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Disabled;
 import org.openmarkov.core.exception.IncompatibleEvidenceException;
-import org.openmarkov.core.exception.InvalidStateException;
-import org.openmarkov.core.exception.NodeNotFoundException;
 import org.openmarkov.core.exception.NotEvaluableNetworkException;
 import org.openmarkov.core.exception.UnexpectedInferenceException;
 import org.openmarkov.core.inference.tasks.OptimalPolicies;
@@ -37,7 +35,7 @@ public abstract class idDecideTestNetworkTests extends IDNetworkTests {
 			Assertions.assertEquals(utility.getValues()[0], 9.3289, deltaEquals);
 	}
 
-	@Test public void veResolutionTestWithEvidences() throws NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException, NodeNotFoundException, InvalidStateException {
+	@Test public void veResolutionTestWithEvidences() throws NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException {
 		EvidenceCase evidenceCase = new EvidenceCase();
 		Variable disease = null;
 		Variable doTest = null;
@@ -84,7 +82,7 @@ public abstract class idDecideTestNetworkTests extends IDNetworkTests {
 			Assertions.assertEquals(utility.getValues()[0], 7.05, deltaEquals);
 	}
 
-	@Test public void veOptimalPolicyTest() throws NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException, NodeNotFoundException {
+	@Test public void veOptimalPolicyTest() throws NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException {
 		OptimalPolicies veOptimalPolicy;
 			Variable decisionVariable = probNet.getVariable("Therapy");
 			veOptimalPolicy = new VEEvaluation(probNet);
@@ -93,7 +91,7 @@ public abstract class idDecideTestNetworkTests extends IDNetworkTests {
 			Assertions.assertArrayEquals(optimalPolicy.getValues(), expectedValues, deltaEquals);
 	}
 
-	@Test public void veExpectedUtilityTest() throws NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException, NodeNotFoundException {
+	@Test public void veExpectedUtilityTest() throws NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException {
 		VEExpectedUtilityDecision veExpectedUtilityDecision;
 			Variable decisionVariable = probNet.getVariable("Therapy");
 			veExpectedUtilityDecision = new VEExpectedUtilityDecision(probNet, decisionVariable);
@@ -104,7 +102,7 @@ public abstract class idDecideTestNetworkTests extends IDNetworkTests {
 	}
 
 	@Disabled
-	@Test public void veOptimalIntervention() throws NodeNotFoundException, NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException {
+	@Test public void veOptimalIntervention() throws NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException {
 		VEOptimalIntervention veOptimalIntervention;
 			veOptimalIntervention = new VEOptimalIntervention(probNet, preResolutionEvidence);
 			StrategyTree optimalStrategyTree = veOptimalIntervention.getOptimalIntervention();

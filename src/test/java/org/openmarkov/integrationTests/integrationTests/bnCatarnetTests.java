@@ -9,8 +9,6 @@ package org.openmarkov.integrationTests.integrationTests;
 import org.junit.jupiter.api.*;
 
 import org.openmarkov.core.exception.IncompatibleEvidenceException;
-import org.openmarkov.core.exception.InvalidStateException;
-import org.openmarkov.core.exception.NodeNotFoundException;
 import org.openmarkov.core.exception.NotEvaluableNetworkException;
 import org.openmarkov.core.io.ProbNetInfo;
 import org.openmarkov.core.model.network.EvidenceCase;
@@ -55,7 +53,7 @@ public class bnCatarnetTests {
 	}
 	
 	@Tag(TestSpeed.MEDIUM)
-	@Test public void vePropagationWithoutEvidence() throws NotEvaluableNetworkException, IncompatibleEvidenceException, NodeNotFoundException {
+	@Test public void vePropagationWithoutEvidence() throws NotEvaluableNetworkException, IncompatibleEvidenceException {
 		VEPropagation vePropagation;
 		EvidenceCase postResolutionEvidence = new EvidenceCase();
 		List<Variable> variablesOfInterest = new ArrayList<>();
@@ -86,7 +84,7 @@ public class bnCatarnetTests {
 	}
 	
 	@Tag(TestSpeed.MEDIUM)
-	@Test public void vePropagationWithPostResolutionEvidence2() throws NotEvaluableNetworkException, IncompatibleEvidenceException, NodeNotFoundException, InvalidStateException {
+	@Test public void vePropagationWithPostResolutionEvidence2() throws NotEvaluableNetworkException, IncompatibleEvidenceException {
 		VEPropagation vePropagation;
 		EvidenceCase postResolutionEvidence = new EvidenceCase();
 		List<Variable> variablesOfInterest = new ArrayList<>();
@@ -124,7 +122,7 @@ public class bnCatarnetTests {
 			}
 	}
 	@Disabled
-	@Test public void vePropagationIncompatibleEvidence() throws NotEvaluableNetworkException, IncompatibleEvidenceException, NodeNotFoundException, InvalidStateException {
+	@Test public void vePropagationIncompatibleEvidence() throws NotEvaluableNetworkException, IncompatibleEvidenceException {
 		VEPropagation vePropagation;
 		EvidenceCase postResolutionEvidence = new EvidenceCase();
 		List<Variable> variablesOfInterest = probNet.getVariables();

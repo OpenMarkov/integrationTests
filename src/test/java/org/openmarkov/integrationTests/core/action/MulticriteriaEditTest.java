@@ -12,9 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.openmarkov.core.action.MulticriteriaEdit;
 import org.openmarkov.core.exception.DoEditException;
-import org.openmarkov.core.exception.NonProjectablePotentialException;
 import org.openmarkov.core.exception.ParserException;
-import org.openmarkov.core.exception.WrongCriterionException;
 import org.openmarkov.core.inference.MulticriteriaOptions;
 import org.openmarkov.core.model.network.Criterion;
 import org.openmarkov.core.model.network.ProbNet;
@@ -40,7 +38,7 @@ public class MulticriteriaEditTest {
     }
     
     @Test
-    public void multiCriteriaOptionsTest() throws DoEditException, NonProjectablePotentialException, WrongCriterionException {
+    public void multiCriteriaOptionsTest() throws DoEditException {
         
         MulticriteriaOptions multicriteriaOptions = new MulticriteriaOptions();
         multicriteriaOptions.setMainUnit("Unit A");

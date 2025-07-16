@@ -36,7 +36,7 @@ public class danAlgorithmTests {
     }
     
     @Test
-    public void testOneDecision() throws NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException, ParserException, URISyntaxException {
+    public void testOneDecision() throws NotEvaluableNetworkException, ParserException, URISyntaxException {
         String networkName = "DAN-one-decision-CE.pgmx";
         String path = "networks/dan/";
         double lambda = 30000;
@@ -58,7 +58,7 @@ public class danAlgorithmTests {
     
     @Disabled("Missing test net DAN-2tests.pgmx")
     @Test
-    public void testDAN2tests() throws NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException, ParserException, URISyntaxException {
+    public void testDAN2tests() throws NotEvaluableNetworkException, ParserException, URISyntaxException {
         String networkName = "DAN-2tests.pgmx";
         String path = "networks/IDCEAnTherapies/";
         double lambda = 30000;
@@ -79,7 +79,7 @@ public class danAlgorithmTests {
     
     @Disabled("Missing test net DAN-3tests.pgmx")
     @Test
-    public void testDAN3tests() throws NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException, ParserException, URISyntaxException {
+    public void testDAN3tests() throws NotEvaluableNetworkException, ParserException, URISyntaxException {
         String networkName = "DAN-3tests.pgmx";
         String path = "networks/IDCEAnTherapies/";
         double lambda = 30000;
@@ -100,7 +100,7 @@ public class danAlgorithmTests {
     
     @Disabled("Missing test net DAN-4tests.pgmx")
     @Test
-    public void testDAN4tests() throws NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException, ParserException, URISyntaxException {
+    public void testDAN4tests() throws NotEvaluableNetworkException, ParserException, URISyntaxException {
         String networkName = "DAN-4tests.pgmx";
         String path = "networks/IDCEAnTherapies/";
         double lambda = 30000;
@@ -121,7 +121,7 @@ public class danAlgorithmTests {
     
     
     @Test
-    public void oneChanceCETest() throws NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException, ParserException, URISyntaxException {
+    public void oneChanceCETest() throws NotEvaluableNetworkException, ParserException, URISyntaxException {
         String networkName = "DAN-one-chance-ce.pgmx";
         String path = "networks/dan/";
         double lambda = 30000;

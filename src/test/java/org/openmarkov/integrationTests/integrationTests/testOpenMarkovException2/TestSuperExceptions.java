@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class TestSuperExceptions {
     
     @Test
-    public void testTurnExceptionToSuperException() throws Exception {
+    public void testTurnExceptionToSuperException() {
         // Sets the user database's language to Spanish, and still, the text must be in English, as that it's shown with
         // the developer's database.
         StringDatabase.getUniqueInstance().setLanguage("en");

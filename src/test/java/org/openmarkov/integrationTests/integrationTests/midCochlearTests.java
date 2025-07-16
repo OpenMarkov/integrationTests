@@ -9,7 +9,6 @@ package org.openmarkov.integrationTests.integrationTests;
 
 import org.junit.jupiter.api.*;
 import org.openmarkov.core.exception.IncompatibleEvidenceException;
-import org.openmarkov.core.exception.NodeNotFoundException;
 import org.openmarkov.core.exception.NotEvaluableNetworkException;
 import org.openmarkov.core.exception.UnexpectedInferenceException;
 import org.openmarkov.core.inference.TransitionTime;
@@ -57,7 +56,7 @@ public class midCochlearTests {
     
     @Disabled
     @Test
-    public void veTemporalEvaluationTest() throws NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException, NodeNotFoundException {
+    public void veTemporalEvaluationTest() throws NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException {
         TemporalEvaluation temporalEvaluation = new TemporalEvaluation(probNet);
         temporalEvaluation.setPreResolutionEvidence(preResolutionEvidence);
         GTablePotential atemporalUtility = (GTablePotential) temporalEvaluation.getAtemporalUtility();

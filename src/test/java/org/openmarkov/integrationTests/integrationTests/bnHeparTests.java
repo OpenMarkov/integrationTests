@@ -11,8 +11,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.openmarkov.core.exception.IncompatibleEvidenceException;
-import org.openmarkov.core.exception.InvalidStateException;
-import org.openmarkov.core.exception.NodeNotFoundException;
 import org.openmarkov.core.exception.NotEvaluableNetworkException;
 import org.openmarkov.core.io.ProbNetInfo;
 import org.openmarkov.core.model.network.EvidenceCase;
@@ -56,7 +54,7 @@ public class bnHeparTests {
     }
     
     @Test
-    public void vePropagationWithoutEvidence() throws NotEvaluableNetworkException, IncompatibleEvidenceException, NodeNotFoundException {
+    public void vePropagationWithoutEvidence() throws NotEvaluableNetworkException, IncompatibleEvidenceException {
         VEPropagation vePropagation;
         EvidenceCase postResolutionEvidence = new EvidenceCase();
         List<Variable> variablesOfInterest = new ArrayList<>();
@@ -88,7 +86,7 @@ public class bnHeparTests {
     }
     
     @Test
-    public void vePropagationWithPostResolutionEvidence2() throws NotEvaluableNetworkException, IncompatibleEvidenceException, NodeNotFoundException, InvalidStateException {
+    public void vePropagationWithPostResolutionEvidence2() throws NotEvaluableNetworkException, IncompatibleEvidenceException {
         VEPropagation vePropagation;
         EvidenceCase postResolutionEvidence = new EvidenceCase();
         List<Variable> variablesOfInterest = new ArrayList<>();

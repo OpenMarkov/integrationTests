@@ -21,7 +21,7 @@ import java.util.Arrays;
 public abstract class DANEvaluationTest extends NetworkEvaluationInferenceTest {
     
     
-    @BeforeEach public void setUp() throws Exception {
+    @BeforeEach public void setUp() {
     }
     
     
@@ -114,14 +114,14 @@ public abstract class DANEvaluationTest extends NetworkEvaluationInferenceTest {
     }
     
     @Test
-    public void testDANKingNobleDescentYesFirstTask1() throws IncompatibleEvidenceException, UnexpectedInferenceException, NodeNotFoundException,
+    public void testDANKingNobleDescentYesFirstTask1() throws
             NotEvaluableNetworkException, ParserException, URISyntaxException {
         testNetworkEvaluation("king-noble-descent-yes-first-task-1", 9.03);
         
     }
     
     @Test
-    public void testDANKingNobleDescentYesFirstTask1SecondTask2() throws IncompatibleEvidenceException, UnexpectedInferenceException, NodeNotFoundException,
+    public void testDANKingNobleDescentYesFirstTask1SecondTask2() throws
             NotEvaluableNetworkException, ParserException, URISyntaxException {
         testNetworkEvaluation("king-noble-descent-yes-first-task-1-second-task-2", 9.03);
     }
@@ -151,7 +151,7 @@ public abstract class DANEvaluationTest extends NetworkEvaluationInferenceTest {
     
     @Tag(TestSpeed.MEDIUM)
     @Test public void testDANKingNobleDescentNo()
-            throws IncompatibleEvidenceException, UnexpectedInferenceException, NodeNotFoundException,
+            throws
             NotEvaluableNetworkException, ParserException, URISyntaxException {
         testNetworkEvaluation("king-noble-descent-no", 6.43);
         
@@ -159,14 +159,14 @@ public abstract class DANEvaluationTest extends NetworkEvaluationInferenceTest {
     
     @Tag(TestSpeed.MEDIUM)
     @Test public void testDANKingNobleDescentYes()
-            throws IncompatibleEvidenceException, UnexpectedInferenceException, NodeNotFoundException,
+            throws
             NotEvaluableNetworkException, ParserException, URISyntaxException {
         testNetworkEvaluation("king-noble-descent-yes", 9.03);
     }
     
     @Tag(TestSpeed.MEDIUM)
     @Test public void testDANKing()
-            throws IncompatibleEvidenceException, UnexpectedInferenceException, NodeNotFoundException,
+            throws
             NotEvaluableNetworkException, ParserException, URISyntaxException {
         testNetworkEvaluation("king", 7.73);
     }

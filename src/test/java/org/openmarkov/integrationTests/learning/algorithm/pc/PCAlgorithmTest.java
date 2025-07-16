@@ -8,7 +8,6 @@
 package org.openmarkov.integrationTests.learning.algorithm.pc;
 
 import org.junit.jupiter.api.*;
-import org.openmarkov.core.exception.NodeNotFoundException;
 import org.openmarkov.core.io.database.CaseDatabase;
 import org.openmarkov.core.model.network.Node;
 import org.openmarkov.core.model.network.NodeType;
@@ -44,7 +43,7 @@ public class PCAlgorithmTest {
 	private String bnABCEFilename = "/networks/learning/BN-A-B-C-E.csv";
 
 	@BeforeEach
-	public void setUp() throws Exception {
+	public void setUp() {
 		independenceTester = new CrossEntropyIndependenceTester();
 	}
 
@@ -353,7 +352,7 @@ public class PCAlgorithmTest {
 		printDifferences(readNet, learnedNet);
 	}
 
-	private void printDifferences(ProbNet originalNet, ProbNet learnedNet) throws NodeNotFoundException {
+	private void printDifferences(ProbNet originalNet, ProbNet learnedNet) {
 		int missingLinkCount = 0;
 		for (Node node : originalNet.getNodes()) {
 			Node learnedNode = learnedNet.getNode(node.getName());

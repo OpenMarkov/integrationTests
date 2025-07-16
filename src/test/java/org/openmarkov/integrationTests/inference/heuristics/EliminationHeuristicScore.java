@@ -8,9 +8,6 @@
 package org.openmarkov.integrationTests.inference.heuristics;
 
 import org.openmarkov.core.exception.DoEditException;
-import org.openmarkov.core.exception.NonProjectablePotentialException;
-import org.openmarkov.core.exception.WrongCriterionException;
-import org.openmarkov.core.exception.WrongGraphStructureException;
 import org.openmarkov.core.model.network.ProbNet;
 
 import java.lang.reflect.InvocationTargetException;
@@ -27,9 +24,8 @@ public interface EliminationHeuristicScore {
 	 * @param probNet           <code>ProbNet</code>
 	 * @param heuristicsClasses Set of heuristics to test. <code>Class[]</code>
 	 * @return A measure of the quality of each heuristic. The bigger score is better. <code>double[]</code>
-	 * @throws WrongGraphStructureException
-	 */
+     */
 	@SuppressWarnings("rawtypes") double[] getScores(ProbNet probNet, Class[] heuristicsClasses)
-            throws WrongGraphStructureException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, DoEditException, NonProjectablePotentialException, WrongCriterionException;
+            throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, DoEditException;
 
 }

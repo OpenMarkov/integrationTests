@@ -3,8 +3,7 @@ package org.openmarkov.integrationTests.gui;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.openmarkov.gui.toolplugin.ToolPlugin;
-import org.openmarkov.plugin.Filter;
-import org.openmarkov.plugin.PluginLoader;
+import org.openmarkov.plugin.PluginSearch;
 
 import java.util.Arrays;
 import java.util.stream.Stream;
@@ -21,11 +20,8 @@ import static org.junit.jupiter.api.Assertions.fail;
  */
 public class ToolPluginTest {
     
-    
     public static Stream<Class<ToolPlugin>> toolPluginClasses() {
-        return new PluginLoader().loadAllPlugins(Filter.filter().toImplement(ToolPlugin.class))
-                                 .stream().map(toolPluginClass -> (Class<ToolPlugin>) toolPluginClass)
-                                 .filter(toolPluginClass -> !toolPluginClass.isInterface());
+        return PluginSearch.init().childrenOf(ToolPlugin.class).stream();
     }
     
     @ParameterizedTest
