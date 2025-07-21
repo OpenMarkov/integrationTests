@@ -118,8 +118,6 @@ public class Classificator extends PGMXReader_0_2 {
         int differentNetworks0_2 = 0;
         int differentNetworks0_7 = 0;
         int numNetworks = 0;
-        File filePathToNewFiles = null;
-        filePathToNewFiles = getPathToNewFiles(pathToNewFiles);
         File testNodeFile = new File(pathToTestFiles);
         List<PGMXFilter> filters = getPGMXFilters();
         PGMXCompound compound = null;
@@ -206,14 +204,6 @@ public class Classificator extends PGMXReader_0_2 {
         List<PGMXFilter> filters = new ArrayList<>(1);
         filters.add(new PGMXFiles());
         return filters;
-    }
-    
-    private File getPathToNewFiles(String pathToNewFiles) throws IOException {
-        File filePathToNewFiles = new File(pathToNewFiles);
-        if (!filePathToNewFiles.exists() || !filePathToNewFiles.isDirectory()) {
-            throw new IOException("No test path.");
-        }
-        return filePathToNewFiles;
     }
     
     /**

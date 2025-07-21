@@ -29,6 +29,7 @@ import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -58,9 +59,10 @@ public class LocalizeXMLCompare {
                                    return localizeClass.getDeclaredConstructor().newInstance();
                                } catch (InstantiationException | NoSuchMethodException | IllegalAccessException |
                                         InvocationTargetException e) {
-                                   throw new RuntimeException(e);
+                                   return null;
                                }
-                           });
+                           })
+                           .filter(Objects::nonNull);
     }
     
     private static Stream<LocalizeResourceAndFiles> getLocalizationProvidersAndFiles() {

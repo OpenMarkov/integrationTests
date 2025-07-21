@@ -1,5 +1,6 @@
 package org.openmarkov.integrationTests.integrationTests.localization.autolocalization;
 
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.junit.jupiter.api.Test;
 import org.openmarkov.core.localize.AutoLocalizable;
@@ -40,10 +41,10 @@ public class ValidateAutoLocalization {
      * Map where every module has a list of {@link AutoLocalizable}s that are defined in said module.
      */
     private static final Map<Module, List<Class<AutoLocalizable>>> MODULES_AND_AUTOLOCALIZABLES = PluginSearch.init()
-            .childrenOf(AutoLocalizable.class)
-            .stream()
-            .filter(localizableClass -> !localizableClass.isInterface() && !Modifier.isAbstract(localizableClass.getModifiers()))
-            .collect(Collectors.groupingBy(Class::getModule));
+                                                                                                              .childrenOf(AutoLocalizable.class)
+                                                                                                              .stream()
+                                                                                                              .filter(localizableClass -> !localizableClass.isInterface() && !Modifier.isAbstract(localizableClass.getModifiers()))
+                                                                                                              .collect(Collectors.groupingBy(Class::getModule));
     /**
      * List where every {@link AutoLocalizable} of every module is associated to the Bundles that can be accessed in
      * said module.
@@ -80,6 +81,74 @@ public class ValidateAutoLocalization {
      * print some advice and example code on how to solve it.
      */
     @Test void validateAutoLocalization() {
+        List<Error> errors = ValidateAutoLocalization.findAllAutoLocalizationErrors();
+        if (errors.isEmpty()) {
+            return;
+        }
+        ValidateAutoLocalization.failWithLocalizationErrors(errors);
+    }
+    
+    private static void failWithLocalizationErrors(List<Error> errors) {
+        var errorClassAndErrors = errors.stream().collect(Collectors.groupingBy(Error::getClass));
+        String errorsDescription = errorClassAndErrors
+                .entrySet()
+                .stream()
+                .map(entry -> {
+                    var errorClass = entry.getKey();
+                    var unspecifiedErrorsForClass = entry.getValue();
+                    if (errorClass == Error.FieldOrMethodMissing.class) {
+                        var errorsForClass = unspecifiedErrorsForClass
+                                .stream().map(v -> (Error.FieldOrMethodMissing) v)
+                                .sorted(Comparator.comparing(v -> v.classWithMissingComponent.getName()))
+                                .toList();
+                        String subErrorsDetails = errorsForClass.stream()
+                                                                .map(error ->
+                                                                             "\t- No " + error.marker.toString()
+                                                                                                     .toLowerCase() + " "
+                                                                                     + error.missingComponent + " in "
+                                                                                     + error.classWithMissingComponent.getName() + " of module "
+                                                                                     + error.classWithMissingComponent.getModule()
+                                                                                                                      .getName())
+                                                                .distinct()
+                                                                .collect(Collectors.joining(System.lineSeparator()));
+                        return "Some fields and methods are missing:" + System.lineSeparator() + subErrorsDetails;
+                    }
+                    if (errorClass == Error.LocalizationMissing.class) {
+                        var errorsForClass = unspecifiedErrorsForClass
+                                .stream().map(v -> (Error.LocalizationMissing) v)
+                                .sorted(Comparator.comparing(v -> v.localizableClass.getName()))
+                                .toList();
+                        String subErrorsDetails = errorsForClass.stream()
+                                                                .map(error ->
+                                                                             "    <Localization class=\"" + error.localizableClass.getName()
+                                                                                     + "\"" + System.lineSeparator() +
+                                                                                     "                  value=\"\"/>")
+                                                                .distinct()
+                                                                .collect(Collectors.joining(System.lineSeparator()));
+                        return "Some classes are not localized, you can add them with:" + System.lineSeparator() + subErrorsDetails;
+                    }
+                    if (errorClass == Error.LocalizationInInaccessibleBundle.class) {
+                        var errorsForClass = unspecifiedErrorsForClass
+                                .stream().map(v -> (Error.LocalizationInInaccessibleBundle) v)
+                                .sorted(Comparator.comparing(v -> v.localizableClass.getName()))
+                                .toList();
+                        String subErrorsDetails = errorsForClass.stream()
+                                                                .map(error ->
+                                                                             "\tClass " + error.localizableClass.getName() + " is localized in " + error.wrongBundle.stringBundle + "_en.xml of module " + error.wrongBundle.provider.getClass()
+                                                                                                                                                                                                                                     .getModule()
+                                                                                                                                                                                                                                     .getName() + ", but it should be in " + error.localizableClass.getModule()
+                                                                                                                                                                                                                                                                                                   .getName())
+                                                                .distinct()
+                                                                .collect(Collectors.joining(System.lineSeparator()));
+                        return "Some classes are localized in the wrong module, you can apply this movements:" + System.lineSeparator() + subErrorsDetails;
+                    }
+                    return "";
+                })
+                .collect(Collectors.joining(System.lineSeparator() + System.lineSeparator()));
+        fail(errorsDescription);
+    }
+    
+    private static @NotNull List<Error> findAllAutoLocalizationErrors() {
         List<Error> errors = new ArrayList<>();
         ValidateAutoLocalization.LOCALIZABLES_AND_ACCESIBLE_BUNDLES
                 .stream()
@@ -132,68 +201,7 @@ public class ValidateAutoLocalization {
                         }
                     }
                 });
-        
-        
-        if (!errors.isEmpty()) {
-            var errorClassAndErrors = errors.stream().collect(Collectors.groupingBy(Error::getClass));
-            String errorsDescription = errorClassAndErrors
-                    .entrySet()
-                    .stream()
-                    .map(entry -> {
-                        var errorClass = entry.getKey();
-                        var unspecifiedErrorsForClass = entry.getValue();
-                        if (errorClass == Error.FieldOrMethodMissing.class) {
-                            var errorsForClass = unspecifiedErrorsForClass
-                                    .stream().map(v -> (Error.FieldOrMethodMissing) v)
-                                    .sorted(Comparator.comparing(v -> v.classWithMissingComponent.getName()))
-                                    .toList();
-                            String subErrorsDetails = errorsForClass.stream()
-                                                                    .map(error ->
-                                                                                 "\t- No " + error.marker.toString()
-                                                                                                         .toLowerCase() + " "
-                                                                                         + error.missingComponent + " in "
-                                                                                         + error.classWithMissingComponent.getName() + " of module "
-                                                                                         + error.classWithMissingComponent.getModule()
-                                                                                                                          .getName())
-                                                                    .distinct()
-                                                                    .collect(Collectors.joining(System.lineSeparator()));
-                            return "Some fields and methods are missing:" + System.lineSeparator() + subErrorsDetails;
-                        }
-                        if (errorClass == Error.LocalizationMissing.class) {
-                            var errorsForClass = unspecifiedErrorsForClass
-                                    .stream().map(v -> (Error.LocalizationMissing) v)
-                                    .sorted(Comparator.comparing(v -> v.localizableClass.getName()))
-                                    .toList();
-                            String subErrorsDetails = errorsForClass.stream()
-                                                                    .map(error ->
-                                                                                 "    <Localization class=\"" + error.localizableClass.getName()
-                                                                                         + "\"" + System.lineSeparator() +
-                                                                                         "                  value=\"\"/>")
-                                                                    .distinct()
-                                                                    .collect(Collectors.joining(System.lineSeparator()));
-                            return "Some classes are not localized, you can add them with:" + System.lineSeparator() + subErrorsDetails;
-                        }
-                        if (errorClass == Error.LocalizationInInaccessibleBundle.class) {
-                            var errorsForClass = unspecifiedErrorsForClass
-                                    .stream().map(v -> (Error.LocalizationInInaccessibleBundle) v)
-                                    .sorted(Comparator.comparing(v -> v.localizableClass.getName()))
-                                    .toList();
-                            String subErrorsDetails = errorsForClass.stream()
-                                                                    .map(error ->
-                                                                                 "\tClass " + error.localizableClass.getName() + " is localized in " + error.wrongBundle.stringBundle + "_en.xml of module " + error.wrongBundle.provider.getClass()
-                                                                                                                                                                                                                                         .getModule()
-                                                                                                                                                                                                                                         .getName() + ", but it should be in " + error.localizableClass.getModule()
-                                                                                                                                                                                                                                                                                                       .getName())
-                                                                    .distinct()
-                                                                    .collect(Collectors.joining(System.lineSeparator()));
-                            return "Some classes are localized in the wrong module, you can apply this movements:" + System.lineSeparator() + subErrorsDetails;
-                        }
-                        return "";
-                    })
-                    .collect(Collectors.joining(System.lineSeparator() + System.lineSeparator()));
-            fail(errorsDescription);
-        }
-        
+        return errors;
     }
     
     /**

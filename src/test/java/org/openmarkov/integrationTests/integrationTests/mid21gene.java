@@ -84,7 +84,7 @@ public class mid21gene {
     }
     
     
-    @Test public void getCEA4Scenarios() throws NoFindingException, IncompatibleEvidenceException, InvalidStateException, NotEvaluableNetworkException, UnexpectedInferenceException, IOException {
+    @Test public void getCEA4Scenarios() throws NoFindingException, IncompatibleEvidenceException, NotEvaluableNetworkException, UnexpectedInferenceException, IOException {
         // L-L-NC
         setScenario("AO low", "21g low", "no");
         evaluateScenario("L-L-NC");
@@ -264,7 +264,7 @@ public class mid21gene {
     }
     
     private void setScenario(String str_ao_risk, String str_gen_risk, String chemo_dec)
-            throws InvalidStateException, NoFindingException, IncompatibleEvidenceException {
+            throws NoFindingException, IncompatibleEvidenceException {
         Node dec_21g = probNet.getNode("Dec: 21g");
         Node dec_chemo = probNet.getNode("Dec: chemo");
         Node ao_risk = probNet.getNode("AO risk");
