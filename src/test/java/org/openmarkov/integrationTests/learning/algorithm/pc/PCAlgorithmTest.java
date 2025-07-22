@@ -49,7 +49,7 @@ public class PCAlgorithmTest {
 
 	@Disabled
 	@Tag(TestSpeed.FAST)
-	@Test public void testABCE() throws Exception {
+	@Test public void testABCE() throws java.io.IOException, org.openmarkov.core.exception.CannotNormalizeNullVectorException {
 		System.out.println(getClass().getResource(bnABCEFilename));
 		CSVDataBaseIO csvReader = new CSVDataBaseIO();
 		CaseDatabase ABCEDatabase = csvReader.load(getClass().getResource(bnABCEFilename).getFile());
@@ -102,7 +102,7 @@ public class PCAlgorithmTest {
 	
 	@Disabled("Making CaseDatabase = null until fixing Elvira database parser with antlr4")
 	@Test
-	public void testLearnTestDataBase() throws Exception {
+	public void testLearnTestDataBase() throws org.openmarkov.core.exception.CannotNormalizeNullVectorException {
 		//TODO Commented and making CaseDatabase = null until fixing Elvira database parser with antlr4
 		//ElviraDataBaseIO databaseIO = new ElviraDataBaseIO();
 		//CaseDatabase learnTestDatabase = databaseIO.load(getClass().getResource(learnTestDatabaseFilename).getFile());
@@ -203,7 +203,7 @@ public class PCAlgorithmTest {
 	}
 
 	@Tag(TestSpeed.MEDIUM)
-	@Test public void testAsia10k() throws Exception {
+	@Test public void testAsia10k() throws java.io.IOException, org.openmarkov.core.exception.CannotNormalizeNullVectorException {
 		CSVDataBaseIO csvReader = new CSVDataBaseIO();
 		CaseDatabase asiaDatabase = csvReader.load(getClass().getResource(asiaDatabaseFilename).getFile());
 		ProbNet learnedNet = new ProbNet();
@@ -310,7 +310,7 @@ public class PCAlgorithmTest {
 	}
 	
 	@Tag(TestSpeed.SLOW)
-	@Test public void testAlarm500() throws Exception {
+	@Test public void testAlarm500() throws java.io.IOException, org.openmarkov.core.exception.CannotNormalizeNullVectorException, org.openmarkov.core.exception.ParserException {
 
 		CSVDataBaseIO csvReader = new CSVDataBaseIO();
 		CaseDatabase alarmDatabase = csvReader.load(getClass().getResource(alarmDatabaseFilename).getFile());
@@ -331,7 +331,7 @@ public class PCAlgorithmTest {
 	}
 
 	//@Test
-	public void testAlarm10k() throws Exception {
+	public void testAlarm10k() throws java.io.IOException, org.openmarkov.core.exception.CannotNormalizeNullVectorException, org.openmarkov.core.exception.ParserException {
 
 		CSVDataBaseIO csvReader = new CSVDataBaseIO();
 		CaseDatabase alarm10kDatabase = csvReader.load(getClass().getResource(alarm10kDatabaseFilename).getFile());

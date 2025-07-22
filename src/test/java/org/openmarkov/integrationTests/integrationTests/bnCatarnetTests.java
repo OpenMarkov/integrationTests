@@ -37,7 +37,7 @@ public class bnCatarnetTests {
 	private ProbNet probNet;
 	private EvidenceCase preResolutionEvidence;
 
-	@BeforeEach public void setUp() throws Exception {
+	@BeforeEach public void setUp() throws java.net.URISyntaxException, org.openmarkov.core.exception.ParserException {
 		URL res = getClass().getClassLoader().getResource(networkName);
 		File f = Paths.get(res.toURI()).toFile();
 		String absolutePath = f.getAbsolutePath();

@@ -19,6 +19,7 @@ open module org.openmarkov.integrationTests {
     requires org.openmarkov.sensitivityanalysis;
     requires org.openmarkov.stochasticpropagationoutput;
     requires java.xml;
+    requires org.junit.jupiter.api;
     
     exports org.openmarkov.integrationTests;
     exports org.openmarkov.integrationTests.localize;

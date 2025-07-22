@@ -35,6 +35,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
 @Disabled("Localization is no longer applied to multiple languages, just English")
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
@@ -113,7 +114,7 @@ public class LocalizeXMLCompare {
     
     @ParameterizedTest
     @MethodSource("getLocalizationFilesAndProviders")
-    public void checkSameFiles(FileAndLocalizeResource fileAndLocalizeResource) throws Exception {
+    public void checkSameFiles(FileAndLocalizeResource fileAndLocalizeResource) {
         var languages = LocalizeXMLCompare.languages();
         var missingLanguages = languages.filter(language ->
                                                         fileToInputStream(fileAndLocalizeResource.localizeResourcesProvider, fileAndLocalizeResource.file + language.suffix) == null)
@@ -122,7 +123,7 @@ public class LocalizeXMLCompare {
             String missingLanguagesStream = missingLanguages.stream()
                                                             .map(Language::description)
                                                             .collect(Collectors.joining(", "));
-            throw new Exception("The file " + fileAndLocalizeResource.file + " of " + fileAndLocalizeResource.localizeResourcesProvider.getClass()
+            fail("The file " + fileAndLocalizeResource.file + " of " + fileAndLocalizeResource.localizeResourcesProvider.getClass()
                                                                                                                                        .getName() + " is missing in languages: " + missingLanguagesStream);
         }
     }
@@ -138,7 +139,7 @@ public class LocalizeXMLCompare {
     
     @ParameterizedTest
     @MethodSource("getLocalizationFilesAndProvidersWithLanguages")
-    public void checkSameValues(Pair<FileAndLocalizeResource, Language> fileAndLanguage) throws Exception {
+    public void checkSameValues(Pair<FileAndLocalizeResource, Language> fileAndLanguage) {
         var file = fileAndLanguage.getLeft().file;
         var language = fileAndLanguage.getRight();
         
@@ -153,13 +154,13 @@ public class LocalizeXMLCompare {
                                                             .sorted()
                                                             .collect(Collectors.joining(", "));
         if (!missingKeysInEnglishLanguage.isEmpty() || !missingKeysInLocalLanguage.isEmpty()) {
-            throw new Exception(System.lineSeparator() + "Missing keys in " + LANGUAGE_ENGLISH.description + ": " + missingKeysInEnglishLanguage + System.lineSeparator() +
+            fail(System.lineSeparator() + "Missing keys in " + LANGUAGE_ENGLISH.description + ": " + missingKeysInEnglishLanguage + System.lineSeparator() +
                                         "Missing keys in " + language.description + ": " + missingKeysInLocalLanguage
             );
         }
     }
     
-    private void checkStructure(LocalizeResourcesProvider localizeResourcesProvider, String englishXML, String spanishXML) throws Exception {
+    private void checkStructure(LocalizeResourcesProvider localizeResourcesProvider, String englishXML, String spanishXML) throws IOException, JDOMException {
         Document englishXMLDocument = getXMLDocument(localizeResourcesProvider, englishXML);
         Document spanishXMLDocument = getXMLDocument(localizeResourcesProvider, spanishXML);
         Element rootEn = englishXMLDocument.getRootElement();
@@ -167,15 +168,15 @@ public class LocalizeXMLCompare {
         checkElements(rootEn, rootEs);
     }
     
-    private void checkElements(Element rootEn, Element rootEs) throws Exception {
+    private void checkElements(Element rootEn, Element rootEs) {
         
         if (!rootEn.getName().equals(rootEs.getName())) {
-            throw new Exception(
+            fail(
                     ". The XML labels are not the same, as '" + rootEn.getName() + "' != '" + rootEs.getName() + "'.");
         }
         
         if (rootEn.getChildren().size() != rootEs.getChildren().size()) {
-            throw new Exception(
+            fail(
                     ". The XML label '" + rootEn.getName() + "' have a different number of children " + rootEn
                             .getChildren().size() + " != " + rootEs.getChildren().size());
         }

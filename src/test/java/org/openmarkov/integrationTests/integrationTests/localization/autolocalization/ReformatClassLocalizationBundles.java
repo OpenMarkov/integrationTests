@@ -36,7 +36,7 @@ class ReformatClassLocalizationBundles {
      * class name.
      */
     @Test
-    public void reformatClassLocalizationBundles() throws Exception {
+    public void reformatClassLocalizationBundles() throws ParserConfigurationException, SAXException, IOException {
         var classLocalizationFiles = StringDatabase.getBundleProviders().flatMap(provider -> {
             var url = provider.getClass().getResource(provider.getRootOfResources() + "/localize");
             return Arrays.stream(new File(url.getPath()).listFiles())

@@ -251,7 +251,7 @@ public class Classificator extends PGMXReader_0_2 {
     }
     
     /** List recursively files in PGMX version and writes its directory, version and name. */
-    public void writeTreeFiles(String pathToFiles) throws Exception {
+    public void writeTreeFiles(String pathToFiles) throws IOException, org.jdom2.JDOMException {
         File directory = new File(pathToFiles);
         File[] fList = directory.listFiles();
         for (File file : fList) {

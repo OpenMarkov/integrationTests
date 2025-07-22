@@ -32,7 +32,7 @@ public class MulticriteriaEditTest {
     
     private ProbNet probNet;
     
-    @BeforeEach public void setUp() throws Exception {
+    @BeforeEach public void setUp() throws ParserException, URISyntaxException {
         this.probNet = getProbNet4Test();
         probNet.getPNESupport().setWithUndo(true);
     }

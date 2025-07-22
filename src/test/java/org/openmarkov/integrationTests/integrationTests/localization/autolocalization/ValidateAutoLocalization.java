@@ -108,7 +108,7 @@ public class ValidateAutoLocalization {
                                                                                      + error.missingComponent + " in "
                                                                                      + error.classWithMissingComponent.getName() + " of module "
                                                                                      + error.classWithMissingComponent.getModule()
-                                                                                                                      .getName())
+                                                                                                                      .getName()+ " when localizing "+error.whenLocalizingClass.getName())
                                                                 .distinct()
                                                                 .collect(Collectors.joining(System.lineSeparator()));
                         return "Some fields and methods are missing:" + System.lineSeparator() + subErrorsDetails;
@@ -190,6 +190,7 @@ public class ValidateAutoLocalization {
                                 errors.add(new Error.FieldOrMethodMissing(localizableClasses, localizableClasses, formatting.field(), StringFormat.PseudoCode.Marker.FIELD));
                                 continue;
                             }
+                            argumentClass=fieldClass.value().get(fieldClass.value().size()-1);
                         }
                         for (var pseudocode : formatting.pseudocode()) {
                             var classesFound = pseudocode.resolveClassesThatShouldBeOpen(argumentClass);

@@ -125,19 +125,16 @@ public class CheckToStringOverridden {
      * @return the file location of a class.
      */
     public static @Nullable File getClassLocation(Class<?> originClass) {
-        try {
-            URL classUrl = originClass.getResource(originClass.getSimpleName() + ".class");
-            String path = new File(classUrl.getFile()).getAbsolutePath();
-            path = path.replace("target\\classes", "src\\main\\java");
-            path = path.substring(0, path.length() - ".class".length());
-            path += ".java";
-            File file = new File(path);
-            if (file.exists()) {
-                return file;
-            }
-        } catch (Exception ignored) {
+        URL classUrl = originClass.getResource(originClass.getSimpleName() + ".class");
+        String path = new File(classUrl.getFile()).getAbsolutePath();
+        path = path.replace("target\\classes", "src\\main\\java");
+        path = path.substring(0, path.length() - ".class".length());
+        path += ".java";
+        File file = new File(path);
+        if (!file.exists()) {
+            return null;
         }
-        return null;
+        return file;
     }
     
     /**
@@ -147,8 +144,8 @@ public class CheckToStringOverridden {
      */
     private static @NotNull Stream<Class<Localizable>> getAllLocalizablesClasses() {
         return PluginSearch.init().childrenOf(Localizable.class)
-                .stream()
-                .filter(localizableClass -> !localizableClass.isInterface());
+                           .stream()
+                           .filter(localizableClass -> !localizableClass.isInterface());
     }
     
     /**

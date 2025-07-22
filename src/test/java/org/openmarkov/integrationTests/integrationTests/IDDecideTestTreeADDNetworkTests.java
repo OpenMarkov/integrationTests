@@ -10,7 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 public class IDDecideTestTreeADDNetworkTests extends idDecideTestNetworkTests {
 	
 	@Override
-	@BeforeEach public void setUp() throws Exception {
+	@BeforeEach public void setUp() throws java.net.URISyntaxException, org.openmarkov.core.exception.ParserException {
 		networkName = "networks/id/ID-decide-test-tree-add.pgmx";
 		super.setUp();
 	}

@@ -8,7 +8,7 @@ import org.openmarkov.io.probmodel.reader.PGMXReader_1_0;
 public class IDOneChanceSANetworkTests extends IDNetworkTests {
 	
 	@Override
-	@BeforeEach public void setUp() throws Exception {
+	@BeforeEach public void setUp() throws java.net.URISyntaxException, org.openmarkov.core.exception.ParserException {
 		networkName = "networks/id/ID-one-chance-sa.pgmx";
 		super.setUp();
 	}

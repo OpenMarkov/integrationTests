@@ -51,7 +51,7 @@ public class HillClimbingAlgorithmTest {
 		learningAlgorithm = new HillClimbingAlgorithm(learned, database, alpha, metric);
 	}
     @Disabled
-	@Test public void testLearning() throws Exception {
+	@Test public void testLearning() throws org.openmarkov.core.exception.CannotNormalizeNullVectorException {
 		double[] probabilities;
 		learningAlgorithm.run(new ModelNetUse());
 		Node nodeA = learned.getNode("A");

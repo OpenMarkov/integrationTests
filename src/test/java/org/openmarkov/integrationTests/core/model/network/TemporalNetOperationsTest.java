@@ -27,7 +27,7 @@ public class TemporalNetOperationsTest {
     
     private ProbNet probNet;
     
-    @BeforeEach public void setUp() throws Exception {
+    @BeforeEach public void setUp() throws java.net.URISyntaxException, org.openmarkov.core.exception.ParserException {
         String networkName = "networks/mid/SimpleTemporalUtilityNode.pgmx";
         // Open the file containing the network
         URL res = getClass().getClassLoader().getResource(networkName);

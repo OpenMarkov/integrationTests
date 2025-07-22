@@ -27,6 +27,8 @@ import org.openmarkov.inference.algorithm.variableElimination.tasks.VEOptimalInt
 import org.openmarkov.inference.algorithm.variableElimination.tasks.VEPropagation;
 import org.openmarkov.inference.algorithm.variableElimination.tasks.VETemporalEvolution;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 
 public class InferenceTestsTools {
 	
@@ -52,12 +54,6 @@ public class InferenceTestsTools {
 		}
 
 		System.out.println("VEResolution successful");
-	}
-	
-	private static void assertNotNull(Object obj) {
-		if (obj==null){
-			throw new NullPointerException("Object is null");
-		}
 	}
 	
 	public static void testPropagateNetwork(ProbNet probNet, List<Variable> variables, EvidenceCase evidenceCase)

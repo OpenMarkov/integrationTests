@@ -1,4 +1,4 @@
-package org.openmarkov.integrationTests.integrationTests;
+package org.openmarkov.integrationTests.integrationTests.testOpenMarkovException2.exceptions;
 
 import org.junit.jupiter.api.Test;
 import org.openmarkov.plugin.PluginSearch;
