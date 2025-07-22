@@ -1,6 +1,7 @@
 package org.openmarkov.integrationTests.integrationTests.testOpenMarkovException2;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.openmarkov.core.exception.OpenMarkovException2;
 import org.openmarkov.core.localize.StringDatabase;
 
@@ -9,7 +10,7 @@ import java.nio.file.FileSystemException;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-
+@TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @SuppressWarnings({"TypeMayBeWeakened", "DuplicateStringLiteralInspection"})
 public class TestSuperExceptions {
     

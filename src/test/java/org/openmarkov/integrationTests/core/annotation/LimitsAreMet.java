@@ -2,6 +2,7 @@ package org.openmarkov.integrationTests.core.annotation;
 
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.openmarkov.core.annotation.Limits;
 import org.openmarkov.core.inference.annotation.InferenceAnnotation;
 import org.openmarkov.plugin.PluginSearch;
@@ -14,6 +15,7 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
+@TestInstance(TestInstance.Lifecycle.PER_METHOD)
 public class LimitsAreMet {
     
     @Test

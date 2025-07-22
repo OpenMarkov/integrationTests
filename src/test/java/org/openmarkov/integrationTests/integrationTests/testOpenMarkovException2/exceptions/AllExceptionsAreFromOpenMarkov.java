@@ -1,6 +1,7 @@
 package org.openmarkov.integrationTests.integrationTests.testOpenMarkovException2.exceptions;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.openmarkov.plugin.PluginSearch;
 
 import java.lang.reflect.Constructor;
@@ -12,6 +13,7 @@ import java.util.Comparator;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@TestInstance(TestInstance.Lifecycle.PER_METHOD)
 public class AllExceptionsAreFromOpenMarkov {
     
     @Test

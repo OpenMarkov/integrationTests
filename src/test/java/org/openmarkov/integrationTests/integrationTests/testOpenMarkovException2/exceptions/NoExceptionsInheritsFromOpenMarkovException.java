@@ -1,6 +1,7 @@
 package org.openmarkov.integrationTests.integrationTests.testOpenMarkovException2.exceptions;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.openmarkov.core.exception.OpenMarkovException;
 import org.openmarkov.plugin.PluginSearch;
 
@@ -15,6 +16,7 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
+@TestInstance(TestInstance.Lifecycle.PER_METHOD)
 public class NoExceptionsInheritsFromOpenMarkovException {
     
     @Test
