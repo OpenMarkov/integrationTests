@@ -2,6 +2,7 @@ package org.openmarkov.inference;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 import org.openmarkov.core.exception.IncompatibleEvidenceException;
 import org.openmarkov.core.exception.NotEvaluableNetworkException;
@@ -16,6 +17,7 @@ import org.openmarkov.core.model.network.ProbNetOperations;
 import org.openmarkov.core.model.network.Variable;
 import org.openmarkov.core.model.network.VariableType;
 import org.openmarkov.core.model.network.constraint.OnlyAtemporalVariables;
+import org.openmarkov.core.model.network.potential.StrategyTree;
 import org.openmarkov.core.model.network.potential.TablePotential;
 import org.openmarkov.core.model.network.type.BayesianNetworkType;
 import org.openmarkov.core.model.network.type.InfluenceDiagramType;
@@ -26,8 +28,6 @@ import org.openmarkov.inference.algorithm.variableElimination.tasks.VEEvaluation
 import org.openmarkov.inference.algorithm.variableElimination.tasks.VEOptimalIntervention;
 import org.openmarkov.inference.algorithm.variableElimination.tasks.VEPropagation;
 import org.openmarkov.inference.algorithm.variableElimination.tasks.VETemporalEvolution;
-
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
 public class InferenceTestsTools {
@@ -54,6 +54,10 @@ public class InferenceTestsTools {
 		}
 
 		System.out.println("VEResolution successful");
+	}
+	
+	private static void assertNotNull(Object object) {
+		Objects.requireNonNull(object);
 	}
 	
 	public static void testPropagateNetwork(ProbNet probNet, List<Variable> variables, EvidenceCase evidenceCase)
