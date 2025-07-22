@@ -6,7 +6,7 @@ import org.openmarkov.inference.algorithm.decompositionIntoSymmetricDANs.ceanaly
 
 public class DANDecompositionIntoSymmetricDANsCEATest extends DANCEATest {
 
-	protected CEAnalysis buildCEAnalysis(ProbNet network) {
+	@Override protected CEAnalysis buildCEAnalysis(ProbNet network) {
 		CEAnalysis cea = null;
 		cea = new DANDecompositionIntoSymmetricDANsCEA(network);
 		return cea;

@@ -20,32 +20,32 @@ public class DANDecisionTreeEvaluationTest extends DANEvaluationTest {
 		testNetworkEvaluationAndDecisionTree(network,expectedEU,namesVariablesIntervention);
 	}
 
-	protected DANEvaluation buildNetworkEvaluation(ProbNet network, boolean computeDecisionTreeForGUI) throws NotEvaluableNetworkException {
+	@Override protected DANEvaluation buildNetworkEvaluation(ProbNet network, boolean computeDecisionTreeForGUI) throws NotEvaluableNetworkException {
 		DANEvaluation eval = null;
 		eval = new DANDecisionTreeEvaluation(network, computeDecisionTreeForGUI);
 		return eval;
 	}
 
 	//Next tests are commented because running them very often takes too much time
-	@Disabled("Old DAN evaluation") @Test public void testDANKingNobleDescentYesFirstTask1() {
+	@Override @Disabled("Old DAN evaluation") @Test public void testDANKingNobleDescentYesFirstTask1() {
 		//testDANEvaluation("king-noble-descent-yes-first-task-1",9.03);
 
 	}
 
-	@Disabled("Old DAN evaluation") @Test public void testDANKingNobleDescentYesFirstTask1SecondTask2() {
+	@Override @Disabled("Old DAN evaluation") @Test public void testDANKingNobleDescentYesFirstTask1SecondTask2() {
 		//testDANEvaluation("king-noble-descent-yes-first-task-1-second-task-2",9.03);
 	}
 
-	@Disabled("Old DAN evaluation") @Test public void testDANKingNobleDescentNo() {
+	@Override @Disabled("Old DAN evaluation") @Test public void testDANKingNobleDescentNo() {
 		//testDANEvaluation("king-noble-descent-no",6.43);
 
 	}
 
-	@Disabled("Old DAN evaluation") @Test public void testDANKingNobleDescentYes() {
+	@Override @Disabled("Old DAN evaluation") @Test public void testDANKingNobleDescentYes() {
 		//testDANEvaluation("king-noble-descent-yes",9.03);
 	}
 
-	@Disabled("Old DAN evaluation") @Test public void testDANKing() {
+	@Override @Disabled("Old DAN evaluation") @Test public void testDANKing() {
 		//testDANEvaluation("king",7.73);
 	}
 

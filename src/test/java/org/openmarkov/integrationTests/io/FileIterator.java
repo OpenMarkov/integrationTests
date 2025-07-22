@@ -48,11 +48,11 @@ public class FileIterator implements PGMXIterator {
         }
     }
     
-    public boolean hasNext() {
+    @Override public boolean hasNext() {
         return hasNext;
     }
     
-    public PGMXCompound next() {
+    @Override public PGMXCompound next() {
         PGMXCompound aux = nextCompound;
         nextFile = nextFile == null ? nextFile : lookForNext();
         return aux;

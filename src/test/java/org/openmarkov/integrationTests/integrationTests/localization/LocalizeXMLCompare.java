@@ -130,7 +130,7 @@ public class LocalizeXMLCompare {
     
     @ParameterizedTest
     @MethodSource("getLocalizationFilesAndProvidersWithLanguages")
-    public void checkSameStructure(Pair<FileAndLocalizeResource, Language> fileAndLanguage) throws Exception {
+    public void checkSameStructure(Pair<FileAndLocalizeResource, Language> fileAndLanguage) throws IOException, JDOMException {
         var provider = fileAndLanguage.getLeft().localizeResourcesProvider;
         var file = fileAndLanguage.getLeft().file;
         var language = fileAndLanguage.getRight();
