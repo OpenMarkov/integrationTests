@@ -135,13 +135,9 @@ public class CEAGlobalAnalysisTest {
 	
 	@Tag(TestSpeed.MEDIUM)
 	@Test public void testChancellorUnicriterion() throws java.net.URISyntaxException, org.openmarkov.core.exception.ParserException, org.openmarkov.core.exception.NotEvaluableNetworkException, org.openmarkov.core.exception.IncompatibleEvidenceException, org.openmarkov.core.exception.UnexpectedInferenceException {
-		// Constants
-		String modelFilePath = "networks" + File.separator + "mid" + File.separator
-				+ "MID-Chancellor-Unicriterion.pgmx";
 		// Open the file containing the network
-		File f = null;
-		URL res = getClass().getClassLoader().getResource(modelFilePath);
-		f = Paths.get(res.toURI()).toFile();
+        URL res = getClass().getResource("/networks/mid/MID-Chancellor-Unicriterion.pgmx");
+		File f = Paths.get(res.toURI()).toFile();
 		String absolutePath = f.getAbsolutePath();
 		// Load the Bayesian network
 		PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
@@ -216,11 +212,9 @@ public class CEAGlobalAnalysisTest {
 	@Tag(TestSpeed.SLOW)
 	@Test public void testDMHEE35() throws java.net.URISyntaxException, org.openmarkov.core.exception.ParserException, org.openmarkov.core.exception.IncompatibleEvidenceException, org.openmarkov.core.exception.NotEvaluableNetworkException, org.openmarkov.core.exception.UnexpectedInferenceException {
 		// Constants
-		String modelFilePath = "networks" + File.separator + "mid" + File.separator + "MID-dmhee-3.5.pgmx";
-		// Open the file containing the network
-		File f = null;
-		URL res = getClass().getClassLoader().getResource(modelFilePath);
-		f = Paths.get(res.toURI()).toFile();
+        // Open the file containing the network
+		URL res = getClass().getResource("/networks/mid/MID-dmhee-3.5.pgmx");
+		File f = Paths.get(res.toURI()).toFile();
 		String absolutePath = f.getAbsolutePath();
 
 		// Load the Bayesian network

@@ -15,6 +15,7 @@ import org.openmarkov.core.model.network.ProbNet;
 import org.openmarkov.core.model.network.Variable;
 import org.openmarkov.core.model.network.potential.TablePotential;
 import org.openmarkov.core.test.TestSpeed;
+import org.openmarkov.integrationTests.IntegrationTest;
 import org.openmarkov.io.database.excel.CSVDataBaseIO;
 import org.openmarkov.io.probmodel.reader.PGMXReader_0_2;
 import org.openmarkov.learning.algorithm.pc.PCAlgorithm;
@@ -326,7 +327,7 @@ public class PCAlgorithmTest {
 
 		Assertions.assertEquals(34, learnedNet.getLinks().size());
 		PGMXReader_0_2 reader = new PGMXReader_0_2();
-		ProbNet readNet = reader.loadProbNet(getClass().getResource(this.path+"/BN-alarm.pgmx").getFile());
+        ProbNet readNet = reader.loadProbNet(getClass().getResource(this.path + "BN-alarm.pgmx").getFile());
 		printDifferences(readNet, learnedNet);
 	}
 

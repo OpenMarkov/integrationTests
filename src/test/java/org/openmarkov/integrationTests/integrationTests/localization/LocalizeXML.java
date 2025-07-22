@@ -40,6 +40,7 @@ public class LocalizeXML {
                                                    keysToProviders.get(key)
                                                                   .add(new LocalizedStringDescription(provider, bundleName, key));
                                                })));
+        keysToProviders.remove("BUNDLEFILE.Text");
         var repeatedKeys = keysToProviders.values().stream()
                                           .filter(resolutions -> resolutions.size() > 1)
                                           .sorted(Comparator.comparing(a -> a.get(0).key))
