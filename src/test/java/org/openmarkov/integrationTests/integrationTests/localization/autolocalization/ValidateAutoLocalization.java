@@ -3,6 +3,7 @@ package org.openmarkov.integrationTests.integrationTests.localization.autolocali
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.junit.jupiter.api.Test;
+import org.openmarkov.core.exception.WrapperException;
 import org.openmarkov.core.localize.AutoLocalizable;
 import org.openmarkov.core.localize.StringBundle;
 import org.openmarkov.core.localize.StringDatabase;
@@ -44,6 +45,7 @@ public class ValidateAutoLocalization {
                                                                                                               .childrenOf(AutoLocalizable.class)
                                                                                                               .stream()
                                                                                                               .filter(localizableClass -> !localizableClass.isInterface() && !Modifier.isAbstract(localizableClass.getModifiers()))
+                                                                                                              .filter(localizableClass -> !WrapperException.class.isAssignableFrom(localizableClass))
                                                                                                               .collect(Collectors.groupingBy(Class::getModule));
     /**
      * List where every {@link AutoLocalizable} of every module is associated to the Bundles that can be accessed in
@@ -108,7 +110,7 @@ public class ValidateAutoLocalization {
                                                                                      + error.missingComponent + " in "
                                                                                      + error.classWithMissingComponent.getName() + " of module "
                                                                                      + error.classWithMissingComponent.getModule()
-                                                                                                                      .getName()+ " when localizing "+error.whenLocalizingClass.getName())
+                                                                                                                      .getName() + " when localizing " + error.whenLocalizingClass.getName())
                                                                 .distinct()
                                                                 .collect(Collectors.joining(System.lineSeparator()));
                         return "Some fields and methods are missing:" + System.lineSeparator() + subErrorsDetails;
@@ -190,7 +192,7 @@ public class ValidateAutoLocalization {
                                 errors.add(new Error.FieldOrMethodMissing(localizableClasses, localizableClasses, formatting.field(), StringFormat.PseudoCode.Marker.FIELD));
                                 continue;
                             }
-                            argumentClass=fieldClass.value().get(fieldClass.value().size()-1);
+                            argumentClass = fieldClass.value().get(fieldClass.value().size() - 1);
                         }
                         for (var pseudocode : formatting.pseudocode()) {
                             var classesFound = pseudocode.resolveClassesThatShouldBeOpen(argumentClass);
