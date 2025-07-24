@@ -1,12 +1,5 @@
 package org.openmarkov.integrationTests.integrationTests;
 
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.config.Configurator;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -22,7 +15,7 @@ import org.openmarkov.inference.algorithm.variableElimination.tasks.VECEPSA;
 import org.openmarkov.io.probmodel.reader.PGMXReader_0_2;
 
 import java.io.File;
-import java.io.FileOutputStream;
+//import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -46,7 +39,7 @@ public class mid21gene {
     private EvidenceCase preResolutionEvidence;
     
     @BeforeEach public void setUp() throws ParserException, URISyntaxException {
-        Configurator.setRootLevel(Level.DEBUG);
+        //Configurator.setRootLevel(Level.DEBUG);
         
         String networkName = "/networks/mid/21-gene-190909-psa.pgmx";
         
@@ -182,10 +175,11 @@ public class mid21gene {
         setScenario("AO high", "21g N/A", "yes");
         evaluateScenario("H-N-C");
         
-        printToExcel();
+//        printToExcel();
         
     }
-    
+  
+    /* Commented out because it requires Apache POI library
     private void printToExcel() throws IOException {
         // Abstract output file
         File resultFile = new File("results.xlsx");
@@ -220,19 +214,19 @@ public class mid21gene {
         outputStream = new FileOutputStream(resultFile);
         workbook.write(outputStream);
         workbook.close();
-    }
+    }*/
     
     private void evaluateScenario(String scenarioName)
             throws NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException {
         
-        LogManager.getLogger().info("Scenario: " + scenarioName);
+    	System.out.println("Scenario: " + scenarioName);
         VECEAnalysis veceAnalysis = new VECEAnalysis(probNet);
         veceAnalysis.setPreResolutionEvidence(preResolutionEvidence);
         CEP cep = veceAnalysis.getCEP();
         double costs = cep.getCost(0);
         double effectiveness = cep.getEffectiveness(0);
-        LogManager.getLogger().info("Cost: " + costs);
-        LogManager.getLogger().info("Effectiveness: " + effectiveness);
+        System.out.println("Cost: " + costs);
+        System.out.println("Effectiveness: " + effectiveness);
         
         
         // Gets life_time
@@ -296,12 +290,12 @@ public class mid21gene {
             VECEPSA vecepsa = new VECEPSA(probNet);
             vecepsa.setNumSimulations(numSim);
             vecepsa.setUseMultithreading(true);
-            LogManager.getLogger().debug("Iteration: " + i);
-            LogManager.getLogger().debug("Starting PSA with " + numSim + " simulations and multithreading");
+            System.out.println("Iteration: " + i);
+            System.out.println("Starting PSA with " + numSim + " simulations and multithreading");
             startTime = System.nanoTime();
             ArrayList<GTablePotential> cepPotentials = (ArrayList<GTablePotential>) vecepsa.getCEPPotentials();
             endTime = System.nanoTime();
-            LogManager.getLogger().debug("Total time: " + (startTime - endTime) + " ns.");
+            System.out.println("Total time: " + (startTime - endTime) + " ns.");
         }
         
     }
@@ -311,21 +305,21 @@ public class mid21gene {
     public void temporalEvaluation() throws IncompatibleEvidenceException, UnexpectedInferenceException, NotEvaluableNetworkException {
         TemporalEvaluation temporalEvaluation = null;
         long startTime, endTime;
-        LogManager.getLogger().debug("Starting temporal evaluation");
+        System.out.println("Starting temporal evaluation");
         startTime = System.nanoTime();
         temporalEvaluation = new TemporalEvaluation(probNet);
         temporalEvaluation.setPreResolutionEvidence(preResolutionEvidence);
         GTablePotential atemporalUtility = (GTablePotential) temporalEvaluation.getAtemporalUtility();
         endTime = System.nanoTime();
-        LogManager.getLogger().debug("Total time: " + (startTime - endTime) + " ns.");
+        System.out.println("Total time: " + (startTime - endTime) + " ns.");
         
-        LogManager.getLogger().debug("Starting VECEAnalysis");
+        System.out.println("Starting VECEAnalysis");
         startTime = System.nanoTime();
         VECEAnalysis veceAnalysis = new VECEAnalysis(probNet);
         veceAnalysis.setPreResolutionEvidence(preResolutionEvidence);
         CEP cep = veceAnalysis.getCEP();
         endTime = System.nanoTime();
-        LogManager.getLogger().debug("Total time: " + (startTime - endTime) + " ns.");
+        System.out.println("Total time: " + (startTime - endTime) + " ns.");
         
         
     }
