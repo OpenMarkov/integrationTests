@@ -39,7 +39,7 @@ public class ToolPluginTest {
         }
         try {
             toolPluginClass.getDeclaredConstructor().setAccessible(true);
-        } catch (Exception e) {
+        } catch (NoSuchMethodException | SecurityException e) {
             fail("The no arguments constructor of class " + toolPluginClass.getName() + " is not accessible, even when forcing accessibility via reflections");
         }
     }
