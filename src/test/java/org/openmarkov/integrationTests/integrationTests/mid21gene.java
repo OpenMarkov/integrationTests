@@ -77,7 +77,7 @@ public class mid21gene {
     }
     
     
-    @Test public void getCEA4Scenarios() throws NoFindingException, IncompatibleEvidenceException, NotEvaluableNetworkException, UnexpectedInferenceException, IOException {
+    @Test public void getCEA4Scenarios() throws NoFindingException, IncompatibleEvidenceException, NotEvaluableNetworkException, UnexpectedInferenceException {
         // L-L-NC
         setScenario("AO low", "21g low", "no");
         evaluateScenario("L-L-NC");
