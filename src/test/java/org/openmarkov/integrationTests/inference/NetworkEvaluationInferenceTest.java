@@ -8,12 +8,13 @@ import org.openmarkov.core.model.network.potential.TablePotential;
 import org.openmarkov.inference.algorithm.decompositionIntoSymmetricDANs.DecisionTreeComputation;
 import org.openmarkov.inference.algorithm.decompositionIntoSymmetricDANs.evaluation.DANEvaluation;
 
+import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
 
 
 public abstract class NetworkEvaluationInferenceTest {
 
-	public void testNetworkEvaluation(String networkName, double expectedEU, String... namesVariablesIntervention) throws NotEvaluableNetworkException, ParserException, URISyntaxException {
+	public void testNetworkEvaluation(String networkName, double expectedEU, String... namesVariablesIntervention) throws NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException {
 		ProbNet network = loadNetwork(networkName);
 		System.out.println("*** Evaluating network " + networkName + " ***");
 		System.out.println();
@@ -32,7 +33,7 @@ public abstract class NetworkEvaluationInferenceTest {
 		Tools.testEvaluationResults(network, expectedEU, globalUtility, namesVariablesIntervention);
 	}
 
-	protected abstract ProbNet loadNetwork(String networkName) throws ParserException, URISyntaxException;
+	protected abstract ProbNet loadNetwork(String networkName) throws ParserException, URISyntaxException, FileNotFoundException;
 	
 	protected abstract DANEvaluation buildNetworkEvaluation(ProbNet network) throws NotEvaluableNetworkException;
 

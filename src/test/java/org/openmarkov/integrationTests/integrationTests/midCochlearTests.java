@@ -9,6 +9,7 @@ package org.openmarkov.integrationTests.integrationTests;
 
 import org.junit.jupiter.api.*;
 import org.openmarkov.core.exception.IncompatibleEvidenceException;
+import org.openmarkov.core.exception.NonProjectablePotentialException;
 import org.openmarkov.core.exception.NotEvaluableNetworkException;
 import org.openmarkov.core.exception.UnexpectedInferenceException;
 import org.openmarkov.core.inference.TransitionTime;
@@ -22,6 +23,7 @@ import org.openmarkov.inference.algorithm.variableElimination.tasks.VECEAnalysis
 import org.openmarkov.io.probmodel.reader.PGMXReader_0_2;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.List;
@@ -39,7 +41,7 @@ public class midCochlearTests {
     private ProbNet probNet;
     private EvidenceCase preResolutionEvidence;
     
-    @BeforeEach public void setUp() throws java.net.URISyntaxException, org.openmarkov.core.exception.ParserException {
+    @BeforeEach public void setUp() throws java.net.URISyntaxException, org.openmarkov.core.exception.ParserException, FileNotFoundException {
         URL res = getClass().getClassLoader().getResource(networkName);
         File f = Paths.get(res.toURI()).toFile();
         String absolutePath = f.getAbsolutePath();
@@ -56,7 +58,7 @@ public class midCochlearTests {
     
     @Disabled
     @Test
-    public void veTemporalEvaluationTest() throws NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException {
+    public void veTemporalEvaluationTest() throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
         TemporalEvaluation temporalEvaluation = new TemporalEvaluation(probNet);
         temporalEvaluation.setPreResolutionEvidence(preResolutionEvidence);
         GTablePotential atemporalUtility = (GTablePotential) temporalEvaluation.getAtemporalUtility();

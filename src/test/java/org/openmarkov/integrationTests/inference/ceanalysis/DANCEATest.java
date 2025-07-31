@@ -11,12 +11,13 @@ import org.openmarkov.core.inference.tasks.CEAnalysis;
 import org.openmarkov.core.model.network.CEP;
 import org.openmarkov.core.model.network.ProbNet;
 
+import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
 
 
 public abstract class DANCEATest {
 
-	public void testCEADANEvaluation(String danName, int globalNumberOfCEPIntervals, double... expectedThreshods) throws NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException, ParserException, URISyntaxException {
+	public void testCEADANEvaluation(String danName, int globalNumberOfCEPIntervals, double... expectedThreshods) throws NonProjectablePotentialException, NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException {
 		Tools t = new Tools();
 		ProbNet network = t.loadDAN(danName);
 		System.out.println("*** CEA with DAN " + danName + " ***");
@@ -25,7 +26,7 @@ public abstract class DANCEATest {
 		testCEADANEvaluation(globalNumberOfCEPIntervals, eval, expectedThreshods);
 	}
 
-	protected void testCEADANEvaluation(int globalNumberOfCEPIntervals, CEAnalysis eval, double... expectedThreshods) throws IncompatibleEvidenceException, UnexpectedInferenceException {
+	protected void testCEADANEvaluation(int globalNumberOfCEPIntervals, CEAnalysis eval, double... expectedThreshods) throws NonProjectablePotentialException {
         CEP cep = eval.getCEP();
 		Assertions.assertNotNull(cep);
 		Assertions.assertEquals(globalNumberOfCEPIntervals, cep.getNumIntervals());
@@ -41,34 +42,34 @@ public abstract class DANCEATest {
 	
 	@Test
 	public void testDANOnlyNonZeroUtility() throws
-            NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException, ParserException, URISyntaxException {
+            NonProjectablePotentialException, NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException {
 		testCEADANEvaluation("only-non-zero-utility-ce", 1);
 	}
 	
 	@Test
 	public void testDANOnlyZeroyUtility() throws
-            NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException, ParserException, URISyntaxException {
+            NonProjectablePotentialException, NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException {
 		testCEADANEvaluation("only-zero-utility-ce", 1);
 	}
 	
 	@Tag(TestSpeed.MEDIUM)
 	@Test
 	public void testDANOneDecisionCE() throws
-            NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException, ParserException, URISyntaxException {
+            NonProjectablePotentialException, NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException {
 		testCEADANEvaluation("one-decision-CE", 2, 1.333333333);
 	}
 	
 	@Tag(TestSpeed.SLOW)
 	@Test
 	public void testDANOneChanceCE() throws
-            NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException, ParserException, URISyntaxException {
+            NonProjectablePotentialException, NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException {
 		testCEADANEvaluation("one-chance-ce", 1);
 	}
 	
 	@Tag(TestSpeed.SLOW)
 	@Test
 	public void testDANDecideTest() throws
-            NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException, ParserException, URISyntaxException {
+            NonProjectablePotentialException, NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException {
 		testCEADANEvaluation("decide-test-ce", 3, 11171.347828594418, 33383.5);
 	}
 		

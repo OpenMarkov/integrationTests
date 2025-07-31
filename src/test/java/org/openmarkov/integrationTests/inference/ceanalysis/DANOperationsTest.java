@@ -21,6 +21,7 @@ import org.openmarkov.inference.algorithm.decompositionIntoSymmetricDANs.core.DA
 import org.openmarkov.io.probmodel.reader.PGMXReader_0_2;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Paths;
@@ -36,7 +37,7 @@ public class DANOperationsTest {
     private ProbNet danDiabetes;
     private ProbNet danDiabetesCE;
     
-    @BeforeEach public void setUp() throws URISyntaxException, ParserException {
+    @BeforeEach public void setUp() throws URISyntaxException, ParserException, FileNotFoundException {
         PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
         
         ProbNetInfo probNetInfo;

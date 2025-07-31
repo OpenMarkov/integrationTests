@@ -20,12 +20,7 @@ import org.openmarkov.core.model.network.type.NetworkType;
 import org.openmarkov.core.model.network.type.POMDPType;
 import org.openmarkov.io.probmodel.reader.PGMXReader_0_2;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
@@ -203,7 +198,10 @@ public class NetsRepository {
 	    } catch (ParserException e) {
 	        e.printStackTrace();
 	        return Optional.empty();
-	    }
-	}
+	    } catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return Optional.empty();
+        }
+    }
 
 }

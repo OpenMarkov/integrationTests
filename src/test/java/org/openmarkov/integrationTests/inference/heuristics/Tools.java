@@ -1,6 +1,7 @@
 package org.openmarkov.integrationTests.inference.heuristics;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Paths;
@@ -29,7 +30,7 @@ import org.junit.jupiter.api.Assertions;
 
 public class Tools {
 	
-	public ProbNet loadNetwork(String networkNameSuffix,String networkNamePrefix,String subfolderName) throws URISyntaxException, ParserException {
+	public ProbNet loadNetwork(String networkNameSuffix,String networkNamePrefix,String subfolderName) throws FileNotFoundException, URISyntaxException, ParserException {
 		String networkName = "networks/"+subfolderName+"/"+networkNamePrefix+"-" + networkNameSuffix + ".pgmx";
 		PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
 		ProbNetInfo probNetInfo = null;
@@ -41,11 +42,11 @@ public class Tools {
 	}
 
 	
-	public ProbNet loadDAN(String nameSuffix) throws ParserException, URISyntaxException {
+	public ProbNet loadDAN(String nameSuffix) throws FileNotFoundException, ParserException, URISyntaxException {
 		return loadNetwork(nameSuffix,"DAN","dan");
 	}
 	
-	public ProbNet loadID(String nameSuffix) throws ParserException, URISyntaxException {
+	public ProbNet loadID(String nameSuffix) throws FileNotFoundException, ParserException, URISyntaxException {
 		return loadNetwork(nameSuffix,"ID","id");
 	}
 

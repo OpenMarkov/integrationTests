@@ -2,11 +2,11 @@ package org.openmarkov.integrationTests.integrationTests.testOpenMarkovException
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.openmarkov.core.exception.OpenMarkovException2;
+import org.openmarkov.core.exception.OpenMarkovException;
 
 
 @SuppressWarnings("ALL")
-public class OpenFileException2 extends OpenMarkovException2 {
+public class OpenFileException2 extends OpenMarkovException {
     
     public final @NotNull String fileName;
     public final @Nullable String owner;

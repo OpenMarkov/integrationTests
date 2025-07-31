@@ -2,7 +2,7 @@ package org.openmarkov.integrationTests.integrationTests.testOpenMarkovException
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
-import org.openmarkov.core.exception.OpenMarkovException2;
+import org.openmarkov.core.exception.OpenMarkovException;
 import org.openmarkov.core.localize.StringDatabase;
 
 import java.io.CharConversionException;
@@ -21,7 +21,7 @@ public class TestSuperExceptions {
         StringDatabase.getUniqueInstance().setLanguage("en");
         
         // The 'IntegrationTestsException_en.xml' stringBundle has an exception defined for CharConversionException.
-        OpenMarkovException2 knownException = OpenMarkovException2.of(
+        OpenMarkovException knownException = OpenMarkovException.of(
                 new CharConversionException("A character conversion exception"));
         
         // It must contain the title from 'CharConversionException' in the stringBundle
@@ -33,7 +33,7 @@ public class TestSuperExceptions {
         
         // The 'IntegrationTestsException_en.xml' stringBundle does not have an exception defined for FileSystemException,
         // but it does for IOException.
-        OpenMarkovException2 parentKnownException = OpenMarkovException2.of(
+        OpenMarkovException parentKnownException = OpenMarkovException.of(
                 new FileSystemException("A file system exception"));
         
         // It must contain the title from 'CharConversionException' in the stringBundle
@@ -44,7 +44,7 @@ public class TestSuperExceptions {
                 StringDatabase.getUniqueInstance().getString("IOException.message")));
         
         // The 'IntegrationTestsException_en.xml' stringBundle does not have an exception defined for NullPointerException.
-        OpenMarkovException2 unknownException = OpenMarkovException2.of(
+        OpenMarkovException unknownException = OpenMarkovException.of(
                 new NullPointerException("The error is detailed here"));
         
         var s = unknownException.toString();

@@ -19,6 +19,7 @@ import org.openmarkov.core.model.network.ProbNet;
 import org.openmarkov.io.probmodel.reader.PGMXReader_0_2;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Paths;
@@ -32,7 +33,7 @@ public class MulticriteriaEditTest {
     
     private ProbNet probNet;
     
-    @BeforeEach public void setUp() throws ParserException, URISyntaxException {
+    @BeforeEach public void setUp() throws ParserException, URISyntaxException, FileNotFoundException {
         this.probNet = getProbNet4Test();
         probNet.getPNESupport().setWithUndo(true);
     }
@@ -75,7 +76,7 @@ public class MulticriteriaEditTest {
         
     }
     
-    private ProbNet getProbNet4Test() throws ParserException, URISyntaxException {
+    private ProbNet getProbNet4Test() throws ParserException, URISyntaxException, FileNotFoundException {
         String bayesNetworkName = "networks/bn/BN-MulticriteriaEditTest.pgmx";
         
         URL res = getClass().getClassLoader().getResource(bayesNetworkName);

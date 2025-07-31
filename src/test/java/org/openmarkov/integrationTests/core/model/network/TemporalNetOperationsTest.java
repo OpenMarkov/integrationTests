@@ -17,6 +17,7 @@ import org.openmarkov.core.test.TestSpeed;
 import org.openmarkov.io.probmodel.reader.PGMXReader_0_2;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.nio.file.Paths;
 
@@ -27,7 +28,7 @@ public class TemporalNetOperationsTest {
     
     private ProbNet probNet;
     
-    @BeforeEach public void setUp() throws java.net.URISyntaxException, org.openmarkov.core.exception.ParserException {
+    @BeforeEach public void setUp() throws java.net.URISyntaxException, org.openmarkov.core.exception.ParserException, FileNotFoundException {
         String networkName = "networks/mid/SimpleTemporalUtilityNode.pgmx";
         // Open the file containing the network
         URL res = getClass().getClassLoader().getResource(networkName);

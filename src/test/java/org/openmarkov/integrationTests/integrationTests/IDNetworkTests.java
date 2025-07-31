@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.openmarkov.core.exception.IncompatibleEvidenceException;
+import org.openmarkov.core.exception.NonProjectablePotentialException;
 import org.openmarkov.core.exception.NotEvaluableNetworkException;
 import org.openmarkov.core.io.ProbNetInfo;
 import org.openmarkov.core.io.ProbNetReader;
@@ -19,6 +20,7 @@ import org.openmarkov.inference.algorithm.variableElimination.tasks.VESensAnTorn
 import org.openmarkov.io.probmodel.reader.PGMXReader_0_2;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.HashMap;
@@ -33,7 +35,7 @@ public abstract class IDNetworkTests {
     protected ProbNet probNet;
     protected EvidenceCase preResolutionEvidence;
     
-    @BeforeEach public void setUp() throws java.net.URISyntaxException, org.openmarkov.core.exception.ParserException {
+    @BeforeEach public void setUp() throws java.net.URISyntaxException, org.openmarkov.core.exception.ParserException, IOException {
         URL res = getClass().getClassLoader().getResource(networkName);
         File f = Paths.get(res.toURI()).toFile();
         String absolutePath = f.getAbsolutePath();
@@ -51,7 +53,7 @@ public abstract class IDNetworkTests {
     }
     
     @Disabled
-    @Test public void veSensAnTornadoSpiderTests() throws NotEvaluableNetworkException, IncompatibleEvidenceException {
+    @Test public void veSensAnTornadoSpiderTests() throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
         List<UncertainParameter> uncertainParameterList = SystematicSampling.getUncertainParameters(this.probNet);
         AxisVariation axisVariation = new AxisVariation();
         axisVariation.setVariationType(DeterministicAxisVariationType.POPP);

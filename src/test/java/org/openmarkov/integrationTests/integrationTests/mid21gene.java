@@ -16,6 +16,7 @@ import org.openmarkov.io.probmodel.reader.PGMXReader_0_2;
 
 import java.io.File;
 //import java.io.FileOutputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -38,7 +39,7 @@ public class mid21gene {
     private ProbNet probNet;
     private EvidenceCase preResolutionEvidence;
     
-    @BeforeEach public void setUp() throws ParserException, URISyntaxException {
+    @BeforeEach public void setUp() throws ParserException, URISyntaxException, FileNotFoundException {
         //Configurator.setRootLevel(Level.DEBUG);
         
         String networkName = "/networks/mid/21-gene-190909-psa.pgmx";
@@ -66,7 +67,7 @@ public class mid21gene {
     
     @Disabled
     @Test
-    public void prueba() throws NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException {
+    public void prueba() throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
         //Node dec_21g = probNet.getNode("Dec: 21g");
         
         //State stado = dec_21g.getVariable().getState("no");
@@ -77,7 +78,7 @@ public class mid21gene {
     }
     
     
-    @Test public void getCEA4Scenarios() throws NoFindingException, IncompatibleEvidenceException, NotEvaluableNetworkException, UnexpectedInferenceException {
+    @Test public void getCEA4Scenarios() throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
         // L-L-NC
         setScenario("AO low", "21g low", "no");
         evaluateScenario("L-L-NC");
@@ -217,7 +218,7 @@ public class mid21gene {
     }*/
     
     private void evaluateScenario(String scenarioName)
-            throws NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException {
+            throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
         
     	System.out.println("Scenario: " + scenarioName);
         VECEAnalysis veceAnalysis = new VECEAnalysis(probNet);
@@ -251,14 +252,14 @@ public class mid21gene {
     
     @Disabled
     @Test
-    public void test() throws NotEvaluableNetworkException,
-            IncompatibleEvidenceException, UnexpectedInferenceException {
+    public void test() throws NonProjectablePotentialException,
+            IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
         
         evaluateScenario("Demo");
     }
     
     private void setScenario(String str_ao_risk, String str_gen_risk, String chemo_dec)
-            throws NoFindingException, IncompatibleEvidenceException {
+            throws IncompatibleEvidenceException.EvidenceIsIncompatibleWithOther {
         Node dec_21g = probNet.getNode("Dec: 21g");
         Node dec_chemo = probNet.getNode("Dec: chemo");
         Node ao_risk = probNet.getNode("AO risk");
@@ -283,7 +284,7 @@ public class mid21gene {
     
     @Disabled
     @Test
-    public void psa_test() throws NotEvaluableNetworkException, IncompatibleEvidenceException, UnexpectedInferenceException {
+    public void psa_test() throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
         for (int i = 1; i <= 5; i++) {
             long startTime, endTime;
             int numSim = 1000;
@@ -302,7 +303,7 @@ public class mid21gene {
     
     @Disabled
     @Test
-    public void temporalEvaluation() throws IncompatibleEvidenceException, UnexpectedInferenceException, NotEvaluableNetworkException {
+    public void temporalEvaluation() throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
         TemporalEvaluation temporalEvaluation = null;
         long startTime, endTime;
         System.out.println("Starting temporal evaluation");

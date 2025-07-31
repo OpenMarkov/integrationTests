@@ -3,8 +3,7 @@ package org.openmarkov.integrationTests.integrationTests.localization.autolocali
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.junit.jupiter.api.Test;
-import org.openmarkov.core.exception.WrapperException;
-import org.openmarkov.core.localize.AutoLocalizable;
+import org.openmarkov.core.localize.ClassLocalizable;
 import org.openmarkov.core.localize.StringBundle;
 import org.openmarkov.core.localize.StringDatabase;
 import org.openmarkov.core.localize.spi.LocalizeResourcesProvider;
@@ -39,16 +38,15 @@ public class ValidateAutoLocalization {
             .stream()
             .collect(Collectors.groupingBy(bundle -> bundle.provider.getClass().getModule()));
     /**
-     * Map where every module has a list of {@link AutoLocalizable}s that are defined in said module.
+     * Map where every module has a list of {@link ClassLocalizable}s that are defined in said module.
      */
-    private static final Map<Module, List<Class<AutoLocalizable>>> MODULES_AND_AUTOLOCALIZABLES = PluginSearch.init()
-                                                                                                              .childrenOf(AutoLocalizable.class)
-                                                                                                              .stream()
-                                                                                                              .filter(localizableClass -> !localizableClass.isInterface() && !Modifier.isAbstract(localizableClass.getModifiers()))
-                                                                                                              .filter(localizableClass -> !WrapperException.class.isAssignableFrom(localizableClass))
-                                                                                                              .collect(Collectors.groupingBy(Class::getModule));
+    private static final Map<Module, List<Class<ClassLocalizable>>> MODULES_AND_AUTOLOCALIZABLES = PluginSearch.init()
+                                                                                                               .childrenOf(ClassLocalizable.class)
+                                                                                                               .stream()
+                                                                                                               .filter(localizableClass -> !localizableClass.isInterface() && !Modifier.isAbstract(localizableClass.getModifiers()))
+                                                                                                               .collect(Collectors.groupingBy(Class::getModule));
     /**
-     * List where every {@link AutoLocalizable} of every module is associated to the Bundles that can be accessed in
+     * List where every {@link ClassLocalizable} of every module is associated to the Bundles that can be accessed in
      * said module.
      */
     private static final List<AutolocalizablesAndBundles> LOCALIZABLES_AND_ACCESIBLE_BUNDLES = ValidateAutoLocalization.MODULES_AND_AUTOLOCALIZABLES
@@ -67,7 +65,7 @@ public class ValidateAutoLocalization {
             }).toList();
     
     /**
-     * Searches for every {@link AutoLocalizable} class and then gets their localization String in the
+     * Searches for every {@link ClassLocalizable} class and then gets their localization String in the
      * {@link StringDatabase#getUniqueInstance()} to verify it is well written.
      * <p>
      * A localization String is well written when:
@@ -147,7 +145,7 @@ public class ValidateAutoLocalization {
                     return "";
                 })
                 .collect(Collectors.joining(System.lineSeparator() + System.lineSeparator()));
-        fail(errorsDescription);
+        fail(System.lineSeparator() + System.lineSeparator() + errorsDescription + System.lineSeparator() + System.lineSeparator());
     }
     
     private static @NotNull List<Error> findAllAutoLocalizationErrors() {
@@ -160,7 +158,7 @@ public class ValidateAutoLocalization {
                                          .map(autoLocalizableClass -> new AutolocalizableAndBundles(autolocalizablesAndBundles.bundles, autoLocalizableClass))
                 )
                 .forEach(autolocalizableAndBundles -> {
-                    Class<AutoLocalizable> localizableClasses = autolocalizableAndBundles.localizablesClasses;
+                    Class<ClassLocalizable> localizableClasses = autolocalizableAndBundles.localizablesClasses;
                     String keyName = localizableClasses.getName();
                     @Nullable Bundle localizedBundle;
                     Optional<Bundle> accessibleBundle = autolocalizableAndBundles.bundles
@@ -208,42 +206,42 @@ public class ValidateAutoLocalization {
     }
     
     /**
-     * Represents every kind of error related to an improper localization of a {@link AutoLocalizable} class.
+     * Represents every kind of error related to an improper localization of a {@link ClassLocalizable} class.
      */
     public static abstract sealed class Error permits Error.FieldOrMethodMissing, Error.LocalizationInInaccessibleBundle, Error.LocalizationMissing {
         
         /**
-         * Represents the error of an {@link AutoLocalizable} class that has no localization file.
+         * Represents the error of an {@link ClassLocalizable} class that has no localization file.
          */
         static final class LocalizationMissing extends Error {
-            Class<AutoLocalizable> localizableClass;
+            Class<ClassLocalizable> localizableClass;
             
             /**
-             * Constructs a {@code LocalizationMissing} error with the specified {@link AutoLocalizable} class.
+             * Constructs a {@code LocalizationMissing} error with the specified {@link ClassLocalizable} class.
              *
              * @param localizableClass the class that is missing localization.
              */
-            LocalizationMissing(Class<AutoLocalizable> localizableClass) {
+            LocalizationMissing(Class<ClassLocalizable> localizableClass) {
                 this.localizableClass = localizableClass;
             }
         }
         
         /**
-         * Represents the error of an {@link AutoLocalizable} class whose localization value is in a stringBundle not
+         * Represents the error of an {@link ClassLocalizable} class whose localization value is in a stringBundle not
          * accessible from this class.
          */
         static final class LocalizationInInaccessibleBundle extends Error {
-            Class<AutoLocalizable> localizableClass;
+            Class<ClassLocalizable> localizableClass;
             Bundle wrongBundle;
             
             /**
-             * Constructs an error representing an {@link AutoLocalizable} class whose localization value is in a stringBundle
+             * Constructs an error representing an {@link ClassLocalizable} class whose localization value is in a stringBundle
              * not accessible from this class.
              *
              * @param localizableClass the class whose localization is in an inaccessible stringBundle.
              * @param wrongBundle      the stringBundle containing localization value, but that is not accessible to the class.
              */
-            LocalizationInInaccessibleBundle(Class<AutoLocalizable> localizableClass, Bundle wrongBundle) {
+            LocalizationInInaccessibleBundle(Class<ClassLocalizable> localizableClass, Bundle wrongBundle) {
                 this.localizableClass = localizableClass;
                 this.wrongBundle = wrongBundle;
             }
@@ -251,10 +249,10 @@ public class ValidateAutoLocalization {
         
         /**
          * Represents the error of a field or method that cannot be resolved reflectively when resolving the
-         * localization String of the {@link AutoLocalizable} class.
+         * localization String of the {@link ClassLocalizable} class.
          */
         static final class FieldOrMethodMissing extends Error {
-            Class<AutoLocalizable> whenLocalizingClass;
+            Class<ClassLocalizable> whenLocalizingClass;
             Class<?> classWithMissingComponent;
             String missingComponent;
             StringFormat.PseudoCode.Marker marker;
@@ -263,12 +261,12 @@ public class ValidateAutoLocalization {
              * Constructs the error to represent a field or method that could not be resolved while resolving the
              * localization String.
              *
-             * @param whenLocalizingClass       the {@link AutoLocalizable} class being localized.
+             * @param whenLocalizingClass       the {@link ClassLocalizable} class being localized.
              * @param classWithMissingComponent the class containing the missing field or method.
              * @param missingComponent          the name of the missing field or method.
              * @param marker                    the marker associated with the formatting process.
              */
-            FieldOrMethodMissing(Class<AutoLocalizable> whenLocalizingClass, Class<?> classWithMissingComponent, String missingComponent, StringFormat.PseudoCode.Marker marker) {
+            FieldOrMethodMissing(Class<ClassLocalizable> whenLocalizingClass, Class<?> classWithMissingComponent, String missingComponent, StringFormat.PseudoCode.Marker marker) {
                 this.whenLocalizingClass = whenLocalizingClass;
                 this.classWithMissingComponent = classWithMissingComponent;
                 this.missingComponent = missingComponent;
@@ -278,18 +276,18 @@ public class ValidateAutoLocalization {
     }
     
     /**
-     * List of {@link AutoLocalizable} classes associated with the bundles they can access (Meaning these
-     * {@link AutoLocalizable}s come all from the same module).
+     * List of {@link ClassLocalizable} classes associated with the bundles they can access (Meaning these
+     * {@link ClassLocalizable}s come all from the same module).
      */
     private record AutolocalizablesAndBundles(List<Bundle> bundles,
-                                              List<Class<AutoLocalizable>> localizablesClasses) {
+                                              List<Class<ClassLocalizable>> localizablesClasses) {
     }
     
     /**
-     * A {@link AutoLocalizable} class associated with the stringBundle it can access.
+     * A {@link ClassLocalizable} class associated with the stringBundle it can access.
      */
     private record AutolocalizableAndBundles(List<Bundle> bundles,
-                                             Class<AutoLocalizable> localizablesClasses) {
+                                             Class<ClassLocalizable> localizablesClasses) {
     }
     
     /**

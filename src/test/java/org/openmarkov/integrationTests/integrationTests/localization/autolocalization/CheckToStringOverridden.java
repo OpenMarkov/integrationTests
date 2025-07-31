@@ -5,14 +5,12 @@ import org.jetbrains.annotations.Nullable;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
-import org.openmarkov.core.exception.AutoOpenMarkovException2;
+import org.openmarkov.core.exception.BundledOpenMarkovException;
 import org.openmarkov.core.localize.Localizable;
 import org.openmarkov.plugin.PluginSearch;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -51,7 +49,7 @@ public class CheckToStringOverridden {
         var superClassesMissingToString = CheckToStringOverridden.classesMissingToString(
                 CheckToStringOverridden.getSuperLocalizablesClasses());
         var unfixedSuperClasses = new HashSet<>(superClassesMissingToString);
-        unfixedSuperClasses.remove(AutoOpenMarkovException2.class);
+        unfixedSuperClasses.remove(BundledOpenMarkovException.class);
         /*
         superClassesMissingToString.forEach(superClassMissingToString -> {
             var classLocation = CheckToStringOverridden.getClassLocation(superClassMissingToString);

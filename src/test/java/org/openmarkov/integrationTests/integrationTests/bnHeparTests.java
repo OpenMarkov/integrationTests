@@ -10,7 +10,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.openmarkov.core.exception.CannotNormalizeNullVectorException;
 import org.openmarkov.core.exception.IncompatibleEvidenceException;
+import org.openmarkov.core.exception.NonProjectablePotentialException;
 import org.openmarkov.core.exception.NotEvaluableNetworkException;
 import org.openmarkov.core.io.ProbNetInfo;
 import org.openmarkov.core.model.network.EvidenceCase;
@@ -22,6 +24,7 @@ import org.openmarkov.inference.algorithm.variableElimination.tasks.VEPropagatio
 import org.openmarkov.io.probmodel.reader.PGMXReader_0_2;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -38,7 +41,7 @@ public class bnHeparTests {
     private ProbNet probNet;
     private EvidenceCase preResolutionEvidence;
     
-    @BeforeEach public void setUp() throws java.net.URISyntaxException, org.openmarkov.core.exception.ParserException {
+    @BeforeEach public void setUp() throws java.net.URISyntaxException, org.openmarkov.core.exception.ParserException, FileNotFoundException {
         URL res = getClass().getClassLoader().getResource(networkName);
         File f = Paths.get(res.toURI()).toFile();
         String absolutePath = f.getAbsolutePath();
@@ -54,7 +57,7 @@ public class bnHeparTests {
     }
     
     @Test
-    public void vePropagationWithoutEvidence() throws NotEvaluableNetworkException, IncompatibleEvidenceException {
+    public void vePropagationWithoutEvidence() throws NonProjectablePotentialException, IncompatibleEvidenceException, CannotNormalizeNullVectorException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
         VEPropagation vePropagation;
         EvidenceCase postResolutionEvidence = new EvidenceCase();
         List<Variable> variablesOfInterest = new ArrayList<>();
@@ -86,7 +89,7 @@ public class bnHeparTests {
     }
     
     @Test
-    public void vePropagationWithPostResolutionEvidence2() throws NotEvaluableNetworkException, IncompatibleEvidenceException {
+    public void vePropagationWithPostResolutionEvidence2() throws NonProjectablePotentialException, IncompatibleEvidenceException, CannotNormalizeNullVectorException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
         VEPropagation vePropagation;
         EvidenceCase postResolutionEvidence = new EvidenceCase();
         List<Variable> variablesOfInterest = new ArrayList<>();

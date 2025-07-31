@@ -8,7 +8,9 @@ package org.openmarkov.integrationTests.integrationTests;
 
 import org.junit.jupiter.api.*;
 
+import org.openmarkov.core.exception.CannotNormalizeNullVectorException;
 import org.openmarkov.core.exception.IncompatibleEvidenceException;
+import org.openmarkov.core.exception.NonProjectablePotentialException;
 import org.openmarkov.core.exception.NotEvaluableNetworkException;
 import org.openmarkov.core.io.ProbNetInfo;
 import org.openmarkov.core.model.network.EvidenceCase;
@@ -21,6 +23,7 @@ import org.openmarkov.inference.algorithm.variableElimination.tasks.VEPropagatio
 import org.openmarkov.io.probmodel.reader.PGMXReader_0_2;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -37,7 +40,7 @@ public class bnCatarnetTests {
 	private ProbNet probNet;
 	private EvidenceCase preResolutionEvidence;
 
-	@BeforeEach public void setUp() throws java.net.URISyntaxException, org.openmarkov.core.exception.ParserException {
+	@BeforeEach public void setUp() throws java.net.URISyntaxException, org.openmarkov.core.exception.ParserException, FileNotFoundException {
 		URL res = getClass().getClassLoader().getResource(networkName);
 		File f = Paths.get(res.toURI()).toFile();
 		String absolutePath = f.getAbsolutePath();
@@ -45,7 +48,7 @@ public class bnCatarnetTests {
 		// Load the network: ID-decide-test
 		PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
 		ProbNetInfo probNetInfo = null;
-			probNetInfo = pgmxReader.loadProbNetInfo(absolutePath);
+		probNetInfo = pgmxReader.loadProbNetInfo(absolutePath);
 		this.probNet = probNetInfo.getProbNet();
 		if (probNetInfo.getEvidence().size() != 0) {
 			this.preResolutionEvidence = probNetInfo.getEvidence().get(0);
@@ -53,7 +56,7 @@ public class bnCatarnetTests {
 	}
 	
 	@Tag(TestSpeed.MEDIUM)
-	@Test public void vePropagationWithoutEvidence() throws NotEvaluableNetworkException, IncompatibleEvidenceException {
+	@Test public void vePropagationWithoutEvidence() throws NonProjectablePotentialException, IncompatibleEvidenceException, CannotNormalizeNullVectorException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
 		VEPropagation vePropagation;
 		EvidenceCase postResolutionEvidence = new EvidenceCase();
 		List<Variable> variablesOfInterest = new ArrayList<>();
@@ -84,7 +87,7 @@ public class bnCatarnetTests {
 	}
 	
 	@Tag(TestSpeed.MEDIUM)
-	@Test public void vePropagationWithPostResolutionEvidence2() throws NotEvaluableNetworkException, IncompatibleEvidenceException {
+	@Test public void vePropagationWithPostResolutionEvidence2() throws NonProjectablePotentialException, IncompatibleEvidenceException, CannotNormalizeNullVectorException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
 		VEPropagation vePropagation;
 		EvidenceCase postResolutionEvidence = new EvidenceCase();
 		List<Variable> variablesOfInterest = new ArrayList<>();
@@ -122,7 +125,7 @@ public class bnCatarnetTests {
 			}
 	}
 	@Disabled
-	@Test public void vePropagationIncompatibleEvidence() throws NotEvaluableNetworkException, IncompatibleEvidenceException {
+	@Test public void vePropagationIncompatibleEvidence() throws NonProjectablePotentialException, IncompatibleEvidenceException, CannotNormalizeNullVectorException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
 		VEPropagation vePropagation;
 		EvidenceCase postResolutionEvidence = new EvidenceCase();
 		List<Variable> variablesOfInterest = probNet.getVariables();

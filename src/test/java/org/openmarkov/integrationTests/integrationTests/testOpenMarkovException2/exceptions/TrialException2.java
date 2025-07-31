@@ -1,11 +1,11 @@
 package org.openmarkov.integrationTests.integrationTests.testOpenMarkovException2.exceptions;
 
 import org.jetbrains.annotations.Nullable;
-import org.openmarkov.core.exception.OpenMarkovException2;
+import org.openmarkov.core.exception.OpenMarkovException;
 
 
 @SuppressWarnings("ALL")
-public class TrialException2 extends OpenMarkovException2 {
+public class TrialException2 extends OpenMarkovException {
     
     private final String program;
     private final String netName;
