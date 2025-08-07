@@ -284,7 +284,7 @@ public class mid21gene {
     
     @Disabled
     @Test
-    public void psa_test() throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
+    public void psa_test() throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, NotSupportedOperationException {
         for (int i = 1; i <= 5; i++) {
             long startTime, endTime;
             int numSim = 1000;

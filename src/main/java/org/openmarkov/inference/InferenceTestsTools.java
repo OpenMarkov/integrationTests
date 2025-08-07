@@ -266,7 +266,7 @@ public class InferenceTestsTools {
                 
             } catch (NotEvaluableNetworkException.NotApplicableNetwork |
                      NotEvaluableNetworkException.UnsatisfiedContraints | IncompatibleEvidenceException |
-                     NonProjectablePotentialException e) {
+                     NonProjectablePotentialException | NotSupportedOperationException e) {
                 e.printStackTrace();
             }
             
