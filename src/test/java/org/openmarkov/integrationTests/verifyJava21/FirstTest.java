@@ -5,7 +5,7 @@ import org.openmarkov.core.exception.IncompatibleEvidenceException;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class VerifyJava21 {
+public class FirstTest {
     
     @Test
     public void test() {
@@ -19,4 +19,5 @@ public class VerifyJava21 {
                     System.out.println("This is the one!");
         }
     }
+    
 }
