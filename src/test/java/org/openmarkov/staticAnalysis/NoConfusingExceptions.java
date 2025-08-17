@@ -1,6 +1,9 @@
-package org.openmarkov.integrationTests.integrationTests;
+package org.openmarkov.staticAnalysis;
 
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.openmarkov.core.exception.UnreacheableException;
+import org.openmarkov.core.test.TestSpeed;
 import org.openmarkov.plugin.PluginClassCategory;
 import org.openmarkov.plugin.PluginSearch;
 
@@ -13,6 +16,11 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class NoConfusingExceptions {
     
+    /**
+     * Tests classes created in OpenMarkov that extend {@link Throwable} don't have names belonging to other
+     * {@link Throwable} classes from external dependencies or Java itself.
+     */
+    @Tag(TestSpeed.SLOW)
     @Test
     public void noConfusingExceptions() {
         HashMap<String, Class<Throwable>> externalExceptionsNames = new HashMap<>();

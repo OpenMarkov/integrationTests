@@ -1,4 +1,4 @@
-package org.openmarkov.integrationTests.integrationTests.localization.autolocalization;
+package org.openmarkov.staticAnalysis.localization.autolocalization;
 
 import org.junit.jupiter.api.Test;
 import org.openmarkov.core.localize.StringDatabase;
@@ -13,7 +13,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;

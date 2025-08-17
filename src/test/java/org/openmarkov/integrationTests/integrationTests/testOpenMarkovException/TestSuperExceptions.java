@@ -1,9 +1,12 @@
-package org.openmarkov.integrationTests.integrationTests.testOpenMarkovException2;
+package org.openmarkov.integrationTests.integrationTests.testOpenMarkovException;
 
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.openmarkov.core.exception.OpenMarkovException;
 import org.openmarkov.core.localize.StringDatabase;
+import org.openmarkov.core.test.TestConfig;
+import org.openmarkov.core.test.TestSpeed;
 
 import java.io.CharConversionException;
 import java.nio.file.FileSystemException;
@@ -15,11 +18,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class TestSuperExceptions {
     
     @Test
+    @Tag(TestConfig.DisabledInParallel)
     public void testTurnExceptionToSuperException() {
-        // Sets the user database's language to Spanish, and still, the text must be in English, as that it's shown with
-        // the developer's database.
-        StringDatabase.getUniqueInstance().setLanguage("en");
-        
         // The 'IntegrationTestsException_en.xml' stringBundle has an exception defined for CharConversionException.
         OpenMarkovException knownException = OpenMarkovException.of(
                 new CharConversionException("A character conversion exception"));

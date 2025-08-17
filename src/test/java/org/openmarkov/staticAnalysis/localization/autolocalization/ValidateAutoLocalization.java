@@ -1,4 +1,4 @@
-package org.openmarkov.integrationTests.integrationTests.localization.autolocalization;
+package org.openmarkov.staticAnalysis.localization.autolocalization;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

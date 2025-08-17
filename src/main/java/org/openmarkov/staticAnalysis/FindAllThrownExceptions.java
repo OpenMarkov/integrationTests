@@ -1,4 +1,4 @@
-package org.openmarkov.integrationTests.staticAnalysis;
+package org.openmarkov.staticAnalysis;
 
 import org.openmarkov.plugin.PluginClassCategory;
 import org.openmarkov.plugin.PluginSearch;

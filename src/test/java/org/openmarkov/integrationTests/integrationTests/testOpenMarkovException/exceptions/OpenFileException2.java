@@ -1,4 +1,4 @@
-package org.openmarkov.integrationTests.integrationTests.testOpenMarkovException2.exceptions;
+package org.openmarkov.integrationTests.integrationTests.testOpenMarkovException.exceptions;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

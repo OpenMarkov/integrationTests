@@ -1,16 +1,18 @@
-package org.openmarkov.integrationTests.integrationTests.testOpenMarkovException2.exceptions;
+package org.openmarkov.integrationTests.integrationTests.testOpenMarkovException.exceptions;
 
 import org.jetbrains.annotations.Nullable;
 import org.openmarkov.core.exception.OpenMarkovException;
 
+
 @SuppressWarnings("ALL")
-public class UnbundledTrialException2 extends OpenMarkovException {
-    public final String program;
-    public final String concept;
+public class TrialException2 extends OpenMarkovException {
     
-    public UnbundledTrialException2(String program, String concept) {
+    private final String program;
+    private final String netName;
+    
+    public TrialException2(String program, String netName) {
         this.program = program;
-        this.concept = concept;
+        this.netName = netName;
     }
     
     @Override protected @Nullable String getExceptionTitle() {
