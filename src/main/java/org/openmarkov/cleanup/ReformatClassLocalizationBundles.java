@@ -1,6 +1,5 @@
-package org.openmarkov.staticAnalysis.localization.autolocalization;
+package org.openmarkov.cleanup;
 
-import org.junit.jupiter.api.Test;
 import org.openmarkov.core.localize.StringDatabase;
 import org.openmarkov.core.localize.spi.LocalizeResourcesProvider;
 import org.w3c.dom.Document;
@@ -23,8 +22,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
- * See the method {@link ReformatClassLocalizationBundles#reformatClassLocalizationBundles()}, which is the purpose
- * of this test class.
+ * See the method {@link ReformatClassLocalizationBundles#main(String[])}, which is the purpose of this class.
  *
  * @author jrico
  */
@@ -34,8 +32,7 @@ class ReformatClassLocalizationBundles {
      * Searches for every class localization file and reformats it, meaning it sorts the Localizations alphabetically by
      * class name.
      */
-    @Test
-    public void reformatClassLocalizationBundles() throws ParserConfigurationException, SAXException, IOException {
+    public static void main(String[] args) throws ParserConfigurationException, SAXException, IOException {
         var classLocalizationFiles = StringDatabase.getBundleProviders().flatMap(provider -> {
             var url = provider.getClass().getResource(provider.getRootOfResources() + "/localize");
             return Arrays.stream(new File(url.getPath()).listFiles())
@@ -107,9 +104,7 @@ class ReformatClassLocalizationBundles {
                     <ClassLocalizations>
                     """ +
                     localizationElements + "\n</ClassLocalizations>";
-            
             Files.write(inputFile.toPath(), out.getBytes());
-            
         }
     }
 }
