@@ -21,9 +21,9 @@ import org.openmarkov.core.model.network.type.POMDPType;
 import org.openmarkov.io.probmodel.reader.PGMXReader_0_2;
 
 import java.io.*;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -38,42 +38,42 @@ public class NetsRepository {
 	/**
 	 * Full path to the networks repository in bitbucket
 	 */
-	private final String rootNetworksDirectory = "https://bitbucket.org/cisiad/org.probmodelxml.networks/raw/master/";
+    private static final String rootNetworksDirectory = "https://bitbucket.org/cisiad/org.probmodelxml.networks/raw/master/";
 	/**
 	 * Bitbucket's API with the JSON in which we have all the files in the directory
 	 */
-	private final String bitbucketNetworksURL = "https://bitbucket.org/!api/1.0/repositories/cisiad/org.probmodelxml.networks/directory";
+    private static final String bitbucketNetworksURL = "https://bitbucket.org/!api/1.0/repositories/cisiad/org.probmodelxml.networks/directory";
 	/**
 	 * Constant for Baysian Networks
 	 */
-	private final String NETWORK_BN = "bn";
+    private static final String NETWORK_BN = "bn";
 	/**
 	 * Constant for DAN Networks
 	 */
-	private final String NETWORK_DAN = "dan";
+    private static final String NETWORK_DAN = "dan";
 	/**
 	 * Constant for Influence Diagram Networks
 	 */
-	private final String NETWORK_ID = "id";
+    private static final String NETWORK_ID = "id";
 	/**
 	 * Constant for Limids Networks
 	 */
-	private final String NETWORK_LIMIDS = "limids";
+    private static final String NETWORK_LIMIDS = "limids";
 	/**
 	 * Constant for MID Networks
 	 */
-	private final String NETWORK_MID = "mid";
+    private static final String NETWORK_MID = "mid";
 	/**
 	 * Constant for POMDP Networks
 	 */
-	private final String NETWORK_POMDP = "pomdp";
+    private static final String NETWORK_POMDP = "pomdp";
 
 	/**
 	 * Method to obtain the complete list of URL of all networks in the repository
 	 *
 	 * @return URL of the networks
 	 */
-	public List<URL> getNetworks() throws IOException {
+    public static List<URL> getNetworks() throws IOException {
 		return getNetworks("");
 	}
 
@@ -83,21 +83,26 @@ public class NetsRepository {
 	 * @param networkType NetWorkType of the net
 	 * @return List of filtered url networks
 	 */
-	public List<URL> getNetworks(NetworkType networkType) throws IOException {
+    public static List<URL> getNetworks(NetworkType networkType) throws IOException {
 		if (networkType.equals(BayesianNetworkType.getUniqueInstance())) {
 			return getNetworks(NETWORK_BN);
-		} else if (networkType.equals(DecisionAnalysisNetworkType.getUniqueInstance())) {
-			return getNetworks(NETWORK_DAN);
-		} else if (networkType.equals(InfluenceDiagramType.getUniqueInstance())) {
-			return getNetworks(NETWORK_ID);
-		} else if (networkType.equals(LIMIDType.getUniqueInstance())) {
-			return getNetworks(NETWORK_LIMIDS);
-		} else if (networkType.equals(MIDType.getUniqueInstance())) {
-			return getNetworks(NETWORK_MID);
-		} else if (networkType.equals(POMDPType.getUniqueInstance())) {
-			return getNetworks(NETWORK_POMDP);
-		}
-		return null;
+        }
+        if (networkType.equals(DecisionAnalysisNetworkType.getUniqueInstance())) {
+            return getNetworks(NETWORK_DAN);
+        }
+        if (networkType.equals(InfluenceDiagramType.getUniqueInstance())) {
+            return getNetworks(NETWORK_ID);
+        }
+        if (networkType.equals(LIMIDType.getUniqueInstance())) {
+            return getNetworks(NETWORK_LIMIDS);
+        }
+        if (networkType.equals(MIDType.getUniqueInstance())) {
+            return getNetworks(NETWORK_MID);
+        }
+        if (networkType.equals(POMDPType.getUniqueInstance())) {
+            return getNetworks(NETWORK_POMDP);
+        }
+        return null;
 	}
 
 	/**
@@ -106,12 +111,11 @@ public class NetsRepository {
 	 * @param networkFilterType constant to define the filter. Use the static constants defined in this class
 	 * @return List of filtered url networks
 	 */
-	private List<URL> getNetworks(String networkFilterType) throws IOException {
+    private static List<URL> getNetworks(String networkFilterType) throws IOException {
 		List<URL> networksURL = new ArrayList<URL>();
-		JSONObject bitbucketDirectoryJSON = null;
-
-		// Read the JSON object given by the API of bitbucket
-			bitbucketDirectoryJSON = readJsonFromUrl(bitbucketNetworksURL);
+        
+        // Read the JSON object given by the API of bitbucket
+        JSONObject bitbucketDirectoryJSON = readJsonFromUrl(bitbucketNetworksURL);
 
 
 		// Get the array of files in the directory
@@ -123,8 +127,8 @@ public class NetsRepository {
 				// If the network is inside a directory, the path must contain the '/' symbol. The first part
 				// of this string will be the type of the network. If the network type is equals to the
 				// filter or the filter is empty, we must recover this URL.
-				if ((lastURLString.indexOf("/") != -1) && (
-						(lastURLString.substring(0, lastURLString.indexOf("/")).equals(networkFilterType))
+                if ((lastURLString.indexOf('/') != -1) && (
+                        (lastURLString.substring(0, lastURLString.indexOf('/')).equals(networkFilterType))
 								|| (networkFilterType.isEmpty())
 				)) {
 					// We get the url from that file and add it to the list
@@ -146,7 +150,7 @@ public class NetsRepository {
 	 * @return String formatted file
 	 * @throws java.io.IOException If a read error occurred
 	 */
-	private String readAll(Reader reader) throws IOException {
+    private static String readAll(Reader reader) throws IOException {
 		StringBuilder stringBuilder = new StringBuilder();
 		int position;
 		while ((position = reader.read()) != -1) {
@@ -163,17 +167,14 @@ public class NetsRepository {
 	 * @throws java.io.IOException    Read exception
 	 * @throws org.json.JSONException Bad JSON file exception
 	 */
-	private JSONObject readJsonFromUrl(String url) throws IOException {
-
-		InputStream inputStream = new URL(url).openStream();
-		try {
-			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, Charset.forName("UTF-8")));
-			String jsonText = readAll(reader);
-			JSONObject json = new JSONObject(jsonText);
-			return json;
-		} finally {
-			inputStream.close();
-		}
+    private static JSONObject readJsonFromUrl(String url) throws IOException {
+        
+        try (InputStream inputStream = new URL(url).openStream()) {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
+            String jsonText = readAll(reader);
+            JSONObject json = new JSONObject(jsonText);
+            return json;
+        }
 	}
 
 	/** 
@@ -195,12 +196,9 @@ public class NetsRepository {
 	        PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
 	        ProbNetInfo probNetInfo = pgmxReader.loadProbNetInfo(absolutePath);
 	        return Optional.ofNullable(probNetInfo);
-	    } catch (ParserException e) {
-	        e.printStackTrace();
-	        return Optional.empty();
-	    } catch (FileNotFoundException e) {
-			e.printStackTrace();
-			return Optional.empty();
+        } catch (ParserException | FileNotFoundException e) {
+            e.printStackTrace();
+            return Optional.empty();
         }
     }
 

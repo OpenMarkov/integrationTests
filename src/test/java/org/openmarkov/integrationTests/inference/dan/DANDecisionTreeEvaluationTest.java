@@ -21,9 +21,7 @@ public class DANDecisionTreeEvaluationTest extends DANEvaluationTest {
 	}
 
 	@Override protected DANEvaluation buildNetworkEvaluation(ProbNet network, boolean computeDecisionTreeForGUI) throws NotEvaluableNetworkException {
-		DANEvaluation eval = null;
-		eval = new DANDecisionTreeEvaluation(network, computeDecisionTreeForGUI);
-		return eval;
+        return new DANDecisionTreeEvaluation(network, computeDecisionTreeForGUI);
 	}
 
 	//Next tests are commented because running them very often takes too much time

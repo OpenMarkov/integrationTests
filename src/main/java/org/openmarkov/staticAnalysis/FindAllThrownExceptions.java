@@ -20,7 +20,7 @@ public class FindAllThrownExceptions {
                     return thrown;
                 })
                 .distinct()
-                .sorted(Comparator.comparing(exceptionClass -> exceptionClass.getName()))
+                .sorted(Comparator.comparing(Class::getName))
                 .map(exceptionClass -> (Class<Throwable>)exceptionClass)
                 .collect(Collectors.toCollection(ArrayList::new));
         
@@ -45,7 +45,7 @@ public class FindAllThrownExceptions {
     
     private static String stringifyThrowables(Stream<Class<Throwable>> throwables) {
         return throwables
-                .map(exceptionClass -> exceptionClass.getSimpleName())
+                .map(Class::getSimpleName)
                 .distinct()
                 .sorted()
                 .map(name -> "(" + name + ")")

@@ -71,7 +71,9 @@ public class Tools {
 		if (inter != null && namesVariablesIntervention != null && namesVariablesIntervention.length > 0) {
 			StrategyTree strategyTree = inter[0];
 			String strIntervention = strategyTree.toStringForGraphviz(network);
-			Assertions.assertTrue(areEquals(getVariablesOfIntervention(strategyTree), namesVariablesIntervention));
+            List<Variable> variablesOfIntervention = getVariablesOfIntervention(strategyTree);
+            boolean areEquals = areEquals(variablesOfIntervention, namesVariablesIntervention);
+            Assertions.assertTrue(areEquals);
 		}
 	}
 
@@ -123,11 +125,11 @@ public class Tools {
 
 	static List<Variable> getVariablesOfIntervention(StrategyTree inter) {
 		List<Variable> variables = new ArrayList<>();
-	
 		if (inter != null) {
 			variables.add(inter.getRootVariable());
 			for (StrategyTree child : inter.getInterventionsChildren()) {
-				variables = DANOperations.join(variables, getVariablesOfIntervention(child));
+                List<Variable> childVariablesOfIntervention = getVariablesOfIntervention(child);
+                variables = DANOperations.join(variables, childVariablesOfIntervention);
 			}
 		}
 		return variables;

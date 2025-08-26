@@ -15,7 +15,6 @@ import org.openmarkov.core.model.network.ProbNetOperations;
 import org.openmarkov.core.model.network.Variable;
 import org.openmarkov.core.model.network.VariableType;
 import org.openmarkov.core.model.network.constraint.OnlyAtemporalVariables;
-import org.openmarkov.core.model.network.potential.StrategyTree;
 import org.openmarkov.core.model.network.potential.TablePotential;
 import org.openmarkov.core.model.network.type.BayesianNetworkType;
 import org.openmarkov.core.model.network.type.InfluenceDiagramType;
@@ -60,7 +59,7 @@ public class InferenceTestsTools {
     
     public static void testPropagateNetwork(ProbNet probNet, List<Variable> variables, EvidenceCase evidenceCase)
             throws CannotNormalizeNullVectorException, NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
-        VEPropagation vePropagation = null;
+        VEPropagation vePropagation;
         if (!probNet.getNetworkType().equals(BayesianNetworkType.getUniqueInstance())) {
             VEEvaluation veEvaluation = new VEEvaluation(probNet);
             vePropagation = new VEPropagation(probNet, veEvaluation.getOptimalPolicies());
@@ -73,7 +72,7 @@ public class InferenceTestsTools {
         vePropagation.setPreResolutionEvidence(evidenceCase);
         HashMap<Variable, TablePotential> posteriorValues = vePropagation.getPosteriorValues();
         for (Variable variable : probNet.getVariables()) {
-            if (!variable.getVariableType().equals(VariableType.NUMERIC)) {
+            if (variable.getVariableType() != VariableType.NUMERIC) {
                 assertNotNull(posteriorValues.get(variable));
             }
         }
@@ -136,7 +135,7 @@ public class InferenceTestsTools {
     }
     
     private static boolean thereAreDecisionNodes(ProbNet network) {
-        return network.getNodes(NodeType.DECISION).size() > 0;
+        return !network.getNodes(NodeType.DECISION).isEmpty();
     }
     
     private static void testTemporalEvolutionNetwork(ProbNet probNet, EvidenceCase evidenceCase)
@@ -144,7 +143,7 @@ public class InferenceTestsTools {
         HashMap<String, Variable> filteredTemporalVariables = new HashMap<>();
         for (Variable variable : probNet.getVariables()) {
             if (variable.isTemporal()) {
-                if (!variable.getVariableType().equals(VariableType.NUMERIC)) {
+                if (variable.getVariableType() != VariableType.NUMERIC) {
                     Variable oldVariable = filteredTemporalVariables.get(variable.getBaseName());
                     if (oldVariable != null) {
                         if (variable.getTimeSlice() < oldVariable.getTimeSlice()) {
@@ -155,7 +154,7 @@ public class InferenceTestsTools {
                         filteredTemporalVariables.put(variable.getBaseName(), variable);
                     }
                 } else {
-                    if (probNet.getNode(variable).getNodeType().equals(NodeType.UTILITY)) {
+                    if (probNet.getNode(variable).getNodeType() == NodeType.UTILITY) {
                         Variable oldVariable = filteredTemporalVariables.get(variable.getBaseName());
                         if (oldVariable != null) {
                             if (variable.getTimeSlice() < oldVariable.getTimeSlice()) {
@@ -217,9 +216,9 @@ public class InferenceTestsTools {
         boolean hasEffectiveness = false;
         
         for (Criterion criterion : probNet.getDecisionCriteria()) {
-            if (criterion.getCECriterion().equals(Criterion.CECriterion.Cost)) {
+            if (criterion.getCECriterion() == Criterion.CECriterion.Cost) {
                 hasCost = true;
-            } else if (criterion.getCECriterion().equals(Criterion.CECriterion.Effectiveness)) {
+            } else if (criterion.getCECriterion() == Criterion.CECriterion.Effectiveness) {
                 hasEffectiveness = true;
             }
         }
@@ -256,8 +255,7 @@ public class InferenceTestsTools {
                 }
             }
             try {
-                VECEPSA vecepsa = null;
-                vecepsa = new VECEPSA(probNet);
+                VECEPSA vecepsa = new VECEPSA(probNet);
                 vecepsa.setPreResolutionEvidence(evidenceCase);
                 vecepsa.setDecisionVariable(decisionVariable);
                 vecepsa.setNumSimulations(numSimulations);
