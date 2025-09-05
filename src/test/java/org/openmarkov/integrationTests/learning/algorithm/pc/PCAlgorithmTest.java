@@ -16,7 +16,6 @@ import org.openmarkov.core.model.network.ProbNet;
 import org.openmarkov.core.model.network.Variable;
 import org.openmarkov.core.model.network.potential.TablePotential;
 import org.openmarkov.core.test.TestSpeed;
-import org.openmarkov.integrationTests.IntegrationTest;
 import org.openmarkov.io.database.excel.CSVDataBaseIO;
 import org.openmarkov.io.probmodel.reader.PGMXReader_0_2;
 import org.openmarkov.learning.algorithm.pc.PCAlgorithm;
@@ -49,7 +48,6 @@ public class PCAlgorithmTest {
 		independenceTester = new CrossEntropyIndependenceTester();
 	}
 
-	@Disabled
 	@Tag(TestSpeed.FAST)
 	@Test public void testABCE() throws org.openmarkov.core.exception.CannotNormalizeNullVectorException, EmptyDatabaseException, java.io.FileNotFoundException {
 		System.out.println(getClass().getResource(bnABCEFilename));
@@ -70,14 +68,21 @@ public class PCAlgorithmTest {
 		Node nodeE = learnedNet.getNode("E");
 		
 		Assertions.assertNotNull(nodeA);
+        if (nodeA!=null) System.out.println("A found.");
 		Assertions.assertNotNull(nodeB);
+        if (nodeB!=null) System.out.println("B found.");
 		Assertions.assertNotNull(nodeC);
+        if (nodeC!=null) System.out.println("C found.");
 		Assertions.assertNotNull(nodeE);
+        if (nodeE!=null) System.out.println("E found.");
 		// check the structure of the learned net
 		// present links
 		Assertions.assertTrue(nodeE.isParent(nodeA));
+        if (nodeE.isParent(nodeA)) System.out.println("A parent of E.");
 		Assertions.assertTrue(nodeE.isParent(nodeB));
-		//Assertions.assertTrue(nodeE.isParent(nodeC));
+        if (nodeE.isParent(nodeA)) System.out.println("B parent of E.");
+		Assertions.assertTrue(nodeE.isParent(nodeC));
+        if (nodeE.isParent(nodeC)) System.out.println("C parent of E.");
 		
 		// check the CPTs
 		double maxError = 1E-2;
@@ -204,6 +209,7 @@ public class PCAlgorithmTest {
 		Assertions.assertEquals(0.1414342, probabilities[7], maxError);
 	}
 
+	@Disabled
 	@Tag(TestSpeed.MEDIUM)
 	@Test public void testAsia10k() throws org.openmarkov.core.exception.CannotNormalizeNullVectorException, EmptyDatabaseException, java.io.FileNotFoundException {
 		CSVDataBaseIO csvReader = new CSVDataBaseIO();
@@ -311,6 +317,7 @@ public class PCAlgorithmTest {
 
 	}
 	
+	@Disabled
 	@Tag(TestSpeed.SLOW)
 	@Test public void testAlarm500() throws org.openmarkov.core.exception.CannotNormalizeNullVectorException, org.openmarkov.core.exception.ParserException, EmptyDatabaseException, java.io.FileNotFoundException {
 
