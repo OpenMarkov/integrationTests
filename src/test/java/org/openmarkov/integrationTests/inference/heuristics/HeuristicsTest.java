@@ -10,7 +10,7 @@ package org.openmarkov.integrationTests.inference.heuristics;
 import org.junit.jupiter.api.*;
 
 import org.openmarkov.core.exception.DoEditException;
-import org.openmarkov.core.test.TestSpeed;
+import org.openmarkov.core.testTags.TestSpeed;
 import org.openmarkov.integrationTests.inference.util.Util;
 import org.openmarkov.core.model.network.ProbNet;
 import org.openmarkov.core.model.network.type.BayesianNetworkType;

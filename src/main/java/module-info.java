@@ -19,6 +19,10 @@ open module org.openmarkov.integrationTests {
     requires org.openmarkov.stochasticpropagationoutput;
     requires java.xml;
     requires org.jfree.jfreechart;
+    requires com.github.javaparser.core;
+    requires com.github.javaparser.symbolsolver.core;
+    requires com.google.common;
+    requires io.github.classgraph;
     
     exports org.openmarkov.integrationTests;
     exports org.openmarkov.integrationTests.localize;

@@ -9,6 +9,7 @@ package org.openmarkov.integrationTests.learning.algorithm.hillclimbing;
 
 import org.junit.jupiter.api.*;
 
+import org.openmarkov.core.exception.CannotNormalizePotentialException;
 import org.openmarkov.core.io.database.CaseDatabase;
 import org.openmarkov.core.model.network.Node;
 import org.openmarkov.core.model.network.NodeType;
@@ -51,7 +52,7 @@ public class HillClimbingAlgorithmTest {
 		learningAlgorithm = new HillClimbingAlgorithm(learned, database, alpha, metric);
 	}
     @Disabled
-	@Test public void testLearning() throws org.openmarkov.core.exception.CannotNormalizeNullVectorException {
+    @Test public void testLearning() throws CannotNormalizePotentialException {
 		double[] probabilities;
 		learningAlgorithm.run(new ModelNetUse());
 		Node nodeA = learned.getNode("A");

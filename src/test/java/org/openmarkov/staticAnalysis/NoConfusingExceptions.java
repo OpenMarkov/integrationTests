@@ -2,8 +2,7 @@ package org.openmarkov.staticAnalysis;
 
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.openmarkov.core.exception.UnreacheableException;
-import org.openmarkov.core.test.TestSpeed;
+import org.openmarkov.core.testTags.TestSpeed;
 import org.openmarkov.plugin.PluginClassCategory;
 import org.openmarkov.plugin.PluginSearch;
 

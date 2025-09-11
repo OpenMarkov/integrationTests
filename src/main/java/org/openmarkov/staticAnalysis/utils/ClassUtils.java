@@ -1,6 +1,10 @@
 package org.openmarkov.staticAnalysis.utils;
 
+import org.jetbrains.annotations.Nullable;
+
+import java.io.File;
 import java.lang.reflect.Modifier;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -53,4 +57,34 @@ public class ClassUtils {
         return !aClass.isInterface() && !aClass.isAnnotation() && !Modifier.isAbstract(aClass.getModifiers());
     }
     
+    public static @Nullable URL rawFileOfClass(Class<?> theClass) {
+        URL classUrl = theClass.getResource(theClass.getSimpleName() + ".class");
+        if (classUrl == null) {
+            return null;
+        }
+        return classUrl;
+    }
+    
+    /**
+     * Gets the file location of a class.
+     *
+     * @param theClass The class to extract its file location from
+     *
+     * @return the file location of a class.
+     */
+    public static @Nullable File fileOfClass(Class<?> theClass) {
+        URL classUrl = theClass.getResource(theClass.getSimpleName() + ".class");
+        if (classUrl == null) {
+            return null;
+        }
+        String path = new File(classUrl.getFile()).getAbsolutePath();
+        path = path.replace("target\\classes", "src\\main\\java");
+        path = path.substring(0, path.length() - ".class".length());
+        path += ".java";
+        File file = new File(path);
+        if (!file.exists()) {
+            return null;
+        }
+        return file;
+    }
 }

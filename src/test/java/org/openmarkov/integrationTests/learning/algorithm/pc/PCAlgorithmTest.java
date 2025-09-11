@@ -15,7 +15,7 @@ import org.openmarkov.core.model.network.NodeType;
 import org.openmarkov.core.model.network.ProbNet;
 import org.openmarkov.core.model.network.Variable;
 import org.openmarkov.core.model.network.potential.TablePotential;
-import org.openmarkov.core.test.TestSpeed;
+import org.openmarkov.core.testTags.TestSpeed;
 import org.openmarkov.io.database.excel.CSVDataBaseIO;
 import org.openmarkov.io.probmodel.reader.PGMXReader_0_2;
 import org.openmarkov.learning.algorithm.pc.PCAlgorithm;
@@ -49,7 +49,8 @@ public class PCAlgorithmTest {
 	}
 
 	@Tag(TestSpeed.FAST)
-	@Test public void testABCE() throws org.openmarkov.core.exception.CannotNormalizeNullVectorException, EmptyDatabaseException, java.io.FileNotFoundException {
+    @Test
+    public void testABCE() throws org.openmarkov.core.exception.CannotNormalizePotentialException, EmptyDatabaseException, java.io.FileNotFoundException {
 		System.out.println(getClass().getResource(bnABCEFilename));
 		CSVDataBaseIO csvReader = new CSVDataBaseIO();
 		CaseDatabase ABCEDatabase = csvReader.load(getClass().getResource(bnABCEFilename).getFile());
@@ -109,7 +110,7 @@ public class PCAlgorithmTest {
 	
 	@Disabled("Making CaseDatabase = null until fixing Elvira database parser with antlr4")
 	@Test
-	public void testLearnTestDataBase() throws org.openmarkov.core.exception.CannotNormalizeNullVectorException {
+    public void testLearnTestDataBase() throws org.openmarkov.core.exception.CannotNormalizePotentialException {
 		//TODO Commented and making CaseDatabase = null until fixing Elvira database parser with antlr4
 		//ElviraDataBaseIO databaseIO = new ElviraDataBaseIO();
 		//CaseDatabase learnTestDatabase = databaseIO.load(getClass().getResource(learnTestDatabaseFilename).getFile());
@@ -211,7 +212,8 @@ public class PCAlgorithmTest {
 
 	@Disabled
 	@Tag(TestSpeed.MEDIUM)
-	@Test public void testAsia10k() throws org.openmarkov.core.exception.CannotNormalizeNullVectorException, EmptyDatabaseException, java.io.FileNotFoundException {
+    @Test
+    public void testAsia10k() throws org.openmarkov.core.exception.CannotNormalizePotentialException, EmptyDatabaseException, java.io.FileNotFoundException {
 		CSVDataBaseIO csvReader = new CSVDataBaseIO();
 		CaseDatabase asiaDatabase = csvReader.load(getClass().getResource(asiaDatabaseFilename).getFile());
 		ProbNet learnedNet = new ProbNet();
@@ -319,7 +321,8 @@ public class PCAlgorithmTest {
 	
 	@Disabled
 	@Tag(TestSpeed.SLOW)
-	@Test public void testAlarm500() throws org.openmarkov.core.exception.CannotNormalizeNullVectorException, org.openmarkov.core.exception.ParserException, EmptyDatabaseException, java.io.FileNotFoundException {
+    @Test
+    public void testAlarm500() throws org.openmarkov.core.exception.CannotNormalizePotentialException, org.openmarkov.core.exception.ParserException, EmptyDatabaseException, java.io.FileNotFoundException {
 
 		CSVDataBaseIO csvReader = new CSVDataBaseIO();
 		CaseDatabase alarmDatabase = csvReader.load(getClass().getResource(alarmDatabaseFilename).getFile());
@@ -340,7 +343,7 @@ public class PCAlgorithmTest {
 	}
 
 	//@Test
-	public void testAlarm10k() throws org.openmarkov.core.exception.CannotNormalizeNullVectorException, org.openmarkov.core.exception.ParserException, EmptyDatabaseException, java.io.FileNotFoundException {
+    public void testAlarm10k() throws org.openmarkov.core.exception.CannotNormalizePotentialException, org.openmarkov.core.exception.ParserException, EmptyDatabaseException, java.io.FileNotFoundException {
 
 		CSVDataBaseIO csvReader = new CSVDataBaseIO();
 		CaseDatabase alarm10kDatabase = csvReader.load(getClass().getResource(alarm10kDatabaseFilename).getFile());

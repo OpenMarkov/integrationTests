@@ -13,7 +13,7 @@ import org.junit.jupiter.api.TestInstance;
 import org.openmarkov.core.model.network.*;
 import org.openmarkov.core.model.network.CycleLength.Unit;
 import org.openmarkov.core.model.network.potential.ExactDistrPotential;
-import org.openmarkov.core.test.TestSpeed;
+import org.openmarkov.core.testTags.TestSpeed;
 import org.openmarkov.io.probmodel.reader.PGMXReader_0_2;
 
 import java.io.File;

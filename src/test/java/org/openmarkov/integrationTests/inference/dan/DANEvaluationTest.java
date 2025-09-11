@@ -10,7 +10,7 @@ package org.openmarkov.integrationTests.inference.dan;
 import org.junit.jupiter.api.*;
 import org.openmarkov.core.exception.*;
 import org.openmarkov.core.model.network.ProbNet;
-import org.openmarkov.core.test.TestSpeed;
+import org.openmarkov.core.testTags.TestSpeed;
 import org.openmarkov.integrationTests.inference.NetworkEvaluationInferenceTest;
 import org.openmarkov.integrationTests.inference.heuristics.Tools;
 

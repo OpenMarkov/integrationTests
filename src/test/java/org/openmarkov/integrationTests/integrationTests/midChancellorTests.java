@@ -22,7 +22,7 @@ import org.openmarkov.core.model.network.potential.GTablePotential;
 import org.openmarkov.core.model.network.potential.StrategyTree;
 import org.openmarkov.core.model.network.potential.TablePotential;
 import org.openmarkov.core.model.network.potential.treeadd.TreeADDBranch;
-import org.openmarkov.core.test.TestSpeed;
+import org.openmarkov.core.testTags.TestSpeed;
 import org.openmarkov.inference.algorithm.temporalevaluation.tasks.TemporalEvaluation;
 import org.openmarkov.inference.algorithm.variableElimination.tasks.VECEAnalysis;
 import org.openmarkov.inference.algorithm.variableElimination.tasks.VEEvaluation;
@@ -140,7 +140,8 @@ public class midChancellorTests {
 			Assertions.assertEquals(combinationtherapyCEP.getEffectiveness(30000.0), 8.9374, deltaEquals);
 	}
 	@Disabled
-	@Test public void stateVETemporalEvolutionTests() throws NonProjectablePotentialException, NotEvaluableNetworkException, IncompatibleEvidenceException, CannotNormalizeNullVectorException {
+    @Test
+    public void stateVETemporalEvolutionTests() throws NonProjectablePotentialException, NotEvaluableNetworkException, IncompatibleEvidenceException, CannotNormalizePotentialException {
 		Variable stateVariable = null;
 			stateVariable = probNet.getVariable("State", 0);
 		// ProbNet network, Variable temporalVariable, EvidenceCase preResolutionEvidence, Variable decisionVariable)
@@ -201,7 +202,8 @@ public class midChancellorTests {
 			Assertions.assertArrayEquals(valuesToCheck, posteriorValues.get(variableToCheck).getValues(), deltaEquals);
 	}
 	@Disabled
-	@Test public void costLamiduvineVETemporalEvolutionTests() throws NonProjectablePotentialException, NotEvaluableNetworkException, IncompatibleEvidenceException, CannotNormalizeNullVectorException {
+    @Test
+    public void costLamiduvineVETemporalEvolutionTests() throws NonProjectablePotentialException, NotEvaluableNetworkException, IncompatibleEvidenceException, CannotNormalizePotentialException {
 		Variable stateVariable = null;
 			stateVariable = probNet.getVariable("Cost lamivudine", 0);
 		// ProbNet network, Variable temporalVariable, EvidenceCase preResolutionEvidence, Variable decisionVariable)
@@ -231,7 +233,8 @@ public class midChancellorTests {
 	}
 	
 	@Tag(TestSpeed.MEDIUM)
-	@Test public void costAZTVETemporalEvolutionTests() throws NonProjectablePotentialException, NotEvaluableNetworkException, IncompatibleEvidenceException, CannotNormalizeNullVectorException {
+    @Test
+    public void costAZTVETemporalEvolutionTests() throws NonProjectablePotentialException, NotEvaluableNetworkException, IncompatibleEvidenceException, CannotNormalizePotentialException {
 		Variable stateVariable = null;
 			stateVariable = probNet.getVariable("Cost AZT", 0);
 		// ProbNet network, Variable temporalVariable, EvidenceCase preResolutionEvidence, Variable decisionVariable)
@@ -286,7 +289,8 @@ public class midChancellorTests {
 	}
 	
 	@Tag(TestSpeed.MEDIUM)
-	@Test public void directMedicalCostVETemporalEvolutionTests() throws NonProjectablePotentialException, NotEvaluableNetworkException, IncompatibleEvidenceException, CannotNormalizeNullVectorException {
+    @Test
+    public void directMedicalCostVETemporalEvolutionTests() throws NonProjectablePotentialException, NotEvaluableNetworkException, IncompatibleEvidenceException, CannotNormalizePotentialException {
 		Variable stateVariable = null;
 			stateVariable = probNet.getVariable("Direct medical cost", 0);
 		// ProbNet network, Variable temporalVariable, EvidenceCase preResolutionEvidence, Variable decisionVariable)
@@ -340,7 +344,8 @@ public class midChancellorTests {
 			Assertions.assertArrayEquals(valuesToCheck, posteriorValues.get(variableToCheck).getValues(), deltaEquals);
 	}
 	@Disabled
-	@Test public void communityCareCostVETemporalEvolutionTests() throws NonProjectablePotentialException, NotEvaluableNetworkException, IncompatibleEvidenceException, CannotNormalizeNullVectorException {
+    @Test
+    public void communityCareCostVETemporalEvolutionTests() throws NonProjectablePotentialException, NotEvaluableNetworkException, IncompatibleEvidenceException, CannotNormalizePotentialException {
 		Variable stateVariable = null;
 			stateVariable = probNet.getVariable("Community care cost", 0);
 		// ProbNet network, Variable temporalVariable, EvidenceCase preResolutionEvidence, Variable decisionVariable)

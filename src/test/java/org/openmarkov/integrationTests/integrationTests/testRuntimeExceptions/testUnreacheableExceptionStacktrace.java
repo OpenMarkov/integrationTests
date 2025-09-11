@@ -1,15 +1,13 @@
 package org.openmarkov.integrationTests.integrationTests.testRuntimeExceptions;
 
 import org.junit.jupiter.api.Test;
-import org.openmarkov.core.exception.CannotNormalizeNullVectorException;
+import org.openmarkov.core.exception.EmptyDatabaseException;
 import org.openmarkov.core.exception.UnreacheableException;
-import org.openmarkov.core.model.network.Variable;
 import org.openmarkov.java.exceptionUtils.ThrowableUtils;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class testUnreacheableExceptionStacktrace {
     
@@ -29,7 +27,7 @@ public class testUnreacheableExceptionStacktrace {
             exception = e;
         }
         Throwable flat = ThrowableUtils.flatten(exception);
-        assertEquals(flat.getClass(), CannotNormalizeNullVectorException.class);
+        assertEquals(flat.getClass(), EmptyDatabaseException.class);
         var stackTraceInOrder = List.of(
                 "org.openmarkov.integrationTests.integrationTests.testRuntimeExceptions.testUnreacheableExceptionStacktrace.thrower",
                 "org.openmarkov.integrationTests.integrationTests.testRuntimeExceptions.testUnreacheableExceptionStacktrace.callerD",
@@ -57,18 +55,18 @@ public class testUnreacheableExceptionStacktrace {
     static void callerC() {
         try {
             callerD();
-        } catch (CannotNormalizeNullVectorException e) {
+        } catch (EmptyDatabaseException e) {
             throw new UnreacheableException(e);
         }
         
     }
     
-    static void callerD() throws CannotNormalizeNullVectorException {
+    static void callerD() throws EmptyDatabaseException {
         thrower();
     }
     
-    static void thrower() throws CannotNormalizeNullVectorException {
-        throw new CannotNormalizeNullVectorException(List.of(new Variable("H"), new Variable("X")));
+    static void thrower() throws EmptyDatabaseException {
+        throw new EmptyDatabaseException("DB.file");
     }
     
 }

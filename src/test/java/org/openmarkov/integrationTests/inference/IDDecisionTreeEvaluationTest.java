@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.openmarkov.core.exception.*;
 import org.openmarkov.core.model.network.EvidenceCase;
 import org.openmarkov.core.model.network.ProbNet;
-import org.openmarkov.core.test.TestSpeed;
+import org.openmarkov.core.testTags.TestSpeed;
 import org.openmarkov.inference.algorithm.decompositionIntoSymmetricDANs.evaluation.DANEvaluation;
 import org.openmarkov.inference.algorithm.decompositionIntoSymmetricDANs.evaluation.IDDecisionTreeEvaluation;
 import org.openmarkov.integrationTests.inference.heuristics.Tools;

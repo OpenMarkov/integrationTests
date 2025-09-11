@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import org.openmarkov.core.exception.*;
-import org.openmarkov.core.test.TestSpeed;
+import org.openmarkov.core.testTags.TestSpeed;
 import org.openmarkov.integrationTests.inference.heuristics.Tools;
 import org.openmarkov.core.inference.tasks.CEAnalysis;
 import org.openmarkov.core.model.network.CEP;

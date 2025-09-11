@@ -1,16 +1,12 @@
 package org.openmarkov.staticAnalysis.localization.autolocalization;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
-import org.openmarkov.core.exception.BundledOpenMarkovException;
 import org.openmarkov.core.localize.Localizable;
 import org.openmarkov.plugin.PluginSearch;
 
-import java.io.File;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -49,7 +45,6 @@ public class CheckToStringOverridden {
         var superClassesMissingToString = CheckToStringOverridden.classesMissingToString(
                 CheckToStringOverridden.getSuperLocalizablesClasses());
         var unfixedSuperClasses = new HashSet<>(superClassesMissingToString);
-        unfixedSuperClasses.remove(BundledOpenMarkovException.class);
         /*
         superClassesMissingToString.forEach(superClassMissingToString -> {
             var classLocation = CheckToStringOverridden.getClassLocation(superClassMissingToString);
@@ -114,25 +109,6 @@ public class CheckToStringOverridden {
                                                        .stream()
                                                        .noneMatch(Localizable.class::isAssignableFrom))
                 .toList();
-    }
-    
-    /**
-     * Gets the file location of a class.
-     *
-     * @param originClass The class to extract its file location from
-     * @return the file location of a class.
-     */
-    public static @Nullable File getClassLocation(Class<?> originClass) {
-        URL classUrl = originClass.getResource(originClass.getSimpleName() + ".class");
-        String path = new File(classUrl.getFile()).getAbsolutePath();
-        path = path.replace("target\\classes", "src\\main\\java");
-        path = path.substring(0, path.length() - ".class".length());
-        path += ".java";
-        File file = new File(path);
-        if (!file.exists()) {
-            return null;
-        }
-        return file;
     }
     
     /**

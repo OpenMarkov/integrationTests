@@ -4,7 +4,9 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.openmarkov.core.annotation.ImplementationRequirements;
-import org.openmarkov.core.test.TestSpeed;
+import org.openmarkov.core.annotation.RequiredMethod;
+import org.openmarkov.core.annotation.SelfClass;
+import org.openmarkov.core.testTags.TestSpeed;
 import org.openmarkov.plugin.PluginSearch;
 
 import java.time.Instant;
@@ -36,8 +38,7 @@ public class ImplementationRequirementsAreMet {
             return;
         }
         var errorsString = errors.stream().collect(Collectors.joining(System.lineSeparator()));
-        fail("Some limits aren't met (" + errors.size() + " errors):" + System.lineSeparator() + errorsString);
+        fail("Some classes aren't implemented as expected (" + errors.size() + " errors):" + System.lineSeparator() + errorsString);
     }
-    
     
 }

@@ -3,10 +3,9 @@ package org.openmarkov.integrationTests.integrationTests.testOpenMarkovException
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
-import org.openmarkov.core.exception.OpenMarkovException;
+import org.openmarkov.core.exception.IOpenMarkovException;
 import org.openmarkov.core.localize.StringDatabase;
-import org.openmarkov.core.test.TestConfig;
-import org.openmarkov.core.test.TestSpeed;
+import org.openmarkov.core.testTags.TestConfig;
 
 import java.io.CharConversionException;
 import java.nio.file.FileSystemException;
@@ -21,7 +20,7 @@ public class TestSuperExceptions {
     @Tag(TestConfig.DisabledInParallel)
     public void testTurnExceptionToSuperException() {
         // The 'IntegrationTestsException_en.xml' stringBundle has an exception defined for CharConversionException.
-        OpenMarkovException knownException = OpenMarkovException.of(
+        IOpenMarkovException knownException = IOpenMarkovException.of(
                 new CharConversionException("A character conversion exception"));
         
         // It must contain the title from 'CharConversionException' in the stringBundle
@@ -33,7 +32,7 @@ public class TestSuperExceptions {
         
         // The 'IntegrationTestsException_en.xml' stringBundle does not have an exception defined for FileSystemException,
         // but it does for IOException.
-        OpenMarkovException parentKnownException = OpenMarkovException.of(
+        IOpenMarkovException parentKnownException = IOpenMarkovException.of(
                 new FileSystemException("A file system exception"));
         
         // It must contain the title from 'CharConversionException' in the stringBundle
@@ -44,7 +43,7 @@ public class TestSuperExceptions {
                 StringDatabase.getUniqueInstance().getString("IOException.message")));
         
         // The 'IntegrationTestsException_en.xml' stringBundle does not have an exception defined for NullPointerException.
-        OpenMarkovException unknownException = OpenMarkovException.of(
+        IOpenMarkovException unknownException = IOpenMarkovException.of(
                 new NullPointerException("The error is detailed here"));
         
         var s = unknownException.toString();

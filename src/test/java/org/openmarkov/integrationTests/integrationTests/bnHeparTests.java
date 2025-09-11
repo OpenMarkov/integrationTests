@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
-import org.openmarkov.core.exception.CannotNormalizeNullVectorException;
+import org.openmarkov.core.exception.CannotNormalizePotentialException;
 import org.openmarkov.core.exception.IncompatibleEvidenceException;
 import org.openmarkov.core.exception.NonProjectablePotentialException;
 import org.openmarkov.core.exception.NotEvaluableNetworkException;
@@ -57,7 +57,7 @@ public class bnHeparTests {
     }
     
     @Test
-    public void vePropagationWithoutEvidence() throws NonProjectablePotentialException, IncompatibleEvidenceException, CannotNormalizeNullVectorException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
+    public void vePropagationWithoutEvidence() throws NonProjectablePotentialException, IncompatibleEvidenceException, CannotNormalizePotentialException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
         VEPropagation vePropagation;
         EvidenceCase postResolutionEvidence = new EvidenceCase();
         List<Variable> variablesOfInterest = new ArrayList<>();
@@ -89,7 +89,7 @@ public class bnHeparTests {
     }
     
     @Test
-    public void vePropagationWithPostResolutionEvidence2() throws NonProjectablePotentialException, IncompatibleEvidenceException, CannotNormalizeNullVectorException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
+    public void vePropagationWithPostResolutionEvidence2() throws NonProjectablePotentialException, IncompatibleEvidenceException, CannotNormalizePotentialException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
         VEPropagation vePropagation;
         EvidenceCase postResolutionEvidence = new EvidenceCase();
         List<Variable> variablesOfInterest = new ArrayList<>();

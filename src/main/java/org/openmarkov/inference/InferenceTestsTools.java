@@ -58,7 +58,7 @@ public class InferenceTestsTools {
     }
     
     public static void testPropagateNetwork(ProbNet probNet, List<Variable> variables, EvidenceCase evidenceCase)
-            throws CannotNormalizeNullVectorException, NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
+            throws CannotNormalizePotentialException, NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
         VEPropagation vePropagation;
         if (!probNet.getNetworkType().equals(BayesianNetworkType.getUniqueInstance())) {
             VEEvaluation veEvaluation = new VEEvaluation(probNet);
@@ -86,7 +86,7 @@ public class InferenceTestsTools {
                 testPropagateNetwork(probNet, probNet.getVariables(), preResolutionEvidence);
             } catch (NonProjectablePotentialException | NotEvaluableNetworkException.NotApplicableNetwork |
                      NotEvaluableNetworkException.UnsatisfiedContraints | IncompatibleEvidenceException |
-                     CannotNormalizeNullVectorException e) {
+                     CannotNormalizePotentialException e) {
                 e.printStackTrace();
             }
         } else if (probNet.getNetworkType().equals(InfluenceDiagramType.getUniqueInstance())) {
@@ -101,7 +101,7 @@ public class InferenceTestsTools {
                 
             } catch (NonProjectablePotentialException | NotEvaluableNetworkException.NotApplicableNetwork |
                      NotEvaluableNetworkException.UnsatisfiedContraints | IncompatibleEvidenceException |
-                     CannotNormalizeNullVectorException e) {
+                     CannotNormalizePotentialException e) {
                 e.printStackTrace();
             }
         } else if (probNet.getNetworkType().equals(MIDType.getUniqueInstance())) {
@@ -120,14 +120,14 @@ public class InferenceTestsTools {
                 
             } catch (NonProjectablePotentialException | NotEvaluableNetworkException.NotApplicableNetwork |
                      NotEvaluableNetworkException.UnsatisfiedContraints | IncompatibleEvidenceException |
-                     CannotNormalizeNullVectorException e) {
+                     CannotNormalizePotentialException e) {
                 e.printStackTrace();
             }
         }
     }
     
     private static void testResolutionAndPropagation(ProbNet probNet, EvidenceCase preResolutionEvidence)
-            throws NonProjectablePotentialException, IncompatibleEvidenceException, CannotNormalizeNullVectorException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
+            throws NonProjectablePotentialException, IncompatibleEvidenceException, CannotNormalizePotentialException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
         testResolveNetwork(probNet, preResolutionEvidence);
         
         // TODO - Check propagate errors
@@ -139,7 +139,7 @@ public class InferenceTestsTools {
     }
     
     private static void testTemporalEvolutionNetwork(ProbNet probNet, EvidenceCase evidenceCase)
-            throws CannotNormalizeNullVectorException, NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
+            throws CannotNormalizePotentialException, NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
         HashMap<String, Variable> filteredTemporalVariables = new HashMap<>();
         for (Variable variable : probNet.getVariables()) {
             if (variable.isTemporal()) {

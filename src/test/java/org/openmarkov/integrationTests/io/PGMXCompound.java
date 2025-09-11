@@ -22,7 +22,7 @@ import java.util.List;
 public class PGMXCompound {
     private final String V0_2 = "0.2.0";
     private final String V0_7 = "0.7.0";
-
+    
     private ProbNetInfo probNetInfo;
     private ProbNet probNet;
     private List<EvidenceCase> evidenceCases;
@@ -30,125 +30,118 @@ public class PGMXCompound {
     private String version;
     private URL url;
     private String fileName;
-
+    
     private boolean errorReading;
     private boolean triedToRead;
     private boolean errorWriting;
     private boolean fileOrigin;
     private boolean urlOrigin;
-
+    
     public PGMXCompound(File file) {
         setFile(file);
         fileOrigin = true;
         urlOrigin = false;
     }
-
+    
     public PGMXCompound(URL url, String fileName) {
         this.url = url;
         this.fileName = fileName;
         fileOrigin = false;
         urlOrigin = true;
     }
-
+    
     public void setFile(File file) {
         this.file = file;
         initialize();
     }
-
+    
     public void initialize() {
         triedToRead = errorWriting = errorReading = false;
         probNet = null;
         evidenceCases = null;
     }
-
+    
     public File getFile() {
         return file;
     }
-
+    
     public boolean wasExceptionThrownWhileReading() {
         return errorReading;
     }
-
+    
     public boolean wasExceptionThrownWhileWriting() {
         return errorWriting;
     }
-
+    
     public ProbNetInfo getProbNetInfo() throws ParserException, IOException {
         if (probNetInfo == null) {
             readProbNetInfoIfNecessary();
         }
         return probNetInfo;
     }
-
+    
     public ProbNet getProbNet() throws ParserException, IOException {
         if (probNet == null) {
             readProbNetInfoIfNecessary();
         }
         return probNet;
     }
-
+    
     public List<EvidenceCase> getEvidence() throws ParserException, IOException {
         if (evidenceCases == null) {
             readProbNetInfoIfNecessary();
         }
         return evidenceCases;
     }
-
+    
     public String getVersion() throws ParserException, IOException {
         if (version == null) {
             readProbNetInfoIfNecessary();
         }
         return version;
     }
-
+    
     private void readProbNetInfoIfNecessary() throws IOException, ParserException {
-        if (!triedToRead) {
-            triedToRead = true;
-            errorReading = false;
-            PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
-            String absolutePath = file.getAbsolutePath();
-                if (fileOrigin) {
-                    this.probNetInfo = pgmxReader.loadProbNetInfo(absolutePath, new FileInputStream(absolutePath));
-                    this.version = pgmxReader.getVersion(absolutePath, new FileInputStream(absolutePath));
-                } else {
-                    InputStream stream = url.openStream();
-
-                    this.probNetInfo = pgmxReader.loadProbNetInfo(fileName, url.openStream());
-                    this.version = pgmxReader.getVersion(fileName, url.openStream());
-                }
-                this.probNet = probNetInfo.getProbNet();
-                this.evidenceCases = probNetInfo.getEvidence();
-
+        if (triedToRead) {
+            return;
         }
-    }
-
-    public void writeProbNetInfo(String fileName, String version) {
+        triedToRead = true;
+        errorReading = false;
+        PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
+        String absolutePath = file.getAbsolutePath();
         if (fileOrigin) {
-            ProbNetWriter writer;
-            if (version.matches(V0_2)) {
-                writer = new PGMXWriter_0_2();
-            } else {
-                writer = new PGMXWriter_1_0();
-            }
-            try {
-                writer.writeProbNet(fileName, probNet, evidenceCases);
-                file = new File(fileName);
-                triedToRead = false;
-                errorReading = false;
-                errorWriting = false;
-            } catch (WriterException e) {
-                System.out.println("Error writing " + fileName + "\nVersion: " + version);
-                errorWriting = true;
-            }
+            this.probNetInfo = pgmxReader.loadProbNetInfo(absolutePath, new FileInputStream(absolutePath));
+            this.version = PGMXReader_0_2.getVersion(absolutePath, new FileInputStream(absolutePath));
         } else {
+            this.probNetInfo = pgmxReader.loadProbNetInfo(fileName, url.openStream());
+            this.version = PGMXReader_0_2.getVersion(fileName, url.openStream());
+        }
+        this.probNet = probNetInfo.getProbNet();
+        this.evidenceCases = probNetInfo.getEvidence();
+    }
+    
+    public void writeProbNetInfo(String fileName, String version) {
+        if (!fileOrigin) {
             File baseDir = new File(System.getProperty("java.io.tmpdir"));
             File tempDir = new File(baseDir, fileName + version);
             if (tempDir.mkdir()) {
                 file = tempDir;
             }
+            return;
+        }
+        try {
+            ProbNetWriter writer = version.equals(V0_2) ? new PGMXWriter_0_2() : new PGMXWriter_1_0();
+            writer.writeProbNet(fileName, probNet, evidenceCases);
+            file = new File(fileName);
+            triedToRead = false;
+            errorReading = false;
+            errorWriting = false;
+        } catch (WriterException e) {
+            System.out.println("Error writing " + fileName + "\nVersion: " + version);
+            errorWriting = true;
         }
     }
-
+    
     private static void copyFileUsingStream(InputStream source, OutputStream destination) throws IOException {
         try {
             byte[] buffer = new byte[1024];
@@ -161,15 +154,15 @@ public class PGMXCompound {
             destination.close();
         }
     }
-
+    
     public boolean isErrorWriting() {
         return errorWriting;
     }
-
+    
     public boolean isErrorReading() {
         return errorReading;
     }
-
+    
 }
 
 
