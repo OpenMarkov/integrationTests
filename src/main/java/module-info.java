@@ -23,6 +23,7 @@ open module org.openmarkov.integrationTests {
     requires com.github.javaparser.symbolsolver.core;
     requires com.google.common;
     requires io.github.classgraph;
+    requires org.apache.commons.lang3;
     
     exports org.openmarkov.integrationTests;
     exports org.openmarkov.integrationTests.localize;

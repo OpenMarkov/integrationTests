@@ -24,41 +24,47 @@ record RequirementsVerifier(Class<Object> constrainedClass, ImplementationRequir
         if (this.requirements.requiresMethods().length == 0) {
             return Stream.empty();
         }
-        return Arrays.stream(this.requirements.requiresMethods())
-                     .flatMap(requiredMethod -> this
-                             .getSourceClasses()
-                             .filter(ClassUtils::isConcrete)
-                             .filter(classRequiringAMethod -> {
-                                 try {
-                                     var method = classRequiringAMethod.getDeclaredMethod(requiredMethod.methodName(), requiredMethod.parameters());
-                                     if (!requiredMethod.methodKind().is(method)) {
-                                         return true;
-                                     }
-                                     var returnOfMethod = method.getReturnType();
-                                     boolean bothReturnsAreTheSame = requiredMethod.returnType().equals(returnOfMethod);
-                                     boolean returnTypeCanBeAssignedToMethodReturnType = requiredMethod.returnType()
-                                                                                                       .isAssignableFrom(returnOfMethod);
-                                     boolean returnTypeCanBeAssignedToRequieredSelfClass = requiredMethod.returnType() == SelfClass.class && classRequiringAMethod.isAssignableFrom(returnOfMethod);
-                                     boolean isProperlyImplemented = bothReturnsAreTheSame || returnTypeCanBeAssignedToMethodReturnType || returnTypeCanBeAssignedToRequieredSelfClass;
-                                     return !isProperlyImplemented;
-                                 } catch (NoSuchMethodException e) {
-                                     return true;
-                                 }
-                             })
-                             .map(wrongClass -> {
-                                 String stringifiedReturnType =
-                                         requiredMethod.returnType() == void.class ? "" :
-                                                 requiredMethod.returnType() == SelfClass.class ? wrongClass.getName() + " " :
-                                                         requiredMethod.returnType().getName() + " ";
-                                 return wrongClass +
-                                         " " + this.stringifyOrigin() +
-                                         " and so it should have a method such as: " +
-                                         requiredMethod.methodKind().stringifyForMethodTitle() +
-                                         stringifiedReturnType +
-                                         requiredMethod.methodName() + "(" + Arrays.stream(requiredMethod.parameters())
-                                                                                   .map(Class::getName)
-                                                                                   .collect(Collectors.joining(", ")) + ")";
-                             }));
+        return Arrays
+                .stream(this.requirements.requiresMethods())
+                .flatMap(requiredMethod -> this
+                        .getSourceClasses()
+                        .filter(ClassUtils::isConcrete)
+                        .filter(classRequiringAMethod -> {
+                            try {
+                                var method = classRequiringAMethod.getDeclaredMethod(requiredMethod.methodName(), requiredMethod.parameters());
+                                if (!requiredMethod.methodKind().is(method)) {
+                                    return true;
+                                }
+                                var returnOfMethod = method.getReturnType();
+                                boolean bothReturnsAreTheSame = requiredMethod.returnType().equals(returnOfMethod);
+                                boolean returnTypeCanBeAssignedToMethodReturnType = requiredMethod.returnType()
+                                                                                                  .isAssignableFrom(returnOfMethod);
+                                boolean returnTypeCanBeAssignedToRequieredSelfClass = requiredMethod.returnType() == SelfClass.class && classRequiringAMethod.isAssignableFrom(returnOfMethod);
+                                boolean isProperlyImplemented = bothReturnsAreTheSame || returnTypeCanBeAssignedToMethodReturnType || returnTypeCanBeAssignedToRequieredSelfClass;
+                                return !isProperlyImplemented;
+                            } catch (NoSuchMethodException e) {
+                                return true;
+                            }
+                        })
+                        .map(wrongClass -> {
+                            
+                            String stringifiedReturnType;
+                            if (requiredMethod.returnType() == void.class) {
+                                stringifiedReturnType = "";
+                            } else if (requiredMethod.returnType() == SelfClass.class) {
+                                stringifiedReturnType = wrongClass.getName() + " ";
+                            } else {
+                                stringifiedReturnType = requiredMethod.returnType().getName() + " ";
+                            }
+                            return wrongClass +
+                                    " " + this.stringifyOrigin() +
+                                    " and so it should have a method such as: " +
+                                    requiredMethod.methodKind().stringifyForMethodTitle() +
+                                    stringifiedReturnType +
+                                    requiredMethod.methodName() + "(" + Arrays.stream(requiredMethod.parameters())
+                                                                              .map(Class::getName)
+                                                                              .collect(Collectors.joining(", ")) + ")";
+                        }));
     }
     
     private @NotNull Stream<String> findConstructorsErrors() {

@@ -1,10 +1,13 @@
 package org.openmarkov.staticAnalysis.utils;
 
 import com.github.javaparser.ParserConfiguration;
+import com.github.javaparser.Range;
 import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.Node;
+import com.github.javaparser.ast.body.CallableDeclaration;
 import com.github.javaparser.ast.body.TypeDeclaration;
+import com.github.javaparser.ast.nodeTypes.NodeWithName;
 import com.github.javaparser.ast.type.Type;
 import com.github.javaparser.resolution.types.ResolvedReferenceType;
 import com.github.javaparser.symbolsolver.JavaSymbolSolver;
@@ -58,8 +61,6 @@ public class ParseUtils {
                 typeSolver.add(new JavaParserTypeSolver(new File(absolutePath)));
             }
         }
-        
-        // Configure JavaParser to use the symbol solver
         config.setSymbolResolver(new JavaSymbolSolver(typeSolver));
         StaticJavaParser.setConfiguration(config);
     }
@@ -76,54 +77,43 @@ public class ParseUtils {
                              return null;
                          }
                      })
-                .filter(Objects::nonNull);
+                .filter(Objects::nonNull)
+                .sorted(ParseUtils.COMPILATION_UNIT_COMPARATOR);
     }
     
-    private static final Map<String, TypeDeclaration> OPENMARKOV_PARSED_CLASSES;
+    private static Map<String, TypeDeclaration> OPENMARKOV_PARSED_CLASSES;
     
-    static {
-        var classNameToDeclaration = new TreeMap<String, TypeDeclaration>();
-        PluginSearch
-                .init()
-                .stream()
-                .flatMap(openmarkovClass -> {
-                    try {
-                        CompilationUnit parsedClass = StaticJavaParser.parse(ClassUtils.fileOfClass(openmarkovClass));
-                        //return parsedClass.findAll(TypeDeclaration.class).stream();
-                        var typeDeclarations = new ArrayList<TypeDeclaration>();
-                        Queue<Node> stack = new ArrayDeque<>();
-                        stack.add(parsedClass);
-                        while (!stack.isEmpty()) {
-                            var element = stack.remove();
-                            stack.addAll(element.getChildNodes());
-                            if (element instanceof TypeDeclaration typeDeclaration) {
-                                typeDeclarations.add(typeDeclaration);
-                            }
-                        }
-                        return typeDeclarations.stream();
-                    } catch (FileNotFoundException | IllegalArgumentException e) {
-                        return Stream.empty();
-                    }
-                })
-                .forEach(typeDeclaration -> {
-                    String qualifiedName = (String) typeDeclaration.getFullyQualifiedName().get();
-                    classNameToDeclaration.put(qualifiedName, typeDeclaration);
-                });
-        OPENMARKOV_PARSED_CLASSES = Collections.unmodifiableMap(classNameToDeclaration);
-        
-        /*
-        var pluginsCounts = PluginSearch.init().stream().count();
-        var omClassesCounts = OPENMARKOV_PARSED_CLASSES.size();
-        PluginSearch.init()
-                    .filter(omClass -> openMarkovParsedClass(omClass) == null)
+    public synchronized static TypeDeclaration openMarkovParsedClass(Class<?> openMarkovClass) {
+        if (OPENMARKOV_PARSED_CLASSES == null) {
+            var classNameToDeclaration = new TreeMap<String, TypeDeclaration>();
+            PluginSearch
+                    .init()
                     .stream()
-                    .sorted(Comparator.comparing(Class::getName))
-                    .forEach(omClass -> System.out.println("Missing class: " + omClass.getName()));
-        omClassesCounts=omClassesCounts;
-        */
-    }
-    
-    public static TypeDeclaration openMarkovParsedClass(Class<?> openMarkovClass) {
+                    .flatMap(openmarkovClass -> {
+                        try {
+                            CompilationUnit parsedClass = StaticJavaParser.parse(ClassUtils.fileOfClass(openmarkovClass));
+                            //return parsedClass.findAll(TypeDeclaration.class).stream();
+                            var typeDeclarations = new ArrayList<TypeDeclaration>();
+                            Queue<Node> stack = new ArrayDeque<>();
+                            stack.add(parsedClass);
+                            while (!stack.isEmpty()) {
+                                var element = stack.remove();
+                                stack.addAll(element.getChildNodes());
+                                if (element instanceof TypeDeclaration typeDeclaration) {
+                                    typeDeclarations.add(typeDeclaration);
+                                }
+                            }
+                            return typeDeclarations.stream();
+                        } catch (FileNotFoundException | IllegalArgumentException e) {
+                            return Stream.empty();
+                        }
+                    })
+                    .forEach(typeDeclaration -> {
+                        String qualifiedName = (String) typeDeclaration.getFullyQualifiedName().get();
+                        classNameToDeclaration.put(qualifiedName, typeDeclaration);
+                    });
+            OPENMARKOV_PARSED_CLASSES = Collections.unmodifiableMap(classNameToDeclaration);
+        }
         return ParseUtils.OPENMARKOV_PARSED_CLASSES.get(openMarkovClass.getName().replace('$', '.'));
     }
     
@@ -133,7 +123,7 @@ public class ParseUtils {
             .filter(aClass -> aClass.getCanonicalName() != null)
             .collect(Collectors.toMap(Class::getCanonicalName, value -> value));
     
-    private static Class<?> classForName(String className) {
+    public static Class<?> classForName(String className) {
         try {
             return Class.forName(className);
         } catch (ClassNotFoundException e) {
@@ -161,4 +151,26 @@ public class ParseUtils {
         }
         return Optional.of(searchingClass.cast(node));
     }
+    
+    public static @NotNull String getSourceLine(Node objectCreationExpr) {
+        CompilationUnit origin = sourceOf(objectCreationExpr);
+        Optional<Range> range = objectCreationExpr.getRange();
+        String packageName = origin.getPackageDeclaration().map(NodeWithName::getNameAsString)
+                                   .orElse("");
+        String className = origin.getPrimaryTypeName().orElse(null);
+        String qualifiedName = packageName + "." + className;
+        var methodName = superSearch(objectCreationExpr, CallableDeclaration.class)
+                .map(CallableDeclaration::getNameAsString)
+                .orElse("somewhere");
+        int line = range.get().begin.line;
+        return String.format("%s.%s(%s.java:%d)", qualifiedName, methodName, className, line);
+    }
+    
+    public static final Comparator<CompilationUnit> COMPILATION_UNIT_COMPARATOR = Comparator
+            .comparing((CompilationUnit unit) -> unit
+                    .getPackageDeclaration()
+                    .map(NodeWithName::getNameAsString)
+                    .orElse(""))
+            .thenComparing(unit -> unit
+                    .getPrimaryTypeName().orElse(""));
 }

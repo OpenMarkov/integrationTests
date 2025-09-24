@@ -56,7 +56,9 @@ public class PGMXCompound {
     }
     
     public void initialize() {
-        triedToRead = errorWriting = errorReading = false;
+        triedToRead = false;
+        errorWriting = false;
+        errorReading = false;
         probNet = null;
         evidenceCases = null;
     }

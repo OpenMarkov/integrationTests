@@ -89,7 +89,7 @@ public class FileIterator implements PGMXIterator {
                 }
             }
         }
-        nextFile = (nextFile == null) ? nextFile : matches(nextCompound) ? nextFile : lookForNext();
+        nextFile = nextFile == null ? null : matches(nextCompound) ? nextFile : lookForNext();
         return nextFile;
     }
     
