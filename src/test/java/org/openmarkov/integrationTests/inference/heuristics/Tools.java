@@ -12,6 +12,8 @@ import java.util.Objects;
 import org.openmarkov.core.dt.DecisionTreeBranch;
 import org.openmarkov.core.dt.DecisionTreeElement;
 import org.openmarkov.core.dt.DecisionTreeNode;
+import org.openmarkov.core.exception.IncompatibleEvidenceException;
+import org.openmarkov.core.exception.NonProjectablePotentialException;
 import org.openmarkov.core.exception.NotEvaluableNetworkException;
 import org.openmarkov.core.exception.ParserException;
 import org.openmarkov.core.io.ProbNetInfo;
@@ -200,9 +202,9 @@ public class Tools {
 			Assertions.assertEquals(maxUtility, treeNode.getUtility(), deltaEquals);
 		}
 	}
-
-
-	protected static void testDecisionTreeAfterLevelsExpansion(ProbNet network, boolean exploreZeroProbabilityBranches) throws NotEvaluableNetworkException {
+    
+    
+    protected static void testDecisionTreeAfterLevelsExpansion(ProbNet network, boolean exploreZeroProbabilityBranches) throws NotEvaluableNetworkException, IncompatibleEvidenceException, NonProjectablePotentialException {
 		int maxNumberLevelsToExpandMore = 3;
         DecisionTreePanel dtPanel = new DecisionTreePanel(network);
 			for (int i = 0; i < maxNumberLevelsToExpandMore; i++) {
@@ -210,9 +212,9 @@ public class Tools {
 				Tools.testDecisionTreeNode(dtPanel.getDecisionTreeNode(), exploreZeroProbabilityBranches);
 			}
 	}
-
-
-	public static void testDecisionTree(ProbNet network, boolean computeDT, DecisionTreeComputation eval) throws NotEvaluableNetworkException {
+    
+    
+    public static void testDecisionTree(ProbNet network, boolean computeDT, DecisionTreeComputation eval) throws NotEvaluableNetworkException, IncompatibleEvidenceException, NonProjectablePotentialException {
 		DecisionTreeNode dt = eval.getDecisionTree();
 		if (computeDT) {
 			Assertions.assertNotNull(dt);

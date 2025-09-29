@@ -28,7 +28,7 @@ public class PrintChecks {
                          .filter(Objects::nonNull);
     }
     
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) {
         HashMap<ToCheck.ReasonKind, ArrayList<ToCheckValue>> toCheckValues = new HashMap<>();
         getAllToChecks().forEach(toCheckValue -> {
             if (toCheckValue.reasonKind.isEmpty()) {

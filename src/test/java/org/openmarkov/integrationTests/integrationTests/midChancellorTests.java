@@ -74,7 +74,8 @@ public class midChancellorTests {
 			Assertions.assertEquals(utility.getValues()[0], 50608.78077314, deltaEquals);
 	}
 	@Disabled
-	@Test public void veOptimalPolicyTest() throws NonProjectablePotentialException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
+    @Test
+    public void veOptimalPolicyTest() throws NonProjectablePotentialException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, IncompatibleEvidenceException.EvidenceIsIncompatibleWithOther {
 		OptimalPolicies veOptimalPolicy;
 			Variable decisionVariable = probNet.getVariable("Therapy type");
 			veOptimalPolicy = new VEEvaluation(probNet);

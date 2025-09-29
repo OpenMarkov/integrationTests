@@ -8,10 +8,7 @@
 package org.openmarkov.integrationTests.integrationTests;
 
 import org.junit.jupiter.api.*;
-import org.openmarkov.core.exception.IncompatibleEvidenceException;
-import org.openmarkov.core.exception.NotEvaluableNetworkException;
-import org.openmarkov.core.exception.ParserException;
-import org.openmarkov.core.exception.UnexpectedInferenceException;
+import org.openmarkov.core.exception.*;
 import org.openmarkov.core.io.ProbNetInfo;
 import org.openmarkov.core.model.network.CEP;
 import org.openmarkov.core.model.network.ProbNet;
@@ -37,7 +34,7 @@ public class danAlgorithmTests {
     }
     
     @Test
-    public void testOneDecision() throws ParserException, URISyntaxException, FileNotFoundException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
+    public void testOneDecision() throws ParserException, URISyntaxException, FileNotFoundException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, NonProjectablePotentialException, IncompatibleEvidenceException {
         String networkName = "DAN-one-decision-CE.pgmx";
         String path = "networks/dan/";
         double lambda = 30000;
@@ -59,7 +56,7 @@ public class danAlgorithmTests {
     
     @Disabled("Missing test net DAN-2tests.pgmx")
     @Test
-    public void testDAN2tests() throws ParserException, URISyntaxException, FileNotFoundException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
+    public void testDAN2tests() throws ParserException, URISyntaxException, FileNotFoundException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, NonProjectablePotentialException, IncompatibleEvidenceException {
         String networkName = "DAN-2tests.pgmx";
         String path = "networks/IDCEAnTherapies/";
         double lambda = 30000;
@@ -80,7 +77,7 @@ public class danAlgorithmTests {
     
     @Disabled("Missing test net DAN-3tests.pgmx")
     @Test
-    public void testDAN3tests() throws ParserException, URISyntaxException, FileNotFoundException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
+    public void testDAN3tests() throws ParserException, URISyntaxException, FileNotFoundException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, NonProjectablePotentialException, IncompatibleEvidenceException {
         String networkName = "DAN-3tests.pgmx";
         String path = "networks/IDCEAnTherapies/";
         double lambda = 30000;
@@ -101,7 +98,7 @@ public class danAlgorithmTests {
     
     @Disabled("Missing test net DAN-4tests.pgmx")
     @Test
-    public void testDAN4tests() throws ParserException, URISyntaxException, FileNotFoundException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
+    public void testDAN4tests() throws ParserException, URISyntaxException, FileNotFoundException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, NonProjectablePotentialException, IncompatibleEvidenceException {
         String networkName = "DAN-4tests.pgmx";
         String path = "networks/IDCEAnTherapies/";
         double lambda = 30000;
@@ -122,7 +119,7 @@ public class danAlgorithmTests {
     
     
     @Test
-    public void oneChanceCETest() throws ParserException, URISyntaxException, FileNotFoundException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
+    public void oneChanceCETest() throws ParserException, URISyntaxException, FileNotFoundException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, NonProjectablePotentialException, IncompatibleEvidenceException {
         String networkName = "DAN-one-chance-ce.pgmx";
         String path = "networks/dan/";
         double lambda = 30000;

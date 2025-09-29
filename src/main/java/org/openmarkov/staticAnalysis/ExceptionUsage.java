@@ -37,7 +37,7 @@ public class ExceptionUsage {
         }
     }
     
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         /*
         System.out.println(ClassUtils.fileOfClass(PNEdit.class));
         System.out.println(ClassUtils.fileOfClass(SAXException.class));

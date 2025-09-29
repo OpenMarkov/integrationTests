@@ -7,14 +7,17 @@
 
 package org.openmarkov.integrationTests.inference.dan;
 
+import org.openmarkov.core.exception.IncompatibleEvidenceException;
+import org.openmarkov.core.exception.NonProjectablePotentialException;
 import org.openmarkov.core.exception.NotEvaluableNetworkException;
 import org.openmarkov.core.model.network.ProbNet;
 import org.openmarkov.inference.algorithm.decompositionIntoSymmetricDANs.evaluation.DANEvaluation;
 import org.openmarkov.inference.algorithm.decompositionIntoSymmetricDANs.evaluation.DANDecompositionIntoSymmetricDANsEvaluation;
 
 public class DANDecompositionIntoSymmetricDANsEvaluationTest extends DANEvaluationTest {
-
-	@Override protected DANEvaluation buildNetworkEvaluation(ProbNet network) throws NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
+    
+    @Override
+    protected DANEvaluation buildNetworkEvaluation(ProbNet network) throws NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, NonProjectablePotentialException, IncompatibleEvidenceException {
 		DANEvaluation eval = null;
 		eval = new DANDecompositionIntoSymmetricDANsEvaluation(network);
 		return eval;
@@ -22,7 +25,7 @@ public class DANDecompositionIntoSymmetricDANsEvaluationTest extends DANEvaluati
 
 	@Override
 	protected DANEvaluation buildNetworkEvaluation(ProbNet network, boolean computeDecisionTreeForGUI)
-            throws NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
+            throws NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, NonProjectablePotentialException, IncompatibleEvidenceException {
 		return buildNetworkEvaluation(network);
 	}
 

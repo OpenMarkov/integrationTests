@@ -8,6 +8,7 @@
 package org.openmarkov.integrationTests.inference.ceanalysis;
 
 import org.junit.jupiter.api.*;
+import org.openmarkov.core.exception.IncompatibleEvidenceException;
 import org.openmarkov.core.exception.ParserException;
 import org.openmarkov.core.io.ProbNetInfo;
 import org.openmarkov.core.model.graph.Link;
@@ -80,7 +81,7 @@ public class DANOperationsTest {
     }
     
     @Tag(TestSpeed.MEDIUM)
-    @Test public void instantiateTest() {
+    @Test public void instantiateTest() throws IncompatibleEvidenceException.EvidenceIsIncompatibleWithOther {
         ProbNet probNet = danTest2Therapies;
         
         // Instantiate the network for Disease

@@ -9,18 +9,22 @@ package org.openmarkov.integrationTests.inference.dan;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.openmarkov.core.exception.IncompatibleEvidenceException;
+import org.openmarkov.core.exception.NonProjectablePotentialException;
 import org.openmarkov.core.exception.NotEvaluableNetworkException;
 import org.openmarkov.core.model.network.ProbNet;
 import org.openmarkov.inference.algorithm.decompositionIntoSymmetricDANs.evaluation.DANDecisionTreeEvaluation;
 import org.openmarkov.inference.algorithm.decompositionIntoSymmetricDANs.evaluation.DANEvaluation;
 //@Ignore
 public class DANDecisionTreeEvaluationTest extends DANEvaluationTest {
-	
-	@Override public void testNetworkEvaluation(ProbNet network, double expectedEU, String... namesVariablesIntervention) throws NotEvaluableNetworkException {
+    
+    @Override
+    public void testNetworkEvaluation(ProbNet network, double expectedEU, String... namesVariablesIntervention) throws NotEvaluableNetworkException, IncompatibleEvidenceException, NonProjectablePotentialException {
 		testNetworkEvaluationAndDecisionTree(network,expectedEU,namesVariablesIntervention);
 	}
-
-	@Override protected DANEvaluation buildNetworkEvaluation(ProbNet network, boolean computeDecisionTreeForGUI) throws NotEvaluableNetworkException {
+    
+    @Override
+    protected DANEvaluation buildNetworkEvaluation(ProbNet network, boolean computeDecisionTreeForGUI) throws NotEvaluableNetworkException, IncompatibleEvidenceException, NonProjectablePotentialException {
         return new DANDecisionTreeEvaluation(network, computeDecisionTreeForGUI);
 	}
 

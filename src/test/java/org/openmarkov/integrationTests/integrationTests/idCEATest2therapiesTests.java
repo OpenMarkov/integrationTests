@@ -117,7 +117,8 @@ public class idCEATest2therapiesTests {
 	}
 
 	@Disabled
-	@Test public void veOptimalPolicyTest() throws NonProjectablePotentialException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
+    @Test
+    public void veOptimalPolicyTest() throws NonProjectablePotentialException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, IncompatibleEvidenceException.EvidenceIsIncompatibleWithOther {
 		OptimalPolicies veOptimalPolicy;
 			Variable decisionVariable = probNet.getVariable("Therapy");
 			veOptimalPolicy = new VEEvaluation(probNet);

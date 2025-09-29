@@ -82,8 +82,9 @@ public abstract class idDecideTestNetworkTests extends IDNetworkTests {
 			utility = veEvaluation.getUtility();
 			Assertions.assertEquals(utility.getValues()[0], 7.05, deltaEquals);
 	}
-
-	@Test public void veOptimalPolicyTest() throws NonProjectablePotentialException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
+    
+    @Test
+    public void veOptimalPolicyTest() throws NonProjectablePotentialException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, IncompatibleEvidenceException.EvidenceIsIncompatibleWithOther {
 		OptimalPolicies veOptimalPolicy;
 			Variable decisionVariable = probNet.getVariable("Therapy");
 			veOptimalPolicy = new VEEvaluation(probNet);
@@ -91,8 +92,9 @@ public abstract class idDecideTestNetworkTests extends IDNetworkTests {
 			double[] expectedValues = { 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1 };
 			Assertions.assertArrayEquals(optimalPolicy.getValues(), expectedValues, deltaEquals);
 	}
-
-	@Test public void veExpectedUtilityTest() throws NonProjectablePotentialException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
+    
+    @Test
+    public void veExpectedUtilityTest() throws NonProjectablePotentialException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, IncompatibleEvidenceException.EvidenceIsIncompatibleWithOther {
 		VEExpectedUtilityDecision veExpectedUtilityDecision;
 			Variable decisionVariable = probNet.getVariable("Therapy");
 			veExpectedUtilityDecision = new VEExpectedUtilityDecision(probNet, decisionVariable);

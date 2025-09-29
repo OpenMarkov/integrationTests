@@ -1,5 +1,7 @@
 package org.openmarkov.integrationTests.inference;
 
+import org.openmarkov.core.exception.IncompatibleEvidenceException;
+import org.openmarkov.core.exception.NonProjectablePotentialException;
 import org.openmarkov.core.exception.NotEvaluableNetworkException;
 import org.openmarkov.core.exception.ParserException;
 import org.openmarkov.integrationTests.inference.heuristics.Tools;
@@ -13,15 +15,15 @@ import java.net.URISyntaxException;
 
 
 public abstract class NetworkEvaluationInferenceTest {
-
-	public void testNetworkEvaluation(String networkName, double expectedEU, String... namesVariablesIntervention) throws NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException {
+    
+    public void testNetworkEvaluation(String networkName, double expectedEU, String... namesVariablesIntervention) throws NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, NonProjectablePotentialException {
 		ProbNet network = loadNetwork(networkName);
 		System.out.println("*** Evaluating network " + networkName + " ***");
 		System.out.println();
 		testNetworkEvaluation(network,expectedEU,namesVariablesIntervention);
 	}
-	
-	public void testNetworkEvaluation(ProbNet network, double expectedEU, String... namesVariablesIntervention) throws NotEvaluableNetworkException {
+    
+    public void testNetworkEvaluation(ProbNet network, double expectedEU, String... namesVariablesIntervention) throws NotEvaluableNetworkException, IncompatibleEvidenceException, NonProjectablePotentialException {
 		System.out.println();
 		DANEvaluation eval = buildNetworkEvaluation(network);
 		testDANEvaluation(eval, network, expectedEU, namesVariablesIntervention);
@@ -34,14 +36,13 @@ public abstract class NetworkEvaluationInferenceTest {
 	}
 
 	protected abstract ProbNet loadNetwork(String networkName) throws ParserException, URISyntaxException, FileNotFoundException;
-	
-	protected abstract DANEvaluation buildNetworkEvaluation(ProbNet network) throws NotEvaluableNetworkException;
-
-
-
-	protected abstract DANEvaluation buildNetworkEvaluation(ProbNet network, boolean computeDecisionTreeForGUI) throws NotEvaluableNetworkException;
-	
-	public void testNetworkEvaluationAndDecisionTree(ProbNet network, double expectedEU, String... namesVariablesIntervention) throws NotEvaluableNetworkException {
+    
+    protected abstract DANEvaluation buildNetworkEvaluation(ProbNet network) throws NotEvaluableNetworkException, IncompatibleEvidenceException, NonProjectablePotentialException;
+    
+    
+    protected abstract DANEvaluation buildNetworkEvaluation(ProbNet network, boolean computeDecisionTreeForGUI) throws NotEvaluableNetworkException, IncompatibleEvidenceException, NonProjectablePotentialException;
+    
+    public void testNetworkEvaluationAndDecisionTree(ProbNet network, double expectedEU, String... namesVariablesIntervention) throws NotEvaluableNetworkException, IncompatibleEvidenceException, NonProjectablePotentialException {
 		System.out.println();
 		
 		boolean computeDTValues []= {true, false};
@@ -51,7 +52,5 @@ public abstract class NetworkEvaluationInferenceTest {
 			Tools.testDecisionTree(network, computeDT, (DecisionTreeComputation) eval);
 		}
 	}
-	
-	
 	
 }

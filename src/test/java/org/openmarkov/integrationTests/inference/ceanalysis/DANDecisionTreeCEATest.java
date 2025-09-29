@@ -15,19 +15,17 @@ import java.net.URISyntaxException;
 public class DANDecisionTreeCEATest extends DANCEATest {
 
 	@Override
-	protected CEAnalysis buildCEAnalysis(ProbNet network) throws NotEvaluableNetworkException {
+    protected CEAnalysis buildCEAnalysis(ProbNet network) throws NotEvaluableNetworkException, IncompatibleEvidenceException, NonProjectablePotentialException {
 		return buildCEAnalysis(network, true);
 	}
-	
-	
-	protected CEAnalysis buildCEAnalysis(ProbNet network, boolean computeDTForGUI) throws NotEvaluableNetworkException {
-		CEAnalysis cea = null;
-		cea = new DANDecisionTreeCEA(network, computeDTForGUI);
-		return cea;
+    
+    
+    protected CEAnalysis buildCEAnalysis(ProbNet network, boolean computeDTForGUI) throws NotEvaluableNetworkException, IncompatibleEvidenceException, NonProjectablePotentialException {
+        return new DANDecisionTreeCEA(network, computeDTForGUI);
 	}
 
 	@Override
-	public void testCEADANEvaluation(String danName, int globalNumberOfCEPIntervals, double... expectedThreshods) throws NonProjectablePotentialException, NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException {
+    public void testCEADANEvaluation(String danName, int globalNumberOfCEPIntervals, double... expectedThreshods) throws NonProjectablePotentialException, NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException {
 		Tools t = new Tools();
 		ProbNet network = t.loadDAN(danName);
 		MulticriteriaOptions options = new MulticriteriaOptions();

@@ -7,7 +7,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class FindAllShowDialog {
     
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) {
         AtomicInteger messageIndex = new AtomicInteger();
         ParseUtils.baseOpenMarkovParsedClasses()
                   .flatMap(c -> c.findAll(com.github.javaparser.ast.expr.MethodCallExpr.class).stream())

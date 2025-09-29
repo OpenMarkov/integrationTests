@@ -31,7 +31,7 @@ public class ExceptionInstantations {
         return true;
     }
     
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         ParseUtils.baseOpenMarkovParsedClasses()
                   .flatMap(parsedClass -> parsedClass
                           .findAll(com.github.javaparser.ast.expr.ObjectCreationExpr.class)
