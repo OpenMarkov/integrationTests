@@ -12,10 +12,7 @@ import java.util.Objects;
 import org.openmarkov.core.dt.DecisionTreeBranch;
 import org.openmarkov.core.dt.DecisionTreeElement;
 import org.openmarkov.core.dt.DecisionTreeNode;
-import org.openmarkov.core.exception.IncompatibleEvidenceException;
-import org.openmarkov.core.exception.NonProjectablePotentialException;
-import org.openmarkov.core.exception.NotEvaluableNetworkException;
-import org.openmarkov.core.exception.ParserException;
+import org.openmarkov.core.exception.*;
 import org.openmarkov.core.io.ProbNetInfo;
 import org.openmarkov.core.model.network.NodeType;
 import org.openmarkov.core.model.network.ProbNet;
@@ -204,7 +201,7 @@ public class Tools {
 	}
     
     
-    protected static void testDecisionTreeAfterLevelsExpansion(ProbNet network, boolean exploreZeroProbabilityBranches) throws NotEvaluableNetworkException, IncompatibleEvidenceException, NonProjectablePotentialException {
+    protected static void testDecisionTreeAfterLevelsExpansion(ProbNet network, boolean exploreZeroProbabilityBranches) throws NotEvaluableNetworkException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates, NotSupportedOperationException {
 		int maxNumberLevelsToExpandMore = 3;
         DecisionTreePanel dtPanel = new DecisionTreePanel(network);
 			for (int i = 0; i < maxNumberLevelsToExpandMore; i++) {
@@ -214,7 +211,7 @@ public class Tools {
 	}
     
     
-    public static void testDecisionTree(ProbNet network, boolean computeDT, DecisionTreeComputation eval) throws NotEvaluableNetworkException, IncompatibleEvidenceException, NonProjectablePotentialException {
+    public static void testDecisionTree(ProbNet network, boolean computeDT, DecisionTreeComputation eval) throws NotEvaluableNetworkException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates, NotSupportedOperationException {
 		DecisionTreeNode dt = eval.getDecisionTree();
 		if (computeDT) {
 			Assertions.assertNotNull(dt);

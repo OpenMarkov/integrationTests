@@ -80,48 +80,26 @@ public class InferenceTestsTools {
     }
     
     public static void testBasicInference(ProbNet probNet, EvidenceCase preResolutionEvidence, int numSimulations,
-                                          boolean useMultithreading) {
+                                          boolean useMultithreading) throws NonProjectablePotentialException, IncompatibleEvidenceException, CannotNormalizePotentialException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, NotSupportedOperationException {
         if (probNet.getNetworkType().equals(BayesianNetworkType.getUniqueInstance())) {
-            try {
-                testPropagateNetwork(probNet, probNet.getVariables(), preResolutionEvidence);
-            } catch (NonProjectablePotentialException | NotEvaluableNetworkException.NotApplicableNetwork |
-                     NotEvaluableNetworkException.UnsatisfiedContraints | IncompatibleEvidenceException |
-                     CannotNormalizePotentialException e) {
-                e.printStackTrace();
-            }
+            testPropagateNetwork(probNet, probNet.getVariables(), preResolutionEvidence);
+            
         } else if (probNet.getNetworkType().equals(InfluenceDiagramType.getUniqueInstance())) {
-            try {
-                testResolutionAndPropagation(probNet, preResolutionEvidence);
-                
-                if (hasCostEffectiveness(probNet)) {
-                    testCEADecisionNetwork(probNet, preResolutionEvidence);
-                    testCEAGlobalNetwork(probNet, preResolutionEvidence);
-                    testCEPSANetwork(probNet, preResolutionEvidence, numSimulations, useMultithreading);
-                }
-                
-            } catch (NonProjectablePotentialException | NotEvaluableNetworkException.NotApplicableNetwork |
-                     NotEvaluableNetworkException.UnsatisfiedContraints | IncompatibleEvidenceException |
-                     CannotNormalizePotentialException e) {
-                e.printStackTrace();
+            testResolutionAndPropagation(probNet, preResolutionEvidence);
+            if (hasCostEffectiveness(probNet)) {
+                testCEADecisionNetwork(probNet, preResolutionEvidence);
+                testCEAGlobalNetwork(probNet, preResolutionEvidence);
+                testCEPSANetwork(probNet, preResolutionEvidence, numSimulations, useMultithreading);
             }
         } else if (probNet.getNetworkType().equals(MIDType.getUniqueInstance())) {
-            try {
-                testResolutionAndPropagation(probNet, preResolutionEvidence);
-                
-                if (hasCostEffectiveness(probNet)) {
-                    testCEADecisionNetwork(probNet, preResolutionEvidence);
-                    testCEAGlobalNetwork(probNet, preResolutionEvidence);
-                    testCEPSANetwork(probNet, preResolutionEvidence, numSimulations, useMultithreading);
-                }
-                
-                if (!probNet.hasConstraint(OnlyAtemporalVariables.class)) {
-                    testTemporalEvolutionNetwork(probNet, preResolutionEvidence);
-                }
-                
-            } catch (NonProjectablePotentialException | NotEvaluableNetworkException.NotApplicableNetwork |
-                     NotEvaluableNetworkException.UnsatisfiedContraints | IncompatibleEvidenceException |
-                     CannotNormalizePotentialException e) {
-                e.printStackTrace();
+            testResolutionAndPropagation(probNet, preResolutionEvidence);
+            if (hasCostEffectiveness(probNet)) {
+                testCEADecisionNetwork(probNet, preResolutionEvidence);
+                testCEAGlobalNetwork(probNet, preResolutionEvidence);
+                testCEPSANetwork(probNet, preResolutionEvidence, numSimulations, useMultithreading);
+            }
+            if (!probNet.hasConstraintOfClass(OnlyAtemporalVariables.class)) {
+                testTemporalEvolutionNetwork(probNet, preResolutionEvidence);
             }
         }
     }
@@ -237,7 +215,7 @@ public class InferenceTestsTools {
     
     
     private static void testCEPSANetwork(ProbNet probNet, EvidenceCase evidenceCase, int numSimulations,
-                                         boolean useMultithreading) {
+                                         boolean useMultithreading) throws NonProjectablePotentialException, IncompatibleEvidenceException, NotSupportedOperationException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
         List<Variable> decisionVariables = probNet.getVariables(NodeType.DECISION);
         
         for (Variable decisionVariable : decisionVariables) {
@@ -248,29 +226,18 @@ public class InferenceTestsTools {
             for (Variable informationalPredecesor : informationalPredecesors) {
                 // Set the first state as an evidence
                 Finding finding = new Finding(informationalPredecesor, informationalPredecesor.getStates()[0]);
-                try {
-                    evidenceCase.addFinding(finding);
-                } catch (IncompatibleEvidenceException.EvidenceIsIncompatibleWithOther e) {
-                    e.printStackTrace();
-                }
+                evidenceCase.addFinding(finding);
             }
-            try {
-                VECEPSA vecepsa = new VECEPSA(probNet);
-                vecepsa.setPreResolutionEvidence(evidenceCase);
-                vecepsa.setDecisionVariable(decisionVariable);
-                vecepsa.setNumSimulations(numSimulations);
-                vecepsa.setUseMultithreading(useMultithreading);
-                assertNotNull(vecepsa.getCEPPotentials());
-                
-            } catch (NotEvaluableNetworkException.NotApplicableNetwork |
-                     NotEvaluableNetworkException.UnsatisfiedContraints | IncompatibleEvidenceException |
-                     NonProjectablePotentialException | NotSupportedOperationException e) {
-                e.printStackTrace();
-            }
+            VECEPSA vecepsa = new VECEPSA(probNet);
+            vecepsa.setPreResolutionEvidence(evidenceCase);
+            vecepsa.setDecisionVariable(decisionVariable);
+            vecepsa.setNumSimulations(numSimulations);
+            vecepsa.setUseMultithreading(useMultithreading);
+            assertNotNull(vecepsa.getCEPPotentials());
             
         }
         System.out.println("VECEPSA successful");
     }
-
-
+    
+    
 }

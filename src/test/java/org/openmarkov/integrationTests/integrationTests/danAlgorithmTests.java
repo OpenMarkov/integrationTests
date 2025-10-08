@@ -34,7 +34,7 @@ public class danAlgorithmTests {
     }
     
     @Test
-    public void testOneDecision() throws ParserException, URISyntaxException, FileNotFoundException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, NonProjectablePotentialException, IncompatibleEvidenceException {
+    public void testOneDecision() throws ParserException, URISyntaxException, FileNotFoundException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, NonProjectablePotentialException, IncompatibleEvidenceException, PotentialOperationException.DifferentSizesInPotentialsAndStates, NotSupportedOperationException {
         String networkName = "DAN-one-decision-CE.pgmx";
         String path = "networks/dan/";
         double lambda = 30000;
@@ -56,7 +56,7 @@ public class danAlgorithmTests {
     
     @Disabled("Missing test net DAN-2tests.pgmx")
     @Test
-    public void testDAN2tests() throws ParserException, URISyntaxException, FileNotFoundException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, NonProjectablePotentialException, IncompatibleEvidenceException {
+    public void testDAN2tests() throws ParserException, URISyntaxException, FileNotFoundException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, NonProjectablePotentialException, IncompatibleEvidenceException, PotentialOperationException.DifferentSizesInPotentialsAndStates, NotSupportedOperationException {
         String networkName = "DAN-2tests.pgmx";
         String path = "networks/IDCEAnTherapies/";
         double lambda = 30000;
@@ -77,7 +77,7 @@ public class danAlgorithmTests {
     
     @Disabled("Missing test net DAN-3tests.pgmx")
     @Test
-    public void testDAN3tests() throws ParserException, URISyntaxException, FileNotFoundException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, NonProjectablePotentialException, IncompatibleEvidenceException {
+    public void testDAN3tests() throws ParserException, URISyntaxException, FileNotFoundException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, NonProjectablePotentialException, IncompatibleEvidenceException, PotentialOperationException.DifferentSizesInPotentialsAndStates, NotSupportedOperationException {
         String networkName = "DAN-3tests.pgmx";
         String path = "networks/IDCEAnTherapies/";
         double lambda = 30000;
@@ -98,7 +98,7 @@ public class danAlgorithmTests {
     
     @Disabled("Missing test net DAN-4tests.pgmx")
     @Test
-    public void testDAN4tests() throws ParserException, URISyntaxException, FileNotFoundException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, NonProjectablePotentialException, IncompatibleEvidenceException {
+    public void testDAN4tests() throws ParserException, URISyntaxException, FileNotFoundException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, NonProjectablePotentialException, IncompatibleEvidenceException, PotentialOperationException.DifferentSizesInPotentialsAndStates, NotSupportedOperationException {
         String networkName = "DAN-4tests.pgmx";
         String path = "networks/IDCEAnTherapies/";
         double lambda = 30000;
@@ -119,7 +119,7 @@ public class danAlgorithmTests {
     
     
     @Test
-    public void oneChanceCETest() throws ParserException, URISyntaxException, FileNotFoundException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, NonProjectablePotentialException, IncompatibleEvidenceException {
+    public void oneChanceCETest() throws ParserException, URISyntaxException, FileNotFoundException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, NonProjectablePotentialException, IncompatibleEvidenceException, PotentialOperationException.DifferentSizesInPotentialsAndStates, NotSupportedOperationException {
         String networkName = "DAN-one-chance-ce.pgmx";
         String path = "networks/dan/";
         double lambda = 30000;

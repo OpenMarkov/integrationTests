@@ -60,7 +60,7 @@ public class TrivialHeuristicScore extends Thread implements EliminationHeuristi
      * @param probNet    <code>ProbNet</code>
      * @param heuristic  <code>EliminationHeuristic</code>
      */
-    private TrivialHeuristicScore(double[] scores, int scoreIndex, ProbNet probNet, EliminationHeuristic heuristic) throws DoEditException.ConstraintViolated {
+    private TrivialHeuristicScore(double[] scores, int scoreIndex, ProbNet probNet, EliminationHeuristic heuristic) {
         this.scores = scores;
         this.scoreIndex = scoreIndex;
         this.probNet = probNet;
@@ -74,7 +74,7 @@ public class TrivialHeuristicScore extends Thread implements EliminationHeuristi
      * Builds a HuginForest
      *
      */
-    private void createHuginForest() throws DoEditException.ConstraintViolated {
+    private void createHuginForest() {
         forest = new HuginForest(probNet, heuristic);
         int accumulatedSize = getSumClustersSize(forest);
         scores[scoreIndex] = 1 / (1 + (double) accumulatedSize);
@@ -91,7 +91,7 @@ public class TrivialHeuristicScore extends Thread implements EliminationHeuristi
      * @see EliminationHeuristicScore#getScores(org.openmarkov.core.model.network.ProbNet, java.lang.Class[])
      */
     @SuppressWarnings({"rawtypes", "unchecked"}) @Override public double[] getScores(ProbNet probNet,
-                                                                                     Class[] heuristicsClasses) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, DoEditException.ConstraintViolated {
+                                                                                     Class[] heuristicsClasses) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         
         int numHeuristics = heuristicsClasses.length;
         double[] scores = new double[numHeuristics];

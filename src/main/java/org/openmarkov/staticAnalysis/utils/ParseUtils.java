@@ -69,6 +69,7 @@ public class ParseUtils {
         return PluginSearch
                 .init()
                 .stream()
+                .filter(openmarkovClass -> openmarkovClass.getModule() != ParseUtils.class.getModule())
                 .map(openmarkovClass ->
                      {
                          try {

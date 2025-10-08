@@ -26,6 +26,6 @@ public interface EliminationHeuristicScore {
 	 * @return A measure of the quality of each heuristic. The bigger score is better. <code>double[]</code>
      */
 	@SuppressWarnings("rawtypes") double[] getScores(ProbNet probNet, Class[] heuristicsClasses)
-            throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, DoEditException;
+            throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException;
 
 }

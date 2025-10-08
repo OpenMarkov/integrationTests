@@ -7,9 +7,7 @@
 
 package org.openmarkov.integrationTests.inference.dan;
 
-import org.openmarkov.core.exception.IncompatibleEvidenceException;
-import org.openmarkov.core.exception.NonProjectablePotentialException;
-import org.openmarkov.core.exception.NotEvaluableNetworkException;
+import org.openmarkov.core.exception.*;
 import org.openmarkov.core.model.network.ProbNet;
 import org.openmarkov.inference.algorithm.decompositionIntoSymmetricDANs.evaluation.DANEvaluation;
 import org.openmarkov.inference.algorithm.decompositionIntoSymmetricDANs.evaluation.DANDecompositionIntoSymmetricDANsEvaluation;
@@ -17,15 +15,13 @@ import org.openmarkov.inference.algorithm.decompositionIntoSymmetricDANs.evaluat
 public class DANDecompositionIntoSymmetricDANsEvaluationTest extends DANEvaluationTest {
     
     @Override
-    protected DANEvaluation buildNetworkEvaluation(ProbNet network) throws NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, NonProjectablePotentialException, IncompatibleEvidenceException {
-		DANEvaluation eval = null;
-		eval = new DANDecompositionIntoSymmetricDANsEvaluation(network);
-		return eval;
+    protected DANEvaluation buildNetworkEvaluation(ProbNet network) throws NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, NonProjectablePotentialException, IncompatibleEvidenceException, PotentialOperationException.DifferentSizesInPotentialsAndStates, NotSupportedOperationException {
+        return new DANDecompositionIntoSymmetricDANsEvaluation(network);
 	}
 
 	@Override
 	protected DANEvaluation buildNetworkEvaluation(ProbNet network, boolean computeDecisionTreeForGUI)
-            throws NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, NonProjectablePotentialException, IncompatibleEvidenceException {
+            throws NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, NonProjectablePotentialException, IncompatibleEvidenceException, PotentialOperationException.DifferentSizesInPotentialsAndStates, NotSupportedOperationException {
 		return buildNetworkEvaluation(network);
 	}
 
