@@ -10,7 +10,7 @@ package org.openmarkov.integrationTests.core.action;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
-import org.openmarkov.core.action.MulticriteriaEdit;
+import org.openmarkov.core.action.core.MulticriteriaEdit;
 import org.openmarkov.core.exception.DoEditException;
 import org.openmarkov.core.exception.ParserException;
 import org.openmarkov.core.inference.MulticriteriaOptions;
