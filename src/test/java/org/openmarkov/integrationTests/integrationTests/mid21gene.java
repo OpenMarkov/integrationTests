@@ -67,7 +67,7 @@ public class mid21gene {
     
     @Disabled
     @Test
-    public void prueba() throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
+    public void prueba() throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, ConstraintViolatedException {
         //Node dec_21g = probNet.getNode("Dec: 21g");
         
         //State stado = dec_21g.getVariable().getState("no");
@@ -78,7 +78,8 @@ public class mid21gene {
     }
     
     
-    @Test public void getCEA4Scenarios() throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
+    @Test
+    public void getCEA4Scenarios() throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, ConstraintViolatedException {
         // L-L-NC
         setScenario("AO low", "21g low", "no");
         evaluateScenario("L-L-NC");
@@ -218,7 +219,7 @@ public class mid21gene {
     }*/
     
     private void evaluateScenario(String scenarioName)
-            throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
+            throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, ConstraintViolatedException {
         
     	System.out.println("Scenario: " + scenarioName);
         VECEAnalysis veceAnalysis = new VECEAnalysis(probNet);
@@ -253,7 +254,7 @@ public class mid21gene {
     @Disabled
     @Test
     public void test() throws NonProjectablePotentialException,
-            IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
+            IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, ConstraintViolatedException {
         
         evaluateScenario("Demo");
     }
@@ -284,7 +285,7 @@ public class mid21gene {
     
     @Disabled
     @Test
-    public void psa_test() throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, NotSupportedOperationException {
+    public void psa_test() throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, NotSupportedOperationException, ConstraintViolatedException {
         for (int i = 1; i <= 5; i++) {
             long startTime, endTime;
             int numSim = 1000;
@@ -303,7 +304,7 @@ public class mid21gene {
     
     @Disabled
     @Test
-    public void temporalEvaluation() throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
+    public void temporalEvaluation() throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, ConstraintViolatedException {
         TemporalEvaluation temporalEvaluation = null;
         long startTime, endTime;
         System.out.println("Starting temporal evaluation");

@@ -279,6 +279,9 @@ public class ValidateClassLocalization {
     }
     
     private static boolean implementsToString(Class<?> usedClassInLocalization) {
+        while (usedClassInLocalization.isArray()) {
+            usedClassInLocalization = usedClassInLocalization.getComponentType();
+        }
         while (usedClassInLocalization != null && usedClassInLocalization != Object.class) {
             try {
                 usedClassInLocalization.getDeclaredMethod("toString");

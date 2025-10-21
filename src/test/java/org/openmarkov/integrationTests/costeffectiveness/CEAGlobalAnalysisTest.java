@@ -8,6 +8,7 @@
 package org.openmarkov.integrationTests.costeffectiveness;
 
 import org.junit.jupiter.api.*;
+import org.openmarkov.core.exception.ConstraintViolatedException;
 import org.openmarkov.core.exception.NonProjectablePotentialException;
 import org.openmarkov.core.exception.NotSupportedOperationException;
 import org.openmarkov.core.inference.TransitionTime;
@@ -44,8 +45,9 @@ public class CEAGlobalAnalysisTest {
 	@BeforeEach public void setUp() {
 
 	}
-
-	@Disabled @Test public void testCHAP() throws NonProjectablePotentialException, java.net.URISyntaxException, org.openmarkov.core.exception.ParserException, org.openmarkov.core.exception.IncompatibleEvidenceException, FileNotFoundException, org.openmarkov.core.exception.NotEvaluableNetworkException.NotApplicableNetwork, org.openmarkov.core.exception.NotEvaluableNetworkException.UnsatisfiedContraints {
+    
+    @Disabled @Test
+    public void testCHAP() throws NonProjectablePotentialException, java.net.URISyntaxException, org.openmarkov.core.exception.ParserException, org.openmarkov.core.exception.IncompatibleEvidenceException, FileNotFoundException, org.openmarkov.core.exception.NotEvaluableNetworkException.NotApplicableNetwork, org.openmarkov.core.exception.NotEvaluableNetworkException.UnsatisfiedContraints, ConstraintViolatedException {
 		// Constants
 		String modelFilePath = "networks" + File.separator + "mid" + File.separator + "chap.pgmx";
 		// Open the file containing the network
@@ -79,7 +81,8 @@ public class CEAGlobalAnalysisTest {
 	 *
 	 * @throws Exception
 	 */
-	@Disabled @Test public void testCHAPSV() throws NonProjectablePotentialException, java.net.URISyntaxException, org.openmarkov.core.exception.ParserException, org.openmarkov.core.exception.IncompatibleEvidenceException, FileNotFoundException, org.openmarkov.core.exception.NotEvaluableNetworkException.NotApplicableNetwork, org.openmarkov.core.exception.NotEvaluableNetworkException.UnsatisfiedContraints {
+    @Disabled @Test
+    public void testCHAPSV() throws NonProjectablePotentialException, java.net.URISyntaxException, org.openmarkov.core.exception.ParserException, org.openmarkov.core.exception.IncompatibleEvidenceException, FileNotFoundException, org.openmarkov.core.exception.NotEvaluableNetworkException.NotApplicableNetwork, org.openmarkov.core.exception.NotEvaluableNetworkException.UnsatisfiedContraints, ConstraintViolatedException {
 		// Constants
 		String modelFilePath = "networks" + File.separator + "mid" + File.separator + "chap-sv.pgmx";
 		// Open the file containing the network
@@ -106,8 +109,9 @@ public class CEAGlobalAnalysisTest {
 
 		Assertions.assertArrayEquals(expectedResults, result.values, 0.001);
 	}
-
-	@Disabled @Test public void testChancellorHC() throws NonProjectablePotentialException, java.net.URISyntaxException, org.openmarkov.core.exception.ParserException, org.openmarkov.core.exception.IncompatibleEvidenceException, FileNotFoundException, org.openmarkov.core.exception.NotEvaluableNetworkException.NotApplicableNetwork, org.openmarkov.core.exception.NotEvaluableNetworkException.UnsatisfiedContraints {
+    
+    @Disabled @Test
+    public void testChancellorHC() throws NonProjectablePotentialException, java.net.URISyntaxException, org.openmarkov.core.exception.ParserException, org.openmarkov.core.exception.IncompatibleEvidenceException, FileNotFoundException, org.openmarkov.core.exception.NotEvaluableNetworkException.NotApplicableNetwork, org.openmarkov.core.exception.NotEvaluableNetworkException.UnsatisfiedContraints, ConstraintViolatedException {
 		// Constants
 		String modelFilePath = "networks" + File.separator + "mid" + File.separator + "MID-dmhee-2.5.pgmx";
 		// Open the file containing the network
@@ -137,7 +141,8 @@ public class CEAGlobalAnalysisTest {
 	}
 	
 	@Tag(TestSpeed.MEDIUM)
-	@Test public void testChancellorUnicriterion() throws NonProjectablePotentialException, java.net.URISyntaxException, org.openmarkov.core.exception.ParserException, org.openmarkov.core.exception.IncompatibleEvidenceException, FileNotFoundException, org.openmarkov.core.exception.NotEvaluableNetworkException.NotApplicableNetwork, org.openmarkov.core.exception.NotEvaluableNetworkException.UnsatisfiedContraints {
+    @Test
+    public void testChancellorUnicriterion() throws NonProjectablePotentialException, java.net.URISyntaxException, org.openmarkov.core.exception.ParserException, org.openmarkov.core.exception.IncompatibleEvidenceException, FileNotFoundException, org.openmarkov.core.exception.NotEvaluableNetworkException.NotApplicableNetwork, org.openmarkov.core.exception.NotEvaluableNetworkException.UnsatisfiedContraints, ConstraintViolatedException {
 		// Open the file containing the network
         URL res = getClass().getResource("/networks/mid/MID-Chancellor-Unicriterion.pgmx");
 		File f = Paths.get(res.toURI()).toFile();
@@ -181,8 +186,9 @@ public class CEAGlobalAnalysisTest {
 		Assertions.assertEquals(globalUtility, 184.440530353197, Math.pow(10, -8));
 
 	}
-
-	@Disabled @Test public void testDMHEE25SV() throws NonProjectablePotentialException, java.net.URISyntaxException, org.openmarkov.core.exception.ParserException, org.openmarkov.core.exception.IncompatibleEvidenceException, FileNotFoundException, org.openmarkov.core.exception.NotEvaluableNetworkException.NotApplicableNetwork, org.openmarkov.core.exception.NotEvaluableNetworkException.UnsatisfiedContraints {
+    
+    @Disabled @Test
+    public void testDMHEE25SV() throws NonProjectablePotentialException, java.net.URISyntaxException, org.openmarkov.core.exception.ParserException, org.openmarkov.core.exception.IncompatibleEvidenceException, FileNotFoundException, org.openmarkov.core.exception.NotEvaluableNetworkException.NotApplicableNetwork, org.openmarkov.core.exception.NotEvaluableNetworkException.UnsatisfiedContraints, ConstraintViolatedException {
 		// Constants
 		String modelFilePath = "networks" + File.separator + "mid" + File.separator + "MID-dmhee-2.5-sv.pgmx";
 		// Open the file containing the network
@@ -213,7 +219,8 @@ public class CEAGlobalAnalysisTest {
 	}
 	
 	@Tag(TestSpeed.SLOW)
-	@Test public void testDMHEE35() throws NonProjectablePotentialException, java.net.URISyntaxException, org.openmarkov.core.exception.ParserException, org.openmarkov.core.exception.IncompatibleEvidenceException, FileNotFoundException, org.openmarkov.core.exception.NotEvaluableNetworkException.NotApplicableNetwork, org.openmarkov.core.exception.NotEvaluableNetworkException.UnsatisfiedContraints {
+    @Test
+    public void testDMHEE35() throws NonProjectablePotentialException, java.net.URISyntaxException, org.openmarkov.core.exception.ParserException, org.openmarkov.core.exception.IncompatibleEvidenceException, FileNotFoundException, org.openmarkov.core.exception.NotEvaluableNetworkException.NotApplicableNetwork, org.openmarkov.core.exception.NotEvaluableNetworkException.UnsatisfiedContraints, ConstraintViolatedException {
 		// Constants
         // Open the file containing the network
 		URL res = getClass().getResource("/networks/mid/MID-dmhee-3.5.pgmx");
@@ -259,7 +266,8 @@ public class CEAGlobalAnalysisTest {
 
 	@Disabled
 	@SuppressWarnings("rawtypes")
-	@Test public void testDMHEE47PSA() throws java.net.URISyntaxException, NonProjectablePotentialException, org.openmarkov.core.exception.ParserException, org.openmarkov.core.exception.IncompatibleEvidenceException, FileNotFoundException, org.openmarkov.core.exception.NotEvaluableNetworkException.NotApplicableNetwork, org.openmarkov.core.exception.NotEvaluableNetworkException.UnsatisfiedContraints, NotSupportedOperationException {
+    @Test
+    public void testDMHEE47PSA() throws java.net.URISyntaxException, NonProjectablePotentialException, org.openmarkov.core.exception.ParserException, org.openmarkov.core.exception.IncompatibleEvidenceException, FileNotFoundException, org.openmarkov.core.exception.NotEvaluableNetworkException.NotApplicableNetwork, org.openmarkov.core.exception.NotEvaluableNetworkException.UnsatisfiedContraints, NotSupportedOperationException, ConstraintViolatedException {
 		// Constants
 		String modelFilePath = "networks" + File.separator + "mid" + File.separator + "MID-dmhee-4.7.pgmx";
 		// Open the file containing the network
@@ -298,7 +306,8 @@ public class CEAGlobalAnalysisTest {
 
 	@Disabled
 	@SuppressWarnings("rawtypes")
-	@Test public void testBriggsSA() throws NonProjectablePotentialException, java.net.URISyntaxException, org.openmarkov.core.exception.ParserException, org.openmarkov.core.exception.IncompatibleEvidenceException, FileNotFoundException, org.openmarkov.core.exception.NotEvaluableNetworkException.NotApplicableNetwork, org.openmarkov.core.exception.NotEvaluableNetworkException.UnsatisfiedContraints, NotSupportedOperationException {
+    @Test
+    public void testBriggsSA() throws NonProjectablePotentialException, java.net.URISyntaxException, org.openmarkov.core.exception.ParserException, org.openmarkov.core.exception.IncompatibleEvidenceException, FileNotFoundException, org.openmarkov.core.exception.NotEvaluableNetworkException.NotApplicableNetwork, org.openmarkov.core.exception.NotEvaluableNetworkException.UnsatisfiedContraints, NotSupportedOperationException, ConstraintViolatedException {
 		// Constants
 		String modelFilePath = "networks" + File.separator + "mid" + File.separator + "MID-dmhee-4.8.pgmx";
 		// Open the file containing the network
@@ -357,8 +366,9 @@ public class CEAGlobalAnalysisTest {
 		Assertions.assertEquals(expectedResults[2], ((CEP)result.get(0).elementTable.get(1)).getCost(0), 2);
 		Assertions.assertEquals(expectedResults[3], ((CEP)result.get(0).elementTable.get(0)).getEffectiveness(0), 0.02);
 	}
-
-	@Disabled @Test public void testHPV() throws NonProjectablePotentialException, java.net.URISyntaxException, org.openmarkov.core.exception.ParserException, org.openmarkov.core.exception.IncompatibleEvidenceException, FileNotFoundException, org.openmarkov.core.exception.NotEvaluableNetworkException.NotApplicableNetwork, org.openmarkov.core.exception.NotEvaluableNetworkException.UnsatisfiedContraints {
+    
+    @Disabled @Test
+    public void testHPV() throws NonProjectablePotentialException, java.net.URISyntaxException, org.openmarkov.core.exception.ParserException, org.openmarkov.core.exception.IncompatibleEvidenceException, FileNotFoundException, org.openmarkov.core.exception.NotEvaluableNetworkException.NotApplicableNetwork, org.openmarkov.core.exception.NotEvaluableNetworkException.UnsatisfiedContraints, ConstraintViolatedException {
 		// Constants
 		String modelFilePath = "networks" + File.separator + "mid" + File.separator + "MID-HPV.pgmx";
 		// Open the file containing the network

@@ -7,10 +7,7 @@
 package org.openmarkov.integrationTests.integrationTests;
 
 import org.junit.jupiter.api.*;
-import org.openmarkov.core.exception.CannotNormalizePotentialException;
-import org.openmarkov.core.exception.IncompatibleEvidenceException;
-import org.openmarkov.core.exception.NonProjectablePotentialException;
-import org.openmarkov.core.exception.NotEvaluableNetworkException;
+import org.openmarkov.core.exception.*;
 import org.openmarkov.core.io.ProbNetInfo;
 import org.openmarkov.core.model.network.EvidenceCase;
 import org.openmarkov.core.model.network.Finding;
@@ -55,7 +52,7 @@ public class bnTwoDiseasesTests {
 	}
     
     @Test
-    public void vePropagationWithoutEvidence() throws NonProjectablePotentialException, IncompatibleEvidenceException, CannotNormalizePotentialException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
+    public void vePropagationWithoutEvidence() throws NonProjectablePotentialException, IncompatibleEvidenceException, CannotNormalizePotentialException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, ConstraintViolatedException {
 		VEPropagation vePropagation;
 		EvidenceCase postResolutionEvidence = new EvidenceCase();
 		List<Variable> variablesOfInterest = probNet.getVariables();
@@ -107,7 +104,7 @@ public class bnTwoDiseasesTests {
 
 	@Disabled
     @Test
-    public void vePropagationWithPostResolutionEvidence1() throws NonProjectablePotentialException, IncompatibleEvidenceException, CannotNormalizePotentialException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
+    public void vePropagationWithPostResolutionEvidence1() throws NonProjectablePotentialException, IncompatibleEvidenceException, CannotNormalizePotentialException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, ConstraintViolatedException {
 		VEPropagation vePropagation;
 		EvidenceCase postResolutionEvidence = new EvidenceCase();
 		List<Variable> variablesOfInterest = probNet.getVariables();
@@ -161,7 +158,7 @@ public class bnTwoDiseasesTests {
 	
 	@Tag(TestSpeed.SLOW)
     @Test
-    public void vePropagationWithPostResolutionEvidence2() throws NonProjectablePotentialException, IncompatibleEvidenceException, CannotNormalizePotentialException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
+    public void vePropagationWithPostResolutionEvidence2() throws NonProjectablePotentialException, IncompatibleEvidenceException, CannotNormalizePotentialException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, ConstraintViolatedException {
 		VEPropagation vePropagation;
 		EvidenceCase postResolutionEvidence = new EvidenceCase();
 		List<Variable> variablesOfInterest = probNet.getVariables();

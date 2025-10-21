@@ -51,7 +51,7 @@ public class MulticriteriaEditTest {
         probNet.setDecisionCriteria(decisionCriteria);
         MulticriteriaEdit edit = new MulticriteriaEdit(probNet, decisionCriteria, multicriteriaOptions);
         
-        probNet.getPNESupport().doEdit(edit);
+        edit.executeEdit();
         assertTrue(probNet.getInferenceOptions().getMultiCriteriaOptions().getMainUnit().equals("Unit A"));
         assertTrue(probNet.getDecisionCriteria().equals(decisionCriteria));
         
@@ -64,10 +64,10 @@ public class MulticriteriaEditTest {
         probNet.setDecisionCriteria(decisionCriteria2);
         
         MulticriteriaEdit edit2 = new MulticriteriaEdit(probNet, decisionCriteria2, multicriteriaOptions2);
-            probNet.getPNESupport().doEdit(edit2);
-            assertTrue(probNet.getInferenceOptions().getMultiCriteriaOptions().getMainUnit().equals("Unit B"));
-            assertTrue(probNet.getDecisionCriteria().equals(decisionCriteria2));
-
+        edit2.executeEdit();
+        assertTrue(probNet.getInferenceOptions().getMultiCriteriaOptions().getMainUnit().equals("Unit B"));
+        assertTrue(probNet.getDecisionCriteria().equals(decisionCriteria2));
+        
         
         probNet.getPNESupport().undo();
         
@@ -81,13 +81,13 @@ public class MulticriteriaEditTest {
         
         URL res = getClass().getClassLoader().getResource(bayesNetworkName);
         File f = Paths.get(res.toURI()).toFile();
-
+        
         String absolutePath = f.getAbsolutePath();
         
         // Load the Bayesian network
         PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
         ProbNet probNet = pgmxReader.loadProbNet(absolutePath);
-
+        
         return probNet;
     }
 }

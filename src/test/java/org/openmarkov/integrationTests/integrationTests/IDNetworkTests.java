@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.openmarkov.core.exception.ConstraintViolatedException;
 import org.openmarkov.core.exception.IncompatibleEvidenceException;
 import org.openmarkov.core.exception.NonProjectablePotentialException;
 import org.openmarkov.core.exception.NotEvaluableNetworkException;
@@ -53,7 +54,8 @@ public abstract class IDNetworkTests {
     }
     
     @Disabled
-    @Test public void veSensAnTornadoSpiderTests() throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
+    @Test
+    public void veSensAnTornadoSpiderTests() throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, ConstraintViolatedException {
         List<UncertainParameter> uncertainParameterList = SystematicSampling.getUncertainParameters(this.probNet);
         AxisVariation axisVariation = new AxisVariation();
         axisVariation.setVariationType(DeterministicAxisVariationType.POPP);

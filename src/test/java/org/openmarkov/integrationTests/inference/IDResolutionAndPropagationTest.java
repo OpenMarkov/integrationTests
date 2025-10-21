@@ -20,33 +20,33 @@ public class IDResolutionAndPropagationTest {
 		return t.loadID(nameSuffix);
 	}
     
-    private void testBasicInferenceNoCEA(String nameSuffix, boolean checkStrategyTree) throws NonProjectablePotentialException, IncompatibleEvidenceException, ParserException, URISyntaxException, CannotNormalizePotentialException, FileNotFoundException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
+    private void testBasicInferenceNoCEA(String nameSuffix, boolean checkStrategyTree) throws NonProjectablePotentialException, IncompatibleEvidenceException, ParserException, URISyntaxException, CannotNormalizePotentialException, FileNotFoundException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, ConstraintViolatedException {
 			testResolutionAndPropagation(loadID(nameSuffix),null,checkStrategyTree);
 	}
 	
 	@Test
-    public void testIDOnlyDecisionNoUtility() throws NonProjectablePotentialException, IncompatibleEvidenceException, ParserException, URISyntaxException, CannotNormalizePotentialException, FileNotFoundException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
+    public void testIDOnlyDecisionNoUtility() throws NonProjectablePotentialException, IncompatibleEvidenceException, ParserException, URISyntaxException, CannotNormalizePotentialException, FileNotFoundException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, ConstraintViolatedException {
 		testBasicInferenceNoCEA("only-decision-no-utility", false);
 	}
 	
 	@Test
-    public void testIDThreeDecTwoUtil() throws NonProjectablePotentialException, IncompatibleEvidenceException, ParserException, URISyntaxException, CannotNormalizePotentialException, FileNotFoundException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
+    public void testIDThreeDecTwoUtil() throws NonProjectablePotentialException, IncompatibleEvidenceException, ParserException, URISyntaxException, CannotNormalizePotentialException, FileNotFoundException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, ConstraintViolatedException {
 		testBasicInferenceNoCEA("three-dec-two-util", true);
 	}
 	
 	@Tag(TestSpeed.MEDIUM)
 	@Test
-    public void testIDOnlyImposedUniformDecisionNoUtility() throws NonProjectablePotentialException, IncompatibleEvidenceException, ParserException, URISyntaxException, CannotNormalizePotentialException, FileNotFoundException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
+    public void testIDOnlyImposedUniformDecisionNoUtility() throws NonProjectablePotentialException, IncompatibleEvidenceException, ParserException, URISyntaxException, CannotNormalizePotentialException, FileNotFoundException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, ConstraintViolatedException {
 		testBasicInferenceNoCEA("only-imposed-uniform-dec-no-util", false);
 	}
 	
 	@Test
-    public void testIDOnlyImposedDecisionAndChanceNoUtility() throws NonProjectablePotentialException, IncompatibleEvidenceException, ParserException, URISyntaxException, CannotNormalizePotentialException, FileNotFoundException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
+    public void testIDOnlyImposedDecisionAndChanceNoUtility() throws NonProjectablePotentialException, IncompatibleEvidenceException, ParserException, URISyntaxException, CannotNormalizePotentialException, FileNotFoundException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, ConstraintViolatedException {
 		testBasicInferenceNoCEA("only-imposed-decision-and-chance-no-utility", false);
 	}
 	
 	private static void testResolutionAndPropagation(ProbNet probNet, EvidenceCase preResolutionEvidence, boolean checkStrategyTree)
-            throws CannotNormalizePotentialException, NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
+            throws CannotNormalizePotentialException, NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, ConstraintViolatedException {
 		InferenceTestsTools.testResolveNetwork(probNet, preResolutionEvidence, checkStrategyTree);
 
 		// TODO - Check propagate errors

@@ -8,10 +8,7 @@
 package org.openmarkov.integrationTests.integrationTests;
 
 import org.junit.jupiter.api.*;
-import org.openmarkov.core.exception.IncompatibleEvidenceException;
-import org.openmarkov.core.exception.NonProjectablePotentialException;
-import org.openmarkov.core.exception.NotEvaluableNetworkException;
-import org.openmarkov.core.exception.UnexpectedInferenceException;
+import org.openmarkov.core.exception.*;
 import org.openmarkov.core.inference.TransitionTime;
 import org.openmarkov.core.inference.tasks.CEAnalysis;
 import org.openmarkov.core.io.ProbNetInfo;
@@ -58,7 +55,7 @@ public class midCochlearTests {
     
     @Disabled
     @Test
-    public void veTemporalEvaluationTest() throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
+    public void veTemporalEvaluationTest() throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, ConstraintViolatedException {
         TemporalEvaluation temporalEvaluation = new TemporalEvaluation(probNet);
         temporalEvaluation.setPreResolutionEvidence(preResolutionEvidence);
         GTablePotential atemporalUtility = (GTablePotential) temporalEvaluation.getAtemporalUtility();

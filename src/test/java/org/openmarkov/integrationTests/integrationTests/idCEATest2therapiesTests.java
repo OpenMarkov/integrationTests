@@ -7,10 +7,7 @@
 package org.openmarkov.integrationTests.integrationTests;
 
 import org.junit.jupiter.api.*;
-import org.openmarkov.core.exception.IncompatibleEvidenceException;
-import org.openmarkov.core.exception.NonProjectablePotentialException;
-import org.openmarkov.core.exception.NotEvaluableNetworkException;
-import org.openmarkov.core.exception.UnexpectedInferenceException;
+import org.openmarkov.core.exception.*;
 import org.openmarkov.core.inference.MulticriteriaOptions;
 import org.openmarkov.core.inference.tasks.CEAnalysis;
 import org.openmarkov.core.inference.tasks.OptimalPolicies;
@@ -60,7 +57,8 @@ public class idCEATest2therapiesTests {
 		}
 	}
 	@Disabled
-	@Test public void veResolutionTestWithoutEvidence() throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
+    @Test
+    public void veResolutionTestWithoutEvidence() throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, ConstraintViolatedException {
 		VEEvaluation veEvaluation;
 			veEvaluation = new VEEvaluation(probNet);
 			veEvaluation.setPreResolutionEvidence(preResolutionEvidence);
@@ -68,8 +66,9 @@ public class idCEATest2therapiesTests {
 			Assertions.assertEquals(utility.getValues()[0], 269569.4, deltaEquals);
 
 	}
-
-	@Test public void veResolutionTestWithEvidences() throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
+    
+    @Test
+    public void veResolutionTestWithEvidences() throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, ConstraintViolatedException {
 		EvidenceCase evidenceCase = new EvidenceCase();
 		Variable disease = null;
 		Variable doTest = null;
@@ -118,7 +117,7 @@ public class idCEATest2therapiesTests {
 
 	@Disabled
     @Test
-    public void veOptimalPolicyTest() throws NonProjectablePotentialException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, IncompatibleEvidenceException.EvidenceIsIncompatibleWithOther {
+    public void veOptimalPolicyTest() throws NonProjectablePotentialException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, IncompatibleEvidenceException.EvidenceIsIncompatibleWithOther, ConstraintViolatedException {
 		OptimalPolicies veOptimalPolicy;
 			Variable decisionVariable = probNet.getVariable("Therapy");
 			veOptimalPolicy = new VEEvaluation(probNet);
@@ -126,8 +125,9 @@ public class idCEATest2therapiesTests {
 			double[] expectedValues = { 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0 };
 			Assertions.assertArrayEquals(optimalPolicy.getValues(), expectedValues, deltaEquals);
 	}
-
-	@Test public void veOptimalIntervention() throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
+    
+    @Test
+    public void veOptimalIntervention() throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, ConstraintViolatedException {
 		VEOptimalIntervention veOptimalIntervention;
 			veOptimalIntervention = new VEOptimalIntervention(probNet, preResolutionEvidence);
 			StrategyTree optimalStrategyTree = veOptimalIntervention.getOptimalIntervention();
@@ -154,8 +154,9 @@ public class idCEATest2therapiesTests {
 			Assertions.assertTrue(potBranch1.getRootVariable().getName().equals("Therapy"));
 			Assertions.assertTrue(potBranch1.getBranches().get(0).getStates().get(0).getName().equals("therapy 1"));
 	}
-
-	@Test public void veCEAGlobalTests() throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
+    
+    @Test
+    public void veCEAGlobalTests() throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, ConstraintViolatedException {
 		CEAnalysis veceaGlobal;
 			probNet.getInferenceOptions().getMultiCriteriaOptions()
 					.setMulticriteriaType(MulticriteriaOptions.Type.COST_EFFECTIVENESS);
@@ -177,8 +178,9 @@ public class idCEATest2therapiesTests {
 			Assertions.assertEquals(cep.getCost(500000.0), 13184, deltaEquals);
 			Assertions.assertEquals(cep.getEffectiveness(33383.6), 9.39366, deltaEquals);
 	}
-
-	@Test public void veCEADecisionDecTestTests() throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
+    
+    @Test
+    public void veCEADecisionDecTestTests() throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, ConstraintViolatedException {
 		CEAnalysis veceaDecision;
 		probNet.getInferenceOptions().getMultiCriteriaOptions()
 				.setMulticriteriaType(MulticriteriaOptions.Type.COST_EFFECTIVENESS);
