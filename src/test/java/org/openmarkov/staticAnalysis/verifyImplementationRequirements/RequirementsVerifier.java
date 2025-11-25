@@ -1,11 +1,11 @@
 package org.openmarkov.staticAnalysis.verifyImplementationRequirements;
 
 import org.jetbrains.annotations.NotNull;
-import org.openmarkov.core.annotation.ImplementationRequirements;
-import org.openmarkov.core.annotation.RequiredConstructor;
-import org.openmarkov.core.annotation.SelfClass;
+import org.openmarkov.core.developmentStaticAnalysis.requirements.ImplementationRequirements;
+import org.openmarkov.core.developmentStaticAnalysis.requirements.RequiredConstructor;
+import org.openmarkov.core.developmentStaticAnalysis.requirements.SelfClass;
 import org.openmarkov.plugin.PluginSearch;
-import org.openmarkov.staticAnalysis.utils.ClassUtils;
+import org.openmarkov.java.classUtils.ClassUtils;
 
 import java.lang.reflect.Modifier;
 import java.util.Arrays;

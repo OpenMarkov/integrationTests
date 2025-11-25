@@ -3,9 +3,7 @@ package org.openmarkov.staticAnalysis.verifyImplementationRequirements;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
-import org.openmarkov.core.annotation.ImplementationRequirements;
-import org.openmarkov.core.annotation.RequiredMethod;
-import org.openmarkov.core.annotation.SelfClass;
+import org.openmarkov.core.developmentStaticAnalysis.requirements.ImplementationRequirements;
 import org.openmarkov.core.testTags.TestSpeed;
 import org.openmarkov.plugin.PluginSearch;
 

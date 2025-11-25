@@ -18,6 +18,7 @@ import com.github.javaparser.symbolsolver.resolution.typesolvers.ReflectionTypeS
 import io.github.classgraph.ClassGraph;
 import io.github.classgraph.ScanResult;
 import org.jetbrains.annotations.NotNull;
+import org.openmarkov.java.classUtils.ClassUtils;
 import org.openmarkov.plugin.PluginSearch;
 
 import java.io.File;
