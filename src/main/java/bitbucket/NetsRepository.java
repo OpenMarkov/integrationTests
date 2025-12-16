@@ -152,10 +152,13 @@ public class NetsRepository {
 	 */
     private static String readAll(Reader reader) throws IOException {
 		StringBuilder stringBuilder = new StringBuilder();
-		int position;
-		while ((position = reader.read()) != -1) {
-			stringBuilder.append((char) position);
-		}
+        while (true) {
+            int position = reader.read();
+            if (position == -1) {
+                break;
+            }
+            stringBuilder.append((char) position);
+        }
 		return stringBuilder.toString();
 	}
 

@@ -20,9 +20,7 @@ public class ShowPreferences {
     }
     
     private static @NotNull String pathNameOfPreference(LocalPreference<?> localPreference) {
-        return localPreference.getPreferencePath()
-                              .stream()
-                              .collect(Collectors.joining("/"));
+        return String.join("/", localPreference.getPreferencePath());
     }
     
 }
