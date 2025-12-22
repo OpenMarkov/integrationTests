@@ -8,7 +8,7 @@ package org.openmarkov.integrationTests.integrationTests;
 
 import org.junit.jupiter.api.*;
 import org.openmarkov.core.exception.*;
-import org.openmarkov.core.inference.TransitionTime;
+import org.openmarkov.core.inference.TemporalOptions;
 import org.openmarkov.core.inference.tasks.CEAnalysis;
 import org.openmarkov.core.inference.tasks.OptimalPolicies;
 import org.openmarkov.core.inference.tasks.TemporalEvolution;
@@ -438,7 +438,7 @@ public class midChancellorTests {
 				decisionVariable = probNet.getVariable("Therapy type");
 
 			//Asserting that Left Rieman summ is equals to a transition at the end
-			probNet.getInferenceOptions().getTemporalOptions().setTransition(TransitionTime.END);
+        probNet.getInferenceOptions().getTemporalOptions().setTransition(TemporalOptions.TransitionTime.END);
 			CEAnalysis veceaDecision = new VECEAnalysis(probNet);
 			veceaDecision.setPreResolutionEvidence(preResolutionEvidence);
 			veceaDecision.setDecisionVariable(decisionVariable);
@@ -455,7 +455,7 @@ public class midChancellorTests {
 			Assertions.assertEquals(e_combtherapy, e_combtherapy_cea, deltaEquals);
 
 			//Asserting that Right Riemann Summ is equals to a transition at the beginning
-			probNet.getInferenceOptions().getTemporalOptions().setTransition(TransitionTime.BEGINNING);
+        probNet.getInferenceOptions().getTemporalOptions().setTransition(TemporalOptions.TransitionTime.BEGINNING);
 			c_monotherapy = UtilityOperations.applyRightRiemannSum(costs_monotherapy, 1);
 			e_monotherapy = UtilityOperations.applyRightRiemannSum(effectiveness_monotherapy, 1);
 			c_combtherapy = UtilityOperations.applyRightRiemannSum(costs_combtherapy, 1);

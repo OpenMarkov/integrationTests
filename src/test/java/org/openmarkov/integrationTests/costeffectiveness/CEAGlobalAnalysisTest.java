@@ -11,7 +11,7 @@ import org.junit.jupiter.api.*;
 import org.openmarkov.core.exception.ConstraintViolatedException;
 import org.openmarkov.core.exception.NonProjectablePotentialException;
 import org.openmarkov.core.exception.NotSupportedOperationException;
-import org.openmarkov.core.inference.TransitionTime;
+import org.openmarkov.core.inference.TemporalOptions;
 import org.openmarkov.core.model.network.CEP;
 import org.openmarkov.core.model.network.Criterion;
 import org.openmarkov.core.model.network.Criterion.CECriterion;
@@ -62,7 +62,7 @@ public class CEAGlobalAnalysisTest {
 		EvidenceCase evidence = new EvidenceCase();
 
 		// Set cost and effectiveness discounts to all the criteria with that CECriteria. Set the number of cycles and the transition time.
-		setOldMethodParameters(probNet, 3.0, 3.0, 3, TransitionTime.BEGINNING);
+        setOldMethodParameters(probNet, 3.0, 3.0, 3, TemporalOptions.TransitionTime.BEGINNING);
 		//CostEffectivenessAnalysis ceAnalysis = new CostEffectivenessAnalysis(probNet, evidence, 3.0, 3.0, 3, TransitionTime.BEGINNING);
 
 		VECEAnalysis veceAnalysis = new VECEAnalysis(probNet);
@@ -97,7 +97,7 @@ public class CEAGlobalAnalysisTest {
 		EvidenceCase evidence = new EvidenceCase();
 
 		// Set cost and effectiveness discounts to all the criteria with that CECriteria. Set the number of cycles and the transition time.
-		setOldMethodParameters(probNet, 3.0, 3.0, 3, TransitionTime.BEGINNING);
+        setOldMethodParameters(probNet, 3.0, 3.0, 3, TemporalOptions.TransitionTime.BEGINNING);
 
 		VECEAnalysis veceAnalysis = new VECEAnalysis(probNet);
 		veceAnalysis.setDecisionVariable(probNet.getNodes(NodeType.DECISION).get(0).getVariable());
@@ -127,7 +127,7 @@ public class CEAGlobalAnalysisTest {
 		EvidenceCase evidence = new EvidenceCase();
 
 		// Set cost and effectiveness discounts to all the criteria with that CECriteria. Set the number of cycles and the transition time.
-		setOldMethodParameters(probNet, 6.0, 0.0, 20, TransitionTime.HALF);
+        setOldMethodParameters(probNet, 6.0, 0.0, 20, TemporalOptions.TransitionTime.HALF);
 		//		CostEffectivenessAnalysis ceAnalysis = new CostEffectivenessAnalysis(probNet, evidence, 6.0, 0.0, 20, TransitionTime.HALF);
 
 		VECEAnalysis ceAnalysis = new VECEAnalysis(probNet);
@@ -204,7 +204,7 @@ public class CEAGlobalAnalysisTest {
 		EvidenceCase evidence = new EvidenceCase();
 
 		// Set cost and effectiveness discounts to all the criteria with that CECriteria. Set the number of cycles and the transition time.
-		setOldMethodParameters(probNet, 6.0, 0.0, 20, TransitionTime.BEGINNING);
+        setOldMethodParameters(probNet, 6.0, 0.0, 20, TemporalOptions.TransitionTime.BEGINNING);
 		//		CostEffectivenessAnalysis ceAnalysis = new CostEffectivenessAnalysis(probNet, evidence, 6.0, 0.0, 20, TransitionTime.BEGINNING);
 
 		VECEAnalysis ceAnalysis = new VECEAnalysis(probNet);
@@ -236,7 +236,7 @@ public class CEAGlobalAnalysisTest {
 		evidence.addFinding(new Finding(sexVariable, 0));
 
 		// Set cost and effectiveness discounts to all the criteria with that CECriteria. Set the number of cycles and the transition time.
-		setOldMethodParameters(probNet, 6.0, 1.5, 60, TransitionTime.BEGINNING);
+        setOldMethodParameters(probNet, 6.0, 1.5, 60, TemporalOptions.TransitionTime.BEGINNING);
 
 		VECEAnalysis ceAnalysis = new VECEAnalysis(probNet);
 		ceAnalysis.setDecisionVariable(probNet.getNodes(NodeType.DECISION).get(0).getVariable());
@@ -283,7 +283,7 @@ public class CEAGlobalAnalysisTest {
 		EvidenceCase evidence = new EvidenceCase();
 
 		// Set cost and effectiveness discounts to all the criteria with that CECriteria. Set the number of cycles and the transition time.
-		setOldMethodParameters(probNet, 6.0, 0.0, 20, TransitionTime.BEGINNING);
+        setOldMethodParameters(probNet, 6.0, 0.0, 20, TemporalOptions.TransitionTime.BEGINNING);
 		//		ProbabilisticCEA ceAnalysis = new ProbabilisticCEA (probNet, evidence, 6.0, 0.0, 20, 5000, TransitionTime.BEGINNING, useMultithreading);
 
 		VECEPSA vecepsa = new VECEPSA(probNet);
@@ -326,7 +326,7 @@ public class CEAGlobalAnalysisTest {
 		evidence.addFinding(new Finding(sexVariable, 0));
 
 		// Set cost and effectiveness discounts to all the criteria with that CECriteria. Set the number of cycles and the transition time.
-		setOldMethodParameters(probNet, 6.0, 1.5, 60, TransitionTime.BEGINNING);
+        setOldMethodParameters(probNet, 6.0, 1.5, 60, TemporalOptions.TransitionTime.BEGINNING);
 
 		//		ProbabilisticCEA ceAnalysis = new ProbabilisticCEA (probNet, evidence, 6.0, 1.5, 60, 1000, TransitionTime.BEGINNING, useMultithreading);
 
@@ -383,7 +383,7 @@ public class CEAGlobalAnalysisTest {
 		EvidenceCase evidence = new EvidenceCase();
 
 		// Set cost and effectiveness discounts to all the criteria with that CECriteria. Set the number of cycles and the transition time.
-		setOldMethodParameters(probNet, 0.0, 0.0, 88, TransitionTime.BEGINNING);
+        setOldMethodParameters(probNet, 0.0, 0.0, 88, TemporalOptions.TransitionTime.BEGINNING);
 		//		CostEffectivenessAnalysis ceAnalysis = new CostEffectivenessAnalysis(probNet, evidence, 0.0, 0.0, 88, TransitionTime.BEGINNING);
 
 		VECEAnalysis veceAnalysis = new VECEAnalysis(probNet);
@@ -410,7 +410,7 @@ public class CEAGlobalAnalysisTest {
 	 * @param transitionTime
 	 */
 	private void setOldMethodParameters(ProbNet probNet, double costDiscount, double effectivenessDiscount,
-			int numberOfSlices, TransitionTime transitionTime) {
+                                        int numberOfSlices, TemporalOptions.TransitionTime transitionTime) {
 		costDiscount /= 100;
 		effectivenessDiscount /= 100;
 		// Set default unit and value for cycle length

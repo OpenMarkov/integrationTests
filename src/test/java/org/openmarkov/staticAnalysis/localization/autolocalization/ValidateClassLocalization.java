@@ -193,8 +193,8 @@ public class ValidateClassLocalization {
                                          .map(autoLocalizableClass -> new AutolocalizableAndBundles(autolocalizablesAndBundles.bundles, autoLocalizableClass))
                 )
                 .forEach(autolocalizableAndBundles -> {
-                    Class<ClassLocalizable> localizableClasses = autolocalizableAndBundles.localizablesClass;
-                    String keyName = localizableClasses.getName();
+                    Class<ClassLocalizable> localizableClass = autolocalizableAndBundles.localizablesClass;
+                    String keyName = localizableClass.getName();
                     @Nullable Bundle localizedBundle;
                     Optional<Bundle> accessibleBundle = autolocalizableAndBundles.bundles
                             .stream()
@@ -208,21 +208,21 @@ public class ValidateClassLocalization {
                                                                                                .findFirst();
                         if (inaccessibleBundle.isPresent()) {
                             localizedBundle = inaccessibleBundle.get();
-                            errors.add(new Error.LocalizationInInaccessibleBundle(localizableClasses, localizedBundle));
+                            errors.add(new Error.LocalizationInInaccessibleBundle(localizableClass, localizedBundle));
                         } else {
-                            errors.add(new Error.LocalizationMissing(localizableClasses));
+                            errors.add(new Error.LocalizationMissing(localizableClass));
                             return;
                         }
                     }
                     String localizedString = localizedBundle.stringBundle.getString(keyName);
                     var formattings = StringFormat.getAllFormattings(localizedString).toList();
                     for (var formatting : formattings) {
-                        Class<?> argumentClass = localizableClasses;
+                        Class<?> argumentClass = localizableClass;
                         if (!"this".equals(formatting.field())) {
                             var fieldClass = new StringFormat.PseudoCode(StringFormat.PseudoCode.Marker.FIELD, formatting.field())
                                     .resolveClassesThatShouldBeOpen(argumentClass);
                             if (!fieldClass.found()) {
-                                errors.add(new Error.FieldOrMethodMissing(localizableClasses, localizableClasses, formatting.field(), StringFormat.PseudoCode.Marker.FIELD));
+                                errors.add(new Error.FieldOrMethodMissing(localizableClass, localizableClass, formatting.field(), StringFormat.PseudoCode.Marker.FIELD));
                                 continue;
                             }
                             argumentClass = fieldClass.value().get(fieldClass.value().size() - 1);
@@ -232,7 +232,7 @@ public class ValidateClassLocalization {
                             if (classesFound.found()) {
                                 argumentClass = classesFound.value().get(classesFound.value().size() - 1);
                             } else {
-                                errors.add(new Error.FieldOrMethodMissing(localizableClasses, argumentClass, pseudocode.methodOrAttributeName(), pseudocode.marker()));
+                                errors.add(new Error.FieldOrMethodMissing(localizableClass, argumentClass, pseudocode.methodOrAttributeName(), pseudocode.marker()));
                             }
                         }
                     }
@@ -273,7 +273,7 @@ public class ValidateClassLocalization {
                                 }
                                 return !willBeProperlyLocalized;
                             })
-                            .forEach(usedClassInLocalization -> errors.add(new Error.UsedClassIsNotLocalizable(localizableClasses, usedClassInLocalization)));
+                            .forEach(usedClassInLocalization -> errors.add(new Error.UsedClassIsNotLocalizable(localizableClass, usedClassInLocalization)));
                 });
         return errors;
     }

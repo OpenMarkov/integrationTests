@@ -9,7 +9,7 @@ package org.openmarkov.integrationTests.integrationTests;
 
 import org.junit.jupiter.api.*;
 import org.openmarkov.core.exception.*;
-import org.openmarkov.core.inference.TransitionTime;
+import org.openmarkov.core.inference.TemporalOptions;
 import org.openmarkov.core.inference.tasks.CEAnalysis;
 import org.openmarkov.core.io.ProbNetInfo;
 import org.openmarkov.core.model.network.*;
@@ -97,7 +97,7 @@ public class midCochlearTests {
         decisionVariable = probNet.getVariable("Intervention decided");
         
         //Asserting that Left Rieman summ is equals to a transition at the end
-        probNet.getInferenceOptions().getTemporalOptions().setTransition(TransitionTime.END);
+        probNet.getInferenceOptions().getTemporalOptions().setTransition(TemporalOptions.TransitionTime.END);
         CEAnalysis veceaDecision = new VECEAnalysis(probNet);
         veceaDecision.setPreResolutionEvidence(preResolutionEvidence);
         veceaDecision.setDecisionVariable(decisionVariable);
@@ -117,7 +117,7 @@ public class midCochlearTests {
         Assertions.assertEquals(e_BCI_Seq, e_bciSeq_cea, deltaEquals);
         
         //Asserting that Right Riemann Summ is equals to a transition at the beginning
-        probNet.getInferenceOptions().getTemporalOptions().setTransition(TransitionTime.BEGINNING);
+        probNet.getInferenceOptions().getTemporalOptions().setTransition(TemporalOptions.TransitionTime.BEGINNING);
         c_UCI = UtilityOperations.applyRightRiemannSum(costs_UCI, 1) + atemporalUtility.values[0];
         e_UCI = UtilityOperations.applyRightRiemannSum(effectiveness_UCI, 1);
         

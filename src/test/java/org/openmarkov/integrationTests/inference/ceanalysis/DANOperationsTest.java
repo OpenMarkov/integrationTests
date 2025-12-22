@@ -166,8 +166,8 @@ public class DANOperationsTest {
         bloodTestNode = prioritizedNetwork.getNode(bloodTestVariable);
         Link<Node> link = prioritizedNetwork.getLink(urineTestNode, bloodTestNode, true);
         Assertions.assertNotNull(link);
-        Assertions.assertEquals(link.getNode1().getVariable(), urineTestVariable);
-        Assertions.assertEquals(link.getNode2().getVariable(), bloodTestVariable);
+        Assertions.assertEquals(link.getFrom().getVariable(), urineTestVariable);
+        Assertions.assertEquals(link.getTo().getVariable(), bloodTestVariable);
         
         // Check the prioritization of blood test decision
         prioritizedNetwork = DANOperations.prioritize(danDiabetes, bloodTestVariable);
@@ -175,8 +175,8 @@ public class DANOperationsTest {
         urineTestNode = prioritizedNetwork.getNode(urineTestVariable);
         link = prioritizedNetwork.getLink(bloodTestNode, urineTestNode, true);
         Assertions.assertNotNull(link);
-        Assertions.assertEquals(link.getNode1().getVariable(), bloodTestVariable);
-        Assertions.assertEquals(link.getNode2().getVariable(), urineTestVariable);
+        Assertions.assertEquals(link.getFrom().getVariable(), bloodTestVariable);
+        Assertions.assertEquals(link.getTo().getVariable(), urineTestVariable);
         
     }
     

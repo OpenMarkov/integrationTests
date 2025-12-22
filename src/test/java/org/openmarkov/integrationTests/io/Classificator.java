@@ -1,6 +1,5 @@
 package org.openmarkov.integrationTests.io;
 
-import net.sourceforge.jeval.EvaluationException;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.input.SAXBuilder;
@@ -616,11 +615,11 @@ public class Classificator extends PGMXReader_0_2 {
         boolean same = size == links2.size();
         for (int i = 0; i < size && same; i++) {
             Link<Node> link11 = links1.get(i);
-            Node node11 = link11.getNode1();
+            Node node11 = link11.getFrom();
             Variable variable11 = node11.getVariable();
             String name11 = variable11.getName();
             
-            Node node12 = link11.getNode2();
+            Node node12 = link11.getTo();
             Variable variable12 = node12.getVariable();
             String name12 = variable12.getName();
             
