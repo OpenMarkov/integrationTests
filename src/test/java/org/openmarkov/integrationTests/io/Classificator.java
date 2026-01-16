@@ -713,8 +713,8 @@ public class Classificator extends PGMXReader_0_2 {
         if (same) {
             if (TablePotential.class.isAssignableFrom(potentialClass)) {
                 same = sameInfoTablePotentials((TablePotential) potential1, (TablePotential) potential2);
-                if (same && AugmentedTable.class.isAssignableFrom(potentialClass)) {
-                    same = sameInfoAugmentedTablePotentials((AugmentedTable) potential1, (AugmentedTable) potential2);
+                if (same && AugmentedProbTable.class.isAssignableFrom(potentialClass)) {
+                    same = sameInfoAugmentedProbTablePotentials((AugmentedProbTable) potential1, (AugmentedProbTable) potential2);
                 }
             } else if (ICIPotential.class.isAssignableFrom(potentialClass)) {
                 same = sameInfoICIPotentials((ICIPotential) potential1, (ICIPotential) potential2);
@@ -788,9 +788,9 @@ public class Classificator extends PGMXReader_0_2 {
     
     private boolean sameInfoUnivariableDistrPotentials(UnivariateDistrPotential potential1, UnivariateDistrPotential potential2) throws NotSupportedOperationException {
         return sameInfoCommonPartPotentials(potential1, potential2) &&
-                sameInfoAugmentedTablePotentials(potential1.getAugmentedTable(), potential2.getAugmentedTable()) &&
+                sameInfoAugmentedProbTablePotentials(potential1.getAugmentedProbTable(), potential2.getAugmentedProbTable()) &&
                 sameInfoVariables(potential1.getChildVariable(), potential2.getChildVariable()) &&
-                sameInfoAugmentedTablePotentials(potential1.getDistributionTable(), potential2.getDistributionTable()) &&
+                sameInfoAugmentedProbTablePotentials(potential1.getDistributionTable(), potential2.getDistributionTable()) &&
                 sameListOfVariablesNames(potential1.getParameterVariables(), potential2.getParameterVariables()) &&
                 sameListOfVariablesNames(potential1.getFiniteStatesVariables(), potential2.getFiniteStatesVariables()) &&
                 sameInfoStrings(potential1.getProbDensFunctionName(), potential2.getProbDensFunctionName());
@@ -812,7 +812,7 @@ public class Classificator extends PGMXReader_0_2 {
                 sameInfoCycleLength(potential1.getCycleLength(), potential2.getCycleLength());
     }
     
-    private boolean sameInfoAugmentedTablePotentials(AugmentedTable potential1, AugmentedTable potential2) {
+    private boolean sameInfoAugmentedProbTablePotentials(AugmentedProbTable potential1, AugmentedProbTable potential2) {
         return sameInfoArrayOfStrings(potential1.getFunctionValues(), potential2.getFunctionValues());
     }
     
