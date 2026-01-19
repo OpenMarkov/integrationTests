@@ -19,6 +19,7 @@ import org.openmarkov.learning.core.util.LearningEditProposal;
 import org.openmarkov.learning.gui.interactive.InteractiveLearningDialog;
 import org.openmarkov.learning.metric.k2.K2Metric;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +38,7 @@ public class lineAndStarTest {
         var xlsxReader = new CaseDatabaseManager().getReader("xlsx");
         String xlsxDatabase = IntegrationTest.class.getResource("/networks/learning/lineAndStar.xlsx")
                                                    .getPath().substring(1);
-        CaseDatabase cases = xlsxReader.load(xlsxDatabase);
+        CaseDatabase cases = xlsxReader.load(new File(xlsxDatabase));
         LearningManager learningManager = new LearningManager(cases, "HillClimbingAlgorithm", null, null);
         LearningAlgorithm learningAlgorithm = new HillClimbingAlgorithm(learningManager.getLearnedNet(), cases, 0.5, new K2Metric());
         learningManager.init(learningAlgorithm);
@@ -48,7 +49,7 @@ public class lineAndStarTest {
         var xlsxReader = new CaseDatabaseManager().getReader("xlsx");
         String xlsxDatabase = IntegrationTest.class.getResource("/networks/learning/lineAndStar.xlsx")
                                                    .getPath().substring(1);
-        CaseDatabase cases = xlsxReader.load(xlsxDatabase);
+        CaseDatabase cases = xlsxReader.load(new File(xlsxDatabase));
         LearningManager learningManager = new LearningManager(cases, "HillClimbingAlgorithm", null, null);
         LearningAlgorithm learningAlgorithm = new HillClimbingAlgorithm(learningManager.getLearnedNet(), cases, 0.5, new K2Metric());
         learningManager.init(learningAlgorithm);

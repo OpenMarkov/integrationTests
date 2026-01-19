@@ -24,6 +24,7 @@ import org.openmarkov.learning.algorithm.pc.independencetester.IndependenceTeste
 import org.openmarkov.learning.core.algorithm.LearningAlgorithm;
 import org.openmarkov.learning.core.util.ModelNetUse;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
@@ -53,7 +54,7 @@ public class PCAlgorithmTest {
     public void testABCE() throws org.openmarkov.core.exception.CannotNormalizePotentialException, EmptyDatabaseException, java.io.FileNotFoundException, IncompatibleEvidenceException.EvidenceIsIncompatibleWithOther, NonProjectablePotentialException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, ConstraintViolatedException {
 		System.out.println(getClass().getResource(bnABCEFilename));
 		CSVDataBaseIO csvReader = new CSVDataBaseIO();
-		CaseDatabase ABCEDatabase = csvReader.load(getClass().getResource(bnABCEFilename).getFile());
+		CaseDatabase ABCEDatabase = csvReader.load(new File(getClass().getResource(bnABCEFilename).getFile()));
 		ProbNet learnedNet = new ProbNet();
 		for (Variable variable : ABCEDatabase.getVariables()) {
 			learnedNet.addNode(variable, NodeType.CHANCE);
@@ -215,7 +216,7 @@ public class PCAlgorithmTest {
     @Test
     public void testAsia10k() throws org.openmarkov.core.exception.CannotNormalizePotentialException, EmptyDatabaseException, java.io.FileNotFoundException, IncompatibleEvidenceException.EvidenceIsIncompatibleWithOther, NonProjectablePotentialException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, ConstraintViolatedException {
 		CSVDataBaseIO csvReader = new CSVDataBaseIO();
-		CaseDatabase asiaDatabase = csvReader.load(getClass().getResource(asiaDatabaseFilename).getFile());
+		CaseDatabase asiaDatabase = csvReader.load(new File(getClass().getResource(asiaDatabaseFilename).getFile()));
 		ProbNet learnedNet = new ProbNet();
 		for (Variable variable : asiaDatabase.getVariables()) {
 			learnedNet.addNode(variable, NodeType.CHANCE);
@@ -325,7 +326,7 @@ public class PCAlgorithmTest {
     public void testAlarm500() throws org.openmarkov.core.exception.CannotNormalizePotentialException, org.openmarkov.core.exception.ParserException, EmptyDatabaseException, java.io.FileNotFoundException, IncompatibleEvidenceException.EvidenceIsIncompatibleWithOther, NonProjectablePotentialException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, ConstraintViolatedException {
 
 		CSVDataBaseIO csvReader = new CSVDataBaseIO();
-		CaseDatabase alarmDatabase = csvReader.load(getClass().getResource(alarmDatabaseFilename).getFile());
+		CaseDatabase alarmDatabase = csvReader.load(new File(getClass().getResource(alarmDatabaseFilename).getFile()));
 		ProbNet learnedNet = new ProbNet();
 		for (Variable variable : alarmDatabase.getVariables()) {
 			learnedNet.addNode(variable, NodeType.CHANCE);
@@ -346,7 +347,7 @@ public class PCAlgorithmTest {
     public void testAlarm10k() throws org.openmarkov.core.exception.CannotNormalizePotentialException, org.openmarkov.core.exception.ParserException, EmptyDatabaseException, java.io.FileNotFoundException, IncompatibleEvidenceException.EvidenceIsIncompatibleWithOther, NonProjectablePotentialException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, ConstraintViolatedException {
 
 		CSVDataBaseIO csvReader = new CSVDataBaseIO();
-		CaseDatabase alarm10kDatabase = csvReader.load(getClass().getResource(alarm10kDatabaseFilename).getFile());
+		CaseDatabase alarm10kDatabase = csvReader.load(new File(getClass().getResource(alarm10kDatabaseFilename).getFile()));
 		ProbNet learnedNet = new ProbNet();
 		for (Variable variable : alarm10kDatabase.getVariables()) {
 			learnedNet.addNode(variable, NodeType.CHANCE);
