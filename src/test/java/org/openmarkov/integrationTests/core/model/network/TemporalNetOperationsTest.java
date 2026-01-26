@@ -17,6 +17,7 @@ import org.openmarkov.core.testTags.TestSpeed;
 import org.openmarkov.io.probmodel.reader.PGMXReader_0_2;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URL;
 import java.nio.file.Paths;
@@ -37,7 +38,7 @@ public class TemporalNetOperationsTest {
         
         // Load the Bayesian network
         PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
-        probNet = pgmxReader.loadProbNet(absolutePath);
+        probNet = pgmxReader.loadProbNet(absolutePath, new FileInputStream(absolutePath));
         probNet.getInferenceOptions().getTemporalOptions().setHorizon(15);
         
     }

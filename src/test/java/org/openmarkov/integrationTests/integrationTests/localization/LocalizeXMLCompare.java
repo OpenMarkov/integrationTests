@@ -51,7 +51,7 @@ public class LocalizeXMLCompare {
         );
     }
     
-    private static Stream<LocalizeResourcesProvider> getLocalizationProviders() {
+    private static Stream<? extends LocalizeResourcesProvider> getLocalizationProviders() {
         return PluginSearch.init()
                            .childrenOf(LocalizeResourcesProvider.class)
                            .stream()

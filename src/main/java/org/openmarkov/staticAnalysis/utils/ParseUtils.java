@@ -119,7 +119,7 @@ public class ParseUtils {
         return ParseUtils.OPENMARKOV_PARSED_CLASSES.get(openMarkovClass.getName().replace('$', '.'));
     }
     
-    private static final Map<String, Class<Object>> CLASSES_BY_NAME = PluginSearch
+    private static final Map<String, Class<? extends Object>> CLASSES_BY_NAME = PluginSearch
             .full()
             .stream()
             .filter(aClass -> aClass.getCanonicalName() != null)

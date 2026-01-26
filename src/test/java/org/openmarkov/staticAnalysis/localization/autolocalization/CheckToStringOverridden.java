@@ -82,7 +82,7 @@ public class CheckToStringOverridden {
      * @param superLocalizables the original list of classes to investigate.
      * @return the classes not overriding {@link Object#toString()}.
      */
-    private static @NotNull List<Class<Localizable>> classesMissingToString(List<Class<Localizable>> superLocalizables) {
+    private static @NotNull List<Class<? extends Localizable>> classesMissingToString(List<Class<? extends Localizable>> superLocalizables) {
         return superLocalizables
                 .stream()
                 .filter(localizableClass -> {
@@ -101,7 +101,7 @@ public class CheckToStringOverridden {
      *
      * @return every class implementing {@link Localizable} directly.
      */
-    private static @NotNull List<Class<Localizable>> getSuperLocalizablesClasses() {
+    private static @NotNull List<Class<? extends Localizable>> getSuperLocalizablesClasses() {
         return CheckToStringOverridden
                 .getAllLocalizablesClasses()
                 .filter(localizableClass ->
@@ -116,7 +116,7 @@ public class CheckToStringOverridden {
      *
      * @return all classes implementing {@link Localizable}.
      */
-    private static @NotNull Stream<Class<Localizable>> getAllLocalizablesClasses() {
+    private static @NotNull Stream<Class<? extends Localizable>> getAllLocalizablesClasses() {
         return PluginSearch.init().childrenOf(Localizable.class)
                            .stream()
                            .filter(localizableClass -> !localizableClass.isInterface());

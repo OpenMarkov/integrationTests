@@ -24,6 +24,7 @@ open module org.openmarkov.integrationTests {
     requires com.google.common;
     requires io.github.classgraph;
     requires org.apache.commons.lang3;
+    requires org.apache.poi.poi;
     
     exports org.openmarkov.integrationTests;
     exports org.openmarkov.integrationTests.localize;

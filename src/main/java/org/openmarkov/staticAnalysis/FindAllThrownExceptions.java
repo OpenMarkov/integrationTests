@@ -29,7 +29,8 @@ public class FindAllThrownExceptions {
         
         var exceptionsNames = FindAllThrownExceptions.stringifyThrowables(thrownExceptions
                 .stream()
-                .filter(exceptionClass -> !exceptionClass.getName().startsWith("org.openmarkov")));
+                .filter(exceptionClass -> !exceptionClass.getName().startsWith("org.openmarkov"))
+                .map(aClass -> aClass));
         
         System.out.println("Search constructions of external exceptions with:");
         System.out.println("new\\s*(" + exceptionsNames + ")\\s*\\(");
@@ -43,7 +44,7 @@ public class FindAllThrownExceptions {
         System.out.println("new\\s*(" + allExceptionsNames + ")\\s*\\(");
     }
     
-    private static String stringifyThrowables(Stream<Class<Throwable>> throwables) {
+    private static String stringifyThrowables(Stream<Class<? extends Throwable>> throwables) {
         return throwables
                 .map(Class::getSimpleName)
                 .distinct()

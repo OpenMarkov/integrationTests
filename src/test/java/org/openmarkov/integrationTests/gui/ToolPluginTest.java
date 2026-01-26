@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.fail;
  */
 public class ToolPluginTest {
     
-    public static Stream<Class<ToolPlugin>> toolPluginClasses() {
+    public static Stream<Class<? extends ToolPlugin>> toolPluginClasses() {
         return PluginSearch.init().childrenOf(ToolPlugin.class).stream();
     }
     

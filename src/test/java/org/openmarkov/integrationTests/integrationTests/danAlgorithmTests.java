@@ -18,6 +18,7 @@ import org.openmarkov.inference.algorithm.decompositionIntoSymmetricDANs.evaluat
 import org.openmarkov.io.probmodel.reader.PGMXReader_0_2;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -44,7 +45,7 @@ public class danAlgorithmTests {
         String absolutePath = f.getAbsolutePath();
         
         PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
-        ProbNetInfo probNetInfo = pgmxReader.loadProbNetInfo(absolutePath);
+        ProbNetInfo probNetInfo = pgmxReader.loadProbNetInfo(absolutePath, new FileInputStream(absolutePath));
         ProbNet probNet = probNetInfo.getProbNet();
         
         CEP resultCEA = new DANDecompositionIntoSymmetricDANsCEA(probNet).getCEP();
@@ -65,7 +66,7 @@ public class danAlgorithmTests {
         File f = Paths.get(res.toURI()).toFile();
         String absolutePath = f.getAbsolutePath();
         
-        ProbNetInfo probNetInfo = pgmxReader.loadProbNetInfo(absolutePath);
+        ProbNetInfo probNetInfo = pgmxReader.loadProbNetInfo(absolutePath, new FileInputStream(absolutePath));
         ProbNet probNet = probNetInfo.getProbNet();
         
         CEP resultCEA = new DANDecompositionIntoSymmetricDANsCEA(probNet).getCEP();
@@ -86,7 +87,7 @@ public class danAlgorithmTests {
         File f = Paths.get(res.toURI()).toFile();
         String absolutePath = f.getAbsolutePath();
         
-        ProbNetInfo probNetInfo = pgmxReader.loadProbNetInfo(absolutePath);
+        ProbNetInfo probNetInfo = pgmxReader.loadProbNetInfo(absolutePath, new FileInputStream(absolutePath));
         ProbNet probNet = probNetInfo.getProbNet();
         
         CEP resultCEA = new DANDecompositionIntoSymmetricDANsCEA(probNet).getCEP();
@@ -107,7 +108,7 @@ public class danAlgorithmTests {
         File f = Paths.get(res.toURI()).toFile();
         String absolutePath = f.getAbsolutePath();
         
-        ProbNetInfo probNetInfo = pgmxReader.loadProbNetInfo(absolutePath);
+        ProbNetInfo probNetInfo = pgmxReader.loadProbNetInfo(absolutePath, new FileInputStream(absolutePath));
         ProbNet probNet = probNetInfo.getProbNet();
         
         CEP resultCEA = new DANDecompositionIntoSymmetricDANsCEA(probNet).getCEP();
@@ -129,7 +130,7 @@ public class danAlgorithmTests {
         String absolutePath = f.getAbsolutePath();
         
         PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
-        ProbNetInfo probNetInfo = pgmxReader.loadProbNetInfo(absolutePath);
+        ProbNetInfo probNetInfo = pgmxReader.loadProbNetInfo(absolutePath, new FileInputStream(absolutePath));
         ProbNet probNet = probNetInfo.getProbNet();
         
         CEP resultCEA = new DANDecompositionIntoSymmetricDANsCEA(probNet).getCEP();

@@ -25,6 +25,7 @@ import org.openmarkov.learning.core.algorithm.LearningAlgorithm;
 import org.openmarkov.learning.core.util.ModelNetUse;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.util.Arrays;
 import java.util.List;
 
@@ -339,7 +340,8 @@ public class PCAlgorithmTest {
 
 		Assertions.assertEquals(34, learnedNet.getLinks().size());
 		PGMXReader_0_2 reader = new PGMXReader_0_2();
-        ProbNet readNet = reader.loadProbNet(getClass().getResource(this.path + "BN-alarm.pgmx").getFile());
+        String netName = getClass().getResource(this.path + "BN-alarm.pgmx").getFile();
+        ProbNet readNet = reader.loadProbNet(netName, new FileInputStream(netName));
 		printDifferences(readNet, learnedNet);
 	}
 
@@ -361,7 +363,8 @@ public class PCAlgorithmTest {
 		Assertions.assertEquals(46, learnedNet.getLinks().size());
 
 		PGMXReader_0_2 reader = new PGMXReader_0_2();
-		ProbNet readNet = reader.loadProbNet(getClass().getResource("/BN-alarm.pgmx").getFile());
+        String netName = getClass().getResource("/BN-alarm.pgmx").getFile();
+        ProbNet readNet = reader.loadProbNet(netName, new FileInputStream(netName));
 		printDifferences(readNet, learnedNet);
 	}
 

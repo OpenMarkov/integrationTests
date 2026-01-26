@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-record RequirementsVerifier(Class<Object> constrainedClass, ImplementationRequirements requirements) {
+record RequirementsVerifier(Class<? extends Object> constrainedClass, ImplementationRequirements requirements) {
     
     public @NotNull Stream<String> findAllErrors() {
         return Stream.of(this.findInheritanceErrors(), this.findConstructorsErrors(), this.findMethodErrors())
@@ -121,7 +121,7 @@ record RequirementsVerifier(Class<Object> constrainedClass, ImplementationRequir
                         " and so it should extend one of the following: " + requiredExtension);
     }
     
-    private @NotNull Stream<Class<Object>> getSourceClasses() {
+    private @NotNull Stream<Class<? extends Object>> getSourceClasses() {
         return Stream.concat(
                 PluginSearch.init().annotatedWith(this.constrainedClass).stream(),
                 PluginSearch.init().extending(this.constrainedClass).stream()

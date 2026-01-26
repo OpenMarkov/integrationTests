@@ -19,6 +19,7 @@ import org.openmarkov.inference.algorithm.variableElimination.tasks.VEPropagatio
 import org.openmarkov.io.probmodel.reader.PGMXReader_0_2;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URL;
 import java.nio.file.Paths;
@@ -44,7 +45,7 @@ public class bnTwoDiseasesTests {
 		// Load the network: ID-decide-test
 		PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
 		ProbNetInfo probNetInfo = null;
-			probNetInfo = pgmxReader.loadProbNetInfo(absolutePath);
+        probNetInfo = pgmxReader.loadProbNetInfo(absolutePath, new FileInputStream(absolutePath));
 		this.probNet = probNetInfo.getProbNet();
 		if (probNetInfo.getEvidence().size() != 0) {
 			this.preResolutionEvidence = probNetInfo.getEvidence().get(0);

@@ -31,6 +31,7 @@ import org.openmarkov.inference.algorithm.variableElimination.tasks.VEEvaluation
 import org.openmarkov.io.probmodel.reader.PGMXReader_0_2;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URL;
 import java.nio.file.Paths;
@@ -57,7 +58,7 @@ public class CEAGlobalAnalysisTest {
 		String absolutePath = f.getAbsolutePath();
 		// Load the Bayesian network
 		PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
-		ProbNet probNet = pgmxReader.loadProbNet(absolutePath);
+        ProbNet probNet = pgmxReader.loadProbNet(absolutePath, new FileInputStream(absolutePath));
 
 		EvidenceCase evidence = new EvidenceCase();
 
@@ -92,7 +93,7 @@ public class CEAGlobalAnalysisTest {
 		String absolutePath = f.getAbsolutePath();
 		// Load the Bayesian network
 		PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
-		ProbNet probNet = pgmxReader.loadProbNet(absolutePath);
+        ProbNet probNet = pgmxReader.loadProbNet(absolutePath, new FileInputStream(absolutePath));
 
 		EvidenceCase evidence = new EvidenceCase();
 
@@ -122,7 +123,7 @@ public class CEAGlobalAnalysisTest {
 
 		// Load the Bayesian network
 		PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
-		ProbNet probNet = pgmxReader.loadProbNet(absolutePath);
+        ProbNet probNet = pgmxReader.loadProbNet(absolutePath, new FileInputStream(absolutePath));
 
 		EvidenceCase evidence = new EvidenceCase();
 
@@ -149,7 +150,7 @@ public class CEAGlobalAnalysisTest {
 		String absolutePath = f.getAbsolutePath();
 		// Load the Bayesian network
 		PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
-		ProbNet probNet = pgmxReader.loadProbNet(absolutePath);
+        ProbNet probNet = pgmxReader.loadProbNet(absolutePath, new FileInputStream(absolutePath));
 
 		EvidenceCase evidence = new EvidenceCase();
 		List<Variable> conditioningVariables = new ArrayList<Variable>();
@@ -199,7 +200,7 @@ public class CEAGlobalAnalysisTest {
 
 		// Load the Bayesian network
 		PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
-		ProbNet probNet = pgmxReader.loadProbNet(absolutePath);
+        ProbNet probNet = pgmxReader.loadProbNet(absolutePath, new FileInputStream(absolutePath));
 
 		EvidenceCase evidence = new EvidenceCase();
 
@@ -229,7 +230,7 @@ public class CEAGlobalAnalysisTest {
 
 		// Load the Bayesian network
 		PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
-		ProbNet probNet = pgmxReader.loadProbNet(absolutePath);
+        ProbNet probNet = pgmxReader.loadProbNet(absolutePath, new FileInputStream(absolutePath));
 
 		EvidenceCase evidence = new EvidenceCase();
 		Variable sexVariable = probNet.getVariable("Sex");
@@ -278,7 +279,7 @@ public class CEAGlobalAnalysisTest {
 
 		// Load the Bayesian network
 		PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
-		ProbNet probNet = pgmxReader.loadProbNet(absolutePath);
+        ProbNet probNet = pgmxReader.loadProbNet(absolutePath, new FileInputStream(absolutePath));
 
 		EvidenceCase evidence = new EvidenceCase();
 
@@ -318,7 +319,7 @@ public class CEAGlobalAnalysisTest {
 
 		// Load the Bayesian network
 		PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
-		ProbNet probNet = pgmxReader.loadProbNet(absolutePath);
+        ProbNet probNet = pgmxReader.loadProbNet(absolutePath, new FileInputStream(absolutePath));
 
 		// Sex = 0
 		EvidenceCase evidence = new EvidenceCase();
@@ -378,7 +379,7 @@ public class CEAGlobalAnalysisTest {
 		String absolutePath = f.getAbsolutePath();
 		// Load the Bayesian network
 		PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
-		ProbNet probNet = pgmxReader.loadProbNet(absolutePath);
+        ProbNet probNet = pgmxReader.loadProbNet(absolutePath, new FileInputStream(absolutePath));
 
 		EvidenceCase evidence = new EvidenceCase();
 

@@ -16,6 +16,7 @@ import org.openmarkov.io.probmodel.reader.PGMXReader_0_2;
 
 import java.io.File;
 //import java.io.FileOutputStream;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -50,7 +51,7 @@ public class mid21gene {
         URL res = getClass().getClassLoader().getResource(networkName);
         File f = Paths.get(res.toURI()).toFile();
         String absolutePath = f.getAbsolutePath();
-        probNetInfo = pgmxReader.loadProbNetInfo(absolutePath);
+        probNetInfo = pgmxReader.loadProbNetInfo(absolutePath, new FileInputStream(absolutePath));
         assert probNetInfo != null;
         this.probNet = probNetInfo.getProbNet();
 

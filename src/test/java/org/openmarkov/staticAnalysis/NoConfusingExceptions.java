@@ -22,7 +22,7 @@ public class NoConfusingExceptions {
     @Tag(TestSpeed.SLOW)
     @Test
     public void noConfusingExceptions() {
-        HashMap<String, Class<Throwable>> externalExceptionsNames = new HashMap<>();
+        HashMap<String, Class<? extends Throwable>> externalExceptionsNames = new HashMap<>();
         PluginSearch.init(List.of(PluginClassCategory.JAVA, PluginClassCategory.EXTERNAL_DEPENDENCY))
                     .extending(Throwable.class).stream()
                     .forEach(throwableClass -> {
@@ -51,8 +51,8 @@ public class NoConfusingExceptions {
     }
     
     public record OpenMarkovExceptionAndExternalException(
-            Class<Throwable> openmarkovThrowableClass,
-            Class<Throwable> externalThrowableClass) {
+            Class<? extends Throwable> openmarkovThrowableClass,
+            Class<? extends Throwable> externalThrowableClass) {
     }
     
 }

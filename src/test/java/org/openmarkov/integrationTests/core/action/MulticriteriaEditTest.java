@@ -19,6 +19,7 @@ import org.openmarkov.core.model.network.ProbNet;
 import org.openmarkov.io.probmodel.reader.PGMXReader_0_2;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -86,7 +87,7 @@ public class MulticriteriaEditTest {
         
         // Load the Bayesian network
         PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
-        ProbNet probNet = pgmxReader.loadProbNet(absolutePath);
+        ProbNet probNet = pgmxReader.loadProbNet(absolutePath, new FileInputStream(absolutePath));
         
         return probNet;
     }

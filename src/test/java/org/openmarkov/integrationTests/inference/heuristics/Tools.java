@@ -1,6 +1,7 @@
 package org.openmarkov.integrationTests.inference.heuristics;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -9,11 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import org.openmarkov.core.decisiontree.DecisionTreeBranch;
-import org.openmarkov.core.decisiontree.DecisionTreeElement;
-import org.openmarkov.core.decisiontree.DecisionTreeNode;
 import org.openmarkov.core.exception.*;
 import org.openmarkov.core.io.ProbNetInfo;
+import org.openmarkov.core.model.decisiontree.DecisionTreeBranch;
+import org.openmarkov.core.model.decisiontree.DecisionTreeElement;
+import org.openmarkov.core.model.decisiontree.DecisionTreeNode;
 import org.openmarkov.core.model.network.NodeType;
 import org.openmarkov.core.model.network.ProbNet;
 import org.openmarkov.core.model.network.Variable;
@@ -36,7 +37,7 @@ public class Tools {
 			URL res = getClass().getClassLoader().getResource(networkName);
 			File f = Paths.get(res.toURI()).toFile();
 			String absolutePath = f.getAbsolutePath();
-			probNetInfo = pgmxReader.loadProbNetInfo(absolutePath);
+        probNetInfo = pgmxReader.loadProbNetInfo(absolutePath, new FileInputStream(absolutePath));
 		return probNetInfo.getProbNet();
 	}
 

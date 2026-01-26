@@ -197,7 +197,7 @@ public class NetsRepository {
 	    try {
 	        String absolutePath = file.getAbsolutePath();
 	        PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
-	        ProbNetInfo probNetInfo = pgmxReader.loadProbNetInfo(absolutePath);
+            ProbNetInfo probNetInfo = pgmxReader.loadProbNetInfo(absolutePath, new FileInputStream(absolutePath));
 	        return Optional.ofNullable(probNetInfo);
         } catch (ParserException | FileNotFoundException e) {
             e.printStackTrace();
