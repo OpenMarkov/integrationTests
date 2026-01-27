@@ -1,4 +1,4 @@
-package org.openmarkov.staticAnalysis;
+package org.openmarkov.integrationTests.staticAnalysis;
 
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.params.ParameterizedTest;

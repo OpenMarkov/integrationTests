@@ -1,4 +1,4 @@
-package org.openmarkov.staticAnalysis.localization.autolocalization;
+package org.openmarkov.integrationTests.staticAnalysis.localization.autolocalization;
 
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.MethodOrderer;
