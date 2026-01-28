@@ -48,3 +48,12 @@ Thumbs.db
 *.mov
 *.wmv
 
+
+.project
+.classpath
+.settings/
+bin/
+target/
+
+# Integration tests results
+tests.txt
