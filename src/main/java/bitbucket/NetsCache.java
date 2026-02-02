@@ -13,7 +13,6 @@ import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.FileVisitOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
@@ -24,7 +23,7 @@ import java.util.stream.Stream;
 class NetsCache {
     
     enum CacheMethod {
-        USES_LOCAL_CHACHE, USES_BITBUCKET_FILE_REFS;
+        USES_LOCAL_CACHE, USES_BITBUCKET_FILE_REFS;
     }
     
     private static final File RESOURCE_DIRECTORY = ClassUtils.getResourceAsFile(NetsRepository.class, "/integrationTests")
@@ -60,7 +59,7 @@ class NetsCache {
         NetsCache.reloadCache(localCaches, bitbucketFileRefs);
         
         if (bitbucketFileRefs == null) {
-            return localCaches.stream().map(v -> new BitbucketFile(CacheMethod.USES_LOCAL_CHACHE, v.fileRef));
+            return localCaches.stream().map(v -> new BitbucketFile(CacheMethod.USES_LOCAL_CACHE, v.fileRef));
         }
         
         
@@ -74,10 +73,22 @@ class NetsCache {
                 .sorted(NetsCache.getListComparator())
                 .map(path -> {
                     if (localCachesByPath.containsKey(path)) {
-                        return new BitbucketFile(CacheMethod.USES_LOCAL_CHACHE, localCachesByPath.get(path).fileRef);
+                        BitbucketFile bitbucketFile = new BitbucketFile(CacheMethod.USES_LOCAL_CACHE, localCachesByPath.get(path).fileRef);
+                        try (var stream = bitbucketFile.resolveURL().openStream()) {
+                            return bitbucketFile;
+                        } catch (IOException ignored) {
+                        }
                     }
-                    return new BitbucketFile(CacheMethod.USES_BITBUCKET_FILE_REFS, remoteFilesByPath.get(path));
-                });
+                    if (remoteFilesByPath.containsKey(path)) {
+                        BitbucketFile bitbucketFile = new BitbucketFile(CacheMethod.USES_BITBUCKET_FILE_REFS, remoteFilesByPath.get(path));
+                        try (var stream = bitbucketFile.resolveURL().openStream()) {
+                            return bitbucketFile;
+                        } catch (IOException ignored) {
+                        }
+                    }
+                    return null;
+                })
+                .filter(Objects::nonNull);
     }
     
     record BitbucketFile(CacheMethod cacheMethod, BitbucketApi.BitbucketFileRef bitbucketFileRef) {
@@ -85,7 +96,7 @@ class NetsCache {
         public URL resolveURL() {
             return switch (this.cacheMethod) {
                 case USES_BITBUCKET_FILE_REFS -> this.bitbucketFileRef.href();
-                case USES_LOCAL_CHACHE -> {
+                case USES_LOCAL_CACHE -> {
                     var resultingFile = NetsCache.getFileFromComponents(
                             NetsCache.LOCAL_REPOSITORIES_DIR, this.bitbucketFileRef.relativePath());
                     try {
@@ -136,8 +147,8 @@ class NetsCache {
         for (File fileInLocalDir : filesInLocalDir) {
             var fileInLocalPath = fileInLocalDir.toPath();
             var pathList = IntStream.range(NetsCache.LOCAL_REPOSITORIES_PATH.getNameCount(), fileInLocalPath.getNameCount())
-                     .mapToObj(i -> fileInLocalPath.getName(i).toFile().getName())
-                     .toList();
+                                    .mapToObj(i -> fileInLocalPath.getName(i).toFile().getName())
+                                    .toList();
             if (!localFiles.contains(pathList)) {
                 fileInLocalDir.delete();
             }
@@ -208,6 +219,7 @@ class NetsCache {
     }
     
     private static @NotNull File getFileFromComponents(File parent, List<String> pathComponents) {
+        System.out.println("Appending file "+parent+" ("+parent.getPath()+") with "+pathComponents);
         var resultingFile = parent;
         for (var pathComponent : pathComponents) {
             resultingFile = new File(resultingFile, pathComponent);
