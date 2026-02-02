@@ -4,6 +4,7 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.config.Configurator;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.openmarkov.core.io.ProbNetInfo;
@@ -13,6 +14,7 @@ import org.openmarkov.core.model.network.NodeType;
 import org.openmarkov.core.model.network.ProbNet;
 import org.openmarkov.core.model.network.potential.GTablePotential;
 import org.openmarkov.core.model.network.potential.TablePotential;
+import org.openmarkov.core.testTags.TestSpeed;
 import org.openmarkov.inference.algorithm.temporalevaluation.tasks.TemporalEvaluation;
 import org.openmarkov.inference.algorithm.variableElimination.tasks.VECEAnalysis;
 import org.openmarkov.integrationTests.IntegrationTest;
@@ -47,7 +49,9 @@ public class TemporalEvaluationTest {
         }
     }
     
-    @Test public void temporalEvolutionTest() throws Exception {
+    @Test
+    @Tag(TestSpeed.SLOW)
+    public void temporalEvolutionTest() throws Exception {
         VECEAnalysis veceAnalysis = new VECEAnalysis(probNet);
         veceAnalysis.setPreResolutionEvidence(preResolutionEvidence);
         veceAnalysis.setDecisionVariable(probNet.getNodes(NodeType.DECISION).get(0).getVariable());

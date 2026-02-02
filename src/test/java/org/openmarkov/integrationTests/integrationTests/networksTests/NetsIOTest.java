@@ -9,6 +9,7 @@ package org.openmarkov.integrationTests.integrationTests.networksTests;
 
 import bitbucket.NetsRepository;
 import org.jetbrains.annotations.NotNull;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -18,6 +19,7 @@ import org.openmarkov.core.exception.WriterException;
 import org.openmarkov.core.io.ProbNetInfo;
 import org.openmarkov.core.model.network.EvidenceCase;
 import org.openmarkov.core.model.network.ProbNet;
+import org.openmarkov.core.testTags.TestSpeed;
 import org.openmarkov.gui.dialog.io.NetsIO;
 import org.openmarkov.inference.InferenceTestsTools;
 import org.openmarkov.integrationTests.IntegrationTest;
@@ -226,6 +228,7 @@ public class NetsIOTest {
     
     @ParameterizedTest
     @MethodSource("networksToTest")
+    @Tag(TestSpeed.SLOW)
     public final void testOpenSaveRepositoryNets(NetworkToTest networkToTest) throws Exception {
         // The name is irrelevant because this nets will only be created for tests purposes and it will be deleted
         // after each iteration
@@ -267,6 +270,7 @@ public class NetsIOTest {
     
     @ParameterizedTest
     @MethodSource("networksToTestOfVersion0_2")
+    @Tag(TestSpeed.SLOW)
     public void testPGMX_0_2vs0_5(NetworkToTest networkToTest) throws IOException, WriterException, ParserException {
         // The name is irrelevant because this nets will only be created for tests purposes and it will be deleted
         // after each iteration

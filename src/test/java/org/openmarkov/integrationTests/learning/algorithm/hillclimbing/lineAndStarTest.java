@@ -1,6 +1,7 @@
 package org.openmarkov.integrationTests.learning.algorithm.hillclimbing;
 
 import org.jetbrains.annotations.Nullable;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.openmarkov.core.action.base.PNEdit;
 import org.openmarkov.core.action.base.linkEdits.AddLinkEdit;
@@ -9,6 +10,7 @@ import org.openmarkov.core.io.database.CaseDatabase;
 import org.openmarkov.core.io.database.plugin.CaseDatabaseManager;
 import org.openmarkov.core.io.exception.NoWriterForExtensionException;
 import org.openmarkov.core.model.network.ProbNet;
+import org.openmarkov.core.testTags.TestSpeed;
 import org.openmarkov.integrationTests.IntegrationTest;
 import org.openmarkov.learning.algorithm.hillclimbing.HillClimbingAlgorithm;
 import org.openmarkov.learning.core.LearningManager;
@@ -30,6 +32,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class lineAndStarTest {
     
     @Test
+    @Tag(TestSpeed.SLOW)
     public void testLineAndStartXLSX() throws NoWriterForExtensionException, ParsingSourceException, IOException, EmptyDatabaseException, EmptyModelNetException, UnobservedVariablesException, IncompatibleEvidenceException.EvidenceIsIncompatibleWithOther, DoEditException, NonProjectablePotentialException, CannotNormalizePotentialException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints {
         test();
     }
