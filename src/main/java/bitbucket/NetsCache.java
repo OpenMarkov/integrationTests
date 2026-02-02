@@ -79,6 +79,8 @@ class NetsCache {
                             System.out.println("URL is being used from the FileSystem");
                             return bitbucketFile;
                         } catch (IOException ignored) {
+                            System.err.println("Cannot use URL from FileSystem due to "+ignored);
+                            ignored.printStackTrace();
                         }
                     }
                     if (remoteFilesByPath.containsKey(path)) {
@@ -87,6 +89,8 @@ class NetsCache {
                             System.out.println("URL is being used from an HTTP URL");
                             return bitbucketFile;
                         } catch (IOException ignored) {
+                            System.err.println("Cannot use URL from HTTP URL due to "+ignored);
+                            ignored.printStackTrace();
                         }
                     }
                     return null;
