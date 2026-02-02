@@ -226,12 +226,10 @@ class NetsCache {
     }
     
     private static @NotNull File getFileFromComponents(File parent, List<String> pathComponents) {
-        System.out.println("Appending file "+parent+" ("+parent.getPath()+") with "+pathComponents);
         var resultingFile = parent;
         for (var pathComponent : pathComponents) {
             resultingFile = new File(resultingFile, pathComponent);
         }
-        System.out.println("It results into "+resultingFile+ "("+resultingFile.getPath()+")");
         return resultingFile;
     }
     
