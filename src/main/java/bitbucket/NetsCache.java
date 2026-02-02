@@ -28,8 +28,8 @@ class NetsCache {
     
     private static final File RESOURCE_DIRECTORY = ClassUtils.getResourceAsFile(NetsRepository.class, "/integrationTests")
                                                              .getParentFile();
-    private static final File LOCAL_REPOSITORIES_CACHE_TRACKER_FILE = new File(NetsCache.RESOURCE_DIRECTORY, "clone_of_probmodelxml_networks_cache.json");
-    private static final File LOCAL_REPOSITORIES_DIR = new File(NetsCache.RESOURCE_DIRECTORY, "clone_of_probmodelxml_networks");
+    private static final File LOCAL_REPOSITORIES_CACHE_TRACKER_FILE = new File(NetsCache.RESOURCE_DIRECTORY, "clone_of_probmodelxml_networks_cache.json").getAbsoluteFile();
+    private static final File LOCAL_REPOSITORIES_DIR = new File(NetsCache.RESOURCE_DIRECTORY, "clone_of_probmodelxml_networks").getAbsoluteFile();
     private static final Path LOCAL_REPOSITORIES_PATH = LOCAL_REPOSITORIES_DIR.toPath();
     
     static Stream<BitbucketFile> resolveCache() {
