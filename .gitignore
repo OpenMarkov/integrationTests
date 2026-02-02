@@ -57,3 +57,5 @@ target/
 
 # Integration tests results
 tests.txt
+/src/main/resources/clone_of_probmodelxml_networks/
+/src/main/resources/clone_of_probmodelxml_networks_cache.json
