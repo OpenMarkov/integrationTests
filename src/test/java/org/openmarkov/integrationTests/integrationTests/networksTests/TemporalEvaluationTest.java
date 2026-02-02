@@ -31,7 +31,6 @@ public class TemporalEvaluationTest {
     private EvidenceCase preResolutionEvidence;
     
     @BeforeEach public void setUp() throws Exception {
-        Configurator.setRootLevel(Level.DEBUG);
         // New cost-effectiveness networks
         String networkName = "networks/mid/MID-Chancellor.pgmx";
         InputStream file = new IntegrationTest().getClass().getClassLoader().getResourceAsStream(networkName);

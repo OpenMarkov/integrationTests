@@ -7,6 +7,7 @@ import org.jdom2.located.LocatedJDOMFactory;
 import org.openmarkov.core.exception.NonProjectablePotentialException;
 import org.openmarkov.core.exception.NotSupportedOperationException;
 import org.openmarkov.core.exception.ParserException;
+import org.openmarkov.core.expression.VariableExpression;
 import org.openmarkov.core.inference.InferenceOptions;
 import org.openmarkov.core.inference.MulticriteriaOptions;
 import org.openmarkov.core.inference.TemporalOptions;
@@ -762,7 +763,9 @@ public class Classificator extends PGMXReader_0_2 {
     }
     
     private boolean sameInfoFunctionPotentials(FunctionPotential potential1, FunctionPotential potential2) {
-        if (potential1.getFunction().contentEquals(potential2.getFunction())) {
+        if (potential1.getFunction()
+                      .asStringExpression()
+                      .contentEquals(potential2.getFunction().asStringExpression())) {
             return true;
         } else {
             System.out.println("    Function potentials are different:");
@@ -783,7 +786,7 @@ public class Classificator extends PGMXReader_0_2 {
                 sameInfoArrayOfDoubles(potential1.getCoefficients(), potential2.getCoefficients()) &&
                 sameInfoArrayOfDoubles(potential1.getCovarianceMatrix(), potential2.getCovarianceMatrix()) &&
                 potential1.getConstant() == potential2.getConstant() &&
-                sameInfoArrayOfStrings(potential1.getCovariates(), potential2.getCovariates());
+                sameInfoArrayOfFunctions(potential1.getCovariates(), potential2.getCovariates());
     }
     
     private boolean sameInfoUnivariableDistrPotentials(UnivariateDistrPotential potential1, UnivariateDistrPotential potential2) throws NotSupportedOperationException {
@@ -813,16 +816,17 @@ public class Classificator extends PGMXReader_0_2 {
     }
     
     private boolean sameInfoAugmentedProbTablePotentials(AugmentedProbTable potential1, AugmentedProbTable potential2) {
-        return sameInfoArrayOfStrings(potential1.getFunctionValues(), potential2.getFunctionValues());
+        return sameInfoArrayOfFunctions(potential1.getFunctionValues(), potential2.getFunctionValues());
     }
     
-    private boolean sameInfoArrayOfStrings(String[] functionValues1, String[] functionValues2) {
+    private boolean sameInfoArrayOfFunctions(VariableExpression[] functionValues1, VariableExpression[] functionValues2) {
         boolean bothNull = functionValues1 == null && functionValues2 == null;
         boolean bothNotNull = functionValues1 != null && functionValues2 != null;
         boolean same = bothNull || (bothNotNull && functionValues1.length == functionValues2.length);
         if (same) {
             int i;
-            for (i = 0; i < functionValues1.length && sameInfoStrings(functionValues1[i], functionValues2[i]); i++) ;
+            for (i = 0; i < functionValues1.length && sameInfoStrings(functionValues1[i].asStringExpression(), functionValues2[i].asStringExpression()); i++)
+                ;
             same = i == functionValues1.length;
         }
         return same;
