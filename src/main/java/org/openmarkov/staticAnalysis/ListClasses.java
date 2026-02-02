@@ -1,5 +1,6 @@
 package org.openmarkov.staticAnalysis;
 
+import org.jgrapht.alg.drawing.LayoutAlgorithm2D;
 import org.openmarkov.core.exception.IOpenMarkovException;
 import org.openmarkov.core.model.network.constraint.PNConstraint;
 import org.openmarkov.core.model.network.potential.Potential;
@@ -16,8 +17,8 @@ public class ListClasses {
     public static void main(String[] args) {
         AtomicInteger index = new AtomicInteger();
         
-        PluginSearch.init()
-                    .annotatedWith(PotentialPanelPlugin.class)
+        PluginSearch.full()
+                    .extending(LayoutAlgorithm2D.class)
                     .stream()
                     //.filter(ClassUtils::isConcrete)
                     .sorted(Comparator.comparing(Class::getName))
