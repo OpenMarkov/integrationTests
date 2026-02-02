@@ -224,6 +224,7 @@ class NetsCache {
         for (var pathComponent : pathComponents) {
             resultingFile = new File(resultingFile, pathComponent);
         }
+        System.out.println("It results into "+resultingFile+ "("+resultingFile.getPath()+")");
         return resultingFile;
     }
     
