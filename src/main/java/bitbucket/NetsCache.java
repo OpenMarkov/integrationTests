@@ -72,9 +72,11 @@ class NetsCache {
         return allPaths
                 .sorted(NetsCache.getListComparator())
                 .map(path -> {
+                    System.out.println("Resolving URL for "+path);
                     if (localCachesByPath.containsKey(path)) {
                         BitbucketFile bitbucketFile = new BitbucketFile(CacheMethod.USES_LOCAL_CACHE, localCachesByPath.get(path).fileRef);
                         try (var stream = bitbucketFile.resolveURL().openStream()) {
+                            System.out.println("URL is being used from the FileSystem");
                             return bitbucketFile;
                         } catch (IOException ignored) {
                         }
@@ -82,6 +84,7 @@ class NetsCache {
                     if (remoteFilesByPath.containsKey(path)) {
                         BitbucketFile bitbucketFile = new BitbucketFile(CacheMethod.USES_BITBUCKET_FILE_REFS, remoteFilesByPath.get(path));
                         try (var stream = bitbucketFile.resolveURL().openStream()) {
+                            System.out.println("URL is being used from an HTTP URL");
                             return bitbucketFile;
                         } catch (IOException ignored) {
                         }
