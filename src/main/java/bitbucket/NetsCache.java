@@ -215,11 +215,16 @@ class NetsCache {
             resultingFile.getParentFile().mkdirs();
         }
         System.out.println("Downloading " + bitbucketFileRes.href() + " into " + resultingFile);
-        String bitbucketFileContents = new String(
-                bitbucketFileRes.href().openStream().readAllBytes(), StandardCharsets.UTF_8);
-        Files.writeString(resultingFile.toPath(), bitbucketFileContents);
-        localCaches.add(new BitbucketFileCache(bitbucketFileRes, DigestUtils.sha256Hex(bitbucketFileContents)));
-        System.out.println("Downloaded!");
+        try {
+            String bitbucketFileContents = new String(
+                    bitbucketFileRes.href().openStream().readAllBytes(), StandardCharsets.UTF_8);
+            Files.writeString(resultingFile.toPath(), bitbucketFileContents);
+            localCaches.add(new BitbucketFileCache(bitbucketFileRes, DigestUtils.sha256Hex(bitbucketFileContents)));
+            System.out.println("Downloaded!");
+        }catch (IOException|RuntimeException exception){
+            System.out.println("Could not download "+bitbucketFileRes.href());
+            throw exception;
+        }
     }
     
     record BitbucketFileCache(BitbucketApi.BitbucketFileRef fileRef, String hash) implements Serializable {
