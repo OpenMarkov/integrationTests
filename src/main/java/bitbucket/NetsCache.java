@@ -31,6 +31,7 @@ class NetsCache {
                                                              .getParentFile();
     private static final File LOCAL_REPOSITORIES_CACHE_TRACKER_FILE = new File(NetsCache.RESOURCE_DIRECTORY, "clone_of_probmodelxml_networks_cache.json");
     private static final File LOCAL_REPOSITORIES_DIR = new File(NetsCache.RESOURCE_DIRECTORY, "clone_of_probmodelxml_networks");
+    private static final Path LOCAL_REPOSITORIES_PATH = LOCAL_REPOSITORIES_DIR.toPath();
     
     static Stream<BitbucketFile> resolveCache() {
         try {
@@ -133,10 +134,10 @@ class NetsCache {
             return;
         }
         for (File fileInLocalDir : filesInLocalDir) {
-            var relativePath = NetsCache.RESOURCE_DIRECTORY.toPath().relativize(fileInLocalDir.toPath());
-            var pathList = IntStream.range(1, relativePath.getNameCount())
-                                    .mapToObj(i -> relativePath.getName(i).toFile().getName())
-                                    .toList();
+            var fileInLocalPath = fileInLocalDir.toPath();
+            var pathList = IntStream.range(NetsCache.LOCAL_REPOSITORIES_PATH.getNameCount(), fileInLocalPath.getNameCount())
+                     .mapToObj(i -> fileInLocalPath.getName(i).toFile().getName())
+                     .toList();
             if (!localFiles.contains(pathList)) {
                 fileInLocalDir.delete();
             }
