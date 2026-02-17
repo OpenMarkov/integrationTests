@@ -8,13 +8,14 @@ import org.openmarkov.java.classUtils.ClassUtils;
 import org.openmarkov.plugin.ExtensionTree;
 import org.openmarkov.plugin.PluginSearch;
 
+import javax.swing.*;
 import java.util.Comparator;
 
 public class PrintClassExtensionTree {
     
     public static void main(String[] args) {
-        PluginSearch.init()
-                    .extending(NetworkType.class)
+        PluginSearch.full()
+                    .extending(JMenuItem.class)
                     .extensionTree()
                     .print();
     }
