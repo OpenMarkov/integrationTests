@@ -18,7 +18,8 @@ public class ListClasses {
         AtomicInteger index = new AtomicInteger();
         
         PluginSearch.init()
-                    .extending(PNConstraint.class)
+                    .extending(Potential.class)
+                    .filter(ClassUtils::isConcrete)
                     .stream()
                     .sorted(Comparator.comparing(Class::getName))
                     .forEach(classToPrint -> System.out.println(index.incrementAndGet() + " - " + classToPrint.getName()));

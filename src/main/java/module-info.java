@@ -29,6 +29,7 @@ open module org.openmarkov.integrationTests {
     requires org.apache.commons.io;
     requires org.apache.commons.codec;
     requires org.jgrapht.core;
+    requires org.jspecify;
     
     exports org.openmarkov.integrationTests;
     exports org.openmarkov.integrationTests.localize;
