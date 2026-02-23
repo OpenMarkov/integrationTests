@@ -207,7 +207,7 @@ public class NetsIOTest {
         assertNotNull(net);
         String path = file.getParent();
         String fileNameSave = path + File.separator + fileToSave;
-        NetsIO.saveNetworkFile(net, fileNameSave, "");
+        NetsIO.saveNetworkFile(net, fileNameSave);
         net = NetsIO.openNetworkFile(fileNameSave).getProbNet();
         assertNotNull(net);
         new File(fileNameSave).deleteOnExit();
