@@ -42,7 +42,7 @@ public class lineAndStarTest {
         String xlsxDatabase = IntegrationTest.class.getResource("/networks/learning/lineAndStar.xlsx")
                                                    .getPath().substring(1);
         CaseDatabase cases = xlsxReader.load(new File(xlsxDatabase));
-        LearningManager learningManager = new LearningManager(cases, "HillClimbingAlgorithm", null, null);
+        LearningManager learningManager = new LearningManager(cases, HillClimbingAlgorithm.class, null, null);
         LearningAlgorithm learningAlgorithm = new HillClimbingAlgorithm(learningManager.getLearnedNet(), cases, 0.5, new K2Metric());
         learningManager.init(learningAlgorithm);
         new InteractiveLearningDialog(null, false, learningManager).setVisible(true);
@@ -53,7 +53,7 @@ public class lineAndStarTest {
         String xlsxDatabase = IntegrationTest.class.getResource("/networks/learning/lineAndStar.xlsx")
                                                    .getPath().substring(1);
         CaseDatabase cases = xlsxReader.load(new File(xlsxDatabase));
-        LearningManager learningManager = new LearningManager(cases, "HillClimbingAlgorithm", null, null);
+        LearningManager learningManager = new LearningManager(cases, HillClimbingAlgorithm.class, null, null);
         LearningAlgorithm learningAlgorithm = new HillClimbingAlgorithm(learningManager.getLearnedNet(), cases, 0.5, new K2Metric());
         learningManager.init(learningAlgorithm);
         
