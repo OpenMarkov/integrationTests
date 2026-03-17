@@ -21,8 +21,7 @@ public class ListClasses {
         AtomicInteger index = new AtomicInteger();
         
         PluginSearch.init()
-                    .extending(JDialog.class)
-                    .filter(subClass -> !BottomPanelButtonDialog.class.isAssignableFrom(subClass))
+                    .extending(PNConstraint.class)
                     .stream()
                     .sorted(Comparator.comparing(Class::getName))
                     .forEach(classToPrint -> System.out.println(index.incrementAndGet() + " - " + classToPrint.getName()));
