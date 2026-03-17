@@ -18,6 +18,7 @@ open module org.openmarkov.integrationTests {
     requires org.openmarkov.sensitivityanalysis;
     requires org.openmarkov.stochasticpropagationoutput;
     requires java.xml;
+    requires org.apache.logging.log4j;
     requires org.jfree.jfreechart;
     requires com.github.javaparser.core;
     requires com.github.javaparser.symbolsolver.core;

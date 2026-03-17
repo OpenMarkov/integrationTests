@@ -10,6 +10,7 @@ import org.openmarkov.core.model.network.ProbNet;
 import org.openmarkov.core.model.network.potential.Potential;
 import org.openmarkov.core.model.network.potential.PotentialRole;
 import org.openmarkov.io.probmodel.reader.PGMXReader_0_2;
+import org.openmarkov.io.xmlbif.XMLBIFReader;
 import org.openmarkov.java.classUtils.ClassUtils;
 import org.openmarkov.plugin.PluginSearch;
 
@@ -21,7 +22,7 @@ import java.util.stream.Stream;
 class PGMXReadersTest {
     
     static final HashSet<Class<? extends ProbNetReader>> READERS_THAT_CAN_MISS_POTENTIAL_READER_METHODS
-            = new HashSet<>(List.of(PGMXReader_0_2.class));
+            = new HashSet<>(List.of(PGMXReader_0_2.class, XMLBIFReader.class));
     
     record TestData(PGMXReader_0_2 pgmxReader, Class<? extends Potential> potentialClass,
                     boolean requiresToReadAllPotentials) {

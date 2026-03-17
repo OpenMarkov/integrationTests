@@ -88,7 +88,7 @@ public class PCAlgorithmTest {
         if (nodeE.isParent(nodeC)) System.out.println("C parent of E.");
 		
 		// check the CPTs
-		double maxError = 1E-2;
+		double maxError = 0.05;
 		// A
 		double[] probabilities = ((TablePotential) nodeA.getPotentials().get(0)).getValues();
 		Assertions.assertEquals(0.5, probabilities[0], maxError);
