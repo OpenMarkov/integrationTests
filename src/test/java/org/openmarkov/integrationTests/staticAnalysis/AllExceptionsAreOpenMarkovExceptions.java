@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class AllExceptionsAreOpenMarkovExceptions {
     
     private static final Set<Class<? extends Throwable>> ALLOWED_EXCEPTIONS = Set.of(
-            org.openmarkov.core.exception.UnreacheableException.class,
+            org.openmarkov.core.exception.UnreachableException.class,
             org.openmarkov.core.exception.UnrecoverableException.class
     );
     

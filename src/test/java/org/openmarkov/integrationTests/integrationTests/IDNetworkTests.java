@@ -56,7 +56,7 @@ public abstract class IDNetworkTests {
     
     @Disabled
     @Test
-    public void veSensAnTornadoSpiderTests() throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, ConstraintViolatedException {
+    public void veSensAnTornadoSpiderTests() throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedConstraints, ConstraintViolatedException {
         List<UncertainParameter> uncertainParameterList = SystematicSampling.getUncertainParameters(this.probNet);
         AxisVariation axisVariation = new AxisVariation();
         axisVariation.setVariationType(DeterministicAxisVariationType.POPP);

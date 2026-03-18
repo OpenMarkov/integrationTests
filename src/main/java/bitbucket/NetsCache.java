@@ -3,7 +3,7 @@ package bitbucket;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.openmarkov.core.exception.UnreacheableException;
+import org.openmarkov.core.exception.UnreachableException;
 import org.openmarkov.gui.configuration.JavaSerializationUtils;
 import org.openmarkov.java.classUtils.ClassUtils;
 
@@ -109,7 +109,7 @@ class NetsCache {
                     try {
                         yield resultingFile.toURI().toURL();
                     } catch (MalformedURLException e) {
-                        throw new UnreacheableException(e);
+                        throw new UnreachableException(e);
                     }
                 }
             };
@@ -131,7 +131,7 @@ class NetsCache {
             var asJson = JavaSerializationUtils.javaSerialize(localCaches);
             Files.writeString(NetsCache.LOCAL_REPOSITORIES_CACHE_TRACKER_FILE.toPath(), asJson);
         } catch (IOException e) {
-            throw new UnreacheableException(e);
+            throw new UnreachableException(e);
         }
         NetsCache.reloadCache_removeExternalFiles(localCaches);
         

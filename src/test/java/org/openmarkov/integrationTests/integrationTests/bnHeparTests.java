@@ -55,7 +55,7 @@ public class bnHeparTests {
     }
     
     @Test
-    public void vePropagationWithoutEvidence() throws NonProjectablePotentialException, IncompatibleEvidenceException, CannotNormalizePotentialException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, ConstraintViolatedException {
+    public void vePropagationWithoutEvidence() throws NonProjectablePotentialException, IncompatibleEvidenceException, CannotNormalizePotentialException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedConstraints, ConstraintViolatedException {
         VEPropagation vePropagation;
         EvidenceCase postResolutionEvidence = new EvidenceCase();
         List<Variable> variablesOfInterest = new ArrayList<>();
@@ -87,7 +87,7 @@ public class bnHeparTests {
     }
     
     @Test
-    public void vePropagationWithPostResolutionEvidence2() throws NonProjectablePotentialException, IncompatibleEvidenceException, CannotNormalizePotentialException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, ConstraintViolatedException {
+    public void vePropagationWithPostResolutionEvidence2() throws NonProjectablePotentialException, IncompatibleEvidenceException, CannotNormalizePotentialException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedConstraints, ConstraintViolatedException {
         VEPropagation vePropagation;
         EvidenceCase postResolutionEvidence = new EvidenceCase();
         List<Variable> variablesOfInterest = new ArrayList<>();

@@ -26,7 +26,7 @@ public abstract class idDecideTestNetworkTests extends IDNetworkTests {
 
 	@Disabled
     @Test
-    public void veResolutionTestWithoutEvidence() throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, ConstraintViolatedException {
+    public void veResolutionTestWithoutEvidence() throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedConstraints, ConstraintViolatedException {
 		VEEvaluation veEvaluation;
 			veEvaluation = new VEEvaluation(probNet);
 			veEvaluation.setPreResolutionEvidence(preResolutionEvidence);
@@ -35,7 +35,7 @@ public abstract class idDecideTestNetworkTests extends IDNetworkTests {
 	}
     
     @Test
-    public void veResolutionTestWithEvidences() throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, ConstraintViolatedException {
+    public void veResolutionTestWithEvidences() throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedConstraints, ConstraintViolatedException {
 		EvidenceCase evidenceCase = new EvidenceCase();
 		Variable disease = null;
 		Variable doTest = null;
@@ -83,7 +83,7 @@ public abstract class idDecideTestNetworkTests extends IDNetworkTests {
 	}
     
     @Test
-    public void veOptimalPolicyTest() throws NonProjectablePotentialException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, IncompatibleEvidenceException.EvidenceIsIncompatibleWithOther, ConstraintViolatedException {
+    public void veOptimalPolicyTest() throws NonProjectablePotentialException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedConstraints, IncompatibleEvidenceException.EvidenceIsIncompatibleWithOther, ConstraintViolatedException {
 		OptimalPolicies veOptimalPolicy;
 			Variable decisionVariable = probNet.getVariable("Therapy");
 			veOptimalPolicy = new VEEvaluation(probNet);
@@ -93,7 +93,7 @@ public abstract class idDecideTestNetworkTests extends IDNetworkTests {
 	}
     
     @Test
-    public void veExpectedUtilityTest() throws NonProjectablePotentialException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, IncompatibleEvidenceException.EvidenceIsIncompatibleWithOther, ConstraintViolatedException {
+    public void veExpectedUtilityTest() throws NonProjectablePotentialException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedConstraints, IncompatibleEvidenceException.EvidenceIsIncompatibleWithOther, ConstraintViolatedException {
 		VEExpectedUtilityDecision veExpectedUtilityDecision;
 			Variable decisionVariable = probNet.getVariable("Therapy");
 			veExpectedUtilityDecision = new VEExpectedUtilityDecision(probNet, decisionVariable);
@@ -105,7 +105,7 @@ public abstract class idDecideTestNetworkTests extends IDNetworkTests {
 
 	@Disabled
     @Test
-    public void veOptimalIntervention() throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, ConstraintViolatedException {
+    public void veOptimalIntervention() throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedConstraints, ConstraintViolatedException {
 		VEOptimalIntervention veOptimalIntervention;
 			veOptimalIntervention = new VEOptimalIntervention(probNet, preResolutionEvidence);
 			StrategyTree optimalStrategyTree = veOptimalIntervention.getOptimalIntervention();

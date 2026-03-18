@@ -2,7 +2,7 @@ package bitbucket;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.openmarkov.core.exception.UnreacheableException;
+import org.openmarkov.core.exception.UnreachableException;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -42,7 +42,7 @@ public class BitbucketApi {
             try {
                 return new BitbucketFileRef(path, commitHash, href.toURL());
             } catch (MalformedURLException e) {
-                throw new UnreacheableException(e);
+                throw new UnreachableException(e);
             }
         });
     }

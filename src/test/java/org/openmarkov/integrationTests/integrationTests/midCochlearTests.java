@@ -56,7 +56,7 @@ public class midCochlearTests {
     
     @Disabled
     @Test
-    public void veTemporalEvaluationTest() throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedContraints, ConstraintViolatedException {
+    public void veTemporalEvaluationTest() throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedConstraints, ConstraintViolatedException {
         TemporalEvaluation temporalEvaluation = new TemporalEvaluation(probNet);
         temporalEvaluation.setPreResolutionEvidence(preResolutionEvidence);
         GTablePotential atemporalUtility = (GTablePotential) temporalEvaluation.getAtemporalUtility();

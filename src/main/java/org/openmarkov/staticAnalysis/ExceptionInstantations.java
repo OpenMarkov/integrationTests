@@ -11,7 +11,7 @@ public class ExceptionInstantations {
     
     private static final List<Class<? extends Throwable>> IGNORED_EXCEPTIONS = List.of(
             UnrecoverableException.class,
-            UnreacheableException.class,
+            UnreachableException.class,
             NotSupportedOperationException.class,
             InvalidArgumentException.class,
             NonProjectablePotentialException.PotentialCannotBeConvertedToATable.class
