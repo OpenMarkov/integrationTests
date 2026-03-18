@@ -10,7 +10,6 @@ import org.openmarkov.core.model.network.ProbNet;
 import org.openmarkov.core.model.network.potential.Potential;
 import org.openmarkov.gui.dialog.io.NetsIO;
 import org.openmarkov.gui.exception.CorruptNetworkFile;
-import org.xml.sax.SAXException;
 
 import java.io.IOException;
 import java.net.URL;
@@ -25,7 +24,7 @@ public class PotentialsCanBeCloned {
     record DeepCloneTestData(Potential potential, ProbNet probNet) {
     }
     
-    Stream<DeepCloneTestData> deepCloneTestData() throws NoReaderForFileException, ParserException, IOException, SAXException, CorruptNetworkFile {
+    Stream<DeepCloneTestData> deepCloneTestData() throws NoReaderForFileException, ParserException, IOException, CorruptNetworkFile {
         var net = NetsIO.openNetworkURL(PotentialsCanBeCloned.DAN_WITH_EVERY_POTENTIAL_URL)
                         .getProbNet();
         return net.getNodes().stream()
@@ -44,7 +43,7 @@ public class PotentialsCanBeCloned {
     }
     
     
-    Stream<Potential> cloneTestData() throws NoReaderForFileException, ParserException, IOException, SAXException, CorruptNetworkFile {
+    Stream<Potential> cloneTestData() throws NoReaderForFileException, ParserException, IOException, CorruptNetworkFile {
         return this.deepCloneTestData().map(DeepCloneTestData::potential);
     }
     
