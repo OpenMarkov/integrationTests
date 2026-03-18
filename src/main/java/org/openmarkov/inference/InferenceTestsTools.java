@@ -58,7 +58,7 @@ public class InferenceTestsTools {
     }
     
     public static void testPropagateNetwork(ProbNet probNet, List<Variable> variables, EvidenceCase evidenceCase)
-            {
+            throws IncompatibleEvidenceException, ConstraintViolatedException {
         VEPropagation vePropagation;
         if (!probNet.getNetworkType().equals(BayesianNetworkType.getUniqueInstance())) {
             VEEvaluation veEvaluation = new VEEvaluation(probNet);
@@ -117,7 +117,7 @@ public class InferenceTestsTools {
     }
     
     private static void testTemporalEvolutionNetwork(ProbNet probNet, EvidenceCase evidenceCase)
-            {
+            throws IncompatibleEvidenceException, ConstraintViolatedException {
         HashMap<String, Variable> filteredTemporalVariables = new HashMap<>();
         for (Variable variable : probNet.getVariables()) {
             if (variable.isTemporal()) {

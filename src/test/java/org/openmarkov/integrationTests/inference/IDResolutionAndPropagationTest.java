@@ -46,7 +46,7 @@ public class IDResolutionAndPropagationTest {
 	}
 	
 	private static void testResolutionAndPropagation(ProbNet probNet, EvidenceCase preResolutionEvidence, boolean checkStrategyTree)
-            {
+            throws IncompatibleEvidenceException, ConstraintViolatedException {
 		InferenceTestsTools.testResolveNetwork(probNet, preResolutionEvidence, checkStrategyTree);
 
 		// TODO - Check propagate errors
