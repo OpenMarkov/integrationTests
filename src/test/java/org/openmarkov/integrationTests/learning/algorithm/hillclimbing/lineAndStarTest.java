@@ -33,7 +33,7 @@ public class lineAndStarTest {
     
     @Test
     @Tag(TestSpeed.SLOW)
-    public void testLineAndStartXLSX() throws NoWriterForExtensionException, ParsingSourceException, IOException, EmptyDatabaseException, EmptyModelNetException, UnobservedVariablesException, IncompatibleEvidenceException.EvidenceIsIncompatibleWithOther, DoEditException, NonProjectablePotentialException, CannotNormalizePotentialException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedConstraints {
+    public void testLineAndStartXLSX() throws NoWriterForExtensionException, ParsingSourceException, IOException, EmptyDatabaseException, EmptyModelNetException, UnobservedVariablesException, IncompatibleEvidenceException.EvidenceIsIncompatibleWithOther, DoEditException, NonProjectablePotentialException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedConstraints {
         test();
     }
     
@@ -47,7 +47,7 @@ public class lineAndStarTest {
         new InteractiveLearningDialog(null, false, learningManager).setVisible(true);
     }
 
-    private static void test() throws NoWriterForExtensionException, IOException, ParsingSourceException, EmptyDatabaseException, EmptyModelNetException, UnobservedVariablesException, DoEditException, CannotNormalizePotentialException, IncompatibleEvidenceException.EvidenceIsIncompatibleWithOther, NonProjectablePotentialException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedConstraints {
+    private static void test() throws NoWriterForExtensionException, IOException, ParsingSourceException, EmptyDatabaseException, EmptyModelNetException, UnobservedVariablesException, DoEditException, IncompatibleEvidenceException.EvidenceIsIncompatibleWithOther, NonProjectablePotentialException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedConstraints {
         var xlsxReader = new CaseDatabaseManager().getReader("xlsx");
         String xlsxDatabase = IntegrationTest.class.getResource("/networks/learning/lineAndStar.xlsx").getPath();
         CaseDatabase cases = xlsxReader.load(new File(xlsxDatabase));

@@ -85,7 +85,7 @@ public class DANOperationsTest {
     
     @Tag(TestSpeed.MEDIUM)
     @Test
-    public void instantiateTest() throws IncompatibleEvidenceException.EvidenceIsIncompatibleWithOther, NonProjectablePotentialException, NotSupportedOperationException {
+    public void instantiateTest() throws IncompatibleEvidenceException.EvidenceIsIncompatibleWithOther, NonProjectablePotentialException {
         ProbNet probNet = danTest2Therapies;
         
         // Instantiate the network for Disease

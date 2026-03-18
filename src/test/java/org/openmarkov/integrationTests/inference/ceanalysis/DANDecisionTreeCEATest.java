@@ -15,17 +15,17 @@ import java.net.URISyntaxException;
 public class DANDecisionTreeCEATest extends DANCEATest {
 
 	@Override
-    protected CEAnalysis buildCEAnalysis(ProbNet network) throws NotEvaluableNetworkException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates, NotSupportedOperationException {
+    protected CEAnalysis buildCEAnalysis(ProbNet network) throws NotEvaluableNetworkException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
 		return buildCEAnalysis(network, true);
 	}
     
     
-    protected CEAnalysis buildCEAnalysis(ProbNet network, boolean computeDTForGUI) throws NotEvaluableNetworkException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates, NotSupportedOperationException {
+    protected CEAnalysis buildCEAnalysis(ProbNet network, boolean computeDTForGUI) throws NotEvaluableNetworkException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
         return new DANDecisionTreeCEA(network, computeDTForGUI);
 	}
 
 	@Override
-    public void testCEADANEvaluation(String danName, int globalNumberOfCEPIntervals, double... expectedThreshods) throws NonProjectablePotentialException, NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, PotentialOperationException.DifferentSizesInPotentialsAndStates, NotSupportedOperationException {
+    public void testCEADANEvaluation(String danName, int globalNumberOfCEPIntervals, double... expectedThreshods) throws NonProjectablePotentialException, NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
 		Tools t = new Tools();
 		ProbNet network = t.loadDAN(danName);
 		MulticriteriaOptions options = new MulticriteriaOptions();

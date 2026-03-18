@@ -80,7 +80,7 @@ public class Classificator extends PGMXReader_0_2 {
         networksWithAdvancedFeatures = getNetworksWithAdvancedFeatures(pathToNewFiles);
     }
     
-    public static void main(String[] args) throws IOException, ParserException, NonProjectablePotentialException, NotSupportedOperationException {
+    public static void main(String[] args) throws IOException, ParserException, NonProjectablePotentialException {
         Classificator classificator = new Classificator(PGMXOrigin.File, args);
         classificator.testConversionBetweenVersions();
         classificator.performTests();
@@ -115,7 +115,7 @@ public class Classificator extends PGMXReader_0_2 {
     }
     
     // Methods
-    private void performTests() throws IOException, ParserException, NonProjectablePotentialException, NotSupportedOperationException {
+    private void performTests() throws IOException, ParserException, NonProjectablePotentialException {
         int differentNetworks = 0;
         int differentNetworks0_2 = 0;
         int differentNetworks0_7 = 0;
@@ -355,7 +355,7 @@ public class Classificator extends PGMXReader_0_2 {
      * @param probNetInfo2
      * @return
      */
-    private boolean sameInfoProbNetsInfo(ProbNetInfo probNetInfo1, ProbNetInfo probNetInfo2) throws NonProjectablePotentialException, NotSupportedOperationException {
+    private boolean sameInfoProbNetsInfo(ProbNetInfo probNetInfo1, ProbNetInfo probNetInfo2) throws NonProjectablePotentialException {
         boolean bothNotNull = probNetInfo1 != null && probNetInfo2 != null;
         boolean bothNull = probNetInfo1 == null && probNetInfo2 == null;
         return bothNull ||
@@ -371,7 +371,7 @@ public class Classificator extends PGMXReader_0_2 {
      * @param probNet2
      * @return True if networks are equal
      */
-    private boolean sameInfoProbNets(ProbNet probNet1, ProbNet probNet2) throws NonProjectablePotentialException, NotSupportedOperationException {
+    private boolean sameInfoProbNets(ProbNet probNet1, ProbNet probNet2) throws NonProjectablePotentialException {
         boolean bothNotNull = probNet1 != null && probNet2 != null;
         boolean bothNull = probNet1 == null && probNet2 == null;
         return bothNull ||
@@ -609,7 +609,7 @@ public class Classificator extends PGMXReader_0_2 {
      * @param probNet2
      * @return
      */
-    private boolean sameInfoListOfLinks(ProbNet probNet1, ProbNet probNet2) throws NotSupportedOperationException {
+    private boolean sameInfoListOfLinks(ProbNet probNet1, ProbNet probNet2) {
         List<Link<Node>> links1 = probNet1.getLinks();
         List<Link<Node>> links2 = probNet2.getLinks();
         int size = links1.size();
@@ -687,7 +687,7 @@ public class Classificator extends PGMXReader_0_2 {
         return same;
     }
     
-    private boolean sameInfoListOfPotentials(ProbNet probNet1, ProbNet probNet2) throws NonProjectablePotentialException, NotSupportedOperationException {
+    private boolean sameInfoListOfPotentials(ProbNet probNet1, ProbNet probNet2) throws NonProjectablePotentialException {
         int numPotentials = probNet1.getNumPotentials();
         boolean same = numPotentials == probNet2.getNumPotentials();
         if (same && numPotentials > 0) {
@@ -708,7 +708,7 @@ public class Classificator extends PGMXReader_0_2 {
         return same;
     }
     
-    private boolean sameInfoPotentials(Potential potential1, Potential potential2) throws NonProjectablePotentialException, NotSupportedOperationException {
+    private boolean sameInfoPotentials(Potential potential1, Potential potential2) throws NonProjectablePotentialException {
         Class potentialClass = potential1.getClass();
         boolean same = potentialClass == potential2.getClass();
         if (same) {
@@ -780,7 +780,7 @@ public class Classificator extends PGMXReader_0_2 {
                 potential1.getGamma() == potential2.getGamma();
     }
     
-    private boolean sameInfoGLMPotentials(GLMPotential potential1, GLMPotential potential2) throws NotSupportedOperationException {
+    private boolean sameInfoGLMPotentials(GLMPotential potential1, GLMPotential potential2) {
         return sameInfoCommonPartPotentials(potential1, potential2) &&
                 sameInfoArrayOfDoubles(potential1.getCholeskyDecomposition(), potential2.getCholeskyDecomposition()) &&
                 sameInfoArrayOfDoubles(potential1.getCoefficients(), potential2.getCoefficients()) &&
@@ -789,7 +789,7 @@ public class Classificator extends PGMXReader_0_2 {
                 sameInfoArrayOfFunctions(potential1.getCovariates(), potential2.getCovariates());
     }
     
-    private boolean sameInfoUnivariableDistrPotentials(UnivariateDistrPotential potential1, UnivariateDistrPotential potential2) throws NotSupportedOperationException {
+    private boolean sameInfoUnivariableDistrPotentials(UnivariateDistrPotential potential1, UnivariateDistrPotential potential2) {
         return sameInfoCommonPartPotentials(potential1, potential2) &&
                 sameInfoAugmentedProbTablePotentials(potential1.getAugmentedProbTable(), potential2.getAugmentedProbTable()) &&
                 sameInfoVariables(potential1.getChildVariable(), potential2.getChildVariable()) &&
@@ -799,18 +799,18 @@ public class Classificator extends PGMXReader_0_2 {
                 sameInfoStrings(potential1.getProbDensFunctionName(), potential2.getProbDensFunctionName());
     }
     
-    private boolean sameInfoExactDistrPotentials(ExactDistrPotential potential1, ExactDistrPotential potential2) throws NotSupportedOperationException {
+    private boolean sameInfoExactDistrPotentials(ExactDistrPotential potential1, ExactDistrPotential potential2) {
         return sameInfoCommonPartPotentials(potential1, potential2) &&
                 sameInfoTablePotentials(potential1.getTablePotential(), potential2.getTablePotential());
     }
     
-    private boolean sameInfoDiscretizedCauchyPotentials(DiscretizedCauchyPotential potential1, DiscretizedCauchyPotential potential2) throws NonProjectablePotentialException, NotSupportedOperationException {
+    private boolean sameInfoDiscretizedCauchyPotentials(DiscretizedCauchyPotential potential1, DiscretizedCauchyPotential potential2) throws NonProjectablePotentialException {
         return sameInfoCommonPartPotentials(potential1, potential2) &&
                 sameInfoPotentials(potential1.getMedian(), potential2.getMedian()) &&
                 sameInfoPotentials(potential1.getScale(), potential2.getScale());
     }
     
-    private boolean sameInfoCycleLengthShiftPotentials(CycleLengthShift potential1, CycleLengthShift potential2) throws NotSupportedOperationException {
+    private boolean sameInfoCycleLengthShiftPotentials(CycleLengthShift potential1, CycleLengthShift potential2) {
         return sameInfoCommonPartPotentials(potential1, potential2) &&
                 sameInfoCycleLength(potential1.getCycleLength(), potential2.getCycleLength());
     }
@@ -832,20 +832,20 @@ public class Classificator extends PGMXReader_0_2 {
         return same;
     }
     
-    private boolean sameInfoUniformPotentials(UniformPotential potential1, UniformPotential potential2) throws NotSupportedOperationException {
+    private boolean sameInfoUniformPotentials(UniformPotential potential1, UniformPotential potential2) {
         return sameInfoCommonPartPotentials(potential1, potential2) &&
                 potential1.isUncertain() == potential2.isUncertain() &&
                 potential1.getDiscreteValue() == potential2.getDiscreteValue();
     }
     
-    private boolean sameInfoTreeADDPotentials(TreeADDPotential potential1, TreeADDPotential potential2) throws NonProjectablePotentialException, NotSupportedOperationException {
+    private boolean sameInfoTreeADDPotentials(TreeADDPotential potential1, TreeADDPotential potential2) throws NonProjectablePotentialException {
         boolean same = sameInfoCommonPartPotentials(potential1, potential2) &&
                 sameInfoVariables(potential1.getRootVariable(), potential2.getRootVariable());
         same &= sameInfoListOfBranches(potential1.getBranches(), potential2.getBranches());
         return same;
     }
     
-    private boolean sameInfoListOfBranches(List<TreeADDBranch> branches1, List<TreeADDBranch> branches2) throws NonProjectablePotentialException, NotSupportedOperationException {
+    private boolean sameInfoListOfBranches(List<TreeADDBranch> branches1, List<TreeADDBranch> branches2) throws NonProjectablePotentialException {
         boolean bothNull = branches1 == null && branches2 == null;
         boolean bothNotNull = branches1 != null && branches2 != null;
         int size = bothNotNull ? branches1.size() : 0;
@@ -859,7 +859,7 @@ public class Classificator extends PGMXReader_0_2 {
         return same;
     }
     
-    private boolean sameInfoBranches(TreeADDBranch treeADDBranch1, TreeADDBranch treeADDBranch2) throws NonProjectablePotentialException, NotSupportedOperationException {
+    private boolean sameInfoBranches(TreeADDBranch treeADDBranch1, TreeADDBranch treeADDBranch2) throws NonProjectablePotentialException {
         return sameListOfVariablesNames(treeADDBranch1.getAddableVariables(), treeADDBranch2.getAddableVariables()) &&
                 sameInfoStrings(treeADDBranch1.getLabel(), treeADDBranch2.getLabel()) &&
                 sameThresholds(treeADDBranch1.getLowerBound(), treeADDBranch2.getLowerBound()) &&
@@ -872,7 +872,7 @@ public class Classificator extends PGMXReader_0_2 {
         return threshold1.getLimit() == threshold2.getLimit() && threshold1.belongsToLeft() == threshold2.belongsToLeft();
     }
     
-    private boolean sameInfoMinMaxPotentials(MinMaxPotential potential1, MinMaxPotential potential2) throws NotSupportedOperationException {
+    private boolean sameInfoMinMaxPotentials(MinMaxPotential potential1, MinMaxPotential potential2) {
         return sameInfoVariables(potential1.getPseudoVariable(), potential2.getPseudoVariable()) &&
                 sameInfoTablePotentials(potential1.getCPT(), potential2.getCPT());
     }
@@ -883,7 +883,7 @@ public class Classificator extends PGMXReader_0_2 {
      * @param potential2
      * @return
      */
-    private boolean sameInfoICIPotentials(ICIPotential potential1, ICIPotential potential2) throws NonProjectablePotentialException, NotSupportedOperationException {
+    private boolean sameInfoICIPotentials(ICIPotential potential1, ICIPotential potential2) throws NonProjectablePotentialException {
         boolean same = sameInfoCommonPartPotentials(potential1, potential2) &&
                 potential1.getModelType() == potential2.getModelType() &&
                 potential1.getFamily() == potential2.getFamily() &&
@@ -907,7 +907,7 @@ public class Classificator extends PGMXReader_0_2 {
         return same;
     }
     
-    private boolean sameInfoConstantPotentials(Set<TablePotential> constantPotentials1, Set<TablePotential> constantPotentials2) throws NotSupportedOperationException {
+    private boolean sameInfoConstantPotentials(Set<TablePotential> constantPotentials1, Set<TablePotential> constantPotentials2) {
         boolean bothNotNull = constantPotentials1 != null && constantPotentials2 != null;
         boolean bothNull = constantPotentials1 == null && constantPotentials2 == null;
         boolean same = bothNull || (bothNotNull && constantPotentials1.size() == constantPotentials2.size());
@@ -933,7 +933,7 @@ public class Classificator extends PGMXReader_0_2 {
      * @param tablePotential2
      * @return
      */
-    private boolean sameInfoTablePotentials(TablePotential tablePotential1, TablePotential tablePotential2) throws NotSupportedOperationException {
+    private boolean sameInfoTablePotentials(TablePotential tablePotential1, TablePotential tablePotential2) {
         // Common part for all potentials
         boolean same = sameInfoCommonPartPotentials(tablePotential1, tablePotential2);
         
@@ -983,7 +983,7 @@ public class Classificator extends PGMXReader_0_2 {
      * @param potential2
      * @return
      */
-    private boolean sameInfoCommonPartPotentials(Potential potential1, Potential potential2) throws NotSupportedOperationException {
+    private boolean sameInfoCommonPartPotentials(Potential potential1, Potential potential2) {
         // Compare miscelanea attributes
         boolean same = potential1.getCriterion() == potential2.getCriterion() &&
                 potential1.isAdditive() == potential2.isAdditive() &&

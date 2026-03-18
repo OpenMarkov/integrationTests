@@ -202,7 +202,7 @@ public class Tools {
 	}
     
     
-    protected static void testDecisionTreeAfterLevelsExpansion(ProbNet network, boolean exploreZeroProbabilityBranches) throws NotEvaluableNetworkException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates, NotSupportedOperationException {
+    protected static void testDecisionTreeAfterLevelsExpansion(ProbNet network, boolean exploreZeroProbabilityBranches) throws NotEvaluableNetworkException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
 		int maxNumberLevelsToExpandMore = 3;
         DecisionTreePanel dtPanel = new DecisionTreePanel(network);
 			for (int i = 0; i < maxNumberLevelsToExpandMore; i++) {
@@ -212,7 +212,7 @@ public class Tools {
 	}
     
     
-    public static void testDecisionTree(ProbNet network, boolean computeDT, DecisionTreeComputation eval) throws NotEvaluableNetworkException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates, NotSupportedOperationException {
+    public static void testDecisionTree(ProbNet network, boolean computeDT, DecisionTreeComputation eval) throws NotEvaluableNetworkException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
 		DecisionTreeNode dt = eval.getDecisionTree();
 		if (computeDT) {
 			Assertions.assertNotNull(dt);

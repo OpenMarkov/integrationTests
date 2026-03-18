@@ -15,13 +15,13 @@ import org.openmarkov.inference.algorithm.decompositionIntoSymmetricDANs.evaluat
 public class DANDecompositionIntoSymmetricDANsEvaluationTest extends DANEvaluationTest {
     
     @Override
-    protected DANEvaluation buildNetworkEvaluation(ProbNet network) throws NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedConstraints, NonProjectablePotentialException, IncompatibleEvidenceException, PotentialOperationException.DifferentSizesInPotentialsAndStates, NotSupportedOperationException {
+    protected DANEvaluation buildNetworkEvaluation(ProbNet network) throws NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedConstraints, NonProjectablePotentialException, IncompatibleEvidenceException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
         return new DANDecompositionIntoSymmetricDANsEvaluation(network);
 	}
 
 	@Override
 	protected DANEvaluation buildNetworkEvaluation(ProbNet network, boolean computeDecisionTreeForGUI)
-            throws NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedConstraints, NonProjectablePotentialException, IncompatibleEvidenceException, PotentialOperationException.DifferentSizesInPotentialsAndStates, NotSupportedOperationException {
+            throws NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedConstraints, NonProjectablePotentialException, IncompatibleEvidenceException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
 		return buildNetworkEvaluation(network);
 	}
 

@@ -8,7 +8,7 @@ import org.openmarkov.inference.algorithm.decompositionIntoSymmetricDANs.ceanaly
 public class DANDecompositionIntoSymmetricDANsCEATest extends DANCEATest {
     
     @Override
-    protected CEAnalysis buildCEAnalysis(ProbNet network) throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedConstraints, PotentialOperationException.DifferentSizesInPotentialsAndStates, NotSupportedOperationException {
+    protected CEAnalysis buildCEAnalysis(ProbNet network) throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedConstraints, PotentialOperationException.DifferentSizesInPotentialsAndStates {
         return new DANDecompositionIntoSymmetricDANsCEA(network);
 	}
 

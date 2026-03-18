@@ -17,7 +17,7 @@ import java.net.URISyntaxException;
 
 public abstract class DANCEATest {
     
-    public void testCEADANEvaluation(String danName, int globalNumberOfCEPIntervals, double... expectedThreshods) throws NonProjectablePotentialException, NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, PotentialOperationException.DifferentSizesInPotentialsAndStates, NotSupportedOperationException {
+    public void testCEADANEvaluation(String danName, int globalNumberOfCEPIntervals, double... expectedThreshods) throws NonProjectablePotentialException, NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
 		Tools t = new Tools();
 		ProbNet network = t.loadDAN(danName);
 		System.out.println("*** CEA with DAN " + danName + " ***");
@@ -38,38 +38,38 @@ public abstract class DANCEATest {
 		}
 	}
     
-    protected abstract CEAnalysis buildCEAnalysis(ProbNet network) throws NotEvaluableNetworkException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates, NotSupportedOperationException;
+    protected abstract CEAnalysis buildCEAnalysis(ProbNet network) throws NotEvaluableNetworkException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates;
 	
 	@Test
 	public void testDANOnlyNonZeroUtility() throws
-            NonProjectablePotentialException, NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, PotentialOperationException.DifferentSizesInPotentialsAndStates, NotSupportedOperationException {
+            NonProjectablePotentialException, NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
 		testCEADANEvaluation("only-non-zero-utility-ce", 1);
 	}
 	
 	@Test
 	public void testDANOnlyZeroyUtility() throws
-            NonProjectablePotentialException, NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, PotentialOperationException.DifferentSizesInPotentialsAndStates, NotSupportedOperationException {
+            NonProjectablePotentialException, NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
 		testCEADANEvaluation("only-zero-utility-ce", 1);
 	}
 	
 	@Tag(TestSpeed.MEDIUM)
 	@Test
 	public void testDANOneDecisionCE() throws
-            NonProjectablePotentialException, NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, PotentialOperationException.DifferentSizesInPotentialsAndStates, NotSupportedOperationException {
+            NonProjectablePotentialException, NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
 		testCEADANEvaluation("one-decision-CE", 2, 1.333333333);
 	}
 	
 	@Tag(TestSpeed.SLOW)
 	@Test
 	public void testDANOneChanceCE() throws
-            NonProjectablePotentialException, NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, PotentialOperationException.DifferentSizesInPotentialsAndStates, NotSupportedOperationException {
+            NonProjectablePotentialException, NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
 		testCEADANEvaluation("one-chance-ce", 1);
 	}
 	
 	@Tag(TestSpeed.SLOW)
 	@Test
 	public void testDANDecideTest() throws
-            NonProjectablePotentialException, NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, PotentialOperationException.DifferentSizesInPotentialsAndStates, NotSupportedOperationException {
+            NonProjectablePotentialException, NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
 		testCEADANEvaluation("decide-test-ce", 3, 11171.347828594418, 33383.5);
 	}
 		

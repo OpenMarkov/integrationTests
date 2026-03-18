@@ -147,7 +147,7 @@ public class midChancellorTests {
 	}
 	@Disabled
     @Test
-    public void stateVETemporalEvolutionTests() throws NonProjectablePotentialException, NotEvaluableNetworkException, IncompatibleEvidenceException, CannotNormalizePotentialException, ConstraintViolatedException {
+    public void stateVETemporalEvolutionTests() throws NonProjectablePotentialException, NotEvaluableNetworkException, IncompatibleEvidenceException, ConstraintViolatedException {
 		Variable stateVariable = null;
 			stateVariable = probNet.getVariable("State", 0);
 		// ProbNet network, Variable temporalVariable, EvidenceCase preResolutionEvidence, Variable decisionVariable)
@@ -209,7 +209,7 @@ public class midChancellorTests {
 	}
 	@Disabled
     @Test
-    public void costLamiduvineVETemporalEvolutionTests() throws NonProjectablePotentialException, NotEvaluableNetworkException, IncompatibleEvidenceException, CannotNormalizePotentialException, ConstraintViolatedException {
+    public void costLamiduvineVETemporalEvolutionTests() throws NonProjectablePotentialException, NotEvaluableNetworkException, IncompatibleEvidenceException, ConstraintViolatedException {
 		Variable stateVariable = null;
 			stateVariable = probNet.getVariable("Cost lamivudine", 0);
 		// ProbNet network, Variable temporalVariable, EvidenceCase preResolutionEvidence, Variable decisionVariable)
@@ -240,7 +240,7 @@ public class midChancellorTests {
 	
 	@Tag(TestSpeed.MEDIUM)
     @Test
-    public void costAZTVETemporalEvolutionTests() throws NonProjectablePotentialException, NotEvaluableNetworkException, IncompatibleEvidenceException, CannotNormalizePotentialException, ConstraintViolatedException {
+    public void costAZTVETemporalEvolutionTests() throws NonProjectablePotentialException, NotEvaluableNetworkException, IncompatibleEvidenceException, ConstraintViolatedException {
 		Variable stateVariable = null;
 			stateVariable = probNet.getVariable("Cost AZT", 0);
 		// ProbNet network, Variable temporalVariable, EvidenceCase preResolutionEvidence, Variable decisionVariable)
@@ -296,7 +296,7 @@ public class midChancellorTests {
 	
 	@Tag(TestSpeed.MEDIUM)
     @Test
-    public void directMedicalCostVETemporalEvolutionTests() throws NonProjectablePotentialException, NotEvaluableNetworkException, IncompatibleEvidenceException, CannotNormalizePotentialException, ConstraintViolatedException {
+    public void directMedicalCostVETemporalEvolutionTests() throws NonProjectablePotentialException, NotEvaluableNetworkException, IncompatibleEvidenceException, ConstraintViolatedException {
 		Variable stateVariable = null;
 			stateVariable = probNet.getVariable("Direct medical cost", 0);
 		// ProbNet network, Variable temporalVariable, EvidenceCase preResolutionEvidence, Variable decisionVariable)
@@ -351,7 +351,7 @@ public class midChancellorTests {
 	}
 	@Disabled
     @Test
-    public void communityCareCostVETemporalEvolutionTests() throws NonProjectablePotentialException, NotEvaluableNetworkException, IncompatibleEvidenceException, CannotNormalizePotentialException, ConstraintViolatedException {
+    public void communityCareCostVETemporalEvolutionTests() throws NonProjectablePotentialException, NotEvaluableNetworkException, IncompatibleEvidenceException, ConstraintViolatedException {
 		Variable stateVariable = null;
 			stateVariable = probNet.getVariable("Community care cost", 0);
 		// ProbNet network, Variable temporalVariable, EvidenceCase preResolutionEvidence, Variable decisionVariable)

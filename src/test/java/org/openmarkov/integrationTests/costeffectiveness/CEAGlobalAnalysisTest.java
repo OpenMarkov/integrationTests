@@ -268,7 +268,7 @@ public class CEAGlobalAnalysisTest {
 	@Disabled
 	@SuppressWarnings("rawtypes")
     @Test
-    public void testDMHEE47PSA() throws java.net.URISyntaxException, NonProjectablePotentialException, org.openmarkov.core.exception.ParserException, org.openmarkov.core.exception.IncompatibleEvidenceException, FileNotFoundException, org.openmarkov.core.exception.NotEvaluableNetworkException.NotApplicableNetwork, org.openmarkov.core.exception.NotEvaluableNetworkException.UnsatisfiedConstraints, NotSupportedOperationException, ConstraintViolatedException {
+    public void testDMHEE47PSA() throws java.net.URISyntaxException, NonProjectablePotentialException, org.openmarkov.core.exception.ParserException, org.openmarkov.core.exception.IncompatibleEvidenceException, FileNotFoundException, org.openmarkov.core.exception.NotEvaluableNetworkException.NotApplicableNetwork, org.openmarkov.core.exception.NotEvaluableNetworkException.UnsatisfiedConstraints, ConstraintViolatedException {
 		// Constants
 		String modelFilePath = "networks" + File.separator + "mid" + File.separator + "MID-dmhee-4.7.pgmx";
 		// Open the file containing the network
@@ -308,7 +308,7 @@ public class CEAGlobalAnalysisTest {
 	@Disabled
 	@SuppressWarnings("rawtypes")
     @Test
-    public void testBriggsSA() throws NonProjectablePotentialException, java.net.URISyntaxException, org.openmarkov.core.exception.ParserException, org.openmarkov.core.exception.IncompatibleEvidenceException, FileNotFoundException, org.openmarkov.core.exception.NotEvaluableNetworkException.NotApplicableNetwork, org.openmarkov.core.exception.NotEvaluableNetworkException.UnsatisfiedConstraints, NotSupportedOperationException, ConstraintViolatedException {
+    public void testBriggsSA() throws NonProjectablePotentialException, java.net.URISyntaxException, org.openmarkov.core.exception.ParserException, org.openmarkov.core.exception.IncompatibleEvidenceException, FileNotFoundException, org.openmarkov.core.exception.NotEvaluableNetworkException.NotApplicableNetwork, org.openmarkov.core.exception.NotEvaluableNetworkException.UnsatisfiedConstraints, ConstraintViolatedException {
 		// Constants
 		String modelFilePath = "networks" + File.separator + "mid" + File.separator + "MID-dmhee-4.8.pgmx";
 		// Open the file containing the network

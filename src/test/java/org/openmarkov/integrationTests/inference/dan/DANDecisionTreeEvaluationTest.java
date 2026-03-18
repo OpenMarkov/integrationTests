@@ -17,12 +17,12 @@ import org.openmarkov.inference.algorithm.decompositionIntoSymmetricDANs.evaluat
 public class DANDecisionTreeEvaluationTest extends DANEvaluationTest {
     
     @Override
-    public void testNetworkEvaluation(ProbNet network, double expectedEU, String... namesVariablesIntervention) throws NotEvaluableNetworkException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates, NotSupportedOperationException {
+    public void testNetworkEvaluation(ProbNet network, double expectedEU, String... namesVariablesIntervention) throws NotEvaluableNetworkException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
 		testNetworkEvaluationAndDecisionTree(network,expectedEU,namesVariablesIntervention);
 	}
     
     @Override
-    protected DANEvaluation buildNetworkEvaluation(ProbNet network, boolean computeDecisionTreeForGUI) throws NotEvaluableNetworkException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates, NotSupportedOperationException {
+    protected DANEvaluation buildNetworkEvaluation(ProbNet network, boolean computeDecisionTreeForGUI) throws NotEvaluableNetworkException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
         return new DANDecisionTreeEvaluation(network, computeDecisionTreeForGUI);
 	}
 
@@ -62,7 +62,7 @@ public class DANDecisionTreeEvaluationTest extends DANEvaluationTest {
 	
 	/*	
 	@Test
-	public void testDANKing() throws IncompatibleEvidenceException, UnexpectedInferenceException, NodeNotFoundException, NotEvaluableNetworkException{
+	public void testDANKing() throws IncompatibleEvidenceException, NodeNotFoundException, NotEvaluableNetworkException{
 		//TODO
 		//This test works now with DANDecisionTreeEvaluation, but it takes 52 seconds in the core i7 laptop borrowed from Miguel.
 		//That's why I have decided to comment it
