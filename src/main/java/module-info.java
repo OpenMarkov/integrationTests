@@ -5,6 +5,7 @@ open module org.openmarkov.integrationTests {
     requires org.openmarkov.core;
     requires org.openmarkov.costeffectiveness;
     requires org.openmarkov.dbgenerator;
+    requires org.openmarkov.full;
     requires org.openmarkov.gui;
     requires org.openmarkov.inference;
     requires org.openmarkov.io;
