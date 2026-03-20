@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
  * @author jrico
  */
 @DisabledIf(value = "java.awt.GraphicsEnvironment#isHeadless", disabledReason = "Your machine does not have a Graphic Environment")
-public class BasicTest extends BaseOpenMarkovAppTest {
+public class BasicOpenMarkovAppTest extends BaseOpenMarkovAppTest {
     
     /**
      * Opens a network and then changes the name of a node, verifying the node's name change was successfully changed.
