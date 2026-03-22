@@ -2,14 +2,12 @@ package org.openmarkov.integrationTests.gui_tests;
 
 import org.assertj.swing.core.MouseButton;
 import org.assertj.swing.fixture.JPanelFixture;
-import org.assertj.swing.fixture.JPopupMenuFixture;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledIf;
 import org.openmarkov.core.model.network.ProbNet;
 import org.openmarkov.integrationTests.IntegrationTest;
 import org.openmarkov.java.classUtils.ClassUtils;
 
-import javax.swing.*;
 import java.util.Comparator;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -38,13 +36,12 @@ public class BasicOpenMarkovAppTest extends BaseOpenMarkovAppTest {
                 .getNodes().stream().min(
                         Comparator.comparingDouble(node -> Math.sqrt(Math.pow(node.getCoordinateX(), 2) + Math.pow(node.getCoordinateY(), 2))))
                 .get();
+        // Double-click on the node to open the Node Properties dialog directly (EditorInputHandler
+        // opens CommonNodePropertiesDialog on double-click in edition mode).
         editorPanelFixture.robot().click(
                 editorPanelFixture.target(),
                 new java.awt.Point((int) nodeClosestToLeftUpCorner.getCoordinateX(), (int) nodeClosestToLeftUpCorner.getCoordinateY()),
-                MouseButton.RIGHT_BUTTON, 1);
-        
-        JPopupMenu activePopupMenu = this.window.robot().findActivePopupMenu();
-        new JPopupMenuFixture(this.window.robot(), activePopupMenu).menuItem("Edit.NodeProperties").click();
+                MouseButton.LEFT_BUTTON, 2);
         var nodePropertiesDialog = this.window.dialog("CommonNodePropertiesDialog");
         
         String originalNodeName = nodeClosestToLeftUpCorner.getName();
