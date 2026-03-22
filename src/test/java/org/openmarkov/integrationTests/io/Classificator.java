@@ -439,7 +439,7 @@ public class Classificator extends PGMXReader_0_2 {
         return sameInfoStrings(pr1.getName(), pr2.getName()) &&
                 sameInfoStrings(pr1.getComment(), pr2.getComment()) &&
                 sameInfoCycleLength(pr1.getCycleLength(), pr2.getCycleLength()) &&
-                sameInfoMapsStrings(pr1.additionalProperties, pr2.additionalProperties) &&
+                sameInfoMapsStrings(pr1.getAdditionalProperties(), pr2.getAdditionalProperties()) &&
                 sameInfoAgents(pr1.getAgents(), pr2.getAgents()) &&
                 sameInfoInferenceOptions(pr1.getInferenceOptions(), pr2.getInferenceOptions());
     }
@@ -671,7 +671,7 @@ public class Classificator extends PGMXReader_0_2 {
     
     private boolean sameStates(State state1, State state2) {
         return sameInfoStrings(state1.getName(), state2.getName()) &&
-                sameInfoMapsStrings(state1.additionalProperties, state2.additionalProperties);
+                sameInfoMapsStrings(state1.getAdditionalProperties(), state2.getAdditionalProperties());
     }
     
     private boolean sameInfoListOfStates(List<State> states1, List<State> states2) {
