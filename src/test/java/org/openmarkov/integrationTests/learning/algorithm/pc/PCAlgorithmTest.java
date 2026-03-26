@@ -62,7 +62,7 @@ public class PCAlgorithmTest {
 		}
 		
 		LearningAlgorithm learningAlgorithm = new PCAlgorithm(learnedNet, ABCEDatabase, alpha, independenceTester,
-															  significanceLevel);
+															  significanceLevel, null);
 		
 		learningAlgorithm.run(new ModelNetUse());
 		Node nodeA = learnedNet.getNode("A");
@@ -123,7 +123,7 @@ public class PCAlgorithmTest {
 		}
 		
 		LearningAlgorithm learningAlgorithm = new PCAlgorithm(learnedNet, learnTestDatabase, alpha, independenceTester,
-															  significanceLevel);
+															  significanceLevel, null);
 		
 		double[] probabilities;
 		learningAlgorithm.run(new ModelNetUse());
@@ -224,7 +224,7 @@ public class PCAlgorithmTest {
 		}
 
 		LearningAlgorithm learningAlgorithm = new PCAlgorithm(learnedNet, asiaDatabase, alpha, independenceTester,
-				significanceLevel);
+				significanceLevel, null);
 
 		learningAlgorithm.run(new ModelNetUse());
 
@@ -334,7 +334,7 @@ public class PCAlgorithmTest {
 		}
 
 		LearningAlgorithm learningAlgorithm = new PCAlgorithm(learnedNet, alarmDatabase, alpha, independenceTester,
-				significanceLevel);
+				significanceLevel, null);
 
 		learningAlgorithm.run(new ModelNetUse());
 
@@ -356,7 +356,7 @@ public class PCAlgorithmTest {
 		}
 
 		LearningAlgorithm learningAlgorithm = new PCAlgorithm(learnedNet, alarm10kDatabase, alpha, independenceTester,
-				significanceLevel);
+				significanceLevel, null);
 
 		learningAlgorithm.run(new ModelNetUse());
 
