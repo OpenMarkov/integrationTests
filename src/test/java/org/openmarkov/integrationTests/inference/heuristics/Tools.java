@@ -18,6 +18,7 @@ import org.openmarkov.core.model.decisiontree.DecisionTreeNode;
 import org.openmarkov.core.model.network.NodeType;
 import org.openmarkov.core.model.network.ProbNet;
 import org.openmarkov.core.model.network.Variable;
+import org.openmarkov.core.model.network.potential.StrategicTablePotential;
 import org.openmarkov.core.model.network.potential.StrategyTree;
 import org.openmarkov.core.model.network.potential.TablePotential;
 import org.openmarkov.gui.window.decisiontree.DecisionTreePanel;
@@ -67,7 +68,7 @@ public class Tools {
 			String... namesVariablesIntervention) {
 		//String strIntervention = globalUtility.interventions[0].toStringForGraphviz(network);
 		Assertions.assertEquals(expectedEU, globalUtility.getFirstValue(), 0.0001);
-		StrategyTree[] inter = globalUtility.strategyTrees;
+		StrategyTree[] inter = (globalUtility instanceof StrategicTablePotential stp) ? stp.strategyTrees : null;
 		if (inter != null && namesVariablesIntervention != null && namesVariablesIntervention.length > 0) {
 			StrategyTree strategyTree = inter[0];
 			String strIntervention = strategyTree.toStringForGraphviz(network);

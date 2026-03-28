@@ -948,14 +948,16 @@ public class Classificator extends PGMXReader_0_2 {
         same &= tablePotential1.getInitialPosition() == tablePotential2.getInitialPosition();
         // It does not compare offsets and dimensions because variables are already checked.
         
-        boolean bothNull = tablePotential1.uncertainValues == null && tablePotential2.uncertainValues == null;
-        boolean bothNotNull = tablePotential1.uncertainValues != null && tablePotential2.uncertainValues != null;
-        same &= bothNull || (bothNotNull && tablePotential1.uncertainValues.length == tablePotential2.uncertainValues.length);
+        UncertainValue[] uv1 = tablePotential1.getUncertainValues();
+        UncertainValue[] uv2 = tablePotential2.getUncertainValues();
+        boolean bothNull = uv1 == null && uv2 == null;
+        boolean bothNotNull = uv1 != null && uv2 != null;
+        same &= bothNull || (bothNotNull && uv1.length == uv2.length);
         if (same && bothNotNull) {
             int i;
-            for (i = 0; i < tablePotential1.uncertainValues.length && sameInfoUncertainValues(tablePotential1.uncertainValues[i], tablePotential2.uncertainValues[i]); i++)
+            for (i = 0; i < uv1.length && sameInfoUncertainValues(uv1[i], uv2[i]); i++)
                 ;
-            same = i == tablePotential1.uncertainValues.length;
+            same = i == uv1.length;
         }
         
         return same;
