@@ -15,6 +15,11 @@ import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
 
 
+/**
+ * Abstract base for DAN cost-effectiveness analysis integration tests.
+ *
+ * @author Manuel Arias
+ */
 public abstract class DANCEATest {
     
     public void testCEADANEvaluation(String danName, int globalNumberOfCEPIntervals, double... expectedThreshods) throws NonProjectablePotentialException, NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
@@ -35,6 +40,34 @@ public abstract class DANCEATest {
 		double[] obtainedThresholds = cep.getThresholds();
 		for (int i = 0; i < numThresholds; i++) {
 			Assertions.assertEquals(expectedThreshods[i], obtainedThresholds[i], 0.1);
+		}
+
+		// Structural assertions: every interval must have finite cost and effectiveness
+		for (int i = 0; i < globalNumberOfCEPIntervals; i++) {
+			double cost = cep.getCost(i);
+			double eff  = cep.getEffectiveness(i);
+			Assertions.assertFalse(Double.isNaN(cost),
+					"Interval " + i + ": cost must not be NaN");
+			Assertions.assertFalse(Double.isInfinite(cost),
+					"Interval " + i + ": cost must not be Infinite");
+			Assertions.assertFalse(Double.isNaN(eff),
+					"Interval " + i + ": effectiveness must not be NaN");
+			Assertions.assertFalse(Double.isInfinite(eff),
+					"Interval " + i + ": effectiveness must not be Infinite");
+		}
+
+		// ICER consistency: for a single-threshold CEP the increment ratio must
+		// equal the threshold value (within tolerance).
+		if (numThresholds == 1 && expectedThreshods[0] > 0) {
+			double cost0 = cep.getCost(0), eff0 = cep.getEffectiveness(0);
+			double cost1 = cep.getCost(1), eff1 = cep.getEffectiveness(1);
+			double deltaE = eff1 - eff0;
+			if (Math.abs(deltaE) > 1e-10) {
+				double icer = Math.abs((cost1 - cost0) / deltaE);
+				Assertions.assertEquals(expectedThreshods[0], icer,
+						expectedThreshods[0] * 0.01 + 0.01, // 1 % + absolute tolerance
+						"ICER between the two intervals should equal the threshold");
+			}
 		}
 	}
     
