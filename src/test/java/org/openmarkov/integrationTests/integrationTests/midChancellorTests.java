@@ -19,6 +19,7 @@ import org.openmarkov.core.model.network.ProbNet;
 import org.openmarkov.core.model.network.UtilityOperations;
 import org.openmarkov.core.model.network.Variable;
 import org.openmarkov.core.model.network.potential.GTablePotential;
+import org.openmarkov.core.model.network.potential.Potential;
 import org.openmarkov.core.model.network.potential.StrategyTree;
 import org.openmarkov.core.model.network.potential.TablePotential;
 import org.openmarkov.core.model.network.potential.treeadd.TreeADDBranch;
@@ -409,17 +410,17 @@ public class midChancellorTests {
     public void veTemporalEvaluationTest() throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedConstraints, ConstraintViolatedException {
 			TemporalEvaluation temporalEvaluation = new TemporalEvaluation(probNet);
 			temporalEvaluation.setPreResolutionEvidence(preResolutionEvidence);
-			TablePotential atemporalUtility = temporalEvaluation.getAtemporalUtility();
-			Assertions.assertEquals(atemporalUtility.values[0], 0, deltaEquals);
+			GTablePotential atemporalUtility = (GTablePotential) temporalEvaluation.getAtemporalUtility();
+			Assertions.assertEquals(((CEP) atemporalUtility.elementTable.get(0)).getCost(0), 0, deltaEquals);
 
-			List<TablePotential> potentialsPerSlice = temporalEvaluation.getUtilityPotentialsPerSlice();
+			List<Potential> potentialsPerSlice = temporalEvaluation.getUtilityPotentialsPerSlice();
 			double[] costs_monotherapy = new double[21];
 			double[] effectiveness_monotherapy = new double[21];
 			double[] costs_combtherapy = new double[21];
 			double[] effectiveness_combtherapy = new double[21];
 
 			int slice = 0;
-			for (TablePotential tablePotential : potentialsPerSlice) {
+			for (Potential tablePotential : potentialsPerSlice) {
 				costs_monotherapy[slice] = ((CEP) ((GTablePotential) tablePotential).elementTable.get(0)).getCost(0);
 				effectiveness_monotherapy[slice] = ((CEP) ((GTablePotential) tablePotential).elementTable.get(0))
 						.getEffectiveness(0);

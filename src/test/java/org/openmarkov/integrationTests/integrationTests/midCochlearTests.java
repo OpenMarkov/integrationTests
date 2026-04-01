@@ -14,7 +14,7 @@ import org.openmarkov.core.inference.tasks.CEAnalysis;
 import org.openmarkov.core.io.ProbNetInfo;
 import org.openmarkov.core.model.network.*;
 import org.openmarkov.core.model.network.potential.GTablePotential;
-import org.openmarkov.core.model.network.potential.TablePotential;
+import org.openmarkov.core.model.network.potential.Potential;
 import org.openmarkov.inference.algorithm.temporalevaluation.tasks.TemporalEvaluation;
 import org.openmarkov.inference.algorithm.variableElimination.tasks.VECEAnalysis;
 import org.openmarkov.io.probmodel.reader.PGMXReader_0_2;
@@ -64,16 +64,16 @@ public class midCochlearTests {
         Assertions.assertEquals(21639.98, ((CEP) atemporalUtility.elementTable.get(1)).getCost(0), deltaEquals);
         Assertions.assertEquals(26100, ((CEP) atemporalUtility.elementTable.get(2)).getCost(0), deltaEquals);
         
-        List<TablePotential> potentialsPerSlice = temporalEvaluation.getUtilityPotentialsPerSlice();
+        List<Potential> potentialsPerSlice = temporalEvaluation.getUtilityPotentialsPerSlice();
         double[] costs_UCI = new double[101];
         double[] effectiveness_UCI = new double[101];
         double[] costs_BCI_Sim = new double[101];
         double[] effectiveness_BCI_Sim = new double[101];
         double[] costs_BCI_Seq = new double[101];
         double[] effectiveness_BCI_Seq = new double[101];
-        
+
         int slice = 0;
-        for (TablePotential tablePotential : potentialsPerSlice) {
+        for (Potential tablePotential : potentialsPerSlice) {
             costs_UCI[slice] = ((CEP) ((GTablePotential) tablePotential).elementTable.get(0)).getCost(0);
             effectiveness_UCI[slice] = ((CEP) ((GTablePotential) tablePotential).elementTable.get(0))
                     .getEffectiveness(0);
@@ -85,14 +85,14 @@ public class midCochlearTests {
                     .getEffectiveness(0);
             slice++;
         }
-        
-        double c_UCI = UtilityOperations.applyLeftRiemannSum(costs_UCI, 1) + atemporalUtility.values[0];
+
+        double c_UCI = UtilityOperations.applyLeftRiemannSum(costs_UCI, 1) + ((CEP) atemporalUtility.elementTable.get(0)).getCost(0);
         double e_UCI = UtilityOperations.applyLeftRiemannSum(effectiveness_UCI, 1);
-        
-        double c_BCI_Sim = UtilityOperations.applyLeftRiemannSum(costs_BCI_Sim, 1) + atemporalUtility.values[1];
+
+        double c_BCI_Sim = UtilityOperations.applyLeftRiemannSum(costs_BCI_Sim, 1) + ((CEP) atemporalUtility.elementTable.get(1)).getCost(0);
         double e_BCI_Sim = UtilityOperations.applyLeftRiemannSum(effectiveness_BCI_Sim, 1);
-        
-        double c_BCI_Seq = UtilityOperations.applyLeftRiemannSum(costs_BCI_Seq, 1) + atemporalUtility.values[2];
+
+        double c_BCI_Seq = UtilityOperations.applyLeftRiemannSum(costs_BCI_Seq, 1) + ((CEP) atemporalUtility.elementTable.get(2)).getCost(0);
         double e_BCI_Seq = UtilityOperations.applyLeftRiemannSum(effectiveness_BCI_Seq, 1);
         Variable decisionVariable = null;
         decisionVariable = probNet.getVariable("Intervention decided");
@@ -119,13 +119,13 @@ public class midCochlearTests {
         
         //Asserting that Right Riemann Summ is equals to a transition at the beginning
         probNet.getInferenceOptions().getTemporalOptions().setTransition(TemporalOptions.TransitionTime.BEGINNING);
-        c_UCI = UtilityOperations.applyRightRiemannSum(costs_UCI, 1) + atemporalUtility.values[0];
+        c_UCI = UtilityOperations.applyRightRiemannSum(costs_UCI, 1) + ((CEP) atemporalUtility.elementTable.get(0)).getCost(0);
         e_UCI = UtilityOperations.applyRightRiemannSum(effectiveness_UCI, 1);
-        
-        c_BCI_Sim = UtilityOperations.applyRightRiemannSum(costs_BCI_Sim, 1) + atemporalUtility.values[1];
+
+        c_BCI_Sim = UtilityOperations.applyRightRiemannSum(costs_BCI_Sim, 1) + ((CEP) atemporalUtility.elementTable.get(1)).getCost(0);
         e_BCI_Sim = UtilityOperations.applyRightRiemannSum(effectiveness_BCI_Sim, 1);
-        
-        c_BCI_Seq = UtilityOperations.applyRightRiemannSum(costs_BCI_Seq, 1) + atemporalUtility.values[2];
+
+        c_BCI_Seq = UtilityOperations.applyRightRiemannSum(costs_BCI_Seq, 1) + ((CEP) atemporalUtility.elementTable.get(2)).getCost(0);
         e_BCI_Seq = UtilityOperations.applyRightRiemannSum(effectiveness_BCI_Seq, 1);
         
         veceaDecision = new VECEAnalysis(probNet);

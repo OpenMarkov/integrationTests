@@ -691,8 +691,8 @@ public class Classificator extends PGMXReader_0_2 {
         int numPotentials = probNet1.getNumPotentials();
         boolean same = numPotentials == probNet2.getNumPotentials();
         if (same && numPotentials > 0) {
-            Set<TablePotential> constantPotentials1 = probNet1.getConstantPotentials();
-            Set<TablePotential> constantPotentials2 = probNet2.getConstantPotentials();
+            Set<Potential> constantPotentials1 = probNet1.getConstantPotentials();
+            Set<Potential> constantPotentials2 = probNet2.getConstantPotentials();
             same = sameInfoConstantPotentials(constantPotentials1, constantPotentials2);
             if (same) {
                 List<Potential> potentials1 = probNet1.getPotentials();
@@ -907,18 +907,18 @@ public class Classificator extends PGMXReader_0_2 {
         return same;
     }
     
-    private boolean sameInfoConstantPotentials(Set<TablePotential> constantPotentials1, Set<TablePotential> constantPotentials2) {
+    private boolean sameInfoConstantPotentials(Set<Potential> constantPotentials1, Set<Potential> constantPotentials2) {
         boolean bothNotNull = constantPotentials1 != null && constantPotentials2 != null;
         boolean bothNull = constantPotentials1 == null && constantPotentials2 == null;
         boolean same = bothNull || (bothNotNull && constantPotentials1.size() == constantPotentials2.size());
         if (bothNotNull && same) {
             int numConstantPotentials = constantPotentials1.size();
             if (numConstantPotentials > 0) {
-                List<TablePotential> list1 = new ArrayList<TablePotential>(constantPotentials1);
-                List<TablePotential> list2 = new ArrayList<TablePotential>(constantPotentials2);
+                List<Potential> list1 = new ArrayList<Potential>(constantPotentials1);
+                List<Potential> list2 = new ArrayList<Potential>(constantPotentials2);
                 for (int i = 0; i < numConstantPotentials && same; i++) {
                     int j;
-                    for (j = 0; j < numConstantPotentials && !sameInfoTablePotentials(list1.get(i), list2.get(j)); j++)
+                    for (j = 0; j < numConstantPotentials && !sameInfoTablePotentials((TablePotential) list1.get(i), (TablePotential) list2.get(j)); j++)
                         ;
                     same = j < numConstantPotentials;
                 }

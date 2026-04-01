@@ -13,7 +13,7 @@ import org.openmarkov.core.model.network.Node;
 import org.openmarkov.core.model.network.NodeType;
 import org.openmarkov.core.model.network.ProbNet;
 import org.openmarkov.core.model.network.potential.GTablePotential;
-import org.openmarkov.core.model.network.potential.TablePotential;
+import org.openmarkov.core.model.network.potential.Potential;
 import org.openmarkov.core.testTags.TestSpeed;
 import org.openmarkov.inference.algorithm.temporalevaluation.tasks.TemporalEvaluation;
 import org.openmarkov.inference.algorithm.variableElimination.tasks.VECEAnalysis;
@@ -61,9 +61,9 @@ public class TemporalEvaluationTest {
         temporalEvaluation.setPreResolutionEvidence(preResolutionEvidence);
         temporalEvaluation.setConditioningVariables(Arrays.asList(probNet.getVariable("Therapy type")));
         
-        List<TablePotential> potentialsPerSlice = temporalEvaluation.getUtilityPotentialsPerSlice();
-        
-        for (TablePotential potential : potentialsPerSlice) {
+        List<Potential> potentialsPerSlice = temporalEvaluation.getUtilityPotentialsPerSlice();
+
+        for (Potential potential : potentialsPerSlice) {
             LogManager.getLogger().debug(potential.toString());
         }
     }

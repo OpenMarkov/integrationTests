@@ -7,6 +7,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.openmarkov.core.io.ProbNetReader;
 import org.openmarkov.core.io.format.annotation.FormatType;
 import org.openmarkov.core.model.network.ProbNet;
+import org.openmarkov.core.model.network.potential.GTablePotential;
 import org.openmarkov.core.model.network.potential.Potential;
 import org.openmarkov.core.model.network.potential.PotentialRole;
 import org.openmarkov.io.probmodel.reader.PGMXReader_0_2;
@@ -23,6 +24,13 @@ class PGMXReadersTest {
     
     static final HashSet<Class<? extends ProbNetReader>> READERS_THAT_CAN_MISS_POTENTIAL_READER_METHODS
             = new HashSet<>(List.of(PGMXReader_0_2.class, XMLBIFReader.class));
+
+    /**
+     * Potential classes that are computational artifacts and are never stored in PGMX files,
+     * so they do not need a corresponding reader method.
+     */
+    static final HashSet<Class<? extends Potential>> POTENTIALS_WITHOUT_PGMX_REPRESENTATION
+            = new HashSet<>(List.of(GTablePotential.class));
     
     record TestData(PGMXReader_0_2 pgmxReader, Class<? extends Potential> potentialClass,
                     boolean requiresToReadAllPotentials) {
@@ -71,6 +79,7 @@ class PGMXReadersTest {
                                .extending(Potential.class)
                                .filter(ClassUtils::isConcrete)
                                .stream()
+                               .filter(potentialClass -> !POTENTIALS_WITHOUT_PGMX_REPRESENTATION.contains(potentialClass))
                                .map(potentialClass -> new TestData(reader, potentialClass, requiresToReadAllPotentials));
         });
     }
