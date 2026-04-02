@@ -81,7 +81,7 @@ public class bnCatarnetTests {
 					expectedValues = new double[] { 0.9190, 0.0810 };
 					break;
 				}
-				Assertions.assertArrayEquals(posteriorVales.get(variable).values, expectedValues, deltaEquals);
+				Assertions.assertArrayEquals(posteriorVales.get(variable).getValues(), expectedValues, deltaEquals);
 			}
 	}
 	
@@ -121,7 +121,7 @@ public class bnCatarnetTests {
 					expectedValues = new double[] { 0.8508, 0.1492 };
 					break;
 				}
-				Assertions.assertArrayEquals(posteriorVales.get(variable).values, expectedValues, deltaEquals);
+				Assertions.assertArrayEquals(posteriorVales.get(variable).getValues(), expectedValues, deltaEquals);
 			}
 	}
 	@Disabled

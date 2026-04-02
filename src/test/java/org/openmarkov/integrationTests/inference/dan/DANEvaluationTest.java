@@ -329,7 +329,7 @@ public abstract class DANEvaluationTest extends NetworkEvaluationInferenceTest {
 			TablePotential globalUtility = recursiveEvaluation.getGlobalUtility();
 			long ellapsedTime = (System.nanoTime() - startTime) / 1000000;
 			System.out.println(" Execution time =" +ellapsedTime);
-			Assert.assertEquals(9.4076, globalUtility.values[0], 0.0001);
+			Assert.assertEquals(9.4076, globalUtility.getValues()[0], 0.0001);
 			Assert.assertNotNull(recursiveEvaluation.getOptimalStrategy());
 		}
 
@@ -345,7 +345,7 @@ public abstract class DANEvaluationTest extends NetworkEvaluationInferenceTest {
 			TablePotential globalUtility = recursiveEvaluation.getGlobalUtility();
 			long ellapsedTime = (System.nanoTime() - startTime) / 1000000;
 			System.out.println(" Execution time =" +ellapsedTime);
-			Assert.assertEquals(1.4710368294106826, globalUtility.values[0], 0.000001);
+			Assert.assertEquals(1.4710368294106826, globalUtility.getValues()[0], 0.000001);
 		}	
 
 		@Test

@@ -81,7 +81,7 @@ public class bnHeparTests {
                     expectedValues = new double[]{0.8718, 0.1282};
                     break;
             }
-            Assertions.assertArrayEquals(posteriorVales.get(variable).values, expectedValues, deltaEquals);
+            Assertions.assertArrayEquals(posteriorVales.get(variable).getValues(), expectedValues, deltaEquals);
         }
         
     }
@@ -125,7 +125,7 @@ public class bnHeparTests {
                     expectedValues = new double[]{0.2051, 0.7949};
                     break;
             }
-            Assertions.assertArrayEquals(posteriorVales.get(variable).values, expectedValues, deltaEquals);
+            Assertions.assertArrayEquals(posteriorVales.get(variable).getValues(), expectedValues, deltaEquals);
         }
     }
 }

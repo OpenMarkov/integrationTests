@@ -51,7 +51,7 @@ public class danAlgorithmTests {
         CEP resultCEA = new DANDecompositionIntoSymmetricDANsCEA(probNet).getCEP();
         TablePotential resultUNI = new DANDecompositionIntoSymmetricDANsEvaluation(probNet).getUtility();
         
-        Assertions.assertEquals(resultUNI.values[0], resultCEA.getEffectiveness(lambda) * lambda - resultCEA.getCost(lambda), deltaEquals);
+        Assertions.assertEquals(resultUNI.getValues()[0], resultCEA.getEffectiveness(lambda) * lambda - resultCEA.getCost(lambda), deltaEquals);
         
     }
     
@@ -72,7 +72,7 @@ public class danAlgorithmTests {
         CEP resultCEA = new DANDecompositionIntoSymmetricDANsCEA(probNet).getCEP();
         TablePotential resultUNI = new DANDecompositionIntoSymmetricDANsEvaluation(probNet).getUtility();
         
-        Assertions.assertEquals(resultUNI.values[0], resultCEA.getEffectiveness(lambda) * lambda - resultCEA.getCost(lambda), deltaEquals);
+        Assertions.assertEquals(resultUNI.getValues()[0], resultCEA.getEffectiveness(lambda) * lambda - resultCEA.getCost(lambda), deltaEquals);
         
     }
     
@@ -93,7 +93,7 @@ public class danAlgorithmTests {
         CEP resultCEA = new DANDecompositionIntoSymmetricDANsCEA(probNet).getCEP();
         TablePotential resultUNI = new DANDecompositionIntoSymmetricDANsEvaluation(probNet).getUtility();
         
-        Assertions.assertEquals(resultUNI.values[0], resultCEA.getEffectiveness(lambda) * lambda - resultCEA.getCost(lambda), deltaEquals);
+        Assertions.assertEquals(resultUNI.getValues()[0], resultCEA.getEffectiveness(lambda) * lambda - resultCEA.getCost(lambda), deltaEquals);
         
     }
     
@@ -114,7 +114,7 @@ public class danAlgorithmTests {
         CEP resultCEA = new DANDecompositionIntoSymmetricDANsCEA(probNet).getCEP();
         TablePotential resultUNI = new DANDecompositionIntoSymmetricDANsEvaluation(probNet).getUtility();
         
-        Assertions.assertEquals(resultUNI.values[0], resultCEA.getEffectiveness(lambda) * lambda - resultCEA.getCost(lambda), deltaEquals);
+        Assertions.assertEquals(resultUNI.getValues()[0], resultCEA.getEffectiveness(lambda) * lambda - resultCEA.getCost(lambda), deltaEquals);
         
     }
     
@@ -136,7 +136,7 @@ public class danAlgorithmTests {
         CEP resultCEA = new DANDecompositionIntoSymmetricDANsCEA(probNet).getCEP();
         TablePotential resultUNI = new DANDecompositionIntoSymmetricDANsEvaluation(probNet).getUtility();
         
-        Assertions.assertEquals(resultUNI.values[0], resultCEA.getEffectiveness(lambda) * lambda - resultCEA.getCost(lambda), deltaEquals);
+        Assertions.assertEquals(resultUNI.getValues()[0], resultCEA.getEffectiveness(lambda) * lambda - resultCEA.getCost(lambda), deltaEquals);
         
     }
 }

@@ -99,7 +99,7 @@ public class bnTwoDiseasesTests {
 					expectedValues = new double[] { 0.9715, 0.0285 };
 					break;
 				}
-				Assertions.assertArrayEquals(posteriorVales.get(variable).values, expectedValues, deltaEquals);
+				Assertions.assertArrayEquals(posteriorVales.get(variable).getValues(), expectedValues, deltaEquals);
 			}
 	}
 
@@ -153,7 +153,7 @@ public class bnTwoDiseasesTests {
 					expectedValues = new double[] { 0.3, 0.7 };
 					break;
 				}
-				Assertions.assertArrayEquals(posteriorVales.get(variable).values, expectedValues, deltaEquals);
+				Assertions.assertArrayEquals(posteriorVales.get(variable).getValues(), expectedValues, deltaEquals);
 			}
 	}
 	
@@ -214,7 +214,7 @@ public class bnTwoDiseasesTests {
 					break;
 
 				}
-				Assertions.assertArrayEquals(posteriorVales.get(variable).values, expectedValues, deltaEquals);
+				Assertions.assertArrayEquals(posteriorVales.get(variable).getValues(), expectedValues, deltaEquals);
 			}
 
 	}

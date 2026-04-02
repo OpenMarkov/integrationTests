@@ -101,7 +101,7 @@ public class InferenceProbabilityInvariantsTest {
         for (Variable variable : chanceVars) {
             TablePotential posterior = posteriors.get(variable);
             assertNotNull(posterior, "Posterior must be computed for variable: " + variable.getName());
-            assertValidDistribution(posterior.values, variable.getName());
+            assertValidDistribution(posterior.getValues(), variable.getName());
         }
     }
 
@@ -149,7 +149,7 @@ public class InferenceProbabilityInvariantsTest {
         for (Variable variable : variablesOfInterest) {
             TablePotential posterior = posteriors.get(variable);
             assertNotNull(posterior, "Posterior missing for: " + variable.getName());
-            assertValidDistribution(posterior.values, variable.getName());
+            assertValidDistribution(posterior.getValues(), variable.getName());
         }
     }
 
@@ -185,7 +185,7 @@ public class InferenceProbabilityInvariantsTest {
         for (Variable variable : variablesOfInterest) {
             TablePotential posterior = posteriors.get(variable);
             assertNotNull(posterior, "Posterior missing for: " + variable.getName());
-            assertValidDistribution(posterior.values, variable.getName());
+            assertValidDistribution(posterior.getValues(), variable.getName());
         }
     }
 
@@ -218,7 +218,7 @@ public class InferenceProbabilityInvariantsTest {
                 "Must receive a posterior for every chance variable");
 
         for (Map.Entry<Variable, TablePotential> entry : posteriors.entrySet()) {
-            assertValidDistribution(entry.getValue().values, entry.getKey().getName());
+            assertValidDistribution(entry.getValue().getValues(), entry.getKey().getName());
         }
     }
 
@@ -262,7 +262,7 @@ public class InferenceProbabilityInvariantsTest {
         for (Variable v : variablesOfInterest) {
             TablePotential posterior = posteriors.get(v);
             assertNotNull(posterior, "Posterior missing for: " + v.getName());
-            assertValidDistribution(posterior.values, v.getName());
+            assertValidDistribution(posterior.getValues(), v.getName());
         }
     }
 

@@ -938,12 +938,12 @@ public class Classificator extends PGMXReader_0_2 {
         boolean same = sameInfoCommonPartPotentials(tablePotential1, tablePotential2);
         
         // Compare values
-        same &= tablePotential1.values.length == tablePotential2.values.length;
+        same &= tablePotential1.getValues().length == tablePotential2.getValues().length;
         if (same) {
             int i;
-            for (i = 0; i < tablePotential1.values.length && tablePotential1.values[i] == tablePotential2.values[i]; i++)
+            for (i = 0; i < tablePotential1.getValues().length && tablePotential1.getValues()[i] == tablePotential2.getValues()[i]; i++)
                 ;
-            same = i == tablePotential1.values.length;
+            same = i == tablePotential1.getValues().length;
         }
         same &= tablePotential1.getInitialPosition() == tablePotential2.getInitialPosition();
         // It does not compare offsets and dimensions because variables are already checked.

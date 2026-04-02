@@ -57,9 +57,9 @@ public class TemporalNetOperationsTest {
         
         for (Node utilityNode : probNet.getNodes(NodeType.UTILITY)) {
             double potential1 = ((ExactDistrPotential) utilityNode.getPotentials().get(0))
-                    .getTablePotential().values[0];
+                    .getTablePotential().getValues()[0];
             double potential2 = ((ExactDistrPotential) utilityNode.getPotentials().get(0))
-                    .getTablePotential().values[1];
+                    .getTablePotential().getValues()[1];
             int numSlice = utilityNode.getVariable().getTimeSlice();
             double discount = CycleLength.getTemporalAdjustedDiscount(probNet.getCycleLength().getUnit(),
                                                                       probNet.getCycleLength().getValue(),
@@ -97,9 +97,9 @@ public class TemporalNetOperationsTest {
         
         for (Node utilityNode : probNet.getNodes(NodeType.UTILITY)) {
             double potential1 = ((ExactDistrPotential) utilityNode.getPotentials().get(0))
-                    .getTablePotential().values[0];
+                    .getTablePotential().getValues()[0];
             double potential2 = ((ExactDistrPotential) utilityNode.getPotentials().get(0))
-                    .getTablePotential().values[1];
+                    .getTablePotential().getValues()[1];
             int numSlice = utilityNode.getVariable().getTimeSlice();
             double discount = CycleLength.getTemporalAdjustedDiscount(probNet.getCycleLength().getUnit(),
                                                                       probNet.getCycleLength().getValue(),
