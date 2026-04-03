@@ -276,6 +276,14 @@ public abstract class DANEvaluationTest extends NetworkEvaluationInferenceTest {
             NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
         testNetworkEvaluation("nested-product-of-sums-sv", 45);
     }
+
+    @Test
+    public void testDANNestedSumSVNonTree() throws
+            NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+        // Issue #520: Non-tree super-value structure where U2 is shared by U5 and U6
+        // U1=2, U2=3, U4=5, U5=Sum(U1,U2)=5, U6=Sum(U2,U4)=8, U0=Sum(U5,U6)=13
+        testNetworkEvaluation("nested-sum-sv-non-tree", 13);
+    }
     
     @Test public void testDANOnlyOneUtilityAbsSV()
             throws
