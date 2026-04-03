@@ -1,22 +1,19 @@
 package org.openmarkov.integrationTests.io;
 
-import org.jdom2.Element;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.openmarkov.core.io.ProbNetReader;
 import org.openmarkov.core.io.format.annotation.FormatType;
-import org.openmarkov.core.model.network.ProbNet;
 import org.openmarkov.core.model.network.potential.GTablePotential;
 import org.openmarkov.core.model.network.potential.Potential;
-import org.openmarkov.core.model.network.potential.PotentialRole;
 import org.openmarkov.io.probmodel.reader.PGMXReader_0_2;
+import org.openmarkov.io.probmodel.reader.PotentialParser;
 import org.openmarkov.io.xmlbif.XMLBIFReader;
 import org.openmarkov.java.classUtils.ClassUtils;
 import org.openmarkov.plugin.PluginSearch;
 
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.*;
 import java.util.stream.Stream;
 
@@ -39,19 +36,12 @@ class PGMXReadersTest {
     @ParameterizedTest
     @MethodSource("generateTestData")
     public void testAllReaders(TestData testData) {
-        Method method = testData.pgmxReader.potentialGenerators.get(testData.potentialClass);
-        if (method == null) {
+        PotentialParser parser = testData.pgmxReader.potentialParsers.get(testData.potentialClass);
+        if (parser == null) {
             if (testData.requiresToReadAllPotentials) {
-                Assertions.fail("No potential reader method found in " + testData.getClass() + " for potential of class " + testData.potentialClass);
+                Assertions.fail("No potential parser found in " + testData.pgmxReader.getClass() + " for potential of class " + testData.potentialClass);
             }
-            return;
         }
-        var params = method.getParameterTypes();
-        Assertions.assertArrayEquals(new Class[]{Element.class, ProbNet.class, PotentialRole.class, List.class}, params,
-                                     "Parameters of reader method " + method + " should be (Element xmlPotential, ProbNet probNet, PotentialRole xmlRole, List<Variable> variables)");
-        Assertions.assertTrue(Potential.class.isAssignableFrom(method.getReturnType()), method + " should return a Potential");
-        Assertions.assertTrue(method.getReturnType()
-                                    .isAssignableFrom(testData.potentialClass), method + " returns a " + method.getReturnType() + ", which cannot be casted into " + testData.potentialClass);
     }
     
     public static Stream<TestData> generateTestData() {
