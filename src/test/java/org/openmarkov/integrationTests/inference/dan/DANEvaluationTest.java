@@ -283,6 +283,13 @@ public abstract class DANEvaluationTest extends NetworkEvaluationInferenceTest {
         testNetworkEvaluation("only-one-utility-abs-sv", 2);
     }
     
+    @Test
+    public void testDANWith2UtilityNodes() throws
+            NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+        // Issue #486: Error evaluating DAN with 2 utility nodes
+        testNetworkEvaluation("with-2-utility-nodes", 2251.25);
+    }
+
     @Test public void testDANOnlyOneUtilitySumAbsSV()
             throws
             NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
