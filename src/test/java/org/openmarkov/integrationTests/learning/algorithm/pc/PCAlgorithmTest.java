@@ -69,7 +69,7 @@ public class PCAlgorithmTest {
 		Node nodeB = learnedNet.getNode("B");
 		Node nodeC = learnedNet.getNode("C");
 		Node nodeE = learnedNet.getNode("E");
-		
+
 		Assertions.assertNotNull(nodeA);
         if (nodeA!=null) System.out.println("A found.");
 		Assertions.assertNotNull(nodeB);
@@ -109,7 +109,7 @@ public class PCAlgorithmTest {
 			Assertions.assertEquals(expectedProbabilities[i], probabilities[i], maxError);
 		}
 	}
-	
+
 	@Disabled("Making CaseDatabase = null until fixing Elvira database parser with antlr4")
 	@Test
     public void testLearnTestDataBase() throws org.openmarkov.core.exception.CannotNormalizePotentialException, IncompatibleEvidenceException.EvidenceIsIncompatibleWithOther, NonProjectablePotentialException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedConstraints, ConstraintViolatedException {
