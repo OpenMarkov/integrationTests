@@ -22,7 +22,7 @@ public class PrintChecks {
     
     private static Stream<ToCheckValue> getAllToChecks() {
         return ParseUtils.baseOpenMarkovParsedClasses()
-                         .flatMap(parsedClass -> parsedClass.findAll(AnnotationExpr.class).stream())
+                         .flatMap(parsedClass -> parsedClass.compilationUnit().findAll(AnnotationExpr.class).stream())
                          .map(PrintChecks::extractCheckValue)
                          .filter(Objects::nonNull);
     }

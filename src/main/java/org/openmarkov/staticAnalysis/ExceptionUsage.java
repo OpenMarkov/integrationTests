@@ -58,7 +58,8 @@ public class ExceptionUsage {
                         ExceptionUse::new));
         
         ParseUtils.baseOpenMarkovParsedClasses()
-                  .flatMap(parsedClass -> parsedClass.findAll(com.github.javaparser.ast.expr.ObjectCreationExpr.class)
+                  .flatMap(parsedClass -> parsedClass.compilationUnit()
+                                                     .findAll(com.github.javaparser.ast.expr.ObjectCreationExpr.class)
                                                      .stream())
                   .forEach(objectCreationExpr -> {
                       var exceptionName = objectCreationExpr.getType().resolve().asReferenceType().getQualifiedName();
@@ -77,7 +78,7 @@ public class ExceptionUsage {
         
         ParseUtils
                 .baseOpenMarkovParsedClasses()
-                .flatMap(parsedClass -> parsedClass.findAll(CatchClause.class)
+                .flatMap(parsedClass -> parsedClass.compilationUnit().findAll(CatchClause.class)
                                                    .stream())
                 .flatMap(catchClause -> {
                              var parameter = catchClause.getParameter().getType();

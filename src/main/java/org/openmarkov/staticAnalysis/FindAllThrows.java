@@ -9,7 +9,9 @@ public class FindAllThrows {
     public static void main(String[] args) {
         AtomicInteger messageIndex = new AtomicInteger();
         ParseUtils.baseOpenMarkovParsedClasses()
-                  .flatMap(c -> c.findAll(com.github.javaparser.ast.body.CallableDeclaration.class).stream())
+                  .flatMap(c -> c.compilationUnit()
+                                 .findAll(com.github.javaparser.ast.body.CallableDeclaration.class)
+                                 .stream())
                   .filter(call -> !call.getThrownExceptions().isEmpty())
                   .forEach(call -> System.out.println(
                           (messageIndex.incrementAndGet())

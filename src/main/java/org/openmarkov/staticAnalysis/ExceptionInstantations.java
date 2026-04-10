@@ -30,7 +30,7 @@ public class ExceptionInstantations {
     
     public static void main(String[] args) {
         ParseUtils.baseOpenMarkovParsedClasses()
-                  .flatMap(parsedClass -> parsedClass
+                  .flatMap(parsedClass -> parsedClass.compilationUnit()
                           .findAll(com.github.javaparser.ast.expr.ObjectCreationExpr.class)
                           .stream())
                   .filter(objectCreationExpr ->

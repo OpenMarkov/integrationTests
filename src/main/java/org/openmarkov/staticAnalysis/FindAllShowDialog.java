@@ -10,7 +10,9 @@ public class FindAllShowDialog {
     public static void main(String[] args) {
         AtomicInteger messageIndex = new AtomicInteger();
         ParseUtils.baseOpenMarkovParsedClasses()
-                  .flatMap(c -> c.findAll(com.github.javaparser.ast.expr.MethodCallExpr.class).stream())
+                  .flatMap(c -> c.compilationUnit()
+                                 .findAll(com.github.javaparser.ast.expr.MethodCallExpr.class)
+                                 .stream())
                   .filter(methodCallExpr -> {
                       try {
                           return "javax.swing.JOptionPane.showMessageDialog".equals(methodCallExpr.resolve()

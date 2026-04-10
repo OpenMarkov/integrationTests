@@ -9,7 +9,7 @@ public class FindAllCatchs {
     public static void main(String[] args) {
         AtomicInteger messageIndex = new AtomicInteger();
         ParseUtils.baseOpenMarkovParsedClasses()
-                  .flatMap(c -> c.findAll(com.github.javaparser.ast.stmt.CatchClause.class).stream())
+                  .flatMap(c -> c.compilationUnit().findAll(com.github.javaparser.ast.stmt.CatchClause.class).stream())
                   .forEach(call -> System.out.println(
                           (messageIndex.incrementAndGet())
                                   + " " +

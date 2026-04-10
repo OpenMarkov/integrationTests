@@ -3,6 +3,7 @@ package org.openmarkov.staticAnalysis;
 import org.jgrapht.alg.drawing.LayoutAlgorithm2D;
 import org.openmarkov.core.model.network.constraint.PNConstraint;
 import org.openmarkov.core.model.network.potential.Potential;
+import org.openmarkov.core.model.network.potential.Reorderable;
 import org.openmarkov.core.model.network.type.NetworkType;
 import org.openmarkov.java.classUtils.ClassUtils;
 import org.openmarkov.plugin.ExtensionTree;
@@ -15,7 +16,7 @@ public class PrintClassExtensionTree {
     
     public static void main(String[] args) {
         PluginSearch.full()
-                    .extending(JMenuItem.class)
+                    .extending(Reorderable.class)
                     .extensionTree()
                     .print();
     }
