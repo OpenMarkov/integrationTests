@@ -30,7 +30,6 @@ open module org.openmarkov.integrationTests {
     requires com.google.gson;
     requires org.apache.commons.io;
     requires org.apache.commons.codec;
-    requires org.jgrapht.core;
     requires org.jspecify;
     
     exports org.openmarkov.integrationTests;
