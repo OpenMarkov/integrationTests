@@ -87,27 +87,48 @@ public class PCAlgorithmTest {
 		Assertions.assertTrue(nodeE.isParent(nodeC));
         if (nodeE.isParent(nodeC)) System.out.println("C parent of E.");
 		
-		// check the CPTs
+		// check the CPTs using semantic lookups (position-independent)
 		double maxError = 0.05;
-		// A
-		double[] probabilities = ((TablePotential) nodeA.getPotentials().get(0)).getValues();
-		Assertions.assertEquals(0.5, probabilities[0], maxError);
-		// B
-		probabilities = ((TablePotential) nodeB.getPotentials().get(0)).getValues();
-		Assertions.assertEquals(0.8, probabilities[0], maxError);
-		// C
-		probabilities = ((TablePotential) nodeC.getPotentials().get(0)).getValues();
-		Assertions.assertEquals(0.7, probabilities[0], maxError);
-		// E | A, B, C
+		// P(A=absent) ≈ 0.5
+		TablePotential potA = (TablePotential) nodeA.getPotentials().get(0);
+		Assertions.assertEquals(0.5, potA.getValue(
+				List.of(nodeA.getVariable()),
+				new int[]{nodeA.getVariable().getStateIndex("absent")}), maxError);
+		// P(B=absent) ≈ 0.8
+		TablePotential potB = (TablePotential) nodeB.getPotentials().get(0);
+		Assertions.assertEquals(0.8, potB.getValue(
+				List.of(nodeB.getVariable()),
+				new int[]{nodeB.getVariable().getStateIndex("absent")}), maxError);
+		// P(C=absent) ≈ 0.7
+		TablePotential potC = (TablePotential) nodeC.getPotentials().get(0);
+		Assertions.assertEquals(0.7, potC.getValue(
+				List.of(nodeC.getVariable()),
+				new int[]{nodeC.getVariable().getStateIndex("absent")}), maxError);
+		// E | A, B, C — use semantic lookups via getValue() for robustness
+		// getValue() resolves offsets internally, so the result is independent of
+		// the internal variable ordering in the potential.
 		TablePotential eGivenABC = (TablePotential) nodeE.getPotentials().get(0);
-		List<Variable> eGivenABCVars = Arrays.asList(nodeE.getVariable(), nodeA.getVariable(), nodeB.getVariable(),
-				nodeC.getVariable());
-		eGivenABC = (TablePotential) eGivenABC.reorder(eGivenABCVars);
-		probabilities = eGivenABC.getValues();
-		double[] expectedProbabilities = { 0.8, 0.2, 0.4, 0.6, 0.6, 0.4, 0.2, 0.8 };
-		for (int i = 0; i < expectedProbabilities.length; i++) {
-			Assertions.assertEquals(expectedProbabilities[i], probabilities[i], maxError);
-		}
+		Variable varE = nodeE.getVariable();
+		Variable varA = nodeA.getVariable();
+		Variable varB = nodeB.getVariable();
+		Variable varC = nodeC.getVariable();
+		int eAbsent  = varE.getStateIndex("absent");
+		int ePresent = varE.getStateIndex("present");
+		int aAbsent  = varA.getStateIndex("absent");
+		int aPresent = varA.getStateIndex("present");
+		int bAbsent  = varB.getStateIndex("absent");
+		int bPresent = varB.getStateIndex("present");
+		int cAbsent  = varC.getStateIndex("absent");
+		List<Variable> vars = Arrays.asList(varE, varA, varB, varC);
+
+		Assertions.assertEquals(0.8, eGivenABC.getValue(vars, new int[]{eAbsent,  aAbsent,  bAbsent,  cAbsent}), maxError);
+		Assertions.assertEquals(0.2, eGivenABC.getValue(vars, new int[]{ePresent, aAbsent,  bAbsent,  cAbsent}), maxError);
+		Assertions.assertEquals(0.4, eGivenABC.getValue(vars, new int[]{eAbsent,  aPresent, bAbsent,  cAbsent}), maxError);
+		Assertions.assertEquals(0.6, eGivenABC.getValue(vars, new int[]{ePresent, aPresent, bAbsent,  cAbsent}), maxError);
+		Assertions.assertEquals(0.6, eGivenABC.getValue(vars, new int[]{eAbsent,  aAbsent,  bPresent, cAbsent}), maxError);
+		Assertions.assertEquals(0.4, eGivenABC.getValue(vars, new int[]{ePresent, aAbsent,  bPresent, cAbsent}), maxError);
+		Assertions.assertEquals(0.2, eGivenABC.getValue(vars, new int[]{eAbsent,  aPresent, bPresent, cAbsent}), maxError);
+		Assertions.assertEquals(0.8, eGivenABC.getValue(vars, new int[]{ePresent, aPresent, bPresent, cAbsent}), maxError);
 	}
 
 	@Disabled("Making CaseDatabase = null until fixing Elvira database parser with antlr4")
