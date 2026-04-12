@@ -58,10 +58,10 @@ public class lineAndStarTest {
         int stepIndex = 0;
         while (true) {
             ArrayList<LearningEditProposal> proposedEdits = new ArrayList<>();
-            LearningEditProposal bestEdition = learningManager.getBestEdit(true, true);
+            LearningEditProposal bestEdition = learningManager.getLearningAlgorithm().getBestEdit(true, true);
             while (bestEdition != null) {
                 proposedEdits.add(bestEdition);
-                bestEdition = learningManager.getNextEdit(true, true);
+                bestEdition = learningManager.getLearningAlgorithm().getNextEdit(true, true);
             }
             System.out.println("Proposed edits: " + proposedEdits);
             if (proposedEdits.isEmpty()) {
