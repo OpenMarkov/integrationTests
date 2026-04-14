@@ -64,7 +64,7 @@ public class HeuristicComparisonTest {
     };
 
     @Test
-    public void compareHeuristicsOnLargeNetworks() throws IOException {
+    public void compareHeuristicsOnLargeNetworks() {
         List<ProbNet> networks = loadLargestBayesianNetworks();
         if (networks.isEmpty()) {
             System.out.println("No networks available for comparison.");
@@ -210,8 +210,8 @@ public class HeuristicComparisonTest {
     }
 
     // -------------------------------------------------------------------------
-
-    private List<ProbNet> loadLargestBayesianNetworks() throws IOException {
+    
+    private List<ProbNet> loadLargestBayesianNetworks() {
         List<ProbNet> all = Util.readProbNetsDB(BayesianNetworkType.getUniqueInstance());
         all = Util.filterNonPureTablePotentialProbNets(all);
         // Keep only networks whose actual type is BayesianNetwork (some files in the

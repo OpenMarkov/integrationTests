@@ -38,16 +38,6 @@ public class ExceptionUsage {
     }
     
     public static void main(String[] args) {
-        /*
-        System.out.println(ClassUtils.fileOfClass(PNEdit.class));
-        System.out.println(ClassUtils.fileOfClass(SAXException.class));
-        System.out.println(ClassUtils.fileOfClass(Integer.class));
-        System.out.println(ClassUtils.fileOfClass(UnionType.class));
-        System.out.println(ClassUtils.rawFileOfClass(PNEdit.class));
-        System.out.println(ClassUtils.rawFileOfClass(SAXException.class));
-        System.out.println(ClassUtils.rawFileOfClass(Integer.class));
-        System.out.println(ClassUtils.rawFileOfClass(UnionType.class));
-        */
         ParseUtils.prepareJavaParserConfiguration();
         var omExceptionToUses = PluginSearch
                 .init()

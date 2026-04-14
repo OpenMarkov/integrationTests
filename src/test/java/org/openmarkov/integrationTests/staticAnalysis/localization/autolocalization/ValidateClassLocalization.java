@@ -9,6 +9,7 @@ import org.openmarkov.core.localize.StringBundle;
 import org.openmarkov.core.localize.StringDatabase;
 import org.openmarkov.core.localize.spi.LocalizeResourcesProvider;
 import org.openmarkov.core.stringformat.StringFormat;
+import org.openmarkov.java.classUtils.ClassUtils;
 import org.openmarkov.plugin.PluginSearch;
 
 import java.lang.reflect.*;
@@ -46,6 +47,7 @@ public class ValidateClassLocalization {
                         .childrenOf(ClassLocalizable.class)
                         .stream()
                         .filter(localizableClass -> !localizableClass.isInterface() && !Modifier.isAbstract(localizableClass.getModifiers()))
+                        .filter(ClassUtils::isProductionClass)
                         .collect(Collectors.groupingBy(Class::getModule));
     /**
      * List where every {@link ClassLocalizable} of every module is associated to the Bundles that can be accessed in

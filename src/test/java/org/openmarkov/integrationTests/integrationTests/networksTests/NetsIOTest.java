@@ -14,10 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.openmarkov.core.exception.NonProjectablePotentialException;
-import org.openmarkov.core.exception.UnreachableException;
-import org.openmarkov.core.exception.ParserException;
-import org.openmarkov.core.exception.WriterException;
+import org.openmarkov.core.exception.*;
 import org.openmarkov.core.io.ProbNetInfo;
 import org.openmarkov.core.model.network.EvidenceCase;
 import org.openmarkov.core.model.network.ProbNet;
@@ -269,10 +266,10 @@ public class NetsIOTest {
         }
         try {
             InferenceTestsTools.testBasicInference(probNet, preResolutionEvidence, numSimulations, useMultithreading);
-        } catch (NonProjectablePotentialException.PotentialCannotBeConvertedToATable e) {
-            // Some networks use continuous distributions (UnivariateDistrPotential) that cannot
-            // be converted to table potentials for inference. I/O is verified above; inference
-            // is a best-effort check only.
+        } // Some networks use continuous distributions (UnivariateDistrPotential) that cannot
+        // be converted to table potentials for inference. I/O is verified above; inference
+        // is a best-effort check only.
+        catch (NonProjectablePotentialException e) {
             System.out.println("Inference skipped for " + networkName + " (continuous distribution): " + e.getMessage());
         } catch (UnreachableException e) {
             // VECEPSA wraps PotentialCannotBeConvertedToATable as UnreachableException

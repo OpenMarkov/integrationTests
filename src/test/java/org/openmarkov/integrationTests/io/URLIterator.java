@@ -23,7 +23,7 @@ public class URLIterator implements PGMXIterator {
     private List<PGMXFilter> filters;
     
     // Constructor
-    public URLIterator(String pathToNewFiles, String version, List<PGMXFilter>... filters) throws IOException {
+    public URLIterator(String pathToNewFiles, String version, List<PGMXFilter>... filters) {
         this.version = version;
         this.pathToNewFiles = pathToNewFiles;
         this.filters = filters != null && filters.length == 1 ? filters[0] : null;
