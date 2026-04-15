@@ -12,7 +12,7 @@ public class FindAllThrows {
                   .flatMap(c -> c.compilationUnit()
                                  .findAll(com.github.javaparser.ast.body.CallableDeclaration.class)
                                  .stream())
-                  .filter(call -> !call.getThrownExceptions().isEmpty())
+                  //.filter(call -> !call.getThrownExceptions().isEmpty())
                   .forEach(call -> System.out.println(
                           (messageIndex.incrementAndGet())
                                   + " " +

@@ -20,8 +20,9 @@ public class ListClasses {
     public static void main(String[] args) {
         AtomicInteger index = new AtomicInteger();
         
-        PluginSearch.init()
-                    .extending(PNConstraint.class)
+        PluginSearch.full()
+                    .extending(Exception.class)
+                    .filter(exceptionClass -> !RuntimeException.class.isAssignableFrom(exceptionClass))
                     .stream()
                     .sorted(Comparator.comparing(Class::getName))
                     .forEach(classToPrint -> System.out.println(index.incrementAndGet() + " - " + classToPrint.getName()));
