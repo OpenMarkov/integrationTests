@@ -37,7 +37,7 @@ public class NetsRepository {
      *
      * @return URL of the networks
      */
-    public static List<URL> getNetworks() throws IOException {
+    public static List<URL> getNetworks() {
         return NetsRepository.getNetworks((String) null);
     }
     
@@ -48,7 +48,7 @@ public class NetsRepository {
      *
      * @return List of filtered url networks
      */
-    public static List<URL> getNetworks(NetworkType networkType) throws IOException {
+    public static List<URL> getNetworks(NetworkType networkType) {
         String networksDirName = switch (networkType) {
             case BayesianNetworkType ignored -> "bn";
             case DecisionAnalysisNetworkType ignored -> "dan";

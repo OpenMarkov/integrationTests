@@ -53,7 +53,7 @@ public class HillClimbingAlgorithmTest {
 	}
     @Disabled
     @Test
-    public void testLearning() {
+    public void testLearning() throws IncompatibleEvidenceException.EvidenceIsIncompatibleWithOther, NonProjectablePotentialException, CannotNormalizePotentialException, NotEvaluableNetworkException.NotApplicableNetwork, ConstraintViolatedException {
 		double[] probabilities;
 		learningAlgorithm.run(new ModelNetUse());
 		Node nodeA = learned.getNode("A");

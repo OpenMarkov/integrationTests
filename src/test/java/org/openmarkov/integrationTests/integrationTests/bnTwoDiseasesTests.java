@@ -53,7 +53,7 @@ public class bnTwoDiseasesTests {
 	}
     
     @Test
-    public void vePropagationWithoutEvidence() throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedConstraints, ConstraintViolatedException {
+    public void vePropagationWithoutEvidence() throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, ConstraintViolatedException, CannotNormalizePotentialException {
 		VEPropagation vePropagation;
 		EvidenceCase postResolutionEvidence = new EvidenceCase();
 		List<Variable> variablesOfInterest = probNet.getVariables();
@@ -105,7 +105,7 @@ public class bnTwoDiseasesTests {
 
 	@Disabled
     @Test
-    public void vePropagationWithPostResolutionEvidence1() throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedConstraints, ConstraintViolatedException {
+    public void vePropagationWithPostResolutionEvidence1() throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, ConstraintViolatedException, CannotNormalizePotentialException {
 		VEPropagation vePropagation;
 		EvidenceCase postResolutionEvidence = new EvidenceCase();
 		List<Variable> variablesOfInterest = probNet.getVariables();
@@ -159,7 +159,7 @@ public class bnTwoDiseasesTests {
 	
 	@Tag(TestSpeed.SLOW)
     @Test
-    public void vePropagationWithPostResolutionEvidence2() throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedConstraints, ConstraintViolatedException {
+    public void vePropagationWithPostResolutionEvidence2() throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, ConstraintViolatedException, CannotNormalizePotentialException {
 		VEPropagation vePropagation;
 		EvidenceCase postResolutionEvidence = new EvidenceCase();
 		List<Variable> variablesOfInterest = probNet.getVariables();

@@ -49,7 +49,7 @@ public class HeuristicsTest {
 	/** This is a performance test. It checks that some heuristics are better than others.
 	 * We assume that CanoAndMoral must be better than all the others "most" of the times, 
 	 * the same with MinimalFillin and SimpleElimination */
-    public void test3() throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    public void test3() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
 		List<ProbNet> probNetsDB = Util.readProbNetsDB(BayesianNetworkType.getUniqueInstance());
 		probNetsDB = Util.filterNonPureTablePotentialProbNets(probNetsDB);
 		@SuppressWarnings("rawtypes") Class[] heuristicsClasses = new Class[] { CanoMoralElimination.class,

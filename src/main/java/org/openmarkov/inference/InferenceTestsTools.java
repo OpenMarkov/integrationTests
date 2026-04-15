@@ -30,12 +30,12 @@ import org.openmarkov.inference.algorithm.variableElimination.tasks.VETemporalEv
 public class InferenceTestsTools {
     
     public static void testResolveNetwork(ProbNet probNet, EvidenceCase evidenceCase)
-            throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedConstraints, ConstraintViolatedException {
+            throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, ConstraintViolatedException {
         testResolveNetwork(probNet, evidenceCase, true);
     }
     
     public static void testResolveNetwork(ProbNet probNet, EvidenceCase evidenceCase, boolean checkStrategyTree)
-            throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedConstraints, ConstraintViolatedException {
+            throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, ConstraintViolatedException {
         VEEvaluation veEvaluation;
         if (evidenceCase != null) {
             veEvaluation = new VEEvaluation(probNet);
@@ -58,7 +58,7 @@ public class InferenceTestsTools {
     }
     
     public static void testPropagateNetwork(ProbNet probNet, List<Variable> variables, EvidenceCase evidenceCase)
-            throws IncompatibleEvidenceException, ConstraintViolatedException {
+            throws IncompatibleEvidenceException, ConstraintViolatedException, NonProjectablePotentialException, NotEvaluableNetworkException.NotApplicableNetwork, CannotNormalizePotentialException {
         VEPropagation vePropagation;
         if (!probNet.getNetworkType().equals(BayesianNetworkType.getUniqueInstance())) {
             VEEvaluation veEvaluation = new VEEvaluation(probNet);
@@ -80,7 +80,7 @@ public class InferenceTestsTools {
     }
     
     public static void testBasicInference(ProbNet probNet, EvidenceCase preResolutionEvidence, int numSimulations,
-                                          boolean useMultithreading) throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedConstraints, ConstraintViolatedException {
+                                          boolean useMultithreading) throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, ConstraintViolatedException, CannotNormalizePotentialException {
         if (probNet.getNetworkType().equals(BayesianNetworkType.getUniqueInstance())) {
             testPropagateNetwork(probNet, probNet.getVariables(), preResolutionEvidence);
             
@@ -105,7 +105,7 @@ public class InferenceTestsTools {
     }
     
     private static void testResolutionAndPropagation(ProbNet probNet, EvidenceCase preResolutionEvidence)
-            throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedConstraints, ConstraintViolatedException {
+            throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, ConstraintViolatedException, CannotNormalizePotentialException {
         testResolveNetwork(probNet, preResolutionEvidence);
         
         // TODO - Check propagate errors
@@ -117,7 +117,7 @@ public class InferenceTestsTools {
     }
     
     private static void testTemporalEvolutionNetwork(ProbNet probNet, EvidenceCase evidenceCase)
-            throws IncompatibleEvidenceException, ConstraintViolatedException {
+            throws IncompatibleEvidenceException, ConstraintViolatedException, NonProjectablePotentialException, NotEvaluableNetworkException.NotApplicableNetwork, CannotNormalizePotentialException {
         HashMap<String, Variable> filteredTemporalVariables = new HashMap<>();
         for (Variable variable : probNet.getVariables()) {
             if (variable.isTemporal()) {
@@ -167,7 +167,7 @@ public class InferenceTestsTools {
     
     
     private static void testCEADecisionNetwork(ProbNet probNet, EvidenceCase evidenceCase)
-            throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedConstraints, ConstraintViolatedException {
+            throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, ConstraintViolatedException {
         List<Variable> decisionVariables = probNet.getVariables(NodeType.DECISION);
         
         for (Variable decisionVariable : decisionVariables) {
@@ -206,7 +206,7 @@ public class InferenceTestsTools {
     
     
     private static void testCEAGlobalNetwork(ProbNet probNet, EvidenceCase evidenceCase)
-            throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedConstraints, ConstraintViolatedException {
+            throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, ConstraintViolatedException {
         CEAnalysis veceaGlobal = new VECEAnalysis(probNet);
         veceaGlobal.setPreResolutionEvidence(evidenceCase);
         assertNotNull(veceaGlobal.getUtility());
@@ -215,7 +215,7 @@ public class InferenceTestsTools {
     
     
     private static void testCEPSANetwork(ProbNet probNet, EvidenceCase evidenceCase, int numSimulations,
-                                         boolean useMultithreading) throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedConstraints, ConstraintViolatedException {
+                                         boolean useMultithreading) throws NonProjectablePotentialException, IncompatibleEvidenceException, NotEvaluableNetworkException.NotApplicableNetwork, ConstraintViolatedException {
         List<Variable> decisionVariables = probNet.getVariables(NodeType.DECISION);
         
         for (Variable decisionVariable : decisionVariables) {

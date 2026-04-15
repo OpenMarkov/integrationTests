@@ -62,7 +62,7 @@ public class CEAGlobalAnalysisTest {
 	
 	@Tag(TestSpeed.MEDIUM)
     @Test
-    public void testChancellorUnicriterion() throws NonProjectablePotentialException, java.net.URISyntaxException, org.openmarkov.core.exception.ParserException, org.openmarkov.core.exception.IncompatibleEvidenceException, FileNotFoundException, org.openmarkov.core.exception.NotEvaluableNetworkException.NotApplicableNetwork, org.openmarkov.core.exception.NotEvaluableNetworkException.UnsatisfiedConstraints, ConstraintViolatedException {
+	public void testChancellorUnicriterion() throws NonProjectablePotentialException, java.net.URISyntaxException, org.openmarkov.core.exception.ParserException, org.openmarkov.core.exception.IncompatibleEvidenceException, FileNotFoundException, org.openmarkov.core.exception.NotEvaluableNetworkException.NotApplicableNetwork, ConstraintViolatedException {
 		// Open the file containing the network
         URL res = getClass().getResource("/networks/mid/MID-Chancellor-Unicriterion.pgmx");
 		File f = Paths.get(res.toURI()).toFile();
@@ -109,7 +109,7 @@ public class CEAGlobalAnalysisTest {
     
     @Tag(TestSpeed.MEDIUM)
     @Test
-    public void testDMHEE25SV() throws NonProjectablePotentialException, java.net.URISyntaxException, org.openmarkov.core.exception.ParserException, org.openmarkov.core.exception.IncompatibleEvidenceException, FileNotFoundException, org.openmarkov.core.exception.NotEvaluableNetworkException.NotApplicableNetwork, org.openmarkov.core.exception.NotEvaluableNetworkException.UnsatisfiedConstraints, ConstraintViolatedException {
+	public void testDMHEE25SV() throws NonProjectablePotentialException, java.net.URISyntaxException, org.openmarkov.core.exception.ParserException, org.openmarkov.core.exception.IncompatibleEvidenceException, FileNotFoundException, org.openmarkov.core.exception.NotEvaluableNetworkException.NotApplicableNetwork, ConstraintViolatedException {
 		URL res = getClass().getResource("/networks/mid/MID-dmhee-2.5-sv.pgmx");
 		File f = Paths.get(res.toURI()).toFile();
 		String absolutePath = f.getAbsolutePath();
@@ -138,7 +138,7 @@ public class CEAGlobalAnalysisTest {
 	
 	@Tag(TestSpeed.SLOW)
     @Test
-    public void testDMHEE35() throws NonProjectablePotentialException, java.net.URISyntaxException, org.openmarkov.core.exception.ParserException, org.openmarkov.core.exception.IncompatibleEvidenceException, FileNotFoundException, org.openmarkov.core.exception.NotEvaluableNetworkException.NotApplicableNetwork, org.openmarkov.core.exception.NotEvaluableNetworkException.UnsatisfiedConstraints, ConstraintViolatedException {
+	public void testDMHEE35() throws NonProjectablePotentialException, java.net.URISyntaxException, org.openmarkov.core.exception.ParserException, org.openmarkov.core.exception.IncompatibleEvidenceException, FileNotFoundException, org.openmarkov.core.exception.NotEvaluableNetworkException.NotApplicableNetwork, ConstraintViolatedException {
 		// Constants
         // Open the file containing the network
 		URL res = getClass().getResource("/networks/mid/MID-dmhee-3.5.pgmx");
@@ -185,7 +185,7 @@ public class CEAGlobalAnalysisTest {
 	@Tag(TestSpeed.SLOW)
 	@SuppressWarnings("rawtypes")
     @Test
-    public void testDMHEE47PSA() throws java.net.URISyntaxException, NonProjectablePotentialException, org.openmarkov.core.exception.ParserException, org.openmarkov.core.exception.IncompatibleEvidenceException, FileNotFoundException, org.openmarkov.core.exception.NotEvaluableNetworkException.NotApplicableNetwork, org.openmarkov.core.exception.NotEvaluableNetworkException.UnsatisfiedConstraints, ConstraintViolatedException {
+	public void testDMHEE47PSA() throws java.net.URISyntaxException, NonProjectablePotentialException, org.openmarkov.core.exception.ParserException, org.openmarkov.core.exception.IncompatibleEvidenceException, FileNotFoundException, org.openmarkov.core.exception.NotEvaluableNetworkException.NotApplicableNetwork, ConstraintViolatedException {
 		URL res = getClass().getResource("/networks/mid/MID-dmhee-4.7.pgmx");
 		File f = Paths.get(res.toURI()).toFile();
 		String absolutePath = f.getAbsolutePath();
@@ -224,7 +224,7 @@ public class CEAGlobalAnalysisTest {
 	@Tag(TestSpeed.SLOW)
 	@SuppressWarnings("rawtypes")
     @Test
-    public void testBriggsSA() throws NonProjectablePotentialException, java.net.URISyntaxException, org.openmarkov.core.exception.ParserException, org.openmarkov.core.exception.IncompatibleEvidenceException, FileNotFoundException, org.openmarkov.core.exception.NotEvaluableNetworkException.NotApplicableNetwork, org.openmarkov.core.exception.NotEvaluableNetworkException.UnsatisfiedConstraints, ConstraintViolatedException {
+	public void testBriggsSA() throws NonProjectablePotentialException, java.net.URISyntaxException, org.openmarkov.core.exception.ParserException, org.openmarkov.core.exception.IncompatibleEvidenceException, FileNotFoundException, org.openmarkov.core.exception.NotEvaluableNetworkException.NotApplicableNetwork, ConstraintViolatedException {
 		URL res = getClass().getResource("/networks/mid/MID-dmhee-4.8.pgmx");
 		File f = Paths.get(res.toURI()).toFile();
 		String absolutePath = f.getAbsolutePath();
@@ -291,7 +291,7 @@ public class CEAGlobalAnalysisTest {
     
     @Tag(TestSpeed.SLOW)
     @Test
-    public void testHPV() throws NonProjectablePotentialException, java.net.URISyntaxException, org.openmarkov.core.exception.ParserException, org.openmarkov.core.exception.IncompatibleEvidenceException, FileNotFoundException, org.openmarkov.core.exception.NotEvaluableNetworkException.NotApplicableNetwork, org.openmarkov.core.exception.NotEvaluableNetworkException.UnsatisfiedConstraints, ConstraintViolatedException {
+	public void testHPV() throws NonProjectablePotentialException, java.net.URISyntaxException, org.openmarkov.core.exception.ParserException, org.openmarkov.core.exception.IncompatibleEvidenceException, FileNotFoundException, org.openmarkov.core.exception.NotEvaluableNetworkException.NotApplicableNetwork, ConstraintViolatedException {
 		URL res = getClass().getResource("/networks/mid/MID-HPV.pgmx");
 		File f = Paths.get(res.toURI()).toFile();
 		String absolutePath = f.getAbsolutePath();
