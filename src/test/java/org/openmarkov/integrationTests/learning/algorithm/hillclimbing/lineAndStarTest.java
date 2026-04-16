@@ -37,16 +37,6 @@ public class lineAndStarTest {
         test();
     }
     
-    public static void main(String[] args) throws Exception {
-        var xlsxReader = new CaseDatabaseManager().getReader("xlsx");
-        String xlsxDatabase = IntegrationTest.class.getResource("/networks/learning/lineAndStar.xlsx").getPath();
-        CaseDatabase cases = xlsxReader.load(new File(xlsxDatabase));
-        LearningManager learningManager = new LearningManager(cases, HillClimbingAlgorithm.class, null, null);
-        LearningAlgorithm learningAlgorithm = new HillClimbingAlgorithm(learningManager.getLearnedNet(), cases, 0.5, new K2Metric());
-        learningManager.init(learningAlgorithm);
-        new InteractiveLearningDialog(null, false, learningManager).setVisible(true);
-    }
-    
     private static void test() throws NoWriterForExtensionException, IOException, ParsingSourceException, EmptyDatabaseException, EmptyModelNetException, UnobservedVariablesException, DoEditException, IncompatibleEvidenceException.EvidenceIsIncompatibleWithOther, NonProjectablePotentialException, NotEvaluableNetworkException.NotApplicableNetwork, CannotNormalizePotentialException {
         var xlsxReader = new CaseDatabaseManager().getReader("xlsx");
         String xlsxDatabase = IntegrationTest.class.getResource("/networks/learning/lineAndStar.xlsx").getPath();
