@@ -59,8 +59,7 @@ public class HeuristicComparisonTest {
             "org.openmarkov.inference.heuristic.minimalCliqueSize.minimalCliqueSize",
             "org.openmarkov.inference.heuristic.canoAndMoral.CanoMoralElimination",
             "org.openmarkov.inference.heuristic.weightedMinFill.WeightedMinFill",
-            "org.openmarkov.inference.heuristic.lookahead.LookaheadMinFill",
-            "org.openmarkov.inference.heuristic.lookahead.LookaheadMinCliqueSize"
+            "org.openmarkov.inference.heuristic.rollout.RolloutElimination"
     };
 
     @Test
@@ -123,13 +122,14 @@ public class HeuristicComparisonTest {
     private Future<long[]> submitHeuristic(ExecutorService executor, ProbNet net,
                                            String heuristicClassName) {
         return executor.submit(() -> {
+            ProbNet netCopy = net.copy();
             Class<?> hClass = Class.forName(heuristicClassName);
             List<List<Variable>> variablesToEliminate = new ArrayList<>();
-            variablesToEliminate.add(net.getVariables());
+            variablesToEliminate.add(netCopy.getVariables());
             Constructor<?> ctor = hClass.getConstructor(ProbNet.class, List.class);
             EliminationHeuristic heuristic =
-                    (EliminationHeuristic) ctor.newInstance(net, variablesToEliminate);
-            HuginForest forest = new HuginForest(net.copy(), heuristic);
+                    (EliminationHeuristic) ctor.newInstance(netCopy, variablesToEliminate);
+            HuginForest forest = new HuginForest(netCopy.copy(), heuristic);
             return new long[]{ computeTreewidth(forest), computeSum(forest) };
         });
     }
