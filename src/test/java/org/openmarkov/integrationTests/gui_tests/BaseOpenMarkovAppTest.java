@@ -94,7 +94,7 @@ public abstract class BaseOpenMarkovAppTest extends BaseWindowTest<FrameFixture,
                 return component.isShowing() && component instanceof NetworkEditorPanel;
             }
         });
-        ProbNet probNet = ((NetworkEditorPanel) editorPanel.target()).getNetworkPanel().getProbNet();
+        ProbNet probNet = ((NetworkEditorPanel) editorPanel.target()).getNetworkEditorPanel().getProbNet();
         return new OpenNetworkResult(editorPanel, probNet);
     }
     

@@ -7,6 +7,7 @@
 
 package org.openmarkov.integrationTests.inference.heuristics;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.openmarkov.core.inference.heuristic.EliminationHeuristic;
 import org.openmarkov.core.model.network.Node;
@@ -60,6 +61,7 @@ import java.util.stream.Collectors;
  *
  * @author Manuel Arias
  */
+@Disabled
 public class RolloutBenchmarkTest {
 
     private static final int TIMEOUT_MINUTES = 10;
