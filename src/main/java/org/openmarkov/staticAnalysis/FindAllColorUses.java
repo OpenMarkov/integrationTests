@@ -1,20 +1,15 @@
 package org.openmarkov.staticAnalysis;
 
-import com.github.javaparser.JavaToken;
-import com.github.javaparser.TokenRange;
 import com.github.javaparser.ast.expr.Expression;
 import com.github.javaparser.ast.expr.FieldAccessExpr;
 import com.github.javaparser.ast.expr.ObjectCreationExpr;
-import com.github.javaparser.resolution.UnsolvedSymbolException;
 import org.openmarkov.gui.configuration.GUIColor;
 import org.openmarkov.gui.configuration.GUIColors;
 import org.openmarkov.staticAnalysis.utils.ParseUtils;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
-import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class FindAllColorUses {
