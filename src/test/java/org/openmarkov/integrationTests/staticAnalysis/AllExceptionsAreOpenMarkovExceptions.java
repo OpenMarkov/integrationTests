@@ -13,6 +13,7 @@ public class AllExceptionsAreOpenMarkovExceptions {
     
     private static final Set<Class<? extends Throwable>> ALLOWED_EXCEPTIONS = Set.of(
             org.openmarkov.core.exception.UnreachableException.class,
+            org.openmarkov.core.exception.UnreachableCodeException.class,
             org.openmarkov.core.exception.UnrecoverableException.class
     );
     
