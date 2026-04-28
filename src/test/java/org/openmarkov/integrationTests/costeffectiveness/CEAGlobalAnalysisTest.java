@@ -289,7 +289,6 @@ public class CEAGlobalAnalysisTest {
 		}
 	}
     
-    @Disabled("Hangs after the recent RolloutElimination changes; pending optimisation of the heuristic on MID-HPV")
     @Tag(TestSpeed.SLOW)
     @Test
 	public void testHPV() throws NonProjectablePotentialException, java.net.URISyntaxException, org.openmarkov.core.exception.ParserException, org.openmarkov.core.exception.IncompatibleEvidenceException, FileNotFoundException, org.openmarkov.core.exception.NotEvaluableNetworkException.NotApplicableNetwork, ConstraintViolatedException {
