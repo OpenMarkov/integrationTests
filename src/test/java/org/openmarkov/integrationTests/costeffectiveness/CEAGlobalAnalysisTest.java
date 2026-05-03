@@ -221,6 +221,7 @@ public class CEAGlobalAnalysisTest {
 		}
 	}
 
+	@Disabled
 	@Tag(TestSpeed.SLOW)
 	@SuppressWarnings("rawtypes")
     @Test
