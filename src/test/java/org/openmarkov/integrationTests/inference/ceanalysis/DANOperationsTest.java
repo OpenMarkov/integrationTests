@@ -15,6 +15,7 @@ import org.openmarkov.core.exception.ParserException;
 import org.openmarkov.core.io.ProbNetInfo;
 import org.openmarkov.core.model.graph.Link;
 import org.openmarkov.core.model.network.Node;
+import org.openmarkov.core.model.network.NodeType;
 import org.openmarkov.core.model.network.ProbNet;
 import org.openmarkov.core.model.network.Variable;
 import org.openmarkov.core.model.network.potential.ExactDistrPotential;
@@ -204,7 +205,70 @@ public class DANOperationsTest {
     
     @Tag(TestSpeed.MEDIUM)
     @Test public void ceaIDAD1D2() {
-    
+
     }
-    
+
+    /**
+     * Reproduces Case 1 of the DAN → decision tree conversion (Section III
+     * of Díez, Luque, König, Bermejo, "Decision analysis networks", 2014)
+     * applied to the diabetes DAN of Figure 1: the network has an always-
+     * observed chance node, {@code Symptom}, so the first step of the
+     * recursive algorithm picks it and expands the DAN into one child DAN
+     * per state of {@code Symptom}. This test asserts the structural
+     * properties the paper requires of those children.
+     */
+    @Tag(TestSpeed.MEDIUM)
+    @Test public void instantiateAlwaysObservedSymptomTest()
+            throws IncompatibleEvidenceException.EvidenceIsIncompatibleWithOther,
+                   NonProjectablePotentialException {
+        // Pre-condition: the diabetes DAN has Symptom as always-observed
+        // (Figure 6 of the paper).
+        List<Variable> alwaysObserved = DANOperations.getAlwaysObservedVariables(danDiabetes);
+        Assertions.assertTrue(alwaysObserved.stream()
+                .anyMatch(v -> v.getName().equals("Symptom")),
+                "Symptom should be declared always-observed in DAN-diabetes");
+
+        Variable symptom = danDiabetes.getVariable("Symptom");
+        Assertions.assertEquals(2, symptom.getStates().length,
+                "Diabetes paper assumes Symptom is dichotomous (absent/present)");
+
+        // Operation: Case 1 of Section III — pick the always-observed
+        // node and expand into one DAN per state.
+        List<ProbNet> children = DANOperations.instantiate(danDiabetes, symptom);
+        Assertions.assertEquals(2, children.size(),
+                "instantiate over a 2-state variable must yield two child DANs");
+
+        // Each child must keep the three decisions and three utilities of
+        // Figure 1 — instantiating the always-observed Symptom should not
+        // remove any decision or utility from the network.
+        List<String> expectedDecisions = List.of(
+                "Dec: Blood Test", "Dec: Urine test", "Therapy");
+        List<String> expectedUtilities = List.of(
+                "Cost of blood test", "Cost of urine test", "Quality of life");
+        for (ProbNet child : children) {
+            for (String name : expectedDecisions) {
+                Node n = child.getNode(name);
+                Assertions.assertNotNull(n,
+                        "decision '" + name + "' should survive Symptom instantiation");
+                Assertions.assertEquals(NodeType.DECISION, n.getNodeType());
+            }
+            for (String name : expectedUtilities) {
+                Node n = child.getNode(name);
+                Assertions.assertNotNull(n,
+                        "utility '" + name + "' should survive Symptom instantiation");
+                Assertions.assertEquals(NodeType.UTILITY, n.getNodeType());
+            }
+        }
+
+        // Both expansions are valid starting points for the next recursion
+        // step (Case 3 of the paper: two parentless decisions, no order
+        // imposed) — getNextDecisions must therefore still find both
+        // Dec: Blood Test and Dec: Urine test in each child.
+        for (ProbNet child : children) {
+            List<Node> next = DANOperations.getNextDecisions(child);
+            Assertions.assertEquals(2, next.size(),
+                    "child DAN should still have two parentless decisions");
+        }
+    }
+
 }
