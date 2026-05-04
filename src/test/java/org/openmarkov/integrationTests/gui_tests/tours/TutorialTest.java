@@ -7,6 +7,7 @@
 
 package org.openmarkov.integrationTests.gui_tests.tours;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.condition.DisabledIf;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -24,6 +25,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @DisabledIf(value = "java.awt.GraphicsEnvironment#isHeadless", disabledReason = "Your machine does not have a Graphic Environment")
+@Disabled("Tour playback requires interactive user attention; even on a non-headless display "
+        + "the AWT Robot driving the tour crashes the surefire forked VM. Re-enable once the "
+        + "tour engine can run fully unattended.")
 public class TutorialTest extends BaseOpenMarkovAppTest {
     
     public static Stream<Tour> tours() {
