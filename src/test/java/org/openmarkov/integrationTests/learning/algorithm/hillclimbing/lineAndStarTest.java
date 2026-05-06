@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.openmarkov.core.action.base.PNEdit;
 import org.openmarkov.core.action.base.linkEdits.AddLinkEdit;
 import org.openmarkov.core.exception.*;
-import org.openmarkov.core.io.database.CaseDatabase;
+import org.openmarkov.core.model.database.CaseDatabase;
 import org.openmarkov.core.io.database.plugin.CaseDatabaseManager;
 import org.openmarkov.core.io.exception.NoWriterForExtensionException;
 import org.openmarkov.core.model.network.ProbNet;
@@ -18,7 +18,6 @@ import org.openmarkov.learning.core.algorithm.LearningAlgorithm;
 import org.openmarkov.learning.core.exception.EmptyModelNetException;
 import org.openmarkov.learning.core.exception.UnobservedVariablesException;
 import org.openmarkov.learning.core.util.LearningEditProposal;
-import org.openmarkov.learning.gui.interactive.InteractiveLearningDialog;
 import org.openmarkov.learning.metric.k2.K2Metric;
 
 import java.io.File;

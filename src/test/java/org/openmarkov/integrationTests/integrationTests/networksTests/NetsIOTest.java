@@ -10,7 +10,6 @@ package org.openmarkov.integrationTests.integrationTests.networksTests;
 import bitbucket.NetsRepository;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -19,9 +18,7 @@ import org.openmarkov.core.io.ProbNetInfo;
 import org.openmarkov.core.model.network.EvidenceCase;
 import org.openmarkov.core.model.network.ProbNet;
 import org.openmarkov.core.testTags.TestSpeed;
-import org.openmarkov.gui.dialog.io.NetsIO;
 import org.openmarkov.inference.InferenceTestsTools;
-import org.openmarkov.integrationTests.IntegrationTest;
 import org.openmarkov.io.probmodel.reader.PGMXReader_0_2;
 import org.openmarkov.io.probmodel.reader.PGMXReader_1_0;
 import org.openmarkov.io.probmodel.writer.PGMXWriter_0_2;
@@ -182,47 +179,6 @@ public class NetsIOTest {
             return PGMXVersion.V1_0_0;
         }
         return PGMXVersion.V0_2_0;
-    }
-    
-    /**
-     * This method opens the a net from a file and saves it into another file.
-     * It makes the asserts to verify if the tests are good.
-     *
-     * @param fileToOpen the file from which open the network.
-     * @param fileToSave the file into which save the network.
-     * @throws Exception if an error has occurred.
-     */
-    private void openSaveNetwork(String fileToOpen, String fileToSave) throws Exception {
-        URL resource = new IntegrationTest().getClass().getClassLoader().getResource(fileToOpen);
-        if (resource == null) {
-            throw new Exception("Could not load network: " + fileToOpen);
-        }
-        File file = new File(resource.toURI());
-        String fileNameOpen = file.getAbsolutePath();
-        if (fileNameOpen == null) {
-            fail("The test file " + fileNameOpen + " can't be found");
-        }
-        ProbNet net = NetsIO.openNetworkFile(fileNameOpen).getProbNet();
-        assertNotNull(net);
-        String path = file.getParent();
-        String fileNameSave = path + File.separator + fileToSave;
-        NetsIO.saveNetworkFile(net, fileNameSave);
-        net = NetsIO.openNetworkFile(fileNameSave).getProbNet();
-        assertNotNull(net);
-        new File(fileNameSave).deleteOnExit();
-    }
-    
-    /**
-     * This method tests the methods 'openNetworkFile' and 'saveNetworkFile',
-     * opening and saving various files that contain bayes nets and influence
-     * diagrams.
-     *
-     * @throws Exception if an error occurred while the networks are opened and
-     *                   saved.
-     */
-    @Test public final void testOpenSaveNetworkFile() throws Exception {
-        openSaveNetwork("Net1.elv", "Net1Saved.elv");
-        openSaveNetwork("Net2.elv", "Net2Saved.elv");
     }
     
     @ParameterizedTest

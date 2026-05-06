@@ -10,7 +10,7 @@ package org.openmarkov.integrationTests.learning.algorithm.hillclimbing;
 import org.junit.jupiter.api.*;
 
 import org.openmarkov.core.exception.*;
-import org.openmarkov.core.io.database.CaseDatabase;
+import org.openmarkov.core.model.database.CaseDatabase;
 import org.openmarkov.core.model.network.Node;
 import org.openmarkov.core.model.network.NodeType;
 import org.openmarkov.core.model.network.ProbNet;

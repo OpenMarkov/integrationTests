@@ -10,7 +10,6 @@ package org.openmarkov.integrationTests.inference.ceanalysis;
 import org.junit.jupiter.api.*;
 import org.openmarkov.core.exception.IncompatibleEvidenceException;
 import org.openmarkov.core.exception.NonProjectablePotentialException;
-import org.openmarkov.core.exception.NotSupportedOperationException;
 import org.openmarkov.core.exception.ParserException;
 import org.openmarkov.core.io.ProbNetInfo;
 import org.openmarkov.core.model.graph.Link;
