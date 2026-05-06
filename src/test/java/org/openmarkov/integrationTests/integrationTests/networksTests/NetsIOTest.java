@@ -196,17 +196,17 @@ public class NetsIOTest {
         
         PGMXReader_0_2 pgmxReader = pgmxVersion.reader();
         
-        ProbNetInfo probNetInfo = pgmxReader.loadProbNetInfo(networkName, networkToTest.url.openStream());
+        ProbNetInfo probNetInfo = pgmxReader.read(networkToTest.url);
         ProbNet probNet = probNetInfo.getProbNet();
         assertNotNull(probNet);
         assertNotNull(probNet.getNodes());
         
         PGMXWriter_0_2 pgmxWritter = pgmxVersion.writer();
-        pgmxWritter.writeProbNet(networkName, probNet, probNetInfo.getEvidence());
+        pgmxWritter.write(networkName, probNet, probNetInfo.getEvidence());
         new File(networkName).deleteOnExit();
         
         FileInputStream file = new FileInputStream(networkName);
-        probNetInfo = pgmxReader.loadProbNetInfo(networkName, file);
+        probNetInfo = pgmxReader.read(new File(networkName).toURI().toURL());
         probNet = probNetInfo.getProbNet();
         System.out.println("Loaded, saved and reloaded probNet:" + networkToTest.url.getPath());
         assertNotNull(probNet);
@@ -250,7 +250,7 @@ public class NetsIOTest {
         
         // Load probNet in 0_2
         PGMXReader_0_2 pgmxReader_0_2 = new PGMXReader_0_2();
-        ProbNetInfo probNetInfo_0_2 = pgmxReader_0_2.loadProbNetInfo(networkName, networkToTest.url.openStream());
+        ProbNetInfo probNetInfo_0_2 = pgmxReader_0_2.read(networkToTest.url);
         ProbNet probNet_0_2 = probNetInfo_0_2.getProbNet();
         List<EvidenceCase> evidenceCase_0_2 = probNetInfo_0_2.getEvidence();
         assertNotNull(probNet_0_2);
@@ -258,13 +258,13 @@ public class NetsIOTest {
         
         // Write probNet in 0_5 version and check integrity
         PGMXWriter_1_0 pgmxWritter = new PGMXWriter_1_0();
-        pgmxWritter.writeProbNet(networkName, probNet_0_2, evidenceCase_0_2);
+        pgmxWritter.write(networkName, probNet_0_2, evidenceCase_0_2);
         new File(networkName).deleteOnExit();
         
         // Re-open netwokr in 0_5
         FileInputStream file = new FileInputStream(networkName);
         PGMXReader_1_0 pgmxReader_0_5 = new PGMXReader_1_0();
-        ProbNetInfo probNetInfo_0_5 = pgmxReader_0_5.loadProbNetInfo(networkName, file);
+        ProbNetInfo probNetInfo_0_5 = pgmxReader_0_5.read(new File(networkName).toURI().toURL());
         ProbNet probNet_0_5 = probNetInfo_0_5.getProbNet();
         List<EvidenceCase> evidenceCase_0_5 = probNetInfo_0_5.getEvidence();
         assertNotNull(probNet_0_5);

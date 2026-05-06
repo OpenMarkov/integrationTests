@@ -18,7 +18,6 @@ import org.openmarkov.inference.algorithm.variableElimination.tasks.VECEAnalysis
 import org.openmarkov.integrationTests.IntegrationTest;
 import org.openmarkov.io.probmodel.reader.PGMXReader_0_2;
 
-import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 
@@ -33,9 +32,10 @@ public class TemporalEvaluationTest {
     @BeforeEach public void setUp() throws Exception {
         // New cost-effectiveness networks
         String networkName = "networks/mid/MID-Chancellor.pgmx";
-        InputStream file = new IntegrationTest().getClass().getClassLoader().getResourceAsStream(networkName);
         PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
-        ProbNetInfo probNetInfo = pgmxReader.loadProbNetInfo(networkName, file);
+        ProbNetInfo probNetInfo = pgmxReader.read(new IntegrationTest().getClass()
+                                                                       .getClassLoader()
+                                                                       .getResource(networkName));
         probNet = probNetInfo.getProbNet();
         preResolutionEvidence = probNetInfo.getEvidence().isEmpty() ? new EvidenceCase() : probNetInfo.getEvidence()
                                                                                                       .get(0);

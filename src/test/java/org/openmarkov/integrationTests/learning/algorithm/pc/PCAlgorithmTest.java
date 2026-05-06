@@ -25,7 +25,7 @@ import org.openmarkov.learning.core.algorithm.LearningAlgorithm;
 import org.openmarkov.learning.core.util.ModelNetUse;
 
 import java.io.File;
-import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -345,7 +345,7 @@ public class PCAlgorithmTest {
 	@Disabled
 	@Tag(TestSpeed.SLOW)
     @Test
-	public void testAlarm500() throws org.openmarkov.core.exception.CannotNormalizePotentialException, org.openmarkov.core.exception.ParserException, EmptyDatabaseException, java.io.FileNotFoundException, IncompatibleEvidenceException.EvidenceIsIncompatibleWithOther, NonProjectablePotentialException, NotEvaluableNetworkException.NotApplicableNetwork, ConstraintViolatedException {
+	public void testAlarm500() throws org.openmarkov.core.exception.CannotNormalizePotentialException, org.openmarkov.core.exception.ParserException, EmptyDatabaseException, IOException, IncompatibleEvidenceException.EvidenceIsIncompatibleWithOther, NonProjectablePotentialException, NotEvaluableNetworkException.NotApplicableNetwork, ConstraintViolatedException {
 
 		CSVDataBaseIO csvReader = new CSVDataBaseIO();
 		CaseDatabase alarmDatabase = csvReader.load(new File(getClass().getResource(alarmDatabaseFilename).getFile()));
@@ -362,12 +362,12 @@ public class PCAlgorithmTest {
 		Assertions.assertEquals(34, learnedNet.getLinks().size());
 		PGMXReader_0_2 reader = new PGMXReader_0_2();
         String netName = getClass().getResource(this.path + "BN-alarm.pgmx").getFile();
-        ProbNet readNet = reader.loadProbNet(netName, new FileInputStream(netName));
+		ProbNet readNet = reader.read(new File(netName).toURI().toURL()).getProbNet();
 		printDifferences(readNet, learnedNet);
 	}
 
 	//@Test
-	public void testAlarm10k() throws org.openmarkov.core.exception.CannotNormalizePotentialException, org.openmarkov.core.exception.ParserException, EmptyDatabaseException, java.io.FileNotFoundException, IncompatibleEvidenceException.EvidenceIsIncompatibleWithOther, NonProjectablePotentialException, NotEvaluableNetworkException.NotApplicableNetwork, ConstraintViolatedException {
+	public void testAlarm10k() throws org.openmarkov.core.exception.CannotNormalizePotentialException, org.openmarkov.core.exception.ParserException, EmptyDatabaseException, IOException, IncompatibleEvidenceException.EvidenceIsIncompatibleWithOther, NonProjectablePotentialException, NotEvaluableNetworkException.NotApplicableNetwork, ConstraintViolatedException {
 
 		CSVDataBaseIO csvReader = new CSVDataBaseIO();
 		CaseDatabase alarm10kDatabase = csvReader.load(new File(getClass().getResource(alarm10kDatabaseFilename).getFile()));
@@ -385,7 +385,7 @@ public class PCAlgorithmTest {
 
 		PGMXReader_0_2 reader = new PGMXReader_0_2();
         String netName = getClass().getResource("/BN-alarm.pgmx").getFile();
-        ProbNet readNet = reader.loadProbNet(netName, new FileInputStream(netName));
+		ProbNet readNet = reader.read(new File(netName).toURI().toURL()).getProbNet();
 		printDifferences(readNet, learnedNet);
 	}
 

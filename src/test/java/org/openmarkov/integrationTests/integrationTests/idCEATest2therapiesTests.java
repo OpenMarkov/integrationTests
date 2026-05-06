@@ -26,11 +26,7 @@ import org.openmarkov.inference.algorithm.variableElimination.tasks.VEEvaluation
 import org.openmarkov.inference.algorithm.variableElimination.tasks.VEOptimalIntervention;
 import org.openmarkov.io.probmodel.reader.PGMXReader_0_2;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.net.URL;
-import java.nio.file.Paths;
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 public class idCEATest2therapiesTests {
@@ -44,14 +40,11 @@ public class idCEATest2therapiesTests {
 	private EvidenceCase preResolutionEvidence;
 
 	@BeforeEach public void setUp() throws java.net.URISyntaxException, org.openmarkov.core.exception.ParserException, FileNotFoundException {
-		URL res = getClass().getClassLoader().getResource(networkName);
-		File f = Paths.get(res.toURI()).toFile();
-		String absolutePath = f.getAbsolutePath();
-
+		
 		// Load the network: ID-decide-test
 		PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
 		ProbNetInfo probNetInfo = null;
-        probNetInfo = pgmxReader.loadProbNetInfo(absolutePath, new FileInputStream(absolutePath));
+		probNetInfo = pgmxReader.read(getClass().getClassLoader().getResource(networkName));
 		this.probNet = probNetInfo.getProbNet();
 		if (probNetInfo.getEvidence().size() != 0) {
 			this.preResolutionEvidence = probNetInfo.getEvidence().get(0);

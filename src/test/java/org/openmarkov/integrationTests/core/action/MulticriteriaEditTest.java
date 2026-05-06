@@ -18,12 +18,8 @@ import org.openmarkov.core.model.network.Criterion;
 import org.openmarkov.core.model.network.ProbNet;
 import org.openmarkov.io.probmodel.reader.PGMXReader_0_2;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +30,7 @@ public class MulticriteriaEditTest {
     
     private ProbNet probNet;
     
-    @BeforeEach public void setUp() throws ParserException, URISyntaxException, FileNotFoundException {
+    @BeforeEach public void setUp() throws ParserException, URISyntaxException, IOException {
         this.probNet = getProbNet4Test();
         probNet.getPNESupport().setWithUndo(true);
     }
@@ -77,17 +73,12 @@ public class MulticriteriaEditTest {
         
     }
     
-    private ProbNet getProbNet4Test() throws ParserException, URISyntaxException, FileNotFoundException {
+    private ProbNet getProbNet4Test() throws ParserException, IOException {
         String bayesNetworkName = "networks/bn/BN-MulticriteriaEditTest.pgmx";
-        
-        URL res = getClass().getClassLoader().getResource(bayesNetworkName);
-        File f = Paths.get(res.toURI()).toFile();
-        
-        String absolutePath = f.getAbsolutePath();
         
         // Load the Bayesian network
         PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
-        ProbNet probNet = pgmxReader.loadProbNet(absolutePath, new FileInputStream(absolutePath));
+        ProbNet probNet = pgmxReader.read(getClass().getClassLoader().getResource(bayesNetworkName)).getProbNet();
         
         return probNet;
     }

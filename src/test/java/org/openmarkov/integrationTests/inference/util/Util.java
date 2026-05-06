@@ -8,7 +8,6 @@
 package org.openmarkov.integrationTests.inference.util;
 
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,9 +38,9 @@ public class Util {
 			String fileName = null;
 			try {
 				fileName = bayesianNetworkURL.getFile();
-				probNet = reader.loadProbNet(fileName, bayesianNetworkURL.openStream());
+				probNet = reader.read(bayesianNetworkURL).getProbNet();
 				probNetsDB.add(probNet);
-			} catch (ParserException | IOException e) {
+			} catch (ParserException e) {
 				readingErrors++;
 				wrongNetworksNames.add(fileName);
 			}

@@ -24,8 +24,7 @@ import org.openmarkov.inference.algorithm.decompositionIntoSymmetricDANs.core.DA
 import org.openmarkov.io.probmodel.reader.PGMXReader_0_2;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Paths;
@@ -41,7 +40,7 @@ public class DANOperationsTest {
     private ProbNet danDiabetes;
     private ProbNet danDiabetesCE;
     
-    @BeforeEach public void setUp() throws URISyntaxException, ParserException, FileNotFoundException {
+    @BeforeEach public void setUp() throws URISyntaxException, ParserException, IOException {
         PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
         
         ProbNetInfo probNetInfo;
@@ -51,35 +50,35 @@ public class DANOperationsTest {
         URL res = getClass().getClassLoader().getResource(networkName);
         File f = Paths.get(res.toURI()).toFile();
         String absolutePath = f.getAbsolutePath();
-        danTest2Therapies = pgmxReader.loadProbNet(absolutePath, new FileInputStream(absolutePath));
+        danTest2Therapies = pgmxReader.read(new File(absolutePath).toURI().toURL()).getProbNet();
         
         // Initialize danDecideTest2TherapiesNoCost network
         networkName = "networks/dan/DAN-decide-test-2therapies-no-cost.pgmx";
         res = getClass().getClassLoader().getResource(networkName);
         f = Paths.get(res.toURI()).toFile();
         absolutePath = f.getAbsolutePath();
-        danDecideTest2TherapiesNoCost = pgmxReader.loadProbNet(absolutePath, new FileInputStream(absolutePath));
+        danDecideTest2TherapiesNoCost = pgmxReader.read(new File(absolutePath).toURI().toURL()).getProbNet();
         
         // Initialize danDecideTest2TherapiesNoCost network
         networkName = "networks/dan/DAN-decide-test-2therapies-no-cost-symmetrized.pgmx";
         res = getClass().getClassLoader().getResource(networkName);
         f = Paths.get(res.toURI()).toFile();
         absolutePath = f.getAbsolutePath();
-        danDecideTest2TherapiesNoCostSymmetrized = pgmxReader.loadProbNet(absolutePath, new FileInputStream(absolutePath));
+        danDecideTest2TherapiesNoCostSymmetrized = pgmxReader.read(new File(absolutePath).toURI().toURL()).getProbNet();
         
         // Initialize danDiabetes network
         networkName = "networks/dan/DAN-diabetes.pgmx";
         res = getClass().getClassLoader().getResource(networkName);
         f = Paths.get(res.toURI()).toFile();
         absolutePath = f.getAbsolutePath();
-        danDiabetes = pgmxReader.loadProbNet(absolutePath, new FileInputStream(absolutePath));
+        danDiabetes = pgmxReader.read(new File(absolutePath).toURI().toURL()).getProbNet();
         
         // Initialize ID-A-D1-D2 network
         networkName = "networks/dan/DAN-diabetes-CE.pgmx";
         res = getClass().getClassLoader().getResource(networkName);
         f = Paths.get(res.toURI()).toFile();
         absolutePath = f.getAbsolutePath();
-        danDiabetesCE = pgmxReader.loadProbNet(absolutePath, new FileInputStream(absolutePath));
+        danDiabetesCE = pgmxReader.read(new File(absolutePath).toURI().toURL()).getProbNet();
         
     }
     

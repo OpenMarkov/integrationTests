@@ -17,13 +17,6 @@ import org.openmarkov.inference.algorithm.decompositionIntoSymmetricDANs.ceanaly
 import org.openmarkov.inference.algorithm.decompositionIntoSymmetricDANs.evaluation.DANDecompositionIntoSymmetricDANsEvaluation;
 import org.openmarkov.io.probmodel.reader.PGMXReader_0_2;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.file.Paths;
-
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 public class danAlgorithmTests {
     
@@ -35,17 +28,13 @@ public class danAlgorithmTests {
     }
     
     @Test
-    public void testOneDecision() throws ParserException, URISyntaxException, FileNotFoundException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedConstraints, NonProjectablePotentialException, IncompatibleEvidenceException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+    public void testOneDecision() throws ParserException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedConstraints, NonProjectablePotentialException, IncompatibleEvidenceException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
         String networkName = "DAN-one-decision-CE.pgmx";
         String path = "networks/dan/";
         double lambda = 30000;
-        URL res = getClass().getClassLoader().getResource(path + networkName);
-        File f = Paths.get(res.toURI()).toFile();
-        
-        String absolutePath = f.getAbsolutePath();
         
         PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
-        ProbNetInfo probNetInfo = pgmxReader.loadProbNetInfo(absolutePath, new FileInputStream(absolutePath));
+        ProbNetInfo probNetInfo = pgmxReader.read(getClass().getClassLoader().getResource(path + networkName));
         ProbNet probNet = probNetInfo.getProbNet();
         
         CEP resultCEA = new DANDecompositionIntoSymmetricDANsCEA(probNet).getCEP();
@@ -57,16 +46,13 @@ public class danAlgorithmTests {
     
     @Disabled("Missing test net DAN-2tests.pgmx")
     @Test
-    public void testDAN2tests() throws ParserException, URISyntaxException, FileNotFoundException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedConstraints, NonProjectablePotentialException, IncompatibleEvidenceException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+    public void testDAN2tests() throws ParserException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedConstraints, NonProjectablePotentialException, IncompatibleEvidenceException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
         String networkName = "DAN-2tests.pgmx";
         String path = "networks/IDCEAnTherapies/";
         double lambda = 30000;
         PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
-        URL res = getClass().getClassLoader().getResource(path + networkName);
-        File f = Paths.get(res.toURI()).toFile();
-        String absolutePath = f.getAbsolutePath();
         
-        ProbNetInfo probNetInfo = pgmxReader.loadProbNetInfo(absolutePath, new FileInputStream(absolutePath));
+        ProbNetInfo probNetInfo = pgmxReader.read(getClass().getClassLoader().getResource(path + networkName));
         ProbNet probNet = probNetInfo.getProbNet();
         
         CEP resultCEA = new DANDecompositionIntoSymmetricDANsCEA(probNet).getCEP();
@@ -78,16 +64,13 @@ public class danAlgorithmTests {
     
     @Disabled("Missing test net DAN-3tests.pgmx")
     @Test
-    public void testDAN3tests() throws ParserException, URISyntaxException, FileNotFoundException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedConstraints, NonProjectablePotentialException, IncompatibleEvidenceException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+    public void testDAN3tests() throws ParserException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedConstraints, NonProjectablePotentialException, IncompatibleEvidenceException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
         String networkName = "DAN-3tests.pgmx";
         String path = "networks/IDCEAnTherapies/";
         double lambda = 30000;
         PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
-        URL res = getClass().getClassLoader().getResource(path + networkName);
-        File f = Paths.get(res.toURI()).toFile();
-        String absolutePath = f.getAbsolutePath();
         
-        ProbNetInfo probNetInfo = pgmxReader.loadProbNetInfo(absolutePath, new FileInputStream(absolutePath));
+        ProbNetInfo probNetInfo = pgmxReader.read(getClass().getClassLoader().getResource(path + networkName));
         ProbNet probNet = probNetInfo.getProbNet();
         
         CEP resultCEA = new DANDecompositionIntoSymmetricDANsCEA(probNet).getCEP();
@@ -99,16 +82,13 @@ public class danAlgorithmTests {
     
     @Disabled("Missing test net DAN-4tests.pgmx")
     @Test
-    public void testDAN4tests() throws ParserException, URISyntaxException, FileNotFoundException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedConstraints, NonProjectablePotentialException, IncompatibleEvidenceException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+    public void testDAN4tests() throws ParserException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedConstraints, NonProjectablePotentialException, IncompatibleEvidenceException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
         String networkName = "DAN-4tests.pgmx";
         String path = "networks/IDCEAnTherapies/";
         double lambda = 30000;
         PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
-        URL res = getClass().getClassLoader().getResource(path + networkName);
-        File f = Paths.get(res.toURI()).toFile();
-        String absolutePath = f.getAbsolutePath();
         
-        ProbNetInfo probNetInfo = pgmxReader.loadProbNetInfo(absolutePath, new FileInputStream(absolutePath));
+        ProbNetInfo probNetInfo = pgmxReader.read(getClass().getClassLoader().getResource(path + networkName));
         ProbNet probNet = probNetInfo.getProbNet();
         
         CEP resultCEA = new DANDecompositionIntoSymmetricDANsCEA(probNet).getCEP();
@@ -120,17 +100,13 @@ public class danAlgorithmTests {
     
     
     @Test
-    public void oneChanceCETest() throws ParserException, URISyntaxException, FileNotFoundException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedConstraints, NonProjectablePotentialException, IncompatibleEvidenceException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+    public void oneChanceCETest() throws ParserException, NotEvaluableNetworkException.NotApplicableNetwork, NotEvaluableNetworkException.UnsatisfiedConstraints, NonProjectablePotentialException, IncompatibleEvidenceException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
         String networkName = "DAN-one-chance-ce.pgmx";
         String path = "networks/dan/";
         double lambda = 30000;
-        URL res = getClass().getClassLoader().getResource(path + networkName);
-        File f = Paths.get(res.toURI()).toFile();
-        
-        String absolutePath = f.getAbsolutePath();
         
         PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
-        ProbNetInfo probNetInfo = pgmxReader.loadProbNetInfo(absolutePath, new FileInputStream(absolutePath));
+        ProbNetInfo probNetInfo = pgmxReader.read(getClass().getClassLoader().getResource(path + networkName));
         ProbNet probNet = probNetInfo.getProbNet();
         
         CEP resultCEA = new DANDecompositionIntoSymmetricDANsCEA(probNet).getCEP();

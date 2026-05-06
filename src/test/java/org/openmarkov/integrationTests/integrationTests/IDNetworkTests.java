@@ -20,11 +20,7 @@ import org.openmarkov.core.model.network.potential.TablePotential;
 import org.openmarkov.inference.algorithm.variableElimination.tasks.VESensAnTornadoSpider;
 import org.openmarkov.io.probmodel.reader.PGMXReader_0_2;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.URL;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 
@@ -38,12 +34,9 @@ public abstract class IDNetworkTests {
     protected EvidenceCase preResolutionEvidence;
     
     @BeforeEach public void setUp() throws java.net.URISyntaxException, org.openmarkov.core.exception.ParserException, IOException {
-        URL res = getClass().getClassLoader().getResource(networkName);
-        File f = Paths.get(res.toURI()).toFile();
-        String absolutePath = f.getAbsolutePath();
         // Load the network: ID-decide-test
         ProbNetReader pgmxReader = newPGMXReader();
-        ProbNetInfo probNetInfo = pgmxReader.loadProbNetInfo(absolutePath, new FileInputStream(absolutePath));
+        ProbNetInfo probNetInfo = pgmxReader.read(getClass().getClassLoader().getResource(networkName));
         this.probNet = probNetInfo.getProbNet();
         if (!probNetInfo.getEvidence().isEmpty()) {
             this.preResolutionEvidence = probNetInfo.getEvidence().get(0);

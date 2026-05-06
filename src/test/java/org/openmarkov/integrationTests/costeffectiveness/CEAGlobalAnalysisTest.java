@@ -10,7 +10,6 @@ package org.openmarkov.integrationTests.costeffectiveness;
 import org.junit.jupiter.api.*;
 import org.openmarkov.core.exception.ConstraintViolatedException;
 import org.openmarkov.core.exception.NonProjectablePotentialException;
-import org.openmarkov.core.exception.NotSupportedOperationException;
 import org.openmarkov.core.inference.TemporalOptions;
 import org.openmarkov.core.model.network.CEP;
 import org.openmarkov.core.model.network.Criterion;
@@ -30,11 +29,7 @@ import org.openmarkov.inference.algorithm.variableElimination.tasks.VECEPSA;
 import org.openmarkov.inference.algorithm.variableElimination.tasks.VEEvaluation;
 import org.openmarkov.io.probmodel.reader.PGMXReader_0_2;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.net.URL;
-import java.nio.file.Paths;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,14 +57,12 @@ public class CEAGlobalAnalysisTest {
 	
 	@Tag(TestSpeed.MEDIUM)
     @Test
-	public void testChancellorUnicriterion() throws NonProjectablePotentialException, java.net.URISyntaxException, org.openmarkov.core.exception.ParserException, org.openmarkov.core.exception.IncompatibleEvidenceException, FileNotFoundException, org.openmarkov.core.exception.NotEvaluableNetworkException.NotApplicableNetwork, ConstraintViolatedException {
+	public void testChancellorUnicriterion() throws NonProjectablePotentialException, org.openmarkov.core.exception.ParserException, org.openmarkov.core.exception.IncompatibleEvidenceException, org.openmarkov.core.exception.NotEvaluableNetworkException.NotApplicableNetwork, ConstraintViolatedException, IOException {
 		// Open the file containing the network
-        URL res = getClass().getResource("/networks/mid/MID-Chancellor-Unicriterion.pgmx");
-		File f = Paths.get(res.toURI()).toFile();
-		String absolutePath = f.getAbsolutePath();
 		// Load the Bayesian network
 		PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
-        ProbNet probNet = pgmxReader.loadProbNet(absolutePath, new FileInputStream(absolutePath));
+		ProbNet probNet = pgmxReader.read(getClass().getResource("/networks/mid/MID-Chancellor-Unicriterion.pgmx"))
+		                            .getProbNet();
 
 		EvidenceCase evidence = new EvidenceCase();
 		List<Variable> conditioningVariables = new ArrayList<Variable>();
@@ -109,12 +102,9 @@ public class CEAGlobalAnalysisTest {
     
     @Tag(TestSpeed.MEDIUM)
     @Test
-	public void testDMHEE25SV() throws NonProjectablePotentialException, java.net.URISyntaxException, org.openmarkov.core.exception.ParserException, org.openmarkov.core.exception.IncompatibleEvidenceException, FileNotFoundException, org.openmarkov.core.exception.NotEvaluableNetworkException.NotApplicableNetwork, ConstraintViolatedException {
-		URL res = getClass().getResource("/networks/mid/MID-dmhee-2.5-sv.pgmx");
-		File f = Paths.get(res.toURI()).toFile();
-		String absolutePath = f.getAbsolutePath();
+	public void testDMHEE25SV() throws NonProjectablePotentialException, org.openmarkov.core.exception.ParserException, org.openmarkov.core.exception.IncompatibleEvidenceException, org.openmarkov.core.exception.NotEvaluableNetworkException.NotApplicableNetwork, ConstraintViolatedException, IOException {
 		PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
-        ProbNet probNet = pgmxReader.loadProbNet(absolutePath, new FileInputStream(absolutePath));
+		ProbNet probNet = pgmxReader.read(getClass().getResource("/networks/mid/MID-dmhee-2.5-sv.pgmx")).getProbNet();
 
 		EvidenceCase evidence = new EvidenceCase();
         setOldMethodParameters(probNet, 6.0, 0.0, 20, TemporalOptions.TransitionTime.BEGINNING);
@@ -138,16 +128,13 @@ public class CEAGlobalAnalysisTest {
 	
 	@Tag(TestSpeed.SLOW)
     @Test
-	public void testDMHEE35() throws NonProjectablePotentialException, java.net.URISyntaxException, org.openmarkov.core.exception.ParserException, org.openmarkov.core.exception.IncompatibleEvidenceException, FileNotFoundException, org.openmarkov.core.exception.NotEvaluableNetworkException.NotApplicableNetwork, ConstraintViolatedException {
+	public void testDMHEE35() throws NonProjectablePotentialException, org.openmarkov.core.exception.ParserException, org.openmarkov.core.exception.IncompatibleEvidenceException, org.openmarkov.core.exception.NotEvaluableNetworkException.NotApplicableNetwork, ConstraintViolatedException, IOException {
 		// Constants
         // Open the file containing the network
-		URL res = getClass().getResource("/networks/mid/MID-dmhee-3.5.pgmx");
-		File f = Paths.get(res.toURI()).toFile();
-		String absolutePath = f.getAbsolutePath();
-
+		
 		// Load the Bayesian network
 		PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
-        ProbNet probNet = pgmxReader.loadProbNet(absolutePath, new FileInputStream(absolutePath));
+		ProbNet probNet = pgmxReader.read(getClass().getResource("/networks/mid/MID-dmhee-3.5.pgmx")).getProbNet();
 
 		EvidenceCase evidence = new EvidenceCase();
 		Variable sexVariable = probNet.getVariable("Sex");
@@ -185,14 +172,11 @@ public class CEAGlobalAnalysisTest {
 	@Tag(TestSpeed.SLOW)
 	@SuppressWarnings("rawtypes")
     @Test
-	public void testDMHEE47PSA() throws java.net.URISyntaxException, NonProjectablePotentialException, org.openmarkov.core.exception.ParserException, org.openmarkov.core.exception.IncompatibleEvidenceException, FileNotFoundException, org.openmarkov.core.exception.NotEvaluableNetworkException.NotApplicableNetwork, ConstraintViolatedException {
-		URL res = getClass().getResource("/networks/mid/MID-dmhee-4.7.pgmx");
-		File f = Paths.get(res.toURI()).toFile();
-		String absolutePath = f.getAbsolutePath();
-
+	public void testDMHEE47PSA() throws NonProjectablePotentialException, org.openmarkov.core.exception.ParserException, org.openmarkov.core.exception.IncompatibleEvidenceException, org.openmarkov.core.exception.NotEvaluableNetworkException.NotApplicableNetwork, ConstraintViolatedException, IOException {
+		
 		// Load the Bayesian network
 		PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
-        ProbNet probNet = pgmxReader.loadProbNet(absolutePath, new FileInputStream(absolutePath));
+		ProbNet probNet = pgmxReader.read(getClass().getResource("/networks/mid/MID-dmhee-4.7.pgmx")).getProbNet();
 
 		EvidenceCase evidence = new EvidenceCase();
 
@@ -225,14 +209,11 @@ public class CEAGlobalAnalysisTest {
 	@Tag(TestSpeed.SLOW)
 	@SuppressWarnings("rawtypes")
     @Test
-	public void testBriggsSA() throws NonProjectablePotentialException, java.net.URISyntaxException, org.openmarkov.core.exception.ParserException, org.openmarkov.core.exception.IncompatibleEvidenceException, FileNotFoundException, org.openmarkov.core.exception.NotEvaluableNetworkException.NotApplicableNetwork, ConstraintViolatedException {
-		URL res = getClass().getResource("/networks/mid/MID-dmhee-4.8.pgmx");
-		File f = Paths.get(res.toURI()).toFile();
-		String absolutePath = f.getAbsolutePath();
-
+	public void testBriggsSA() throws NonProjectablePotentialException, org.openmarkov.core.exception.ParserException, org.openmarkov.core.exception.IncompatibleEvidenceException, org.openmarkov.core.exception.NotEvaluableNetworkException.NotApplicableNetwork, ConstraintViolatedException, IOException {
+		
 		// Load the Bayesian network
 		PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
-        ProbNet probNet = pgmxReader.loadProbNet(absolutePath, new FileInputStream(absolutePath));
+		ProbNet probNet = pgmxReader.read(getClass().getResource("/networks/mid/MID-dmhee-4.8.pgmx")).getProbNet();
 
 		// Sex = 0
 		EvidenceCase evidence = new EvidenceCase();
@@ -292,12 +273,9 @@ public class CEAGlobalAnalysisTest {
     
     @Tag(TestSpeed.SLOW)
     @Test
-	public void testHPV() throws NonProjectablePotentialException, java.net.URISyntaxException, org.openmarkov.core.exception.ParserException, org.openmarkov.core.exception.IncompatibleEvidenceException, FileNotFoundException, org.openmarkov.core.exception.NotEvaluableNetworkException.NotApplicableNetwork, ConstraintViolatedException {
-		URL res = getClass().getResource("/networks/mid/MID-HPV.pgmx");
-		File f = Paths.get(res.toURI()).toFile();
-		String absolutePath = f.getAbsolutePath();
+	public void testHPV() throws NonProjectablePotentialException, org.openmarkov.core.exception.ParserException, org.openmarkov.core.exception.IncompatibleEvidenceException, org.openmarkov.core.exception.NotEvaluableNetworkException.NotApplicableNetwork, ConstraintViolatedException, IOException {
 		PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
-        ProbNet probNet = pgmxReader.loadProbNet(absolutePath, new FileInputStream(absolutePath));
+		ProbNet probNet = pgmxReader.read(getClass().getResource("/networks/mid/MID-HPV.pgmx")).getProbNet();
 
 		EvidenceCase evidence = new EvidenceCase();
         setOldMethodParameters(probNet, 0.0, 0.0, 88, TemporalOptions.TransitionTime.BEGINNING);

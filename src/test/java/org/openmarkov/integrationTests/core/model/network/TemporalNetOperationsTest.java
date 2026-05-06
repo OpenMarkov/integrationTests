@@ -16,11 +16,7 @@ import org.openmarkov.core.model.network.potential.ExactDistrPotential;
 import org.openmarkov.core.testTags.TestSpeed;
 import org.openmarkov.io.probmodel.reader.PGMXReader_0_2;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.net.URL;
-import java.nio.file.Paths;
+import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -29,16 +25,14 @@ public class TemporalNetOperationsTest {
     
     private ProbNet probNet;
     
-    @BeforeEach public void setUp() throws java.net.URISyntaxException, org.openmarkov.core.exception.ParserException, FileNotFoundException {
+    @BeforeEach
+    public void setUp() throws java.net.URISyntaxException, org.openmarkov.core.exception.ParserException, IOException {
         String networkName = "networks/mid/SimpleTemporalUtilityNode.pgmx";
         // Open the file containing the network
-        URL res = getClass().getClassLoader().getResource(networkName);
-        File f = Paths.get(res.toURI()).toFile();
-        String absolutePath = f.getAbsolutePath();
         
         // Load the Bayesian network
         PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
-        probNet = pgmxReader.loadProbNet(absolutePath, new FileInputStream(absolutePath));
+        probNet = pgmxReader.read(getClass().getClassLoader().getResource(networkName)).getProbNet();
         probNet.getInferenceOptions().getTemporalOptions().setHorizon(15);
         
     }

@@ -57,7 +57,7 @@ public class URLIterator implements PGMXIterator {
         PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
         ProbNetInfo probNetInfo = null;
         ProbNet probNet = null;
-            probNetInfo = pgmxReader.loadProbNetInfo(networkName, url.openStream());
+        probNetInfo = pgmxReader.read(url);
             compound = new PGMXCompound(new File(newName));
             probNet = probNetInfo.getProbNet();
         return compound;

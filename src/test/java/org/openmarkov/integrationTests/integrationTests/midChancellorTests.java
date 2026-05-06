@@ -31,12 +31,8 @@ import org.openmarkov.inference.algorithm.variableElimination.tasks.VEOptimalInt
 import org.openmarkov.inference.algorithm.variableElimination.tasks.VETemporalEvolution;
 import org.openmarkov.io.probmodel.reader.PGMXReader_0_2;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 
@@ -50,16 +46,10 @@ public class midChancellorTests {
 	private EvidenceCase preResolutionEvidence;
 
 	@BeforeEach public void setUp() throws ParserException, URISyntaxException, FileNotFoundException {
-		String networkName = "networks/mid/MID-Chancellor.pgmx";
-		URL res = getClass().getClassLoader().getResource(networkName);
-        File f = Paths.get(res.toURI()).toFile();
-
-		String absolutePath = f.getAbsolutePath();
-
 		// Load the network: ID-decide-test
 		PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
 		ProbNetInfo probNetInfo = null;
-        probNetInfo = pgmxReader.loadProbNetInfo(absolutePath, new FileInputStream(absolutePath));
+		probNetInfo = pgmxReader.read(getClass().getClassLoader().getResource("networks/mid/MID-Chancellor.pgmx"));
 		assert probNetInfo != null;
 		this.probNet = probNetInfo.getProbNet();
 

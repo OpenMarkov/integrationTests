@@ -112,11 +112,11 @@ public class PGMXCompound {
         PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
         String absolutePath = file.getAbsolutePath();
         if (fileOrigin) {
-            this.probNetInfo = pgmxReader.loadProbNetInfo(absolutePath, new FileInputStream(absolutePath));
-            this.version = PGMXReader_0_2.getVersion(absolutePath, new FileInputStream(absolutePath));
+            this.probNetInfo = pgmxReader.read(file.toURI().toURL());
+            this.version = PGMXReader_0_2.getVersion(file.toURI().toURL());
         } else {
-            this.probNetInfo = pgmxReader.loadProbNetInfo(fileName, url.openStream());
-            this.version = PGMXReader_0_2.getVersion(fileName, url.openStream());
+            this.probNetInfo = pgmxReader.read(file.toURI().toURL());
+            this.version = PGMXReader_0_2.getVersion(file.toURI().toURL());
         }
         this.probNet = probNetInfo.getProbNet();
         this.evidenceCases = probNetInfo.getEvidence();
@@ -133,7 +133,7 @@ public class PGMXCompound {
         }
         try {
             ProbNetWriter writer = version.equals(V0_2) ? new PGMXWriter_0_2() : new PGMXWriter_1_0();
-            writer.writeProbNet(fileName, probNet, evidenceCases);
+            writer.write(fileName, probNet, evidenceCases);
             file = new File(fileName);
             triedToRead = false;
             errorReading = false;

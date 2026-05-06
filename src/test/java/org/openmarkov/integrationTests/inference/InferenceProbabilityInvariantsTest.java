@@ -21,10 +21,6 @@ import org.openmarkov.core.model.network.potential.TablePotential;
 import org.openmarkov.inference.algorithm.variableElimination.tasks.VEPropagation;
 import org.openmarkov.io.probmodel.reader.PGMXReader_0_2;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.net.URL;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -156,12 +152,8 @@ public class InferenceProbabilityInvariantsTest {
     // -----------------------------------------------------------------------
 
     private ProbNet loadNetwork(String resourcePath) throws Exception {
-        URL res = getClass().getClassLoader().getResource(resourcePath);
-        assertNotNull(res, "Resource not found: " + resourcePath);
-        File f = Paths.get(res.toURI()).toFile();
-        String absolutePath = f.getAbsolutePath();
         PGMXReader_0_2 reader = new PGMXReader_0_2();
-        ProbNetInfo info = reader.loadProbNetInfo(absolutePath, new FileInputStream(absolutePath));
+        ProbNetInfo info = reader.read(getClass().getClassLoader().getResource(resourcePath));
         return info.getProbNet();
     }
 

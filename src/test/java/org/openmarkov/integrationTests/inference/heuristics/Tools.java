@@ -1,11 +1,7 @@
 package org.openmarkov.integrationTests.inference.heuristics;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -34,10 +30,7 @@ public class Tools {
         String networkName = "networks/" + subfolderName + "/" + networkNamePrefix + "-" + networkNameSuffix + ".pgmx";
         PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
         ProbNetInfo probNetInfo = null;
-        URL res = getClass().getClassLoader().getResource(networkName);
-        File f = Paths.get(res.toURI()).toFile();
-        String absolutePath = f.getAbsolutePath();
-        probNetInfo = pgmxReader.loadProbNetInfo(absolutePath, new FileInputStream(absolutePath));
+        probNetInfo = pgmxReader.read(getClass().getClassLoader().getResource(networkName));
         return probNetInfo.getProbNet();
     }
     
