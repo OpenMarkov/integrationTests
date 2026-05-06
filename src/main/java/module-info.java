@@ -9,9 +9,6 @@ open module org.openmarkov.integrationTests {
     requires org.openmarkov.gui;
     requires org.openmarkov.inference;
     requires org.openmarkov.io;
-    requires org.openmarkov.io.database.elvira;
-    requires org.openmarkov.io.database.excel;
-    requires org.openmarkov.io.database.weka;
     requires org.openmarkov.learning.algorithm;
     requires org.openmarkov.learning.core;
     requires org.openmarkov.learning.gui;
