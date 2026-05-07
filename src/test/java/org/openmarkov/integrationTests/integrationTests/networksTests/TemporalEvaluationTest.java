@@ -16,6 +16,7 @@ import org.openmarkov.core.testTags.TestSpeed;
 import org.openmarkov.inference.algorithm.temporalevaluation.tasks.TemporalEvaluation;
 import org.openmarkov.inference.algorithm.variableElimination.tasks.VECEAnalysis;
 import org.openmarkov.integrationTests.IntegrationTest;
+import org.openmarkov.io.probmodel.reader.PGMXReader;
 import org.openmarkov.io.probmodel.reader.PGMXReader_0_2;
 
 import java.util.Arrays;
@@ -33,12 +34,12 @@ public class TemporalEvaluationTest {
         // New cost-effectiveness networks
         String networkName = "networks/mid/MID-Chancellor.pgmx";
         PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
-        ProbNetInfo probNetInfo = pgmxReader.read(new IntegrationTest().getClass()
-                                                                       .getClassLoader()
-                                                                       .getResource(networkName));
-        probNet = probNetInfo.getProbNet();
-        preResolutionEvidence = probNetInfo.getEvidence().isEmpty() ? new EvidenceCase() : probNetInfo.getEvidence()
-                                                                                                      .get(0);
+        PGMXReader.NetworkAndEvidence probNetInfo = pgmxReader.read(new IntegrationTest().getClass()
+                                                                                         .getClassLoader()
+                                                                                         .getResource(networkName));
+        probNet = probNetInfo.probNet();
+        preResolutionEvidence = probNetInfo.evidence().isEmpty() ? new EvidenceCase() : probNetInfo.evidence()
+                                                                                                   .get(0);
         List<Node> utilityNodes = probNet.getNodes(NodeType.UTILITY);
         for (Node node : utilityNodes) {
             if (!"Cost lamivudine".equals(node.getVariable().getBaseName())) {

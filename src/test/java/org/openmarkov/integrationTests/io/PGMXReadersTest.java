@@ -21,9 +21,9 @@ import java.util.stream.Stream;
 
 class PGMXReadersTest {
     
-    static final HashSet<Class<? extends ProbNetReader>> READERS_THAT_CAN_MISS_POTENTIAL_READER_METHODS
+    static final HashSet<Class<? extends PGMXReader_0_2>> READERS_THAT_CAN_MISS_POTENTIAL_READER_METHODS
             = new HashSet<>(List.of(PGMXReader_0_2.class, XMLBIFReader.class));
-
+    
     /**
      * Potential classes that are computational artifacts and are never stored in PGMX files
      * as first-class elements, so they do not need a corresponding reader method.
@@ -38,7 +38,7 @@ class PGMXReadersTest {
      * </ul>
      */
     static final HashSet<Class<? extends Potential>> POTENTIALS_WITHOUT_PGMX_REPRESENTATION;
-
+    
     static {
         HashSet<Class<? extends Potential>> set = new HashSet<>(List.of(
                 GTablePotential.class,
@@ -80,13 +80,11 @@ class PGMXReadersTest {
     public static Stream<TestData> generateTestData() {
         var readers = PluginSearch.init()
                                   .extending(PGMXReader_0_2.class)
-                                  .annotatedWith(FormatType.class)
                                   .filter(ClassUtils::isConcrete)
+                                  .filter(readerClass -> !readerClass.equals(Classificator.class))
                                   .stream()
                                   //.filter(reader -> reader
                                   //        .getAnnotation(FormatType.class).extension().equalsIgnoreCase("PGMX"))
-                                  .sorted(Comparator.comparing(reader -> reader
-                                          .getAnnotation(FormatType.class).version()))
                                   .toList();
         
         return readers.stream().flatMap(readerClass -> {

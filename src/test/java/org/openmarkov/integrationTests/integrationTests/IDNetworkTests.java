@@ -18,6 +18,7 @@ import org.openmarkov.core.model.network.modelUncertainty.SystematicSampling;
 import org.openmarkov.core.model.network.modelUncertainty.UncertainParameter;
 import org.openmarkov.core.model.network.potential.TablePotential;
 import org.openmarkov.inference.algorithm.variableElimination.tasks.VESensAnTornadoSpider;
+import org.openmarkov.io.probmodel.reader.PGMXReader;
 import org.openmarkov.io.probmodel.reader.PGMXReader_0_2;
 
 import java.io.IOException;
@@ -35,15 +36,16 @@ public abstract class IDNetworkTests {
     
     @BeforeEach public void setUp() throws java.net.URISyntaxException, org.openmarkov.core.exception.ParserException, IOException {
         // Load the network: ID-decide-test
-        ProbNetReader pgmxReader = newPGMXReader();
-        ProbNetInfo probNetInfo = pgmxReader.read(getClass().getClassLoader().getResource(networkName));
-        this.probNet = probNetInfo.getProbNet();
-        if (!probNetInfo.getEvidence().isEmpty()) {
-            this.preResolutionEvidence = probNetInfo.getEvidence().get(0);
+        PGMXReader_0_2 pgmxReader = newPGMXReader();
+        PGMXReader.NetworkAndEvidence probNetInfo = pgmxReader.read(getClass().getClassLoader()
+                                                                              .getResource(networkName));
+        this.probNet = probNetInfo.probNet();
+        if (!probNetInfo.evidence().isEmpty()) {
+            this.preResolutionEvidence = probNetInfo.evidence().get(0);
         }
     }
     
-    protected ProbNetReader newPGMXReader() {
+    protected PGMXReader_0_2 newPGMXReader() {
         return new PGMXReader_0_2();
     }
     

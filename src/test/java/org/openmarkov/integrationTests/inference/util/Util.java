@@ -8,6 +8,7 @@
 package org.openmarkov.integrationTests.inference.util;
 
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,7 @@ import org.openmarkov.core.model.network.ProbNet;
 import org.openmarkov.core.model.network.potential.Potential;
 import org.openmarkov.core.model.network.potential.TablePotential;
 import org.openmarkov.core.model.network.type.NetworkType;
+import org.openmarkov.io.probmodel.reader.PGMXReader;
 import org.openmarkov.io.probmodel.reader.PGMXReader_0_2;
 
 public class Util {
@@ -29,7 +31,7 @@ public class Util {
 	 */
     public static List<ProbNet> readProbNetsDB(NetworkType networkType) {
         List<URL> bayesianNetworksURLList = NetsRepository.getNetworks(networkType);
-		PGMXReader_0_2 reader = new PGMXReader_0_2();
+		PGMXReader reader = new PGMXReader();
 		List<ProbNet> probNetsDB = new ArrayList<ProbNet>();
 		List<String> wrongNetworksNames = new ArrayList<String>();
 		int readingErrors = 0;
@@ -38,9 +40,9 @@ public class Util {
 			String fileName = null;
 			try {
 				fileName = bayesianNetworkURL.getFile();
-				probNet = reader.read(bayesianNetworkURL).getProbNet();
+				probNet = reader.read(bayesianNetworkURL).probNet();
 				probNetsDB.add(probNet);
-			} catch (ParserException e) {
+			} catch (ParserException | IOException e) {
 				readingErrors++;
 				wrongNetworksNames.add(fileName);
 			}

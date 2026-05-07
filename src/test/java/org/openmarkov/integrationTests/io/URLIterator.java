@@ -4,6 +4,7 @@ import bitbucket.NetsRepository;
 import org.openmarkov.core.exception.ParserException;
 import org.openmarkov.core.io.ProbNetInfo;
 import org.openmarkov.core.model.network.ProbNet;
+import org.openmarkov.io.probmodel.reader.PGMXReader;
 import org.openmarkov.io.probmodel.reader.PGMXReader_0_2;
 
 import java.io.*;
@@ -55,11 +56,11 @@ public class URLIterator implements PGMXIterator {
         }
         
         PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
-        ProbNetInfo probNetInfo = null;
+        PGMXReader.NetworkAndEvidence probNetInfo = null;
         ProbNet probNet = null;
         probNetInfo = pgmxReader.read(url);
             compound = new PGMXCompound(new File(newName));
-            probNet = probNetInfo.getProbNet();
+        probNet = probNetInfo.probNet();
         return compound;
     }
     

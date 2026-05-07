@@ -362,7 +362,7 @@ public class PCAlgorithmTest {
 		Assertions.assertEquals(34, learnedNet.getLinks().size());
 		PGMXReader_0_2 reader = new PGMXReader_0_2();
         String netName = getClass().getResource(this.path + "BN-alarm.pgmx").getFile();
-		ProbNet readNet = reader.read(new File(netName).toURI().toURL()).getProbNet();
+        ProbNet readNet = reader.read(new File(netName).toURI().toURL()).probNet();
 		printDifferences(readNet, learnedNet);
 	}
 
@@ -385,7 +385,7 @@ public class PCAlgorithmTest {
 
 		PGMXReader_0_2 reader = new PGMXReader_0_2();
         String netName = getClass().getResource("/BN-alarm.pgmx").getFile();
-		ProbNet readNet = reader.read(new File(netName).toURI().toURL()).getProbNet();
+        ProbNet readNet = reader.read(new File(netName).toURI().toURL()).probNet();
 		printDifferences(readNet, learnedNet);
 	}
 

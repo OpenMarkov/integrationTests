@@ -78,7 +78,7 @@ public class MulticriteriaEditTest {
         
         // Load the Bayesian network
         PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
-        ProbNet probNet = pgmxReader.read(getClass().getClassLoader().getResource(bayesNetworkName)).getProbNet();
+        ProbNet probNet = pgmxReader.read(getClass().getClassLoader().getResource(bayesNetworkName)).probNet();
         
         return probNet;
     }

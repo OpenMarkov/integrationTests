@@ -10,6 +10,7 @@ import org.openmarkov.inference.algorithm.decompositionIntoSymmetricDANs.Decisio
 import org.openmarkov.inference.algorithm.decompositionIntoSymmetricDANs.ceanalysis.DANDecisionTreeCEA;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URISyntaxException;
 
 public class DANDecisionTreeCEATest extends DANCEATest {
@@ -25,7 +26,7 @@ public class DANDecisionTreeCEATest extends DANCEATest {
 	}
 
 	@Override
-    public void testCEADANEvaluation(String danName, int globalNumberOfCEPIntervals, double... expectedThreshods) throws NonProjectablePotentialException, NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+	public void testCEADANEvaluation(String danName, int globalNumberOfCEPIntervals, double... expectedThreshods) throws NonProjectablePotentialException, NotEvaluableNetworkException, ParserException, IOException, IncompatibleEvidenceException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
 		Tools t = new Tools();
 		ProbNet network = t.loadDAN(danName);
 		MulticriteriaOptions options = new MulticriteriaOptions();

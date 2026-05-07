@@ -12,7 +12,6 @@ import org.openmarkov.core.inference.TemporalOptions;
 import org.openmarkov.core.inference.tasks.CEAnalysis;
 import org.openmarkov.core.inference.tasks.OptimalPolicies;
 import org.openmarkov.core.inference.tasks.TemporalEvolution;
-import org.openmarkov.core.io.ProbNetInfo;
 import org.openmarkov.core.model.network.CEP;
 import org.openmarkov.core.model.network.EvidenceCase;
 import org.openmarkov.core.model.network.ProbNet;
@@ -29,6 +28,7 @@ import org.openmarkov.inference.algorithm.variableElimination.tasks.VECEAnalysis
 import org.openmarkov.inference.algorithm.variableElimination.tasks.VEEvaluation;
 import org.openmarkov.inference.algorithm.variableElimination.tasks.VEOptimalIntervention;
 import org.openmarkov.inference.algorithm.variableElimination.tasks.VETemporalEvolution;
+import org.openmarkov.io.probmodel.reader.PGMXReader;
 import org.openmarkov.io.probmodel.reader.PGMXReader_0_2;
 
 import java.io.FileNotFoundException;
@@ -48,13 +48,13 @@ public class midChancellorTests {
 	@BeforeEach public void setUp() throws ParserException, URISyntaxException, FileNotFoundException {
 		// Load the network: ID-decide-test
 		PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
-		ProbNetInfo probNetInfo = null;
+		PGMXReader.NetworkAndEvidence probNetInfo = null;
 		probNetInfo = pgmxReader.read(getClass().getClassLoader().getResource("networks/mid/MID-Chancellor.pgmx"));
 		assert probNetInfo != null;
-		this.probNet = probNetInfo.getProbNet();
-
-		if (probNetInfo.getEvidence().size() != 0) {
-			this.preResolutionEvidence = probNetInfo.getEvidence().get(0);
+		this.probNet = probNetInfo.probNet();
+		
+		if (probNetInfo.evidence().size() != 0) {
+			this.preResolutionEvidence = probNetInfo.evidence().get(0);
 		}
 	}
 	@Disabled

@@ -15,6 +15,7 @@ import org.openmarkov.integrationTests.inference.NetworkEvaluationInferenceTest;
 import org.openmarkov.integrationTests.inference.heuristics.Tools;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Arrays;
 
@@ -27,81 +28,81 @@ public abstract class DANEvaluationTest extends NetworkEvaluationInferenceTest {
     
     
     @Override
-    protected ProbNet loadNetwork(String networkName) throws ParserException, URISyntaxException, FileNotFoundException {
+    protected ProbNet loadNetwork(String networkName) throws ParserException, IOException {
         Tools t = new Tools();
         return t.loadDAN(networkName);
     }
     
     
     @Test
-    public void testDANOnlyDecisionNoUtility() throws NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+    public void testDANOnlyDecisionNoUtility() throws NotEvaluableNetworkException, ParserException, URISyntaxException, IOException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
         testNetworkEvaluation("only-decision-no-utility", 0.0, "D");
     }
     
     @Test
-    public void testDANOnlyUtility() throws NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+    public void testDANOnlyUtility() throws NotEvaluableNetworkException, ParserException, URISyntaxException, IOException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
         testNetworkEvaluation("only-utility", 10.0);
     }
     
     @Tag(TestSpeed.MEDIUM)
     @Test
-    public void testDANOneChance() throws NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+    public void testDANOneChance() throws NotEvaluableNetworkException, ParserException, URISyntaxException, IOException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
         testNetworkEvaluation("one-chance", 83.7);
     }
     
     @Test
-    public void testDANOneDecision() throws NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+    public void testDANOneDecision() throws NotEvaluableNetworkException, ParserException, URISyntaxException, IOException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
         testNetworkEvaluation("one-decision", 87.4, "D");
     }
     
     @Tag(TestSpeed.MEDIUM)
     @Test
-    public void testDANNoKnowledge() throws NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+    public void testDANNoKnowledge() throws NotEvaluableNetworkException, ParserException, URISyntaxException, IOException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
         testNetworkEvaluation("no-knowledge", 9.16, "D");
     }
     
     @Tag(TestSpeed.MEDIUM)
     @Test
-    public void testDANPerfectKnowledge() throws NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+    public void testDANPerfectKnowledge() throws NotEvaluableNetworkException, ParserException, URISyntaxException, IOException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
         testNetworkEvaluation("perfect-knowledge", 9.72, "A", "D");
     }
     
     @Tag(TestSpeed.SLOW)
     @Test
-    public void testDANTest2Therapies() throws NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+    public void testDANTest2Therapies() throws NotEvaluableNetworkException, ParserException, URISyntaxException, IOException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
         testNetworkEvaluation("test-2therapies", 9.39366, "Test", "Therapy");
     }
     
     @Tag(TestSpeed.SLOW)
     @Test
-    public void testDANTest2TherapiesNoCostSymmetrizedOrderForced() throws NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+    public void testDANTest2TherapiesNoCostSymmetrizedOrderForced() throws NotEvaluableNetworkException, ParserException, URISyntaxException, IOException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
         testNetworkEvaluation("decide-test-2therapies-no-cost-symmetrized-order-forced", 9.39366, "Do test?",
                               "Result of test", "Therapy");
     }
     
     @Tag(TestSpeed.SLOW)
     @Test
-    public void testDANTest2TherapiesNoCostOrderForced() throws NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+    public void testDANTest2TherapiesNoCostOrderForced() throws NotEvaluableNetworkException, ParserException, URISyntaxException, IOException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
         testNetworkEvaluation("decide-test-2therapies-no-cost-order-forced", 9.39366, "Do test?", "Result of test",
                               "Therapy");
     }
     
     @Tag(TestSpeed.SLOW)
     @Test
-    public void testDANTest2TherapiesNoCost() throws NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+    public void testDANTest2TherapiesNoCost() throws NotEvaluableNetworkException, ParserException, URISyntaxException, IOException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
         testNetworkEvaluation("decide-test-2therapies-no-cost", 9.39366, "Do test?", "Result of test", "Therapy");
     }
     
     @Tag(TestSpeed.SLOW)
     @Test
-    public void testDANUIDsPaper() throws NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+    public void testDANUIDsPaper() throws NotEvaluableNetworkException, ParserException, URISyntaxException, IOException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
         testNetworkEvaluation("UID-luque2016-OM-0-2-0", 10, "OD", "D", "X", "E");
         
     }
     
     @Tag(TestSpeed.SLOW)
     @Test
-    public void testDANDiabetes() throws NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+    public void testDANDiabetes() throws NotEvaluableNetworkException, ParserException, URISyntaxException, IOException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
         testNetworkEvaluation("diabetes", 979.8337, "Symptom", "OD", "Dec: Blood Test", "Dec: Urine test",
                               "Blood test result", "Urine test result", "Therapy");
         
@@ -109,13 +110,13 @@ public abstract class DANEvaluationTest extends NetworkEvaluationInferenceTest {
     
     @Tag(TestSpeed.SLOW)
     @Test
-    public void testDANSimplifiedUsedCarBuyer() throws NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+    public void testDANSimplifiedUsedCarBuyer() throws NotEvaluableNetworkException, ParserException, URISyntaxException, IOException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
         testNetworkEvaluation("simplified-used-car-buyer", 32.96, "Dec: First Test", "First Result", "Dec: Purchase");
     }
     
     @Tag(TestSpeed.SLOW)
     @Test
-    public void testDANUsedCarBuyer() throws NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+    public void testDANUsedCarBuyer() throws NotEvaluableNetworkException, ParserException, URISyntaxException, IOException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
         //testDANEvaluation("used-car-buyer",32.96,"Dec: First Test","First Result","Dec: Second Test","Dec: Purchase");
         testNetworkEvaluation("used-car-buyer", 32.96);
         
@@ -123,26 +124,26 @@ public abstract class DANEvaluationTest extends NetworkEvaluationInferenceTest {
     
     @Tag(TestSpeed.SLOW)
     @Test
-    public void testDANReactor() throws NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+    public void testDANReactor() throws NotEvaluableNetworkException, ParserException, URISyntaxException, IOException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
         testNetworkEvaluation("reactor", 8.1280, "Test decision", "Result of test", "Build decision");
         
     }
     
     @Test
     public void testDANKingNobleDescentYesFirstTask1() throws
-            NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+            NotEvaluableNetworkException, ParserException, URISyntaxException, IOException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
         testNetworkEvaluation("king-noble-descent-yes-first-task-1", 9.03);
         
     }
     
     @Test
     public void testDANKingNobleDescentYesFirstTask1SecondTask2() throws
-            NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+            NotEvaluableNetworkException, ParserException, URISyntaxException, IOException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
         testNetworkEvaluation("king-noble-descent-yes-first-task-1-second-task-2", 9.03);
     }
     
     @Disabled @Test
-    public void testDANSimplifiedTwoTasksKingNobleDescentYes() throws NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+    public void testDANSimplifiedTwoTasksKingNobleDescentYes() throws NotEvaluableNetworkException, ParserException, URISyntaxException, IOException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
         testNetworkEvaluation("simplified-two-tasks-king-noble-descent-yes", 9.08);
     }
     
@@ -151,7 +152,7 @@ public abstract class DANEvaluationTest extends NetworkEvaluationInferenceTest {
      */
     @Disabled @Test public void testDANSimplified2TwoTasksKingNobleDescentYes()
             throws
-            NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+            NotEvaluableNetworkException, ParserException, URISyntaxException, IOException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
         testNetworkEvaluation("simplified-2-two-tasks-king-noble-descent-yes", 9.08);
     }
     
@@ -161,14 +162,14 @@ public abstract class DANEvaluationTest extends NetworkEvaluationInferenceTest {
     @Tag(TestSpeed.SLOW)
     @Test public void testDANSimplifiedOneTaskKingNobleDescentYes()
             throws
-            NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+            NotEvaluableNetworkException, ParserException, URISyntaxException, IOException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
         testNetworkEvaluation("simplified-one-task-king-noble-descent-yes", 9.28);
     }
     
     @Tag(TestSpeed.MEDIUM)
     @Test public void testDANKingNobleDescentNo()
             throws
-            NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+            NotEvaluableNetworkException, ParserException, URISyntaxException, IOException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
         testNetworkEvaluation("king-noble-descent-no", 6.43);
         
     }
@@ -176,21 +177,21 @@ public abstract class DANEvaluationTest extends NetworkEvaluationInferenceTest {
     @Tag(TestSpeed.MEDIUM)
     @Test public void testDANKingNobleDescentYes()
             throws
-            NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+            NotEvaluableNetworkException, ParserException, URISyntaxException, IOException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
         testNetworkEvaluation("king-noble-descent-yes", 9.03);
     }
     
     @Tag(TestSpeed.MEDIUM)
     @Test public void testDANKing()
             throws
-            NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+            NotEvaluableNetworkException, ParserException, URISyntaxException, IOException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
         testNetworkEvaluation("king", 7.73);
     }
     
     @Tag(TestSpeed.SLOW)
     @Test public void testDAN3Tests()
             throws
-            NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+            NotEvaluableNetworkException, ParserException, URISyntaxException, IOException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
         testNetworkEvaluation("3-test-problem", 9.6162, "Symptom", "OD", "Dec: Test 0", "Dec: Test 1", "Dec: Test 2",
                               "Test Result 1", "Test Result 2", "Therapy");
     }
@@ -198,14 +199,14 @@ public abstract class DANEvaluationTest extends NetworkEvaluationInferenceTest {
     
     @Disabled @Test public void testDANTutorial33()
             throws
-            NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+            NotEvaluableNetworkException, ParserException, URISyntaxException, IOException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
         testNetworkEvaluation("tutorial-3-3", 7.73);
     }
     
     
     @Disabled @Test public void testDANDatingAskNo()
             throws
-            NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+            NotEvaluableNetworkException, ParserException, URISyntaxException, IOException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
         //TODO I still have to find out the exact value of the evaluation, because I have found that different algorithms return different expected utilities
         testNetworkEvaluation("dating-ask-no", 8.1632);
         
@@ -214,7 +215,7 @@ public abstract class DANEvaluationTest extends NetworkEvaluationInferenceTest {
     @Tag(TestSpeed.MEDIUM)
     @Test public void testDANDatingAskNoNClubNo()
             throws
-            NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+            NotEvaluableNetworkException, ParserException, URISyntaxException, IOException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
         testNetworkEvaluation("dating-ask-no-nclub-no", -7);
         
     }
@@ -223,7 +224,7 @@ public abstract class DANEvaluationTest extends NetworkEvaluationInferenceTest {
     @Disabled @Test
     public void testDANDating()
             throws
-            NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+            NotEvaluableNetworkException, ParserException, URISyntaxException, IOException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
         testNetworkEvaluation("dating", 9.4076);
         
     }
@@ -232,7 +233,7 @@ public abstract class DANEvaluationTest extends NetworkEvaluationInferenceTest {
     //TODO DAN-mediastinet has super-value nodes. It must be converted into a DAN with only ordinary utility nodes.
     public void testDANMediastinet()
             throws
-            NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+            NotEvaluableNetworkException, ParserException, URISyntaxException, IOException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
         testNetworkEvaluation("mediastinet", 1.4710368294106826);
         
     }
@@ -240,20 +241,20 @@ public abstract class DANEvaluationTest extends NetworkEvaluationInferenceTest {
     @Tag(TestSpeed.MEDIUM)
     @Test public void testDANOnlyTwoUtilitySumSV()
             throws
-            NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+            NotEvaluableNetworkException, ParserException, URISyntaxException, IOException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
         testNetworkEvaluation("only-two-utility-sum-sv", 5);
     }
     
     @Test public void testDANOnlyTwoUtilityProductSV()
             throws
-            NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+            NotEvaluableNetworkException, ParserException, URISyntaxException, IOException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
         testNetworkEvaluation("only-two-utility-product-sv", 6);
     }
     
     @Tag(TestSpeed.MEDIUM)
     @Test
     public void testDANNestedSumSV() throws
-            NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+            NotEvaluableNetworkException, ParserException, URISyntaxException, IOException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
         // 2+3+4+5 = 14
         testNetworkEvaluation("nested-sum-sv", 14);
     }
@@ -261,25 +262,25 @@ public abstract class DANEvaluationTest extends NetworkEvaluationInferenceTest {
     @Tag(TestSpeed.SLOW)
     @Test
     public void testDANNestedProductSV() throws
-            NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+            NotEvaluableNetworkException, ParserException, URISyntaxException, IOException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
         testNetworkEvaluation("nested-product-sv", 120);
     }
     
     @Test
     public void testDANNestedSumOfProductsSV() throws
-            NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+            NotEvaluableNetworkException, ParserException, URISyntaxException, IOException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
         testNetworkEvaluation("nested-sum-of-products-sv", 26);
     }
     
     @Test
     public void testDANNestedProductOfSumsSV() throws
-            NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+            NotEvaluableNetworkException, ParserException, URISyntaxException, IOException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
         testNetworkEvaluation("nested-product-of-sums-sv", 45);
     }
 
     @Test
     public void testDANNestedSumSVNonTree() throws
-            NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+            NotEvaluableNetworkException, ParserException, URISyntaxException, IOException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
         // Issue #520: Non-tree super-value structure where U2 is shared by U5 and U6
         // U1=2, U2=3, U4=5, U5=Sum(U1,U2)=5, U6=Sum(U2,U4)=8, U0=Sum(U5,U6)=13
         testNetworkEvaluation("nested-sum-sv-non-tree", 13);
@@ -287,39 +288,39 @@ public abstract class DANEvaluationTest extends NetworkEvaluationInferenceTest {
     
     @Test public void testDANOnlyOneUtilityAbsSV()
             throws
-            NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+            NotEvaluableNetworkException, ParserException, URISyntaxException, IOException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
         testNetworkEvaluation("only-one-utility-abs-sv", 2);
     }
     
     @Test
     public void testDANWith2UtilityNodes() throws
-            NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+            NotEvaluableNetworkException, ParserException, URISyntaxException, IOException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
         // Issue #486: Error evaluating DAN with 2 utility nodes
         testNetworkEvaluation("with-2-utility-nodes", 2251.25);
     }
 
     @Test public void testDANOnlyOneUtilitySumAbsSV()
             throws
-            NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+            NotEvaluableNetworkException, ParserException, URISyntaxException, IOException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
         testNetworkEvaluation("only-one-utility-sum-abs-sv", 4);
     }
     
     @Test public void testDANOnlyTwoUtilityProductAbsSV()
             throws
-            NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+            NotEvaluableNetworkException, ParserException, URISyntaxException, IOException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
         testNetworkEvaluation("only-two-utility-product-abs-sv", -6);
     }
     
     @Test public void testDANUtilityAndChanceFunctionSV()
             throws
-            NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+            NotEvaluableNetworkException, ParserException, URISyntaxException, IOException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
         testNetworkEvaluation("utility-and-chance-function-sv", Math.abs(3) * 0.7 + Math.abs(-9) * 0.3);
     }
     
     @Tag(TestSpeed.MEDIUM)
     @Test public void testDANDecUtilProductSV()
             throws
-            NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+            NotEvaluableNetworkException, ParserException, URISyntaxException, IOException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
         //for (int x:Arrays.asList(2,5)) {
         for (int x : Arrays.asList(2)) {
             testNetworkEvaluation("dec-util-product-0-" + x + "-0", 15.0);
@@ -328,7 +329,7 @@ public abstract class DANEvaluationTest extends NetworkEvaluationInferenceTest {
     
     @Disabled @Test public void testDANOnlyTwoUtilityAndChanceFunctionSV()
             throws
-            NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+            NotEvaluableNetworkException, ParserException, URISyntaxException, IOException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
         testNetworkEvaluation("only-two-utility-and-chance-function-sv", Math.abs(12 * 0.7 + (-20) * 0.3) + 3 * Math.abs(-2));
     }
 		

@@ -50,35 +50,35 @@ public class DANOperationsTest {
         URL res = getClass().getClassLoader().getResource(networkName);
         File f = Paths.get(res.toURI()).toFile();
         String absolutePath = f.getAbsolutePath();
-        danTest2Therapies = pgmxReader.read(new File(absolutePath).toURI().toURL()).getProbNet();
+        danTest2Therapies = pgmxReader.read(new File(absolutePath).toURI().toURL()).probNet();
         
         // Initialize danDecideTest2TherapiesNoCost network
         networkName = "networks/dan/DAN-decide-test-2therapies-no-cost.pgmx";
         res = getClass().getClassLoader().getResource(networkName);
         f = Paths.get(res.toURI()).toFile();
         absolutePath = f.getAbsolutePath();
-        danDecideTest2TherapiesNoCost = pgmxReader.read(new File(absolutePath).toURI().toURL()).getProbNet();
+        danDecideTest2TherapiesNoCost = pgmxReader.read(new File(absolutePath).toURI().toURL()).probNet();
         
         // Initialize danDecideTest2TherapiesNoCost network
         networkName = "networks/dan/DAN-decide-test-2therapies-no-cost-symmetrized.pgmx";
         res = getClass().getClassLoader().getResource(networkName);
         f = Paths.get(res.toURI()).toFile();
         absolutePath = f.getAbsolutePath();
-        danDecideTest2TherapiesNoCostSymmetrized = pgmxReader.read(new File(absolutePath).toURI().toURL()).getProbNet();
+        danDecideTest2TherapiesNoCostSymmetrized = pgmxReader.read(new File(absolutePath).toURI().toURL()).probNet();
         
         // Initialize danDiabetes network
         networkName = "networks/dan/DAN-diabetes.pgmx";
         res = getClass().getClassLoader().getResource(networkName);
         f = Paths.get(res.toURI()).toFile();
         absolutePath = f.getAbsolutePath();
-        danDiabetes = pgmxReader.read(new File(absolutePath).toURI().toURL()).getProbNet();
+        danDiabetes = pgmxReader.read(new File(absolutePath).toURI().toURL()).probNet();
         
         // Initialize ID-A-D1-D2 network
         networkName = "networks/dan/DAN-diabetes-CE.pgmx";
         res = getClass().getClassLoader().getResource(networkName);
         f = Paths.get(res.toURI()).toFile();
         absolutePath = f.getAbsolutePath();
-        danDiabetesCE = pgmxReader.read(new File(absolutePath).toURI().toURL()).getProbNet();
+        danDiabetesCE = pgmxReader.read(new File(absolutePath).toURI().toURL()).probNet();
         
     }
     

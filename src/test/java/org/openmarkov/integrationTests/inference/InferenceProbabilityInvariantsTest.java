@@ -19,6 +19,7 @@ import org.openmarkov.core.model.network.ProbNet;
 import org.openmarkov.core.model.network.Variable;
 import org.openmarkov.core.model.network.potential.TablePotential;
 import org.openmarkov.inference.algorithm.variableElimination.tasks.VEPropagation;
+import org.openmarkov.io.probmodel.reader.PGMXReader;
 import org.openmarkov.io.probmodel.reader.PGMXReader_0_2;
 
 import java.util.HashMap;
@@ -153,8 +154,8 @@ public class InferenceProbabilityInvariantsTest {
 
     private ProbNet loadNetwork(String resourcePath) throws Exception {
         PGMXReader_0_2 reader = new PGMXReader_0_2();
-        ProbNetInfo info = reader.read(getClass().getClassLoader().getResource(resourcePath));
-        return info.getProbNet();
+        PGMXReader.NetworkAndEvidence info = reader.read(getClass().getClassLoader().getResource(resourcePath));
+        return info.probNet();
     }
 
     /**

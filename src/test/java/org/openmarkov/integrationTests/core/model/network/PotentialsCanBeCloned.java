@@ -26,8 +26,7 @@ public class PotentialsCanBeCloned {
     
     Stream<DeepCloneTestData> deepCloneTestData() throws NoReaderForFileException, ParserException, IOException, CorruptNetworkFile {
         var net = NetsIO.openNetworkURL(PotentialsCanBeCloned.DAN_WITH_EVERY_POTENTIAL_URL)
-                        .probNetInfo()
-                        .getProbNet();
+                        .probNet();
         return net.getNodes().stream()
                   .filter(node -> !node.getName().endsWith("Parent1"))
                   .filter(node -> !node.getName().endsWith("Parent2"))

@@ -8,12 +8,13 @@ import org.openmarkov.inference.algorithm.decompositionIntoSymmetricDANs.Decisio
 import org.openmarkov.inference.algorithm.decompositionIntoSymmetricDANs.evaluation.DANEvaluation;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URISyntaxException;
 
 
 public abstract class NetworkEvaluationInferenceTest {
-    
-    public void testNetworkEvaluation(String networkName, double expectedEU, String... namesVariablesIntervention) throws NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+	
+	public void testNetworkEvaluation(String networkName, double expectedEU, String... namesVariablesIntervention) throws NotEvaluableNetworkException, ParserException, URISyntaxException, IOException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
 		ProbNet network = loadNetwork(networkName);
 		System.out.println("*** Evaluating network " + networkName + " ***");
 		System.out.println();
@@ -31,8 +32,8 @@ public abstract class NetworkEvaluationInferenceTest {
 		TablePotential globalUtility = eval.getUtility();
 		Tools.testEvaluationResults(network, expectedEU, globalUtility, namesVariablesIntervention);
 	}
-
-	protected abstract ProbNet loadNetwork(String networkName) throws ParserException, URISyntaxException, FileNotFoundException;
+	
+	protected abstract ProbNet loadNetwork(String networkName) throws ParserException, URISyntaxException, IOException;
     
     protected abstract DANEvaluation buildNetworkEvaluation(ProbNet network) throws NotEvaluableNetworkException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates;
     

@@ -17,6 +17,7 @@ import org.openmarkov.core.model.network.Variable;
 import org.openmarkov.core.model.network.potential.TablePotential;
 import org.openmarkov.core.testTags.TestSpeed;
 import org.openmarkov.inference.algorithm.variableElimination.tasks.VEPropagation;
+import org.openmarkov.io.probmodel.reader.PGMXReader;
 import org.openmarkov.io.probmodel.reader.PGMXReader_0_2;
 
 import java.io.FileNotFoundException;
@@ -39,11 +40,11 @@ public class bnCatarnetTests {
 		
 		// Load the network: ID-decide-test
 		PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
-		ProbNetInfo probNetInfo = null;
+		PGMXReader.NetworkAndEvidence probNetInfo = null;
 		probNetInfo = pgmxReader.read(getClass().getClassLoader().getResource(networkName));
-		this.probNet = probNetInfo.getProbNet();
-		if (probNetInfo.getEvidence().size() != 0) {
-			this.preResolutionEvidence = probNetInfo.getEvidence().get(0);
+		this.probNet = probNetInfo.probNet();
+		if (probNetInfo.evidence().size() != 0) {
+			this.preResolutionEvidence = probNetInfo.evidence().get(0);
 		}
 	}
 	

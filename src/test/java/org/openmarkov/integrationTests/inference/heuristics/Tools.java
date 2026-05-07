@@ -1,6 +1,7 @@
 package org.openmarkov.integrationTests.inference.heuristics;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,26 +21,27 @@ import org.openmarkov.core.model.network.potential.TablePotential;
 import org.openmarkov.inference.algorithm.decompositionIntoSymmetricDANs.DecisionTreeComputation;
 import org.openmarkov.inference.algorithm.decompositionIntoSymmetricDANs.core.DANOperations;
 import org.openmarkov.inference.algorithm.decompositionIntoSymmetricDANs.core.EvaluationDecisionTreeNode;
+import org.openmarkov.io.probmodel.reader.PGMXReader;
 import org.openmarkov.io.probmodel.reader.PGMXReader_0_2;
 
 import org.junit.jupiter.api.Assertions;
 
 public class Tools {
     
-    public ProbNet loadNetwork(String networkNameSuffix, String networkNamePrefix, String subfolderName) throws FileNotFoundException, URISyntaxException, ParserException {
+    public ProbNet loadNetwork(String networkNameSuffix, String networkNamePrefix, String subfolderName) throws IOException, ParserException {
         String networkName = "networks/" + subfolderName + "/" + networkNamePrefix + "-" + networkNameSuffix + ".pgmx";
-        PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
-        ProbNetInfo probNetInfo = null;
-        probNetInfo = pgmxReader.read(getClass().getClassLoader().getResource(networkName));
-        return probNetInfo.getProbNet();
+        PGMXReader pgmxReader = new PGMXReader();
+        return pgmxReader.read(getClass().getClassLoader()
+                                         .getResource(networkName))
+                         .probNet();
     }
     
     
-    public ProbNet loadDAN(String nameSuffix) throws FileNotFoundException, ParserException, URISyntaxException {
+    public ProbNet loadDAN(String nameSuffix) throws IOException, ParserException {
         return loadNetwork(nameSuffix, "DAN", "dan");
     }
     
-    public ProbNet loadID(String nameSuffix) throws FileNotFoundException, ParserException, URISyntaxException {
+    public ProbNet loadID(String nameSuffix) throws IOException, ParserException {
         return loadNetwork(nameSuffix, "ID", "id");
     }
     
@@ -195,8 +197,7 @@ public class Tools {
     }
     
     
-    
-    public static void testDecisionTree(ProbNet network, boolean computeDT, DecisionTreeComputation eval) throws NotEvaluableNetworkException, IncompatibleEvidenceException, NonProjectablePotentialException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+    public static void testDecisionTree(ProbNet network, boolean computeDT, DecisionTreeComputation eval) {
         DecisionTreeNode dt = eval.getDecisionTree();
         if (computeDT) {
             Assertions.assertNotNull(dt);

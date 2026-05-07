@@ -32,7 +32,7 @@ public class TemporalNetOperationsTest {
         
         // Load the Bayesian network
         PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
-        probNet = pgmxReader.read(getClass().getClassLoader().getResource(networkName)).getProbNet();
+        probNet = pgmxReader.read(getClass().getClassLoader().getResource(networkName)).probNet();
         probNet.getInferenceOptions().getTemporalOptions().setHorizon(15);
         
     }

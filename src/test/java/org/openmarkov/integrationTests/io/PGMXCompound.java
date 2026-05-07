@@ -2,10 +2,10 @@ package org.openmarkov.integrationTests.io;
 
 import org.openmarkov.core.exception.ParserException;
 import org.openmarkov.core.exception.WriterException;
-import org.openmarkov.core.io.ProbNetInfo;
 import org.openmarkov.core.io.ProbNetWriter;
 import org.openmarkov.core.model.network.EvidenceCase;
 import org.openmarkov.core.model.network.ProbNet;
+import org.openmarkov.io.probmodel.reader.PGMXReader;
 import org.openmarkov.io.probmodel.reader.PGMXReader_0_2;
 import org.openmarkov.io.probmodel.writer.PGMXWriter_0_2;
 import org.openmarkov.io.probmodel.writer.PGMXWriter_1_0;
@@ -23,7 +23,7 @@ public class PGMXCompound {
     private final String V0_2 = "0.2.0";
     private final String V0_7 = "0.7.0";
     
-    private ProbNetInfo probNetInfo;
+    private PGMXReader.NetworkAndEvidence probNetInfo;
     private ProbNet probNet;
     private List<EvidenceCase> evidenceCases;
     private File file;
@@ -75,7 +75,7 @@ public class PGMXCompound {
         return errorWriting;
     }
     
-    public ProbNetInfo getProbNetInfo() throws ParserException, IOException {
+    public PGMXReader.NetworkAndEvidence getProbNetInfo() throws ParserException, IOException {
         if (probNetInfo == null) {
             readProbNetInfoIfNecessary();
         }
@@ -118,8 +118,8 @@ public class PGMXCompound {
             this.probNetInfo = pgmxReader.read(file.toURI().toURL());
             this.version = PGMXReader_0_2.getVersion(file.toURI().toURL());
         }
-        this.probNet = probNetInfo.getProbNet();
-        this.evidenceCases = probNetInfo.getEvidence();
+        this.probNet = probNetInfo.probNet();
+        this.evidenceCases = probNetInfo.evidence();
     }
     
     public void writeProbNetInfo(String fileName, String version) {

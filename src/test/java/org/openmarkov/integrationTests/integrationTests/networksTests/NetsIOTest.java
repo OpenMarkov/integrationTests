@@ -19,6 +19,7 @@ import org.openmarkov.core.model.network.EvidenceCase;
 import org.openmarkov.core.model.network.ProbNet;
 import org.openmarkov.core.testTags.TestSpeed;
 import org.openmarkov.inference.InferenceTestsTools;
+import org.openmarkov.io.probmodel.reader.PGMXReader;
 import org.openmarkov.io.probmodel.reader.PGMXReader_0_2;
 import org.openmarkov.io.probmodel.reader.PGMXReader_1_0;
 import org.openmarkov.io.probmodel.writer.PGMXWriter_0_2;
@@ -196,18 +197,18 @@ public class NetsIOTest {
         
         PGMXReader_0_2 pgmxReader = pgmxVersion.reader();
         
-        ProbNetInfo probNetInfo = pgmxReader.read(networkToTest.url);
-        ProbNet probNet = probNetInfo.getProbNet();
+        PGMXReader.NetworkAndEvidence probNetInfo = pgmxReader.read(networkToTest.url);
+        ProbNet probNet = probNetInfo.probNet();
         assertNotNull(probNet);
         assertNotNull(probNet.getNodes());
         
         PGMXWriter_0_2 pgmxWritter = pgmxVersion.writer();
-        pgmxWritter.write(networkName, probNet, probNetInfo.getEvidence());
+        pgmxWritter.write(networkName, probNet, probNetInfo.evidence());
         new File(networkName).deleteOnExit();
         
         FileInputStream file = new FileInputStream(networkName);
         probNetInfo = pgmxReader.read(new File(networkName).toURI().toURL());
-        probNet = probNetInfo.getProbNet();
+        probNet = probNetInfo.probNet();
         System.out.println("Loaded, saved and reloaded probNet:" + networkToTest.url.getPath());
         assertNotNull(probNet);
         assertNotNull(probNet.getNodes());
@@ -215,8 +216,8 @@ public class NetsIOTest {
         int numSimulations = 10;
         boolean useMultithreading = true;
         
-        if (!probNetInfo.getEvidence().isEmpty()) {
-            preResolutionEvidence = probNetInfo.getEvidence().get(0);
+        if (!probNetInfo.evidence().isEmpty()) {
+            preResolutionEvidence = probNetInfo.evidence().get(0);
         } else {
             preResolutionEvidence = new EvidenceCase();
         }
@@ -250,9 +251,9 @@ public class NetsIOTest {
         
         // Load probNet in 0_2
         PGMXReader_0_2 pgmxReader_0_2 = new PGMXReader_0_2();
-        ProbNetInfo probNetInfo_0_2 = pgmxReader_0_2.read(networkToTest.url);
-        ProbNet probNet_0_2 = probNetInfo_0_2.getProbNet();
-        List<EvidenceCase> evidenceCase_0_2 = probNetInfo_0_2.getEvidence();
+        PGMXReader.NetworkAndEvidence probNetInfo_0_2 = pgmxReader_0_2.read(networkToTest.url);
+        ProbNet probNet_0_2 = probNetInfo_0_2.probNet();
+        List<EvidenceCase> evidenceCase_0_2 = probNetInfo_0_2.evidence();
         assertNotNull(probNet_0_2);
         assertNotNull(evidenceCase_0_2);
         
@@ -264,9 +265,9 @@ public class NetsIOTest {
         // Re-open netwokr in 0_5
         FileInputStream file = new FileInputStream(networkName);
         PGMXReader_1_0 pgmxReader_0_5 = new PGMXReader_1_0();
-        ProbNetInfo probNetInfo_0_5 = pgmxReader_0_5.read(new File(networkName).toURI().toURL());
-        ProbNet probNet_0_5 = probNetInfo_0_5.getProbNet();
-        List<EvidenceCase> evidenceCase_0_5 = probNetInfo_0_5.getEvidence();
+        PGMXReader.NetworkAndEvidence probNetInfo_0_5 = pgmxReader_0_5.read(new File(networkName).toURI().toURL());
+        ProbNet probNet_0_5 = probNetInfo_0_5.probNet();
+        List<EvidenceCase> evidenceCase_0_5 = probNetInfo_0_5.evidence();
         assertNotNull(probNet_0_5);
         assertNotNull(evidenceCase_0_5);
         for (int i = 0; i < evidenceCase_0_2.size(); i++) {

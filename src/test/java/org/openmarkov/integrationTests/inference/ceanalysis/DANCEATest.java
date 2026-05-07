@@ -12,6 +12,7 @@ import org.openmarkov.core.model.network.CEP;
 import org.openmarkov.core.model.network.ProbNet;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URISyntaxException;
 
 
@@ -21,8 +22,8 @@ import java.net.URISyntaxException;
  * @author Manuel Arias
  */
 public abstract class DANCEATest {
-    
-    public void testCEADANEvaluation(String danName, int globalNumberOfCEPIntervals, double... expectedThreshods) throws NonProjectablePotentialException, NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+	
+	public void testCEADANEvaluation(String danName, int globalNumberOfCEPIntervals, double... expectedThreshods) throws NonProjectablePotentialException, NotEvaluableNetworkException, ParserException, URISyntaxException, IOException, IncompatibleEvidenceException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
 		Tools t = new Tools();
 		ProbNet network = t.loadDAN(danName);
 		System.out.println("*** CEA with DAN " + danName + " ***");
@@ -75,34 +76,34 @@ public abstract class DANCEATest {
 	
 	@Test
 	public void testDANOnlyNonZeroUtility() throws
-            NonProjectablePotentialException, NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+			NonProjectablePotentialException, NotEvaluableNetworkException, ParserException, URISyntaxException, IncompatibleEvidenceException, PotentialOperationException.DifferentSizesInPotentialsAndStates, IOException {
 		testCEADANEvaluation("only-non-zero-utility-ce", 1);
 	}
 	
 	@Test
 	public void testDANOnlyZeroyUtility() throws
-            NonProjectablePotentialException, NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+			NonProjectablePotentialException, NotEvaluableNetworkException, ParserException, URISyntaxException, IncompatibleEvidenceException, PotentialOperationException.DifferentSizesInPotentialsAndStates, IOException {
 		testCEADANEvaluation("only-zero-utility-ce", 1);
 	}
 	
 	@Tag(TestSpeed.MEDIUM)
 	@Test
 	public void testDANOneDecisionCE() throws
-            NonProjectablePotentialException, NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+			NonProjectablePotentialException, NotEvaluableNetworkException, ParserException, URISyntaxException, IncompatibleEvidenceException, PotentialOperationException.DifferentSizesInPotentialsAndStates, IOException {
 		testCEADANEvaluation("one-decision-CE", 2, 1.333333333);
 	}
 	
 	@Tag(TestSpeed.SLOW)
 	@Test
 	public void testDANOneChanceCE() throws
-            NonProjectablePotentialException, NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+			NonProjectablePotentialException, NotEvaluableNetworkException, ParserException, URISyntaxException, IncompatibleEvidenceException, PotentialOperationException.DifferentSizesInPotentialsAndStates, IOException {
 		testCEADANEvaluation("one-chance-ce", 1);
 	}
 	
 	@Tag(TestSpeed.SLOW)
 	@Test
 	public void testDANDecideTest() throws
-            NonProjectablePotentialException, NotEvaluableNetworkException, ParserException, URISyntaxException, FileNotFoundException, IncompatibleEvidenceException, PotentialOperationException.DifferentSizesInPotentialsAndStates {
+			NonProjectablePotentialException, NotEvaluableNetworkException, ParserException, URISyntaxException, IncompatibleEvidenceException, PotentialOperationException.DifferentSizesInPotentialsAndStates, IOException {
 		testCEADANEvaluation("decide-test-ce", 3, 11171.347828594418, 33383.5);
 	}
 		

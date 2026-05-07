@@ -23,6 +23,7 @@ import org.openmarkov.core.model.network.potential.canonical.MinMaxPotential;
 import org.openmarkov.core.model.network.potential.treeadd.Threshold;
 import org.openmarkov.core.model.network.potential.treeadd.TreeADDBranch;
 import org.openmarkov.core.model.network.potential.treeadd.TreeADDPotential;
+import org.openmarkov.io.probmodel.reader.PGMXReader;
 import org.openmarkov.io.probmodel.reader.PGMXReader_0_2;
 import org.openmarkov.io.probmodel.strings.XMLAttributes;
 import org.openmarkov.io.probmodel.writer.PGMXWriter_0_2;
@@ -135,7 +136,7 @@ public class Classificator extends PGMXReader_0_2 {
             }
             
             String version = compound.getVersion();
-            ProbNetInfo probNetInfo = compound.getProbNetInfo();
+            PGMXReader.NetworkAndEvidence probNetInfo = compound.getProbNetInfo();
             if (compound.wasExceptionThrownWhileReading()) {
                 System.out.println("    Problems first read.");
             }
@@ -145,7 +146,7 @@ public class Classificator extends PGMXReader_0_2 {
             String pathToNewFile0_2 = getNewPath(originalFileName, V0_2);
             boolean canBeWrittenIn0_2 = version.matches(V0_2) || !networkNameIsIncludedInListOfAdvancedFeatures(pathToNewFile0_2);
             boolean canBeReaded;
-            ProbNetInfo probNetInfo02_bis = null;
+            PGMXReader.NetworkAndEvidence probNetInfo02_bis = null;
             if (canBeWrittenIn0_2) {
                 // Write 0.2
                 ProbNetWriter writer02 = new PGMXWriter_0_2();
@@ -170,7 +171,7 @@ public class Classificator extends PGMXReader_0_2 {
                 networksWithAdvancedFeatures.add(originalFile.getName());
                 System.out.println("    Error writing in V0.7.");
             } else {
-                ProbNetInfo probNetInfo07_bis = compound.getProbNetInfo();
+                PGMXReader.NetworkAndEvidence probNetInfo07_bis = compound.getProbNetInfo();
                 if (compound.wasExceptionThrownWhileReading()) {
                     System.out.println("    Problems reading in V0.7.");
                 }
@@ -354,13 +355,13 @@ public class Classificator extends PGMXReader_0_2 {
      * @param probNetInfo2
      * @return
      */
-    private boolean sameInfoProbNetsInfo(ProbNetInfo probNetInfo1, ProbNetInfo probNetInfo2) throws NonProjectablePotentialException {
+    private boolean sameInfoProbNetsInfo(PGMXReader.NetworkAndEvidence probNetInfo1, PGMXReader.NetworkAndEvidence probNetInfo2) throws NonProjectablePotentialException {
         boolean bothNotNull = probNetInfo1 != null && probNetInfo2 != null;
         boolean bothNull = probNetInfo1 == null && probNetInfo2 == null;
         return bothNull ||
                 (bothNotNull &&
-                        sameInfoListsOfEvidencecases(probNetInfo1.getEvidence(), probNetInfo2.getEvidence()) &&
-                        sameInfoProbNets(probNetInfo1.getProbNet(), probNetInfo2.getProbNet()));
+                        sameInfoListsOfEvidencecases(probNetInfo1.evidence(), probNetInfo2.evidence()) &&
+                        sameInfoProbNets(probNetInfo1.probNet(), probNetInfo2.probNet()));
     }
     
     // Methods to compare data structures.

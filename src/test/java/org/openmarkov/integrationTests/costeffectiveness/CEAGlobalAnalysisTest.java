@@ -62,7 +62,7 @@ public class CEAGlobalAnalysisTest {
 		// Load the Bayesian network
 		PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
 		ProbNet probNet = pgmxReader.read(getClass().getResource("/networks/mid/MID-Chancellor-Unicriterion.pgmx"))
-		                            .getProbNet();
+		                            .probNet();
 
 		EvidenceCase evidence = new EvidenceCase();
 		List<Variable> conditioningVariables = new ArrayList<Variable>();
@@ -104,7 +104,7 @@ public class CEAGlobalAnalysisTest {
     @Test
 	public void testDMHEE25SV() throws NonProjectablePotentialException, org.openmarkov.core.exception.ParserException, org.openmarkov.core.exception.IncompatibleEvidenceException, org.openmarkov.core.exception.NotEvaluableNetworkException.NotApplicableNetwork, ConstraintViolatedException, IOException {
 		PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
-		ProbNet probNet = pgmxReader.read(getClass().getResource("/networks/mid/MID-dmhee-2.5-sv.pgmx")).getProbNet();
+		ProbNet probNet = pgmxReader.read(getClass().getResource("/networks/mid/MID-dmhee-2.5-sv.pgmx")).probNet();
 
 		EvidenceCase evidence = new EvidenceCase();
         setOldMethodParameters(probNet, 6.0, 0.0, 20, TemporalOptions.TransitionTime.BEGINNING);
@@ -134,7 +134,7 @@ public class CEAGlobalAnalysisTest {
 		
 		// Load the Bayesian network
 		PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
-		ProbNet probNet = pgmxReader.read(getClass().getResource("/networks/mid/MID-dmhee-3.5.pgmx")).getProbNet();
+		ProbNet probNet = pgmxReader.read(getClass().getResource("/networks/mid/MID-dmhee-3.5.pgmx")).probNet();
 
 		EvidenceCase evidence = new EvidenceCase();
 		Variable sexVariable = probNet.getVariable("Sex");
@@ -176,7 +176,7 @@ public class CEAGlobalAnalysisTest {
 		
 		// Load the Bayesian network
 		PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
-		ProbNet probNet = pgmxReader.read(getClass().getResource("/networks/mid/MID-dmhee-4.7.pgmx")).getProbNet();
+		ProbNet probNet = pgmxReader.read(getClass().getResource("/networks/mid/MID-dmhee-4.7.pgmx")).probNet();
 
 		EvidenceCase evidence = new EvidenceCase();
 
@@ -213,7 +213,7 @@ public class CEAGlobalAnalysisTest {
 		
 		// Load the Bayesian network
 		PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
-		ProbNet probNet = pgmxReader.read(getClass().getResource("/networks/mid/MID-dmhee-4.8.pgmx")).getProbNet();
+		ProbNet probNet = pgmxReader.read(getClass().getResource("/networks/mid/MID-dmhee-4.8.pgmx")).probNet();
 
 		// Sex = 0
 		EvidenceCase evidence = new EvidenceCase();
@@ -275,7 +275,7 @@ public class CEAGlobalAnalysisTest {
     @Test
 	public void testHPV() throws NonProjectablePotentialException, org.openmarkov.core.exception.ParserException, org.openmarkov.core.exception.IncompatibleEvidenceException, org.openmarkov.core.exception.NotEvaluableNetworkException.NotApplicableNetwork, ConstraintViolatedException, IOException {
 		PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
-		ProbNet probNet = pgmxReader.read(getClass().getResource("/networks/mid/MID-HPV.pgmx")).getProbNet();
+		ProbNet probNet = pgmxReader.read(getClass().getResource("/networks/mid/MID-HPV.pgmx")).probNet();
 
 		EvidenceCase evidence = new EvidenceCase();
         setOldMethodParameters(probNet, 0.0, 0.0, 88, TemporalOptions.TransitionTime.BEGINNING);

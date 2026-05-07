@@ -12,6 +12,7 @@ import org.openmarkov.core.model.network.potential.GTablePotential;
 import org.openmarkov.inference.algorithm.temporalevaluation.tasks.TemporalEvaluation;
 import org.openmarkov.inference.algorithm.variableElimination.tasks.VECEAnalysis;
 import org.openmarkov.inference.algorithm.variableElimination.tasks.VECEPSA;
+import org.openmarkov.io.probmodel.reader.PGMXReader;
 import org.openmarkov.io.probmodel.reader.PGMXReader_0_2;
 
 //import java.io.FileOutputStream;
@@ -42,17 +43,17 @@ public class mid21gene {
         
         // Load the network: ID-decide-test
         PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
-        ProbNetInfo probNetInfo = null;
+        PGMXReader.NetworkAndEvidence probNetInfo = null;
         probNetInfo = pgmxReader.read(getClass().getClassLoader().getResource(networkName));
         assert probNetInfo != null;
-        this.probNet = probNetInfo.getProbNet();
+        this.probNet = probNetInfo.probNet();
 
 //		this.probNet.getInferenceOptions().getTemporalOptions().setHorizon(C_TEMPORAL_HORIZON);
 //		this.probNet.setCycleLength(new CycleLength(CycleLength.Unit.MONTH));
         
         
-        if (probNetInfo.getEvidence().size() != 0) {
-            this.preResolutionEvidence = probNetInfo.getEvidence().get(0);
+        if (probNetInfo.evidence().size() != 0) {
+            this.preResolutionEvidence = probNetInfo.evidence().get(0);
         }
         
         cea_scenario_results = new ArrayList<>();

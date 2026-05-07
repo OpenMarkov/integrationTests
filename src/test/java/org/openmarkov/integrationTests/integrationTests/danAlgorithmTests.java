@@ -15,6 +15,7 @@ import org.openmarkov.core.model.network.ProbNet;
 import org.openmarkov.core.model.network.potential.TablePotential;
 import org.openmarkov.inference.algorithm.decompositionIntoSymmetricDANs.ceanalysis.DANDecompositionIntoSymmetricDANsCEA;
 import org.openmarkov.inference.algorithm.decompositionIntoSymmetricDANs.evaluation.DANDecompositionIntoSymmetricDANsEvaluation;
+import org.openmarkov.io.probmodel.reader.PGMXReader;
 import org.openmarkov.io.probmodel.reader.PGMXReader_0_2;
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
@@ -34,8 +35,9 @@ public class danAlgorithmTests {
         double lambda = 30000;
         
         PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
-        ProbNetInfo probNetInfo = pgmxReader.read(getClass().getClassLoader().getResource(path + networkName));
-        ProbNet probNet = probNetInfo.getProbNet();
+        PGMXReader.NetworkAndEvidence probNetInfo = pgmxReader.read(getClass().getClassLoader()
+                                                                              .getResource(path + networkName));
+        ProbNet probNet = probNetInfo.probNet();
         
         CEP resultCEA = new DANDecompositionIntoSymmetricDANsCEA(probNet).getCEP();
         TablePotential resultUNI = new DANDecompositionIntoSymmetricDANsEvaluation(probNet).getUtility();
@@ -52,8 +54,9 @@ public class danAlgorithmTests {
         double lambda = 30000;
         PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
         
-        ProbNetInfo probNetInfo = pgmxReader.read(getClass().getClassLoader().getResource(path + networkName));
-        ProbNet probNet = probNetInfo.getProbNet();
+        PGMXReader.NetworkAndEvidence probNetInfo = pgmxReader.read(getClass().getClassLoader()
+                                                                              .getResource(path + networkName));
+        ProbNet probNet = probNetInfo.probNet();
         
         CEP resultCEA = new DANDecompositionIntoSymmetricDANsCEA(probNet).getCEP();
         TablePotential resultUNI = new DANDecompositionIntoSymmetricDANsEvaluation(probNet).getUtility();
@@ -70,8 +73,9 @@ public class danAlgorithmTests {
         double lambda = 30000;
         PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
         
-        ProbNetInfo probNetInfo = pgmxReader.read(getClass().getClassLoader().getResource(path + networkName));
-        ProbNet probNet = probNetInfo.getProbNet();
+        PGMXReader.NetworkAndEvidence probNetInfo = pgmxReader.read(getClass().getClassLoader()
+                                                                              .getResource(path + networkName));
+        ProbNet probNet = probNetInfo.probNet();
         
         CEP resultCEA = new DANDecompositionIntoSymmetricDANsCEA(probNet).getCEP();
         TablePotential resultUNI = new DANDecompositionIntoSymmetricDANsEvaluation(probNet).getUtility();
@@ -88,8 +92,9 @@ public class danAlgorithmTests {
         double lambda = 30000;
         PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
         
-        ProbNetInfo probNetInfo = pgmxReader.read(getClass().getClassLoader().getResource(path + networkName));
-        ProbNet probNet = probNetInfo.getProbNet();
+        PGMXReader.NetworkAndEvidence probNetInfo = pgmxReader.read(getClass().getClassLoader()
+                                                                              .getResource(path + networkName));
+        ProbNet probNet = probNetInfo.probNet();
         
         CEP resultCEA = new DANDecompositionIntoSymmetricDANsCEA(probNet).getCEP();
         TablePotential resultUNI = new DANDecompositionIntoSymmetricDANsEvaluation(probNet).getUtility();
@@ -106,8 +111,9 @@ public class danAlgorithmTests {
         double lambda = 30000;
         
         PGMXReader_0_2 pgmxReader = new PGMXReader_0_2();
-        ProbNetInfo probNetInfo = pgmxReader.read(getClass().getClassLoader().getResource(path + networkName));
-        ProbNet probNet = probNetInfo.getProbNet();
+        PGMXReader.NetworkAndEvidence probNetInfo = pgmxReader.read(getClass().getClassLoader()
+                                                                              .getResource(path + networkName));
+        ProbNet probNet = probNetInfo.probNet();
         
         CEP resultCEA = new DANDecompositionIntoSymmetricDANsCEA(probNet).getCEP();
         TablePotential resultUNI = new DANDecompositionIntoSymmetricDANsEvaluation(probNet).getUtility();
