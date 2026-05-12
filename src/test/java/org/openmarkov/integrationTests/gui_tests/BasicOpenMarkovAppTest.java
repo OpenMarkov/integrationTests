@@ -35,12 +35,12 @@ public class BasicOpenMarkovAppTest extends BaseOpenMarkovAppTest {
                         Comparator.comparingDouble(node -> Math.sqrt(Math.pow(node.getCoordinateX(), 2) + Math.pow(node.getCoordinateY(), 2))))
                 .get();
         // Double-click on the node to open the Node Properties dialog directly (EditorInputHandler
-        // opens CommonNodePropertiesDialog on double-click in edition mode).
+        // opens NodePropertiesDialog on double-click in edition mode).
         editorPanelFixture.robot().click(
                 editorPanelFixture.target(),
                 new java.awt.Point((int) nodeClosestToLeftUpCorner.getCoordinateX(), (int) nodeClosestToLeftUpCorner.getCoordinateY()),
                 MouseButton.LEFT_BUTTON, 2);
-        var nodePropertiesDialog = this.window.dialog("CommonNodePropertiesDialog");
+        var nodePropertiesDialog = this.window.dialog("NodePropertiesDialog");
         
         String originalNodeName = nodeClosestToLeftUpCorner.getName();
         String newNodeName = originalNodeName + "_Test";
