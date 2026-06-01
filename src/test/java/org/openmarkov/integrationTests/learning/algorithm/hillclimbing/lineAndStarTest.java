@@ -32,11 +32,11 @@ public class lineAndStarTest {
     
     @Test
     @Tag(TestSpeed.SLOW)
-    public void testLineAndStartXLSX() throws NoWriterForExtensionException, ParsingSourceException, IOException, EmptyDatabaseException, EmptyModelNetException, UnobservedVariablesException, IncompatibleEvidenceException.EvidenceIsIncompatibleWithOther, DoEditException, NonProjectablePotentialException, NotEvaluableNetworkException.NotApplicableNetwork, CannotNormalizePotentialException {
+    public void testLineAndStarXLSX() throws NoWriterForExtensionException, ParsingSourceException, IOException, EmptyDatabaseException, EmptyModelNetException, UnobservedVariablesException, IncompatibleEvidenceException.EvidenceIsIncompatibleWithOther, DoEditException, NonProjectablePotentialException, NotEvaluableNetworkException.NotApplicableNetwork, CannotNormalizePotentialException, ConstraintViolatedException {
         test();
     }
     
-    private static void test() throws NoWriterForExtensionException, IOException, ParsingSourceException, EmptyDatabaseException, EmptyModelNetException, UnobservedVariablesException, DoEditException, IncompatibleEvidenceException.EvidenceIsIncompatibleWithOther, NonProjectablePotentialException, NotEvaluableNetworkException.NotApplicableNetwork, CannotNormalizePotentialException {
+    private static void test() throws NoWriterForExtensionException, IOException, ParsingSourceException, EmptyDatabaseException, EmptyModelNetException, UnobservedVariablesException, DoEditException, IncompatibleEvidenceException.EvidenceIsIncompatibleWithOther, NonProjectablePotentialException, NotEvaluableNetworkException.NotApplicableNetwork, CannotNormalizePotentialException, ConstraintViolatedException {
         var xlsxReader = new CaseDatabaseManager().getReader("xlsx");
         String xlsxDatabase = IntegrationTest.class.getResource("/networks/learning/lineAndStar.xlsx").getPath();
         CaseDatabase cases = xlsxReader.load(new File(xlsxDatabase));
