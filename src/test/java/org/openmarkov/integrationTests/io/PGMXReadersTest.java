@@ -35,6 +35,10 @@ class PGMXReadersTest {
      *   <li>{@link StrategyTree}, {@link SDAGStrategyTree} – read via the {@code TreeADD} parser.</li>
      *   <li>{@link MinPotential}, {@link MaxPotential}, {@link TuningPotential} – read via the
      *       {@code ICIPotential} parser with type discrimination.</li>
+     *   <li>{@link TableWithEvents}, {@link TableWithFunctions} – internal components of
+     *       {@code DistributionTablePotential}; read through its parser, never first-class elements.</li>
+     *   <li>{@link FunctionPotentialOld} – legacy potential ({@code @PotentialType "FunctionOld"},
+     *       superseded by {@code FunctionPotential}); no PGMX writer emits it.</li>
      * </ul>
      */
     static final HashSet<Class<? extends Potential>> POTENTIALS_WITHOUT_PGMX_REPRESENTATION;
@@ -48,7 +52,10 @@ class PGMXReadersTest {
                 StrategyTree.class,
                 MinPotential.class,
                 MaxPotential.class,
-                TuningPotential.class
+                TuningPotential.class,
+                TableWithEvents.class,
+                TableWithFunctions.class,
+                FunctionPotentialOld.class
         ));
         try {
             // SDAGStrategyTree is in a non-exported package; reference via reflection
